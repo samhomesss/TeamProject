@@ -40,7 +40,9 @@ public class ResourcesManager
         return go;
     }
 
-    public void Destroy(GameObject go)
+
+    public void Destroy(GameObject go, float time = 0)
+
     {
         if (go == null)
         {
@@ -55,6 +57,14 @@ public class ResourcesManager
             return;
         }
         
+
         Object.Destroy(go);
     }
+
+        if(time == 0)
+            Object.Destroy(go);
+        else
+            Object.Destroy(go, time);
+    }
+
 }
