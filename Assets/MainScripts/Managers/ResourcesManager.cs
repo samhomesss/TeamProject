@@ -56,12 +56,9 @@ public class ResourcesManager
             Managers.Pool.Release(poolable);
             return;
         }
-        
 
-        Object.Destroy(go);
-    }
 
-        if(time == 0)
+        if (time == 0)
             Object.Destroy(go);
         else
             Object.Destroy(go, time);
