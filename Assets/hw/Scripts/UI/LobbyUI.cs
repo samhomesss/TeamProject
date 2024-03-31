@@ -75,10 +75,10 @@ public class LobbyUI : MonoBehaviour, ILobbyCallbacks
     }
     public void OnJoinedLobby()//로비에 진입했을 때 메서드 호출
     {
-        Debug.Log("joined Lobby");
-        Debug.Log($"{LoginInformation.profile.nickname}님 오신걸 환영합니다");
 
-        Debug.Log($"클라이언트 포톤 접속 여부{PhotonNetwork.IsConnected}");
+        PhotonNetwork.LocalPlayer.NickName = LoginInformation.profile.nickname; //포톤네트워크의 이름을 로그인 프로필에 있는 닉네임으로 설정
+        Debug.Log("joined Lobby");
+        Debug.Log($"{PhotonNetwork.LocalPlayer.NickName}님 오신걸 환영합니다");
 
         //채팅창 깨끗하게 하기.
 
@@ -88,7 +88,7 @@ public class LobbyUI : MonoBehaviour, ILobbyCallbacks
     public void OnLeftLobby()//로비 떠날 때 메서드 호출
     {
 
-        Debug.Log($"{LoginInformation.profile.nickname}님이 떠나셨습니다.");
+        Debug.Log($"{PhotonNetwork.LocalPlayer.NickName}님이 떠나셨습니다.");
         throw new System.NotImplementedException();
     }
 

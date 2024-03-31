@@ -1,21 +1,23 @@
 using Photon.Pun;
 using Photon.Realtime;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class ChattingManager : MonoBehaviourPun
 {
-    [SerializeField]private GameObject _chatItemFactory;
     [SerializeField] private TMP_InputField _inputchat;
     [SerializeField] private Transform _trContent;
+    [SerializeField] private TMP_Text[] _chatText;
 
 
     public void Onsubmit(string s)
     {
-        photonView.RPC("RpcAddChat", RpcTarget.All, s);
+        photonView.RPC("RpcAddChat", RpcTarget.All,$"{PhotonNetwork.LocalPlayer.NickName} : {_inputchat.text}");
 
         _inputchat.text = "";
 
@@ -28,22 +30,35 @@ public class ChattingManager : MonoBehaviourPun
         //onSubmit은 inputField의 프로퍼티 엔터를 누르면 호출되도록설정
         _inputchat.onSubmit.AddListener(Onsubmit);
 
+        for(int i = 0; i < _chatText.Length; i++)
+        {
+            _chatText[i] = transform.Find($"Panel - Chatingtest/Scroll View/Viewport/Content/Chatitem_{i}").GetComponent<TMP_Text>();
+        }
+
+
     }
 
     [PunRPC]
-    void RpcAddChat(string input)
+    void RpcAddChat(string msg)
     {
-        //1.글쓰다가 엔터를 치면
-        //2. chatitem을 하나 만든다.
-        //부모를 ScroolView -Content)
-        //3. text 컴포넌트를 가져와 inputfield의 내용을 적어줌
-        GameObject _item = Instantiate(_chatItemFactory, _trContent);
-
-        TMP_Text _text = _item.GetComponent<TMP_Text>();
-        _text.text = $"{LoginInformation.profile.nickname} :{input}";
-
-
-        Debug.Log(_text.text);
+        bool isInput = false;
+        for(int i =0; i< _chatText.Length; i++)
+        {
+            if (_chatText[i].text == "")
+            {
+                isInput = true;
+                _chatText[i].text = msg;
+                break;
+            }
+        }
+        if (!isInput)
+        {
+            for(int i = 1; i < _chatText.Length; i++)
+            {
+                _chatText[i - 1].text = _chatText[i].text;
+            }
+            _chatText[_chatText.Length - 1].text = msg;
+        }
     }
 
 }
