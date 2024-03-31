@@ -7,7 +7,7 @@ using UnityEditor;
 using Unity.VisualScripting;
 
 namespace yb {
-    public class PlayerController : MonoBehaviour {
+    public class PlayerController : MonoBehaviour, ITakeDamage {
         private readonly float _animationFadeTime = .3f;
         private Rigidbody _rigid;
         private float moveX;
@@ -15,22 +15,34 @@ namespace yb {
         private Collider _collider;
         private Animator _animator;
         private Vector3 _mousePos;
-        private Transform _firePos;
-        private Transform _swordMainPos;
+        private Transform _rangedWeaponsParent;
+        private Transform _meleeWeaponsParent;
         private IPlayerState _playerState;
-        [SerializeField] float _moveSpeed;
+        private IMeleeWeapon _meleeWeapon;
+        private IRangedWeapon _rangeWeapon;
+        private IItemDroplable _droplable = new ItemDroplable();
+        private PlayerStatus _status;
 
+        public Transform RangedWeaponsParent => _rangedWeaponsParent;
+        public Transform MeleeWeaponsParent => _meleeWeaponsParent;
         private void Awake() {
             _rigid = GetComponent<Rigidbody>();
             _collider = GetComponent<Collider>();
             _animator = GetComponent<Animator>();
+            _status = GetComponent<PlayerStatus>();
         }
 
         private void Start() {
-            _playerState = new PlayerIdleState(this);
-            _firePos = Util.FindChild(gameObject, "FirePos", true).transform;
-            _swordMainPos = Util.FindChild(gameObject, "SwordMainPos", true).transform;
-            _swordMainPos.gameObject.SetActive(false);
+            _rangedWeaponsParent = Util.FindChild(gameObject, "RangedWeapons", false).transform;
+            _meleeWeaponsParent = Util.FindChild(gameObject, "MeleeWeapons", false).transform;
+
+            _playerState = new PlayerState_Idle(this);
+            _meleeWeapon = new MeleeWeapon_Club(_meleeWeaponsParent, this);
+            _rangeWeapon = new RangedWeapon_Pistol(_rangedWeaponsParent);
+
+            //test
+            _droplable.Set("Club");
+            _droplable.Set("Pistol");
         }
 
         private void Update() {
@@ -38,10 +50,10 @@ namespace yb {
             moveZ = Input.GetAxisRaw("Vertical");
 
             OnRotateUpdate();
-            _playerState.OnUpdate(this);
 
-            _currentShotDelay += Time.deltaTime;
-            _currentAttackDelay += Time.deltaTime;
+            _playerState.OnUpdate(this);
+            _rangeWeapon.OnUpdate();
+            _meleeWeapon.OnUpdate();
         }
 
         public bool isMoving() {
@@ -51,20 +63,30 @@ namespace yb {
             return true;
         }
 
-        public void ChangeState(IPlayerState playerState) {
-            _playerState = playerState;
-        }
+        public void ChangeState(IPlayerState playerState) =>  _playerState = playerState;
 
-        public void ChangeAnimation(string animation) {
-            _animator.CrossFade(animation, _animationFadeTime);
-        }
+        public void ChangeAnimation(string animation) => _animator.CrossFade(animation, _animationFadeTime);
+
+        public void ChangeRangedWeapon(IRangedWeapon weapon) => _rangeWeapon = weapon;
+
+        public void ChangeMeleeWeapon(IMeleeWeapon weapon) => _meleeWeapon = weapon;
+
+        /// <summary>
+        /// 플레이어 총 발사 로직
+        /// </summary>
+        public void OnShotUpdate() => _rangeWeapon.Shot(_mousePos, this);
+
+        /// <summary>
+        /// 플레이어 근접공격 로직
+        /// </summary>
+        public void OnAttackUpdate() => _meleeWeapon.MeleeAttack();
 
         /// <summary>
         /// 플레이어 이동 로직
         /// </summary>
         public void OnMoveUpdate() {
             Vector3 dir = new Vector3(moveX, 0f, moveZ);
-            _rigid.MovePosition(_rigid.position + dir * _moveSpeed * Time.deltaTime);
+            _rigid.MovePosition(_rigid.position + dir * _status._moveSpeed * Time.deltaTime);
         }
 
         /// <summary>
@@ -83,45 +105,34 @@ namespace yb {
             transform.LookAt(_mousePos);
         }
 
-        [SerializeField] private float _shotDelay;
-        private float _currentShotDelay;
-        /// <summary>
-        /// 플레이어 총 발사 로직
-        /// </summary>
-        public void OnShotUpdate() {
-            if (_currentShotDelay < _shotDelay)
-                return;
-
-            _currentShotDelay = 0f;
-            BulletController bullet = Managers.Resources.Instantiate("yb/Bullet/Bullet", null).GetComponent<BulletController>();
-            bullet.Init(5f, 10f, _mousePos, _firePos.position);
+        public void OnDieUpdate() {
+            _collider.enabled = false;
+            _rigid.isKinematic = true;
+            ChangeAnimation("Die");
         }
 
-        [SerializeField] private float _attackDelay;
-        private float _currentAttackDelay;
-        /// <summary>
-        /// 플레이어 공격(아마 근접) 로직
-        /// </summary>
-        public void OnAttackUpdate() {
-            if (_currentAttackDelay < _attackDelay)
+        public void TakeDamage(int amout) {
+            if (amout <= 0)
                 return;
 
-            _currentAttackDelay = 0f;
-            _swordMainPos.gameObject.SetActive(true);
-            Vector3 currentRotation = transform.eulerAngles;
-            Vector3 newRotation = new Vector3(currentRotation.x, currentRotation.y + 45, currentRotation.z);
-            _swordMainPos.DORotate(newRotation, .3f).SetEase(Ease.Linear).OnComplete(ExitSwordAttack);
+            _status._currentHp -= amout;
+
+            if(_status._currentHp <= 0) {
+                _droplable.Drop(transform.position);
+                ChangeState(new PlayerState_Die(this));
+            }
         }
 
-        /// <summary>
-        /// 플레이어 공격 종료 함수
-        /// 콜백으로 사용
-        /// </summary>
-        private void ExitSwordAttack() {
-            Vector3 currentRotation = transform.eulerAngles;
-            Vector3 newRotation = new Vector3(currentRotation.x, currentRotation.y - 45, currentRotation.z);
-            _swordMainPos.rotation = Quaternion.Euler(newRotation);
-            _swordMainPos.gameObject.SetActive(false);
+        private void OnTriggerStay(Collider c) {
+            if (c.CompareTag("ObtainableObject")) {
+                //todo
+                //여기에 아이템 ui표기 필요
+
+                if (Input.GetKeyDown(KeyCode.G)) {
+                    ChangeState(new PlayerState_Pickup(this));
+                    c.GetComponent<IObtainableObject>().Pickup(this);
+                }
+            }
         }
     }
 }

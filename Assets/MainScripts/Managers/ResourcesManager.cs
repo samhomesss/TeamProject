@@ -63,5 +63,4 @@ public class ResourcesManager
         else
             Object.Destroy(go, time);
     }
-
 }
