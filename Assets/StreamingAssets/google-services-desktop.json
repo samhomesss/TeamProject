@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "653407247229",
+    "project_id": "getoffmyyard-7b996",
+    "storage_bucket": "getoffmyyard-7b996.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:653407247229:android:b328d580705bf0e0208a14",
+        "android_client_info": {
+          "package_name": "com.getoffmyyard.appname"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDhm9laJSl-9l-7uNe85NgLQwz1jUZegCo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
