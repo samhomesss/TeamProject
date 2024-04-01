@@ -10,10 +10,8 @@ namespace Hw
         protected override void Init()
         {
             base.Init();
-
         }
         public override void Clear()
-
         {
         }
     }
