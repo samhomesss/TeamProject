@@ -2,10 +2,15 @@ using UnityEngine;
 
 namespace yb {
     public class PlayerState_MovenShot : IPlayerState {
+        IRangedWeapon _weapon;
+
         public PlayerState_MovenShot(PlayerController player) {
-            player.ChangeAnimation("Shot");
+            _weapon = player.RangedWeapon;
         }
         public void OnUpdate(PlayerController player) {
+            if (_weapon.CanShot())
+                player.ChangeTriggerAnimation(PlayerController.State.Shot);
+
             if (Input.GetMouseButtonUp(0)) {
                 if (!player.isMoving()) {
                     player.ChangeState(new PlayerState_Idle(player));
@@ -15,11 +20,10 @@ namespace yb {
                 return;
             }
 
+
+
             player.OnMoveUpdate();
 
-            //todo
-            //이벤트로
-            player.OnShotUpdate();
         }
     }
 }

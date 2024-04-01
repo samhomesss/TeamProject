@@ -1,34 +1,76 @@
+using DG.Tweening;
+using Photon.Realtime;
 using UnityEngine;
 using yb;
+using static yb.IRangedWeapon;
 namespace yb {
     public class RangedWeapon_Pistol : RangedWeapon, IRangedWeapon {
         public RangedWeapon_Pistol(Transform parent) : base(parent) {
+            DefaultScale = new Vector3(.4f, .4f, .4f);
+            WeaponType = weaponType.Pistol;
             _projectileCreator = new PistolProjectileCreator();
             _weaponGameObject = Util.FindChild(parent.gameObject, "Pistol", false);
             _firePos = Util.FindChild(_weaponGameObject, "FirePos", false).transform;
+            _weaponGameObject.transform.localScale = DefaultScale;
 
-            //todo:test
             _defaultDamage = 5;
             _bulletSpeed = 10f;
-            _shotDelay = 1.5f;
             _remainBullet = 30;
             _maxBullet = 120;
+            _maxDelay = 1f;
             _currentBullet = _remainBullet;
-            //todo
-            //대충 무기 바꾸는 애니메이션
+
         }
-        public void OnUpdate() => _currentShotDelay += Time.deltaTime;
+
+        public weaponType WeaponType { get; set; }
+        public Vector3 DefaultScale { get; set; }
+
+        public bool CanReload() {
+            if (_currentBullet == _remainBullet)
+                return false;
+
+            if (_maxBullet == 0)
+                return false;
+
+            return true;
+        }
+        public void Reload(PlayerController player) {
+            if(_remainBullet >= _maxBullet) {
+                _currentBullet = _remainBullet;
+                _maxBullet -= 0;
+                return;
+            }
+
+            if(_remainBullet < _maxBullet) {
+                _currentBullet = _remainBullet;
+                _maxBullet -= _remainBullet;
+            }
+
+            player.ChangeState(new PlayerState_Idle(player));
+        }
+
+        public void OnUpdate() {
+            _currentDelay += Time.deltaTime;
+        }
+
+        public bool CanShot() {
+            if (_currentDelay >= _maxDelay) {
+                _currentDelay = 0f;
+                return true;
+            }
+            return false;
+        }
 
         public void Shot(Vector3 targetPos, PlayerController player) {
+
             if (_currentBullet == 0) {
                 player.ChangeState(new PlayerState_Reload(player, this));
                 return;
             }
-            if (_currentShotDelay < _shotDelay)
-                return;
 
-            _currentShotDelay = 0f;
-            _projectileCreator.Create(_defaultDamage, _bulletSpeed, targetPos, _firePos.position);
+            _currentBullet--;
+            Camera.main.transform.DOShakeRotation(0.2f, 1f);
+            _projectileCreator.Create(_defaultDamage, _bulletSpeed, targetPos, _firePos.position, player);
         }
     }
 }

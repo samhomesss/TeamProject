@@ -3,16 +3,16 @@ using UnityEngine;
 namespace yb {
     public class PlayerState_Idle : IPlayerState {
         public PlayerState_Idle(PlayerController player) {
-            player.ChangeAnimation("Idle");
+            player.ChangeFadeAnimation("Idle");
         }
         public void OnUpdate(PlayerController player) {
-            if (Input.GetKeyDown(KeyCode.F)) {
-                player.ChangeState(new PlayerState_Attack(player));
+            if (Input.GetMouseButtonDown(0)) {
+                player.ChangeState(new PlayerState_Shot(player));
                 return;
             }
 
-            if (Input.GetMouseButtonDown(0)) {
-                player.ChangeState(new PlayerState_Shot(player));
+            if(Input.GetKeyDown(KeyCode.R) && player.RangedWeapon.CanReload()) {
+                player.ChangeState(new PlayerState_Reload(player, player.RangedWeapon));
                 return;
             }
 

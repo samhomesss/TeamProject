@@ -7,13 +7,15 @@ namespace yb {
 
         [SerializeField] string[] DropItemList;
         private void Start() {
+            _status = GetComponent<DestructibleObjectStatus>();
+
             foreach (var item in DropItemList) {
                 _droplable.Set(item);
             }
         }
  
 
-        public void TakeDamage(int amout) {
+        public void TakeDamage(int amout, GameObject attacker) {
             if (amout <= 0)
                 return;
 

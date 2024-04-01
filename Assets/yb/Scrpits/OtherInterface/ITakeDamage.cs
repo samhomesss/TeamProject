@@ -2,6 +2,6 @@ using UnityEngine;
 
 namespace yb {
     public interface ITakeDamage {
-        void TakeDamage(int amout);
+        void TakeDamage(int amout, GameObject attacker);
     }
 }
