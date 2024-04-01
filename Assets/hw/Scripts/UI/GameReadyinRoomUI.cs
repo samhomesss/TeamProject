@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using ExitGames.Client.Photon.StructWrapping;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
+using System;
 
 public class GameReadyinRoomUI : MonoBehaviour, IInRoomCallbacks
 {
@@ -16,7 +17,6 @@ public class GameReadyinRoomUI : MonoBehaviour, IInRoomCallbacks
     private Button _back;
     [SerializeField] private Dictionary<string,PlayerStatusInGameReadyInRoomSlot> _playerStatusInGameReadyInRoomSlots = new Dictionary<string, PlayerStatusInGameReadyInRoomSlot>();
     //UserID, 입장한 플레이어들의 레디상태를 표시해줄 슬롯을 딕셔너리로 만들어 UserID키값으로 슬롯의 정보 확인
-
 
     private void Awake()
     {
@@ -119,10 +119,15 @@ public class GameReadyinRoomUI : MonoBehaviour, IInRoomCallbacks
     {
 
 
-        _playerStatusInGameReadyInRoomSlots.Add(newPlayer.UserId, 
+        _playerStatusInGameReadyInRoomSlots.Add(newPlayer.UserId,
             _playerStatusInGameReadyInRoomSlotPrefab[_playerStatusInGameReadyInRoomSlotPrefab.Length - PhotonNetwork.PlayerList.Length]);
         //신규 플레이어가 들어오면 슬롯자리에 신규플레이어의 딕셔너리가 추가 되도록 설정
 
+
+        foreach (var player in _playerStatusInGameReadyInRoomSlots)
+        {
+            Debug.Log(player.Key + ":" + player.Value);
+        }
 
 
             //var slot = Instantiate(_playerStatusInGameReadyInRoomSlotPrefab, _playerStatusInGameReadyInRoomContent);//슬롯위치에 프리펩을 생성함

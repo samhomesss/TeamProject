@@ -30,7 +30,6 @@ public class ChattingManager : MonoBehaviourPun
         _inputchat.text = "";
 
         _inputchat.ActivateInputField();
-
     }
 
 
@@ -48,10 +47,9 @@ public class ChattingManager : MonoBehaviourPun
         _trContent = transform.Find($"Panel - ChatingVariable/ScrollView/Viewport/Content").GetComponent<Transform>();
         _extend_Button = transform.Find($"Panel - ChatingVariable/ExtendButton").GetComponent<UnityEngine.UI.Button>();
         _scrollView_RectTransform = transform.Find($"Panel - ChatingVariable/ScrollView").GetComponent<RectTransform>();
+        
 
-
-
-        _extend_Button.onClick.AddListener(() => {
+        _extend_Button.onClick.AddListener(() => {//채팅창 창크기를 조절하는 버튼, 버튼을 눌러 최소화, 최대화를 할 수 잇다.
             _extend_ButtonEnabled = !_extend_ButtonEnabled;
 
             if (_extend_ButtonEnabled)
