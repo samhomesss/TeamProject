@@ -5,6 +5,18 @@ using UnityEngine;
 
 public class Util : MonoBehaviour
 {
+    
+    //public struct MyRect
+    //{
+    //    private float m_XMin;
+
+    //    private float m_ZMin;
+
+    //    private float m_Width;
+
+    //    private float m_Height;
+    //}
+
     public static GameObject FindChild(GameObject go, string name, bool recursion) 
     {
         if (go == null || string.IsNullOrEmpty(name))
