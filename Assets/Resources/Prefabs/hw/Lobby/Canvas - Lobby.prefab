@@ -833,7 +833,7 @@ MonoBehaviour:
   _inputchat: {fileID: 8867318027304798836}
   _trContent: {fileID: 4326644254623412080}
   _chatText: []
-  scrollRect: {fileID: 0}
+  _scrollRect: {fileID: 0}
 --- !u!1 &3888379308015286765
 GameObject:
   m_ObjectHideFlags: 0
