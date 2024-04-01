@@ -20,9 +20,9 @@ namespace Sh
         #region 04.01 승현 싱글톤 추가
         ItemDataBase _itemDataBase = new ItemDataBase();
         Node _node = new Node();
-        UIMinimap _uiMinimap = new UIMinimap();
+        UI_Minimap _uiMinimap = new UI_Minimap();
 
-        public static UIMinimap UIMinimap { get { return Instance._uiMinimap; } }
+        public static UI_Minimap UIMinimap { get { return Instance._uiMinimap; } }
         public static Node Node { get { return Instance._node; } }
         public static ItemDataBase ItemDataBase { get { return Instance._itemDataBase; } }
         #endregion

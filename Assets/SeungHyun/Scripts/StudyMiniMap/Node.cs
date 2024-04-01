@@ -25,7 +25,10 @@ namespace Sh
     public class Node : MonoBehaviour
     {
         public Terrain Terrain;
-        public NodeData[,] Nodes;
+        public NodeData[,] Nodes; 
+        // 터레인 크기를 노드로 만들어놓음
+        // 터레인의 왼쪽 아래를 기준으로 (0,0)을 잡는다면 (1을 움직인다면) (1, 0)의 노드를 바꿔주면 됨.
+        public Color[] miniMapColors;
         void Awake()
         {
             Terrain = GetComponent<Terrain>();
@@ -77,7 +80,7 @@ namespace Sh
 
         void UpdateNodeColors()
         {
-            Color[] miniMapColors = Managers.UIMinimap.Texture.GetPixels();
+            miniMapColors = Managers.UIMinimap.Texture.GetPixels();
            // Color[] fogOfWarColors = Managers.Instance.FogOfWar.Texture.GetPixels();
             bool isUpdate = false;
 
