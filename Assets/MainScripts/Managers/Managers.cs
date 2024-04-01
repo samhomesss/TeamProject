@@ -13,11 +13,18 @@ public class Managers : MonoBehaviour
         }
     }
 
+    
+
+    // 수정사항 
+    private GameManager _gameManager = new GameManager();
+    //
     private PoolManager _pool = new PoolManager();
     private InputManager _input = new InputManager();
     private ResourcesManager _resources = new ResourcesManager();
     private SceneManagerEX _scene = new SceneManagerEX();
-
+    
+    // 수정 사항 
+    public static GameManager GameManager => _instance._gameManager;
     public static PoolManager Pool => _instance._pool;
     public static SceneManagerEX Scene => _instance._scene;
     public static InputManager Input => Instance._input;
@@ -31,6 +38,7 @@ public class Managers : MonoBehaviour
     private void Update()
     {
         Input.OnUpdate();
+        GameManager.Workflow();
     }
 
     private static void Init()
