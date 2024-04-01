@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
-using static UnityEditor.Progress;
+//using static UnityEditor.Progress;
 namespace yb {
     public class ItemDroplable : IItemDroplable {
         private List<string> _itemsList = new List<string>();
