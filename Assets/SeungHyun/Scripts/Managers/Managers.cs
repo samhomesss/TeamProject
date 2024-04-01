@@ -7,7 +7,6 @@ namespace Sh
     public class Managers : MonoBehaviour
     {
         
-
         static Managers s_instance;
         static Managers Instance { get { Init(); return s_instance; } }
 
@@ -17,6 +16,16 @@ namespace Sh
         SceneManagerEx _scene = new SceneManagerEx();
         SoundManager _sound = new SoundManager();
         UIManager _ui = new UIManager();
+        
+        #region 04.01 승현 싱글톤 추가
+        ItemDataBase _itemDataBase = new ItemDataBase();
+        Node _node = new Node();
+        UI_Minimap _uiMinimap = new UI_Minimap();
+
+        public static UI_Minimap UIMinimap { get { return Instance._uiMinimap; } }
+        public static Node Node { get { return Instance._node; } }
+        public static ItemDataBase ItemDataBase { get { return Instance._itemDataBase; } }
+        #endregion
 
         public static InputManager Input { get { return Instance._input; } }
         public static PoolManager Pool { get { return Instance._pool; } }
@@ -52,6 +61,8 @@ namespace Sh
 
                 s_instance._pool.Init();
                 s_instance._sound.Init();
+                // 승현 추가
+                s_instance._itemDataBase.Init();
             }
         }
 

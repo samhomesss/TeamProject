@@ -2,13 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
-namespace Sh
+public class Mark : MonoBehaviour
 {
-    public class UI_Minimap : UI_Scene
-    {
-
-    }
+    
 }
-
-

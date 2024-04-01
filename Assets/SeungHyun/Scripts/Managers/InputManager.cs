@@ -18,7 +18,8 @@ namespace Sh
         // 총알 나가는 거 액션 
         public Action<int> BulletReduce = null;
         int _bulletCount = 1;
-        int count = 50;
+        float count = 1f;
+        float shotTime = 1f;
         #endregion
 
 
@@ -32,12 +33,15 @@ namespace Sh
             {
                 if (Input.GetMouseButton(0))
                 {
-                    if (count == 50)
+                    if (count < shotTime)
+                    {
+                        return;
+                    }
+                    else
                     {
                         BulletReduce.Invoke(_bulletCount);
                         count = 0;
                     }
-                    else { count++; }
                    
                 }
             }
@@ -47,6 +51,8 @@ namespace Sh
 
         public void OnUpdate()
         {
+            count += Time.deltaTime;
+
             if (EventSystem.current.IsPointerOverGameObject())
                 return;
 
