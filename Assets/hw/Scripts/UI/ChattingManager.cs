@@ -14,19 +14,25 @@ public class ChattingManager : MonoBehaviourPun
     [SerializeField] private Transform _trContent;
     [SerializeField] private TMP_Text[] _chatText;
 
-
+    [SerializeField] private ScrollRect _scrollRect;
     public void Onsubmit(string s)
     {
+
         photonView.RPC("RpcAddChat", RpcTarget.All,$"{PhotonNetwork.LocalPlayer.NickName} : {_inputchat.text}");
 
         _inputchat.text = "";
 
+
+        _scrollRect.verticalNormalizedPosition = 0f;
+
         _inputchat.ActivateInputField();
+
     }
 
 
     private void Start()
     {
+        _scrollRect = GetComponent<ScrollRect>();
         //onSubmit은 inputField의 프로퍼티 엔터를 누르면 호출되도록설정
         _inputchat.onSubmit.AddListener(Onsubmit);
 
@@ -35,6 +41,7 @@ public class ChattingManager : MonoBehaviourPun
             _chatText[i] = transform.Find($"Panel - Chatingtest/Scroll View/Viewport/Content/Chatitem_{i}").GetComponent<TMP_Text>();
         }
 
+        _scrollRect = transform.Find($"Panel - Chatingtest").GetComponent<ScrollRect>(); 
 
     }
 
