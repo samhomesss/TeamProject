@@ -138,7 +138,6 @@ GameObject:
   - component: {fileID: 458264767446631917}
   - component: {fileID: 6567802925655314658}
   - component: {fileID: 8387145999288309525}
-  - component: {fileID: 1843701827389953307}
   m_Layer: 5
   m_Name: Panel - ChattingVariable
   m_TagString: Untagged
@@ -221,36 +220,6 @@ MonoBehaviour:
   m_EffectColor: {r: 0.09224312, g: 0.3821502, b: 0.55345905, a: 1}
   m_EffectDistance: {x: 5, y: 5}
   m_UseGraphicAlpha: 1
---- !u!114 &1843701827389953307
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 397489059226217907}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1aa08ab6e0800fa44ae55d278d1423e3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Content: {fileID: 8553679122295180601}
-  m_Horizontal: 1
-  m_Vertical: 1
-  m_MovementType: 1
-  m_Elasticity: 0.1
-  m_Inertia: 1
-  m_DecelerationRate: 0.135
-  m_ScrollSensitivity: 1
-  m_Viewport: {fileID: 1243340233989654547}
-  m_HorizontalScrollbar: {fileID: 6062136683753644181}
-  m_VerticalScrollbar: {fileID: 7797525046796873527}
-  m_HorizontalScrollbarVisibility: 1
-  m_VerticalScrollbarVisibility: 1
-  m_HorizontalScrollbarSpacing: 0
-  m_VerticalScrollbarSpacing: 0
-  m_OnValueChanged:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!1 &480723139124004714
 GameObject:
   m_ObjectHideFlags: 0
@@ -2961,7 +2930,7 @@ GameObject:
   - component: {fileID: 7934412976327531397}
   - component: {fileID: 5188070862857252975}
   - component: {fileID: 6461117937397376139}
-  - component: {fileID: 3236826686080840450}
+  - component: {fileID: 7730403077696357482}
   m_Layer: 5
   m_Name: Scroll View
   m_TagString: Untagged
@@ -3029,7 +2998,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &3236826686080840450
+--- !u!114 &7730403077696357482
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3041,21 +3010,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1aa08ab6e0800fa44ae55d278d1423e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Content: {fileID: 8553679122295180601}
-  m_Horizontal: 0
+  m_Content: {fileID: 0}
+  m_Horizontal: 1
   m_Vertical: 1
   m_MovementType: 1
   m_Elasticity: 0.1
   m_Inertia: 1
   m_DecelerationRate: 0.135
   m_ScrollSensitivity: 1
-  m_Viewport: {fileID: 1243340233989654547}
-  m_HorizontalScrollbar: {fileID: 6062136683753644181}
-  m_VerticalScrollbar: {fileID: 7797525046796873527}
-  m_HorizontalScrollbarVisibility: 2
-  m_VerticalScrollbarVisibility: 2
-  m_HorizontalScrollbarSpacing: -3
-  m_VerticalScrollbarSpacing: -3
+  m_Viewport: {fileID: 0}
+  m_HorizontalScrollbar: {fileID: 0}
+  m_VerticalScrollbar: {fileID: 0}
+  m_HorizontalScrollbarVisibility: 0
+  m_VerticalScrollbarVisibility: 0
+  m_HorizontalScrollbarSpacing: 0
+  m_VerticalScrollbarSpacing: 0
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []

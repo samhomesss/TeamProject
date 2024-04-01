@@ -33,10 +33,18 @@ public class LobbyUI : MonoBehaviour, ILobbyCallbacks
 
     private void Awake()
     {
+
+
         _join = transform.Find("Button-Join").GetComponent<Button>();
         _create = transform.Find("Button - Create").GetComponent <Button>();
         _canvas = GameObject.Find("Canvas - CreatingRoom").GetComponent<Canvas>();
             
+
+
+        _join.interactable = false;
+        _create.interactable = false;
+
+
         _join.onClick.AddListener(() =>
         {
             if (PhotonNetwork.JoinRoom(_localRoomInfos[_selectedRoomListSlotIndex].Name)) 
@@ -63,6 +71,8 @@ public class LobbyUI : MonoBehaviour, ILobbyCallbacks
     {
         yield return new WaitUntil(() => PhotonNetwork.NetworkClientState == ClientState.ConnectedToMasterServer);
         PhotonNetwork.JoinLobby();
+        _join.interactable = true;
+        _create.interactable = true;
     }
     private void OnDisable()
     {

@@ -16,7 +16,6 @@ public class ChattingManager : MonoBehaviourPun
     [SerializeField] private Transform _trContent;
     [SerializeField] private TMP_Text[] _chatText;
 
-    [SerializeField] private ScrollRect _scrollRect;
     [SerializeField] private UnityEngine.UI.Button _extend_Button;
     [SerializeField] private RectTransform _scrollView_RectTransform;
 
@@ -24,10 +23,11 @@ public class ChattingManager : MonoBehaviourPun
 
     public void Onsubmit(string s)
     {
+        if (string.IsNullOrWhiteSpace(s))
+            return;
 
         photonView.RPC("RpcAddChat", RpcTarget.All,$"{PhotonNetwork.LocalPlayer.NickName} : {_inputchat.text}");
         _inputchat.text = "";
-        _scrollRect.verticalNormalizedPosition = 0f;
 
         _inputchat.ActivateInputField();
 
@@ -38,7 +38,6 @@ public class ChattingManager : MonoBehaviourPun
     {
 
         _inputchat = transform.Find($"Panel - ChatingVariable/ChattingInput").GetComponent<TMP_InputField>();
-        _scrollRect = GetComponent<ScrollRect>();
         //onSubmit은 inputField의 프로퍼티 엔터를 누르면 호출되도록설정
         _inputchat.onSubmit.AddListener(Onsubmit);
 
@@ -47,7 +46,6 @@ public class ChattingManager : MonoBehaviourPun
             _chatText[i] = transform.Find($"Panel - ChatingVariable/ScrollView/Viewport/Content/Chatitem_{i}").GetComponent<TMP_Text>();
         }
         _trContent = transform.Find($"Panel - ChatingVariable/ScrollView/Viewport/Content").GetComponent<Transform>();
-        _scrollRect = transform.Find($"Panel - ChatingVariable").GetComponent<ScrollRect>();
         _extend_Button = transform.Find($"Panel - ChatingVariable/ExtendButton").GetComponent<UnityEngine.UI.Button>();
         _scrollView_RectTransform = transform.Find($"Panel - ChatingVariable/ScrollView").GetComponent<RectTransform>();
 
@@ -58,11 +56,10 @@ public class ChattingManager : MonoBehaviourPun
 
             if (_extend_ButtonEnabled)
             {
-                _scrollView_RectTransform.offsetMin = new Vector2(_scrollView_RectTransform.offsetMin.x, 0);
+                _scrollView_RectTransform.offsetMin = new Vector2(_scrollView_RectTransform.offsetMin.x, 80);
                 // bottom 수정
-                _scrollView_RectTransform.offsetMax = new Vector2(_scrollView_RectTransform.offsetMax.x, 400);
+                _scrollView_RectTransform.offsetMax = new Vector2(_scrollView_RectTransform.offsetMax.x, 450);
                 // Top 수정
-                _scrollRect.verticalNormalizedPosition = 0f;
             }
             else
             {
@@ -70,7 +67,6 @@ public class ChattingManager : MonoBehaviourPun
                 // bottom 수정
                 _scrollView_RectTransform.offsetMax = new Vector2(_scrollView_RectTransform.offsetMax.x, 0);
                 // Top 수정
-                _scrollRect.verticalNormalizedPosition = 0f;
             }
         });
 

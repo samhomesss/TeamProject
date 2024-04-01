@@ -13,6 +13,7 @@ public class GameReadyinRoomUI : MonoBehaviour, IInRoomCallbacks
     [SerializeField] PlayerStatusInGameReadyInRoomSlot[] _playerStatusInGameReadyInRoomSlotPrefab;
     private Button _ready;
     private Button _start;
+    private Button _back;
     [SerializeField] private Dictionary<string,PlayerStatusInGameReadyInRoomSlot> _playerStatusInGameReadyInRoomSlots = new Dictionary<string, PlayerStatusInGameReadyInRoomSlot>();
     //UserID, 입장한 플레이어들의 레디상태를 표시해줄 슬롯을 딕셔너리로 만들어 UserID키값으로 슬롯의 정보 확인
 
@@ -21,7 +22,7 @@ public class GameReadyinRoomUI : MonoBehaviour, IInRoomCallbacks
     {
         _ready = transform.Find("Button-Ready").GetComponent<Button>();
         _start = transform.Find("Button-Start").GetComponent<Button>();
-
+        _back = transform.Find("Button-Back").GetComponent<Button>();
         _ready.onClick.AddListener(() =>
         {
             PhotonNetwork.LocalPlayer.SetCustomProperties(
@@ -54,7 +55,14 @@ public class GameReadyinRoomUI : MonoBehaviour, IInRoomCallbacks
             PhotonNetwork.LoadLevel("GamePlay");
         });
 
-        for(int i=0; i< _playerStatusInGameReadyInRoomSlotPrefab.Length; i++)
+        _back.onClick.AddListener(() =>
+        {
+
+
+            
+        });
+
+        for (int i=0; i< _playerStatusInGameReadyInRoomSlotPrefab.Length; i++)
         {
             _playerStatusInGameReadyInRoomSlotPrefab[i] = transform.Find($"Panel - RoomList/Scroll View/Viewport/Content/PlayerStatusInGameReadyInRoomSlot{i}").GetComponent<PlayerStatusInGameReadyInRoomSlot>();
         }
