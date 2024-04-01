@@ -340,7 +340,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 649949372299637375, guid: d8d669a64373e9f46b5877608f3f5be0, type: 3}
       propertyPath: m_Name
-      value: PlayerStatusInGameReadyInRoomSlot7
+      value: PlayerStatusInGameReadyInRoomSlot0
       objectReference: {fileID: 0}
     - target: {fileID: 1532172941311046182, guid: d8d669a64373e9f46b5877608f3f5be0, type: 3}
       propertyPath: m_AnchorMax.y
@@ -384,7 +384,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2132791387693813593, guid: d8d669a64373e9f46b5877608f3f5be0, type: 3}
       propertyPath: m_Name
-      value: PlayerStatusInGameReadyInRoomSlot1
+      value: PlayerStatusInGameReadyInRoomSlot6
       objectReference: {fileID: 0}
     - target: {fileID: 2193446425462363356, guid: d8d669a64373e9f46b5877608f3f5be0, type: 3}
       propertyPath: m_AnchorMax.y
@@ -512,7 +512,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3071545871262286679, guid: d8d669a64373e9f46b5877608f3f5be0, type: 3}
       propertyPath: m_Name
-      value: PlayerStatusInGameReadyInRoomSlot4
+      value: PlayerStatusInGameReadyInRoomSlot3
       objectReference: {fileID: 0}
     - target: {fileID: 3163252165487042245, guid: d8d669a64373e9f46b5877608f3f5be0, type: 3}
       propertyPath: m_AnchorMax.y
@@ -624,7 +624,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4425147086124024717, guid: d8d669a64373e9f46b5877608f3f5be0, type: 3}
       propertyPath: m_Name
-      value: PlayerStatusInGameReadyInRoomSlot6
+      value: PlayerStatusInGameReadyInRoomSlot1
       objectReference: {fileID: 0}
     - target: {fileID: 4627725675518860987, guid: d8d669a64373e9f46b5877608f3f5be0, type: 3}
       propertyPath: m_AnchorMax.y
@@ -644,7 +644,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4705148404159484840, guid: d8d669a64373e9f46b5877608f3f5be0, type: 3}
       propertyPath: m_Name
-      value: PlayerStatusInGameReadyInRoomSlot0
+      value: PlayerStatusInGameReadyInRoomSlot7
       objectReference: {fileID: 0}
     - target: {fileID: 4718631676988451743, guid: d8d669a64373e9f46b5877608f3f5be0, type: 3}
       propertyPath: m_Pivot.x
@@ -756,7 +756,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5295274717776390528, guid: d8d669a64373e9f46b5877608f3f5be0, type: 3}
       propertyPath: m_Name
-      value: PlayerStatusInGameReadyInRoomSlot2
+      value: PlayerStatusInGameReadyInRoomSlot5
       objectReference: {fileID: 0}
     - target: {fileID: 5571272722852028251, guid: d8d669a64373e9f46b5877608f3f5be0, type: 3}
       propertyPath: m_AnchorMax.y
@@ -924,11 +924,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8230597037892980004, guid: d8d669a64373e9f46b5877608f3f5be0, type: 3}
       propertyPath: m_Name
-      value: PlayerStatusInGameReadyInRoomSlot3
+      value: PlayerStatusInGameReadyInRoomSlot4
       objectReference: {fileID: 0}
     - target: {fileID: 8722070252700691422, guid: d8d669a64373e9f46b5877608f3f5be0, type: 3}
       propertyPath: m_Name
-      value: PlayerStatusInGameReadyInRoomSlot5
+      value: PlayerStatusInGameReadyInRoomSlot2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
