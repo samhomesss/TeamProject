@@ -15,7 +15,7 @@ namespace Sh
             Managers.UI.ShowSceneUI<UI_Weapon>();
             Managers.UI.ShowSceneUI<UI_Inven>();
             Managers.UI.ShowSceneUI<UI_Hp>();
-            Managers.UI.ShowSceneUI<UI_Minimap>();
+            //Managers.UI.ShowSceneUI<UI_Minimap>();
             Managers.UI.ShowSceneUI<ItemCreate_Button>();
         }
 
