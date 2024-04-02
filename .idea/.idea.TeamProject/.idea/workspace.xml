@@ -1,11 +1,83 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="7c417fb9-acf6-421b-9142-9a3928fded52" name="Changes" comment="" />
+    <list default="true" id="7c417fb9-acf6-421b-9142-9a3928fded52" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Assets/New Terrain.asset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/New Terrain.asset.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Resources/Prefabs/sh/Data.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Resources/Prefabs/sh/Data/Default.asset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Resources/Prefabs/sh/Data/Default.asset.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Resources/Prefabs/sh/Data/Pistol.asset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Resources/Prefabs/sh/Data/Pistol.asset.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Resources/Prefabs/sh/Data/Rifle.asset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Resources/Prefabs/sh/Data/Rifle.asset.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Resources/Prefabs/sh/Data/ShotGun.asset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Resources/Prefabs/sh/Data/ShotGun.asset.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Resources/Prefabs/sh/Item.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Resources/Prefabs/sh/Item/Pistol.prefab" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Resources/Prefabs/sh/Item/Pistol.prefab.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Resources/Prefabs/sh/Item/Rifle.prefab" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Resources/Prefabs/sh/Item/Rifle.prefab.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Resources/Prefabs/sh/Item/ShotGun.prefab" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Resources/Prefabs/sh/Item/ShotGun.prefab.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Resources/Prefabs/sh/UI/Scene/ItemCreate_Button.prefab" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Resources/Prefabs/sh/UI/Scene/ItemCreate_Button.prefab.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/SeungHyun/Scripts/Data.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/SeungHyun/Scripts/Data/Item.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/SeungHyun/Scripts/Data/Item.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/SeungHyun/Scripts/Data/ItemData.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/SeungHyun/Scripts/Data/ItemData.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/SeungHyun/Scripts/Data/ItemDataBase.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/SeungHyun/Scripts/Data/ItemDataBase.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/SeungHyun/Scripts/Data/ItemType.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/SeungHyun/Scripts/Data/ItemType.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/SeungHyun/Scripts/Data/WeaponData.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/SeungHyun/Scripts/Data/WeaponData.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/SeungHyun/Scripts/StudyMiniMap.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/SeungHyun/Scripts/StudyMiniMap/Mark.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/SeungHyun/Scripts/StudyMiniMap/Node.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/SeungHyun/Scripts/StudyMiniMap/Node.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/SeungHyun/Scripts/StudyMiniMap/UI_Map.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/SeungHyun/Scripts/StudyMiniMap/UI_Map.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/SeungHyun/Scripts/StudyMiniMap/UI_Minimap.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/SeungHyun/Scripts/UI/TestUI.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/SeungHyun/Scripts/UI/TestUI/ItemCreate_Button.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/SeungHyun/Scripts/UI/TestUI/ItemCreate_Button.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/SeungHyun/Texture/Bat2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/SeungHyun/Texture/Bat2.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/SeungHyun/Texture/Bullet.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/SeungHyun/Texture/Bullet.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/SeungHyun/Texture/HealKit.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/SeungHyun/Texture/HealKit.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/SeungHyun/Texture/Pistol.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/SeungHyun/Texture/Pistol.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/SeungHyun/Texture/Rifle.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/SeungHyun/Texture/Rifle.png.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/SeungHyun/Texture/ShotGun.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/SeungHyun/Texture/ShotGun.png.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.TeamProject/.idea/indexLayout.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/MainScripts/Utils/Util.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/MainScripts/Utils/Util.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/SeungHyun/Scenes/SeungHyun.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/SeungHyun/Scenes/SeungHyun.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/SeungHyun/Scripts/Managers/InputManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/SeungHyun/Scripts/Managers/InputManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/SeungHyun/Scripts/Managers/Managers.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/SeungHyun/Scripts/Managers/Managers.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/SeungHyun/Scripts/Scenes/GameScene.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/SeungHyun/Scripts/Scenes/GameScene.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/SeungHyun/Scripts/UI/Scene/UI_Inven.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/SeungHyun/Scripts/UI/Scene/UI_Inven.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/SeungHyun/Scripts/UI/Scene/UI_Minimap.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/SeungHyun/Scripts/StudyMiniMap/Mark.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/SeungHyun/Scripts/UI/Scene/UI_Minimap.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/SeungHyun/Scripts/StudyMiniMap/UI_Minimap.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/SeungHyun/Scripts/UI/SubItem/UI_Inven_Item.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/SeungHyun/Scripts/UI/SubItem/UI_Inven_Item.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/SeungHyun/승현 메모.txt" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/SeungHyun/승현 메모.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/StreamingAssets/google-services-desktop.json.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/StreamingAssets/google-services-desktop.json.meta" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 8
@@ -15,22 +87,35 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "TestMain 병합 중",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;rider.external.source.directories&quot;: [
-      &quot;C:\\Users\\samho\\AppData\\Roaming\\JetBrains\\Rider2023.3\\resharper-host\\DecompilerCache&quot;,
-      &quot;C:\\Users\\samho\\AppData\\Roaming\\JetBrains\\Rider2023.3\\resharper-host\\SourcesCache&quot;,
-      &quot;C:\\Users\\samho\\AppData\\Local\\Symbols\\src&quot;
+  "keyToStringList": {
+    "rider.external.source.directories": [
+      "C:\\Users\\admin\\AppData\\Roaming\\JetBrains\\Rider2023.3\\resharper-host\\DecompilerCache",
+      "C:\\Users\\admin\\AppData\\Roaming\\JetBrains\\Rider2023.3\\resharper-host\\SourcesCache",
+      "C:\\Users\\admin\\AppData\\Local\\Symbols\\src"
     ]
   }
-}</component>
-  <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor">
+}]]></component>
+  <component name="RunManager" selected="Unity 에디터에 연결.Unity 에디터에 연결">
+    <configuration name="유닛 테스트(배치 모드)" type="RunUnityExe" factoryName="Unity Executable">
+      <option name="EXE_PATH" value="C:\Program Files\Unity\Hub\Editor\2022.3.20f1\Editor\Unity.exe" />
+      <option name="PROGRAM_PARAMETERS" value="-runTests -batchmode -projectPath C:\Users\admin\Documents\Github\TeamProject -testResults Logs/results.xml -testPlatform EditMode -debugCodeOptimization" />
+      <option name="WORKING_DIRECTORY" value="C:\Users\admin\Documents\Github\TeamProject" />
+      <option name="PASS_PARENT_ENVS" value="1" />
+      <option name="USE_EXTERNAL_CONSOLE" value="0" />
+      <method v="2" />
+    </configuration>
     <configuration name="Start Unity" type="RunUnityExe" factoryName="Unity Executable">
       <option name="EXE_PATH" value="C:\Program Files\Unity\Hub\Editor\2022.3.20f1\Editor\Unity.exe" />
       <option name="PROGRAM_PARAMETERS" value="-projectPath C:\Users\samho\OneDrive\문서\GitHub\TeamProject -debugCodeOptimization" />
@@ -47,7 +132,15 @@
       <option name="USE_EXTERNAL_CONSOLE" value="0" />
       <method v="2" />
     </configuration>
-    <configuration name="Attach to Unity Editor &amp; Play" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="UNITY_ATTACH_AND_PLAY" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost">
+    <configuration name="Unity 시작" type="RunUnityExe" factoryName="Unity Executable">
+      <option name="EXE_PATH" value="C:\Program Files\Unity\Hub\Editor\2022.3.20f1\Editor\Unity.exe" />
+      <option name="PROGRAM_PARAMETERS" value="-projectPath C:\Users\admin\Documents\Github\TeamProject -debugCodeOptimization" />
+      <option name="WORKING_DIRECTORY" value="C:\Users\admin\Documents\Github\TeamProject" />
+      <option name="PASS_PARENT_ENVS" value="1" />
+      <option name="USE_EXTERNAL_CONSOLE" value="0" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Unity 에디터에 연결" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
       <option name="pid" />
@@ -57,7 +150,7 @@
       </option>
       <method v="2" />
     </configuration>
-    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost">
+    <configuration name="Unreal 에디터에 연결 후 재생" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="UNITY_ATTACH_AND_PLAY" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost">
       <option name="allowRunningInParallel" value="false" />
       <option name="listenPortForConnections" value="false" />
       <option name="pid" />
@@ -78,6 +171,7 @@
       <updated>1711874540934</updated>
       <workItem from="1711874543135" duration="17000" />
       <workItem from="1711874569005" duration="10000" />
+      <workItem from="1711960756045" duration="25000" />
     </task>
     <servers />
   </component>
