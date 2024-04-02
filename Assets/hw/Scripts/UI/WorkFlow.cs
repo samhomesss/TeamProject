@@ -28,7 +28,7 @@ public class WorkFlow
                         if (LoginInformation.loggedIn && LoginInformation.profile != null)//로그인이 된상태 + 로그인이 돼서 프로파일이 생긴다면 로비로 입장
                         {
                             //Todo Create Class LoginInfomation.loggedin, LoginInfomation.profile 
-                            if (PhotonManager.instance)
+                            if (PhotonManager.instance) //포톤 매니저 인스턴스가 생기면 로그인
                             {
                                 SceneManager.LoadScene("LobbyScene");
                                 sceneType++;
