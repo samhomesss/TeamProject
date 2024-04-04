@@ -9,7 +9,7 @@ namespace yb {
         }
         public void OnUpdate(PlayerController player) {
             if (_weapon.CanShot())
-                player.ChangeTriggerAnimation(PlayerController.State.Shot);
+                player.ChangeTriggerAnimation(Define.PlayerState.Shot);
 
             if (Input.GetMouseButtonUp(0)) {
                 if (!player.isMoving()) {
