@@ -12,11 +12,17 @@ namespace Sh
 
             SceneType = Define.Scene.Game;
 
+            // UI 
             Managers.UI.ShowSceneUI<UI_Weapon>();
             Managers.UI.ShowSceneUI<UI_Inven>();
             Managers.UI.ShowSceneUI<UI_Hp>();
-            //Managers.UI.ShowSceneUI<UI_Minimap>();
+            Managers.UI.ShowSceneUI<UI_MiniMap>();
             Managers.UI.ShowSceneUI<ItemCreate_Button>();
+
+            //GameObject
+            Managers.SceneObj.ShowSceneObject<Map>();
+            Managers.SceneObj.ShowSceneObject<MiniMapCam>();
+
         }
 
         public override void Clear()

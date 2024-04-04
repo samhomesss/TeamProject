@@ -7,7 +7,6 @@ namespace Sh
 {
     public class InputManager
     {
-        public Action KeyAction = null;
         public Action<Define.MouseEvent> MouseAction = null;
 
         #region 03.31 승현 추가 
@@ -56,17 +55,12 @@ namespace Sh
             if (EventSystem.current.IsPointerOverGameObject())
                 return;
 
-            if (Input.anyKey && KeyAction != null)
-                KeyAction.Invoke();
-
             #region 03.31 승현 추가 
             // K를 누르고 구독자가 있으면 
             if (Input.GetKeyDown(KeyCode.K) && HpReduce != null)
             {
                 HpReduce.Invoke(_damaged);
             }
-
-           
 
             #endregion
 
@@ -92,7 +86,6 @@ namespace Sh
 
         public void Clear()
         {
-            KeyAction = null;
             MouseAction = null;
         }
     }

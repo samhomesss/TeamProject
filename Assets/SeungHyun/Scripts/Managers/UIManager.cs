@@ -10,6 +10,7 @@ namespace Sh
 
         Stack<UI_Popup> _popupStack = new Stack<UI_Popup>();
         UI_Scene _sceneUI = null;
+        GameObject _sceneObject = null;
 
         public GameObject Root
         {
@@ -21,6 +22,19 @@ namespace Sh
                 return root;
             }
         }
+
+        public GameObject ObjectRoot 
+        {
+            get
+            {
+                GameObject objRoot = GameObject.Find("@Obj_Root");
+                if (objRoot == null)
+                    objRoot = new GameObject { name = "@Obj_Root" };
+                return objRoot;
+                
+            }
+        }
+
 
         public void SetCanvas(GameObject go, bool sort = true)
         {
@@ -79,6 +93,20 @@ namespace Sh
             go.transform.SetParent(Root.transform);
 
             return sceneUI;
+        }
+
+        public T ShowSceneObject<T>(string name = null) where T : MonoBehaviour
+        {
+            if (string.IsNullOrEmpty(name))
+                name = typeof(T).Name;
+
+            GameObject go = Managers.Resource.Instantiate($"Obj/Scene/{name}");
+            T sceneobj = Util.GetOrAddComponent<T>(go);
+            _sceneObject = sceneobj.gameObject;
+
+            go.transform.SetParent(ObjectRoot.transform);
+
+            return sceneobj;
         }
 
         public T ShowPopupUI<T>(string name = null) where T : UI_Popup
