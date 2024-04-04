@@ -14,16 +14,13 @@ namespace Sh
         PoolManager _pool = new PoolManager();
         ResourceManager _resource = new ResourceManager();
         SceneManagerEx _scene = new SceneManagerEx();
-        SoundManager _sound = new SoundManager();
         UIManager _ui = new UIManager();
         
         #region 04.01 승현 싱글톤 추가
+        SceneObjectManager _sceneObj = new SceneObjectManager(); // Scene에서 사용할 Object 저장소
         ItemDataBase _itemDataBase = new ItemDataBase();
-        Node _node = new Node();
-        UI_Minimap _uiMinimap = new UI_Minimap();
 
-        public static UI_Minimap UIMinimap { get { return Instance._uiMinimap; } }
-        public static Node Node { get { return Instance._node; } }
+        public static SceneObjectManager SceneObj { get { return Instance._sceneObj; } }
         public static ItemDataBase ItemDataBase { get { return Instance._itemDataBase; } }
         #endregion
 
@@ -31,7 +28,6 @@ namespace Sh
         public static PoolManager Pool { get { return Instance._pool; } }
         public static ResourceManager Resource { get { return Instance._resource; } }
         public static SceneManagerEx Scene { get { return Instance._scene; } }
-        public static SoundManager Sound { get { return Instance._sound; } }
         public static UIManager UI { get { return Instance._ui; } }
 
         void Start()
@@ -60,7 +56,6 @@ namespace Sh
                 s_instance = go.GetComponent<Managers>();
 
                 s_instance._pool.Init();
-                s_instance._sound.Init();
                 // 승현 추가
                 s_instance._itemDataBase.Init();
             }
@@ -69,7 +64,6 @@ namespace Sh
         public static void Clear()
         {
             Input.Clear();
-            Sound.Clear();
             Scene.Clear();
             UI.Clear();
             Pool.Clear();
