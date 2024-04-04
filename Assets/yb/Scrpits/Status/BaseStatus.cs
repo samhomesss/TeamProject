@@ -4,6 +4,26 @@ using UnityEngine;
 
 public class BaseStatus : MonoBehaviour
 {
-    [SerializeField] public int _currentHp;
-    [SerializeField] public int _maxHp;
+    protected Data _data;
+    protected int _currentHp;
+    protected int _maxHp;
+
+    public int MaxHp => _maxHp;
+    public int CurrentHp => _currentHp;
+    private void Start() {
+        _data = Managers.Data;
+        Init();
+    }
+
+    protected virtual void Init() {
+        _maxHp = _data.DefaultPlayerMaxHp;
+        _currentHp = _maxHp;
+    }
+
+    public int SetHp(int amout) {
+        _currentHp += amout;
+        return _currentHp;
+    }
+   
+   
 }

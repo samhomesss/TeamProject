@@ -1,11 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using UnityEngine;
 using DG.Tweening;
 using UnityEditor;
-using Unity.VisualScripting;
-using UnityEditor.Animations;
 
 namespace yb {
     public class PlayerController : MonoBehaviour, ITakeDamage {
@@ -16,13 +13,14 @@ namespace yb {
         private Collider _collider;
         private Animator _animator;
         private Vector3 _mousePos;
-        [SerializeField]private Transform _rangedWeaponsParent;
+        private Transform _rangedWeaponsParent;
         private IPlayerState _playerState;
         private IRangedWeapon _rangeWeapon;
         private IItemDroplable _droplable = new ItemDroplable();
+        private IObtainableObject _collideItem;
+
         private PlayerStatus _status;
         private RotateToMouseScript _rotateToMouseScript;
-        private IObtainableObject _collideItem;
         public RotateToMouseScript RotateToMouseScript => _rotateToMouseScript;
         public IRangedWeapon RangedWeapon => _rangeWeapon;
         public Transform RangedWeaponsParent => _rangedWeaponsParent;
@@ -42,13 +40,18 @@ namespace yb {
             _rotateToMouseScript = GetComponent<RotateToMouseScript>();
         }
 
+   
+
         private void Start() {
+            _rangedWeaponsParent = Util.FindChild(gameObject, "RangedWeapons", true).transform;
+             
             foreach(Transform t in _rangedWeaponsParent) {
                 t.localScale = Vector3.zero;
             }
 
             _playerState = new PlayerState_Idle(this);
             _rangeWeapon = new RangedWeapon_Pistol(_rangedWeaponsParent);
+
 
             //test
             _droplable.Set("ObtainableRifle");
@@ -81,11 +84,9 @@ namespace yb {
 
             return true;
         }
-
+        
         public void OnPickupEvent() => ChangeState(new PlayerState_Idle(this));
-
         public void ChangeState(IPlayerState playerState) =>  _playerState = playerState;
-
         public void ChangeFadeAnimation(string animation) => _animator.CrossFade(animation, _animationFadeTime);
         public void ChangeIntigerAnimation(State state) => _animator.SetInteger("State", (int)state);
         public void ChangeTriggerAnimation(State state) => _animator.SetTrigger(state.ToString());
@@ -98,7 +99,7 @@ namespace yb {
                 t.localScale = Vector3.zero;
             }
             _rangeWeapon = weapon;
-        } 
+        }
 
 
         /// <summary>
@@ -114,7 +115,7 @@ namespace yb {
         /// </summary>
         public void OnMoveUpdate() {
             Vector3 dir = new Vector3(moveX, 0f, moveZ);
-            _rigid.MovePosition(_rigid.position + dir * _status._moveSpeed * Time.deltaTime);
+            _rigid.MovePosition(_rigid.position + dir * _status.MoveSpeed * Time.deltaTime);
         }
 
         public void OnDieUpdate(GameObject attacker) {
@@ -131,9 +132,9 @@ namespace yb {
             if (amout <= 0)
                 return;
 
-            _status._currentHp -= amout;
+            int hp =_status.SetHp(-amout);
 
-            if(_status._currentHp <= 0) {
+            if(hp <= 0) {
                 _droplable.Drop(transform.position);
                 ChangeState(new PlayerState_Die(this, attacker));
             }

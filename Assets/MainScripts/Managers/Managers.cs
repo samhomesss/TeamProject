@@ -13,7 +13,8 @@ public class Managers : MonoBehaviour
         }
     }
 
-    
+
+    private Data _data = new Data();
 
     // 수정사항 
     private GameManager _gameManager = new GameManager();
@@ -22,7 +23,9 @@ public class Managers : MonoBehaviour
     private InputManager _input = new InputManager();
     private ResourcesManager _resources = new ResourcesManager();
     private SceneManagerEX _scene = new SceneManagerEX();
-    
+
+    public static Data Data => _instance._data;
+
     // 수정 사항 
     public static GameManager GameManager => _instance._gameManager;
     public static PoolManager Pool => _instance._pool;

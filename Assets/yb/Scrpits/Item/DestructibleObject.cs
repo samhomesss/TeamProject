@@ -19,9 +19,9 @@ namespace yb {
             if (amout <= 0)
                 return;
 
-            _status._currentHp -= amout;
+            int hp = _status.SetHp(-amout);
 
-            if (_status._currentHp <= 0) {
+            if (hp <= 0) {
                 _droplable.Drop(transform.position);
                 Managers.Resources.Destroy(gameObject);
             }

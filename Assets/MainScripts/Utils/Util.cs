@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Util : MonoBehaviour
 {
-    
+
     //public struct MyRect
     //{
     //    private float m_XMin;
@@ -17,23 +17,19 @@ public class Util : MonoBehaviour
     //    private float m_Height;
     //}
 
-    public static GameObject FindChild(GameObject go, string name, bool recursion) 
-    {
+    public static GameObject FindChild(GameObject go, string name, bool recursion = false) {
         if (go == null || string.IsNullOrEmpty(name))
             return null;
 
-        if(recursion) {
+        if (recursion) {
             foreach (Transform child in go.transform) {
-                foreach (Transform child2 in child.transform) {
-                    if (child.name == name)
-                        return child.gameObject;
-                    if (child2.name == name)
-                        return child.gameObject;
-                }
+                if (child.name == name)
+                    return child.gameObject;
 
+                GameObject found = FindChild(child.gameObject, name, recursion);
+                if (found != null) return found;
             }
-        }
-        else {
+        } else {
             foreach (Transform child in go.transform) {
                 if (child.name == name)
                     return child.gameObject;
@@ -42,6 +38,7 @@ public class Util : MonoBehaviour
 
         return null;
     }
+
 
     public static T GetorAddComponent<T>(GameObject go) where T : Component
     {

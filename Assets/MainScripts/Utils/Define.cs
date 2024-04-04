@@ -4,6 +4,20 @@ using UnityEngine;
 
 public class Define 
 {
+    public enum weaponType {
+        Pistol,
+        Rifle,
+        Shotgun,
+    }
+
+    public enum RelicType {
+        Relic1, 
+        Relic2,
+        Relic3,
+        Relic4,
+        Relic5,
+    }
+
     public enum MouseEventType
     {
         None,
