@@ -16,9 +16,15 @@ namespace Hw
         SoundManager _sound = new SoundManager();
         UIManager _ui = new UIManager();
 
-        #region 3.31일 20:08 분 이희웅 _workFlow추가 완료 씬 전환을 하는 메인 클래스
-        WorkFlow _workFlow = new WorkFlow();
+        #region 이희웅 추가 싱글톤
+        SceneObjectManager _sceneObj = new SceneObjectManager(); //4.5일 오브젝트 싱글톤 추가
+        WorkFlow _workFlow = new WorkFlow(); //3.31일 20:08 분 워크플로우 싱글톤 추가
+
+        public static WorkFlow Work { get { return Instance._workFlow; } }
+        public static SceneObjectManager SceneObj { get { return Instance._sceneObj; } }
         #endregion
+
+
 
         public static InputManager Input { get { return Instance._input; } }
         public static PoolManager Pool { get { return Instance._pool; } }
@@ -27,9 +33,6 @@ namespace Hw
         public static SoundManager Sound { get { return Instance._sound; } }
         public static UIManager UI { get { return Instance._ui; } }
 
-        #region 3.31일 20:08 분 이희웅 Work추가 _workFlow의 프로퍼티
-        public static WorkFlow Work { get { return Instance._workFlow; } }
-        #endregion
 
         void Start()
         {
