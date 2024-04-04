@@ -4,18 +4,27 @@ using UnityEngine;
 
 public class Define 
 {
-    public enum weaponType {
+    public enum WeaponType {
         Pistol,
         Rifle,
         Shotgun,
     }
 
+    public enum PlayerState {
+        Shot,
+        Reload,
+        Pickup,
+        Die,
+        Idle
+    }
+
     public enum RelicType {
-        Relic1, 
-        Relic2,
-        Relic3,
-        Relic4,
-        Relic5,
+        BonusAttackSpeedRelic,
+        BonusProjectileRelic,
+        BonusResurrectionTimeRelic,
+        GuardRelic,
+        ShieldRelic,
+        Count,
     }
 
     public enum MouseEventType
