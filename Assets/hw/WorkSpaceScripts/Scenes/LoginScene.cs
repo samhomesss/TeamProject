@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.SceneManagement;
+﻿using UnityEngine;
 
 namespace Hw
 {
@@ -13,7 +10,11 @@ namespace Hw
 
             SceneType = Define.Scene.Login;
 
+            Managers.UI.ShowSceneUI<LoginUI>("Login/LoginUI");
+            Managers.UI.ShowSceneUI<RegisterID>("Login/RegisterID");
+            Managers.UI.ShowSceneUI<RegisterNickname>("Login/RegisterNickname");
         }
+
         public override void Clear()
         {
             Debug.Log("LoginScene Clear!");

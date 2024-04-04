@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-namespace DiceGame.UI
+namespace Hw
 {
     public class UICreatingRoom : MonoBehaviour
     {

@@ -1,133 +1,181 @@
-using Photon.Pun;
+ï»¿using Photon.Pun;
 using Photon.Realtime;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
+using System.IO;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class LobbyUI : MonoBehaviour, ILobbyCallbacks
+namespace Hw
 {
-
-    public int selectedRoomListSlotIndex
+    public class LobbyUI : UI_Scene, ILobbyCallbacks
     {
-        get => _selectedRoomListSlotIndex;
-        set
+
+        enum GameObjects
         {
-            _selectedRoomListSlotIndex = value;
-            _join.interactable = value >= 0;
+            Join_Button,
+            Create_Button,
+            RoomList_Content
         }
-    }
-
-    private Button _join;
-    private Button _create;
-    [SerializeField] RectTransform _roomListContent;
-    [SerializeField] RoomListSlot _roomListslotPrefab;
-    private List<RoomListSlot> _roomListslots = new List<RoomListSlot>();
-    private int _selectedRoomListSlotIndex;
-    private List<RoomInfo> _localRoomInfos;
-
-    private Canvas _canvas;
-
-
-
-    private void Awake()
-    {
-
-
-        _join = transform.Find("Button-Join").GetComponent<Button>();
-        _create = transform.Find("Button - Create").GetComponent <Button>();
-        _canvas = GameObject.Find("Canvas - CreatingRoom").GetComponent<Canvas>();
-            
-
-
-        _join.interactable = false;
-        _create.interactable = false;
-
-
-        _join.onClick.AddListener(() =>
+        public int selectedRoomListSlotIndex
         {
-            if (PhotonNetwork.JoinRoom(_localRoomInfos[_selectedRoomListSlotIndex].Name)) 
+            get => _selectedRoomListSlotIndex;
+            set
+            {
+                _selectedRoomListSlotIndex = value;
+                _join_Button.interactable = value >= 0;
+            }
+        }
+
+        private Button _join_Button;
+        private Button _create_Button;
+        private Canvas _createRoom_Canvas;
+
+        RectTransform _roomListContent;
+        RoomListSlot _roomListslotPrefab;
+
+        private List<RoomListSlot> _roomListslots = new List<RoomListSlot>();
+        private int _selectedRoomListSlotIndex;
+        private List<RoomInfo> _localRoomInfos;
+
+        [SerializeField] private Toggle testLoginToggle;
+
+        public override void Init()
+        {
+            base.Init();
+            Bind<GameObject>(typeof(GameObjects));
+
+            GameObject join_Button = Get<GameObject>((int)GameObjects.Join_Button);
+            GameObject create_Button = Get<GameObject>((int)GameObjects.Create_Button);
+            GameObject roomList_Content = Get<GameObject>((int)GameObjects.RoomList_Content);
+
+
+            _join_Button = join_Button.GetComponent<Button>();
+            _create_Button = create_Button.GetComponent<Button>();
+            _roomListContent = roomList_Content.GetComponent<RectTransform>();
+            _createRoom_Canvas = Util.FindChild(transform.parent.gameObject, "CreateRoom").GetComponent<Canvas>();//ê²Œì„ì˜¤ë¸Œì íŠ¸ë¥¼ ë¦¬í„´í•´ì¤Œ
+            _roomListslotPrefab = Util.FindChild(transform.parent.gameObject, "RoomListSlot").GetComponent<RoomListSlot>();
+        }
+
+
+        private void Awake() //í…ŒìŠ¤íŠ¸ ì˜µì…˜ ì„¤ì •
+        {
+            var lines = File.ReadAllLines("Assets/TestOption.txt");
+            if (lines.Length > 0)
+            {
+                testLoginToggle.gameObject.SetActive(lines[0].Equals("1"));
+            }
+        }
+
+        private void Start()
+        {
+            Init();
+
+            _join_Button.interactable = false;
+            _create_Button.interactable = false;
+
+
+            _join_Button.onClick.AddListener(() =>
             {
 
-            }
-            else
+                if (PhotonNetwork.JoinRoom(_localRoomInfos[_selectedRoomListSlotIndex].Name))
+                {
+                }
+                else
+                {
+                    //Todo:ë°©ì´ ì—†ë‹¤ëŠ” íŒì—…ì°½ ë§Œë“¤ê¸°
+                    Debug.Log("The room is invalid");
+                }
+            });
+            _create_Button.onClick.AddListener(() =>
             {
-                //Todo:¹æÀÌ ¾ø´Ù´Â ÆË¾÷Ã¢ ¸¸µé±â
-                Debug.Log("The room is invalid");
-            }
-        });
-        _create.onClick.AddListener(() =>
+
+                if (testLoginToggle.IsActive() && testLoginToggle.isOn)
+                {
+                    _createRoom_Canvas.enabled = true;
+
+                    _createRoom_Canvas.transform.Find("Panel/Roomname_TextField").GetComponent<TMP_InputField>().text = "TestRoom";
+                    _createRoom_Canvas.transform.Find("Panel/MaxPlayer_Scrollbar").GetComponent<Scrollbar>().value = 0.2f;
+
+                    _createRoom_Canvas.transform.Find("Panel/Confirm_Button").GetComponent<Button>().onClick.Invoke();
+                }
+                else
+                {
+                    _createRoom_Canvas.enabled = true;
+                }
+
+            });
+            StartCoroutine(C_JoinLobbyAttheVeryFirstTime());
+
+
+        }
+
+        IEnumerator C_JoinLobbyAttheVeryFirstTime()
         {
-            _canvas.enabled = true;
-        });
-    }
-    private void Start()
-    {
-      StartCoroutine(C_JoinLobbyAttheVeryFirstTime());   
-    }
+            yield return new WaitUntil(() => PhotonNetwork.NetworkClientState == ClientState.ConnectedToMasterServer);
+            PhotonNetwork.JoinLobby();
+            _join_Button.interactable = true;
+            _create_Button.interactable = true;
+        }
+        private void OnDisable()
+        {
+            PhotonNetwork.RemoveCallbackTarget(this);//í•´ë‹¹ ì¸ìŠ¤í„´ìŠ¤ê°€ Ondisableì´ ë ë•Œ ì½œë°±ëŒ€ìƒ ëª©ë¡ì—ì„œ ì œê±°
+        }
 
-    IEnumerator C_JoinLobbyAttheVeryFirstTime()
-    {
-        yield return new WaitUntil(() => PhotonNetwork.NetworkClientState == ClientState.ConnectedToMasterServer);
-        PhotonNetwork.JoinLobby();
-        _join.interactable = true;
-        _create.interactable = true;
-    }
-    private void OnDisable()
-    {
-        PhotonNetwork.RemoveCallbackTarget(this);//ÇØ´ç ÀÎ½ºÅÏ½º°¡ OnDisableÀÌ µÉ¶§ Äİ¹é´ë»ó ¸ñ·Ï¿¡¼­ Á¦°Å
-    }
-
-    private void OnEnable()
-    {
-        PhotonNetwork.AddCallbackTarget(this); //PhotonNetwork interface¸¦ »ó¼Ó¹Ş¾ÒÀ¸¸é, Äİ¹é È£Ãâ ´ë»óÀ¸·Î µî·Ï½ÃÅ´
-    }
-    public void OnJoinedLobby()//·Îºñ¿¡ ÁøÀÔÇßÀ» ¶§ ¸Ş¼­µå È£Ãâ
-    {
-
-        PhotonNetwork.LocalPlayer.NickName = LoginInformation.profile.nickname; //Æ÷Åæ³×Æ®¿öÅ©ÀÇ ÀÌ¸§À» ·Î±×ÀÎ ÇÁ·ÎÇÊ¿¡ ÀÖ´Â ´Ğ³×ÀÓÀ¸·Î ¼³Á¤
-        Debug.Log("joined Lobby");
-        Debug.Log($"{PhotonNetwork.LocalPlayer.NickName}´Ô ¿À½Å°É È¯¿µÇÕ´Ï´Ù");
-
-        //Ã¤ÆÃÃ¢ ±ú²ıÇÏ°Ô ÇÏ±â.
-
-
-    }
-
-    public void OnLeftLobby()//·Îºñ ¶°³¯ ¶§ ¸Ş¼­µå È£Ãâ
-    {
-
-        Debug.Log($"{PhotonNetwork.LocalPlayer.NickName}´ÔÀÌ ¶°³ª¼Ì½À´Ï´Ù.");
-        throw new System.NotImplementedException();
-    }
-
-    public void OnLobbyStatisticsUpdate(List<TypedLobbyInfo> lobbyStatistics)
-    {
-        throw new System.NotImplementedException();
-    }
-
-    public void OnRoomListUpdate(List<RoomInfo> roomList)//·Îºñ¿¡ ÀÖ´Â ÇÃ·¹ÀÌ¾îµé¿¡°Ô ¹æÀÇ »óÅÂ°¡ ¹Ù²ğ¶§ ¸¶´Ù ÇöÀç ¹æÀÇ »óÅÂ¸¦ ¾Ë·ÁÁÜ
-    {
-        _localRoomInfos = roomList;
-        Debug.Log("Room List Updated....");
-
-        for(int i = _roomListslots.Count - 1; i >= 0; i--)
-            Destroy(_roomListslots[i].gameObject);
-
-        _roomListslots.Clear();
-        
-
-        for(int i = 0; i<roomList.Count; i++)
+        private void OnEnable()
+        {
+            PhotonNetwork.AddCallbackTarget(this); //PhotonNetwork interfaceë¥¼ ìƒì†ë°›ì•˜ìœ¼ë©´ ì½œë°± í˜¸ì¶œ ëŒ€ìƒìœ¼ë¡œ ë“±ë¡ì‹œí‚´
+        }
+        public void OnJoinedLobby()//ë¡œë¹„ì— ì§„ì… í–ˆì„ ë•Œ ë©”ì„œë“œ í˜¸ì¶œ
         {
 
-            RoomListSlot tempSlot = Instantiate(_roomListslotPrefab, _roomListContent);//½½·Ô¸®½ºÆ® ¸¸µé°í
-            tempSlot.roomIndex = i;
-            tempSlot.Refresh(roomList[i].Name, roomList[i].PlayerCount, roomList[i].MaxPlayers);//¹æÁ¤º¸ °»½Å
-            tempSlot.onSelect += () => selectedRoomListSlotIndex = tempSlot.roomIndex;//ÀÌº¥Æ®¿¡ »ç¿ëÀÚ°¡ ¼±ÅÃÇÑ ¹æÀÇ ÀÎµ¦½º¸¦ ³Ñ°ÜÁÜ
+            PhotonNetwork.LocalPlayer.NickName = LoginInformation.profile.nickname; //í¬í†¤ë„¤íŠ¸ì›Œí¬ì˜ ì´ë¦„ì„ ë¡œê·¸ì¸ í”„ë¡œí•„ì— ìˆëŠ” ë‹‰ë„¤ì„ìœ¼ë¡œ ì„¤ì •
+            Debug.Log("joined Lobby");
+            Debug.Log($"{PhotonNetwork.LocalPlayer.NickName}ë‹˜ ì˜¤ì‹ ê±¸ í™˜ì˜í•©ë‹ˆë‹¤.");
 
-            _roomListslots.Add(tempSlot);//»ı¼ºµÈ tempSlotÀ» ·ë¸®½ºÆ®¿¡ ÀúÀå
+            //ì±„íŒ…ì°½ ê¹¨ë—í•˜ê¸° í•˜ê¸°
+        }
+
+        public void OnLeftLobby()//ë¡œë¹„ë¥¼ ë– ë‚  ë•Œ ë©”ì„œë“œ í˜¸ì¶œ
+        {
+
+            Debug.Log($"{PhotonNetwork.LocalPlayer.NickName}ë‹˜ì´ ë– ë‚˜ì…¨ìŠµë‹ˆë‹¤");
+            throw new System.NotImplementedException();
+        }
+
+        public void OnLobbyStatisticsUpdate(List<TypedLobbyInfo> lobbyStatistics)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void OnRoomListUpdate(List<RoomInfo> roomList)//ë¡œë¹„ì— ìˆëŠ” í”Œë ˆì´ì–´ë“¤ì—ê²Œ ë°©ì˜ ìƒíƒœê°€ ë°”ë€”ë•Œ ë§ˆë‹¤ í˜„ì¬ ë°©ì˜ ìƒíƒœë¥¼ ì•Œë ¤ì¤Œ
+        {
+            _localRoomInfos = roomList;
+
+            Debug.Log("Room List Updated....");
+
+            for (int i = _roomListslots.Count - 1; i >= 0; i--)
+                Destroy(_roomListslots[i].gameObject);
+
+            _roomListslots.Clear();
+
+
+            for (int i = 0; i < roomList.Count; i++)
+            {
+                RoomListSlot tempSlot = Instantiate(_roomListslotPrefab, _roomListContent);//ìŠ¬ë¡¯ ë¦¬ìŠ¤íŠ¸ ë§Œë“¤ê³ 
+                tempSlot.GetComponent<Canvas>().sortingOrder = 1;
+                tempSlot.roomIndex = i;
+                tempSlot.Refresh(roomList[i].Name, roomList[i].PlayerCount, roomList[i].MaxPlayers);//ë°©ì •ë³´ ê°±ì‹ 
+                tempSlot.onSelect += () => selectedRoomListSlotIndex = tempSlot.roomIndex;//ì´ë²¤íŠ¸ì— ì‚¬ìš©ìê°€ ì„ íƒí•œ ë°©ì˜ ì¸ë±ìŠ¤ë¥¼ ë„˜ê²¨ì¤Œ
+
+                tempSlot.Reset();
+                //RectTransform slotRectTransform = tempSlot.GetComponent<RectTransform>();
+                //slotRectTransform.sizeDelta = new Vector2(slotRectTransform.sizeDelta.x, tempSlot.itemHeight);
+                //slotRectTransform.localScale = Vector3.one;
+
+                _roomListslots.Add(tempSlot);//ìƒì„±ëœ tempSlotì„ ë£¸ë¦¬ìŠ¤íŠ¸ì— ì €ì¥
+           }
         }
     }
-
 }
