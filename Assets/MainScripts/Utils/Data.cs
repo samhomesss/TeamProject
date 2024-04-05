@@ -11,6 +11,8 @@ public class Data
 
     private int _defaultPlayerMaxHp = 30;
 
+    private float _moveSpeedDecrease = 0.7f;
+
     private float _defaultResurrectionTime = 8f;
 
     private float _bonusResurrectionTime = 3f;
@@ -52,5 +54,7 @@ public class Data
     public float DefaultWeaponRealodTime(int type) => _defaultWeaponRealodTime[type]; 
     public float DefaultWeaponVelocity(int type) => _defaultProjectileVelocity[type]; 
     public int DefaultWeaponRemainBullet(int type) => _defaultWeaponRemainBullet[type]; 
-    public int DefaultWeaponMaxBullet(int type) => _defaultWeaponMaxBullet[type]; 
+    public int DefaultWeaponMaxBullet(int type) => _defaultWeaponMaxBullet[type];
+
+    public float MoveSpeedDecrease() => _moveSpeedDecrease;
 }

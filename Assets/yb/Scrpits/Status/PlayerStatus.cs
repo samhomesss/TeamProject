@@ -8,7 +8,10 @@ namespace yb {
 
         private float _resurrectionTime;
 
+        private float _moveSpeedDecrease = 1f;
         public float MoveSpeed => _moveSpeed;
+
+        public float MoveSpeedDecrease => _moveSpeedDecrease;
 
         protected override void Init() {
             base.Init();
@@ -18,6 +21,10 @@ namespace yb {
 
         public void SetResurrectionTime(float resurrectionTime) {
             _resurrectionTime = resurrectionTime;
+        }
+
+        public void SetMoveSpeedDecrease(float decrease) {
+            _moveSpeedDecrease = decrease;
         }
     }
 

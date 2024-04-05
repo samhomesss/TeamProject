@@ -1,6 +1,6 @@
 using UnityEngine;
 namespace yb {
-    public class PlayerState_Shot : IPlayerState {
+    public class PlayerState_Shot : PlayerStatus, IPlayerState {
         IRangedWeapon _weapon;
         public PlayerState_Shot(PlayerController player) {
             _weapon = player.RangedWeapon;
