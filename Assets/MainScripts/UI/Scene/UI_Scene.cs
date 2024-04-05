@@ -1,17 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using yb;
 
 public class UI_Scene : UI_Base
 {
+    protected PlayerController _player;
     public override void Init()
     {
         Managers.UI.SetCanvas(gameObject, false);
     }
 
-   // public void SetPlayer(PlayerController player)
-   // {
-   //     //    Tuple<Action<int,int> hpevent, Action<) qw = player.이벤트싹다리턴
-   //     //        qw.item1 += 
-   // }
+   public virtual void PlayerEvent(PlayerController player)
+   {
+      _player = player;
+   }
 }

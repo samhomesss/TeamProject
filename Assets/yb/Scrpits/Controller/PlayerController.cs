@@ -37,10 +37,10 @@ namespace yb {
         private Action<string> _itemEvent;
         private Action _miniMapEvent;
 
-        private Tuple<Action<int, int>, Action<int, int>, Action<int>,
+        private  Tuple<Action<int, int>, Action<int, int>, Action<int>,
             Action<int>, Action<string>, Action> _playerEvent;
 
-        public Tuple<Action<int, int>, Action<int, int>, Action<int>,
+        public  Tuple<Action<int, int>, Action<int, int>, Action<int>,
             Action<int>, Action<string>, Action> PlayerEvent => _playerEvent;
 
         /// <summary>
