@@ -5,8 +5,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-namespace Sh
-{
+
     public class UI_Inven_Item : UI_Base
     {
         enum GameObjects
@@ -55,5 +54,5 @@ namespace Sh
         }
         
     }
-}
+
 

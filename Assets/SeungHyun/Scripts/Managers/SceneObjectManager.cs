@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-namespace Sh
-{
+
     public class SceneObjectManager
     {
         GameObject _sceneObject = null;
@@ -26,7 +25,7 @@ namespace Sh
             if (string.IsNullOrEmpty(name))
                 name = typeof(T).Name;
 
-            GameObject go = Managers.Resource.Instantiate($"Obj/Scene/{name}");
+            GameObject go = Managers.Resources.Instantiate($"sh/Obj/Scene/{name}");
             T sceneobj = Util.GetOrAddComponent<T>(go);
             _sceneObject = sceneobj.gameObject;
 
@@ -38,4 +37,4 @@ namespace Sh
         
     }
 
-}
+

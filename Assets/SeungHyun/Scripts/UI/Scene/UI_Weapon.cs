@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Sh
-{
+
     public class UI_Weapon : UI_Scene
     {
         enum GameObjects
@@ -39,8 +38,8 @@ namespace Sh
             GameObject BulletText = GetObject((int)GameObjects.BulletText);
 
             // 총알 나가는 거 구독 해주고
-            Managers.Input.BulletReduce -= BulletCount;
-            Managers.Input.BulletReduce += BulletCount;
+            //Managers.Input.BulletReduce -= BulletCount;
+            //Managers.Input.BulletReduce += BulletCount;
 
             _mainWeaponImage = mainWeapon.GetComponentInChildren<Image>();
             _subWeaponImage = subWeapon.GetComponentInChildren<Image>();    
@@ -80,6 +79,6 @@ namespace Sh
 
         }
     }
-}
+
 
 

@@ -5,8 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 //using static UnityEditor.Progress;
 
-namespace Sh
-{
+
     public class UI_Hp : UI_Scene
     {
         enum GameObjects
@@ -34,8 +33,8 @@ namespace Sh
             _hptext = hp_text.GetComponent<Text>();
 
             // 피가 깎인 액션을 여기 추가 해주고 
-            Managers.Input.HpReduce -= HpDamaged;
-            Managers.Input.HpReduce += HpDamaged;
+            //Managers.Input.HpReduce -= HpDamaged;
+            //Managers.Input.HpReduce += HpDamaged;
            
             _hptext.text = ($"{_hpslider.value} / {_hpslider.maxValue}").ToString();
         }
@@ -50,6 +49,6 @@ namespace Sh
         
 
     }
-}
+
 
 

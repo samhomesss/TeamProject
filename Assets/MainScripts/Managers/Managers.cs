@@ -1,3 +1,4 @@
+using Sh;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -24,8 +25,17 @@ public class Managers : MonoBehaviour
     private ResourcesManager _resources = new ResourcesManager();
     private SceneManagerEX _scene = new SceneManagerEX();
 
-    public static Data Data => _instance._data;
+    #region 04.05 승현 추가 
+    UIManager _ui = new UIManager();
+    SceneObjectManager _sceneObj = new SceneObjectManager();
+    ItemDataBase _itemDataBase = new ItemDataBase();
+    public static SceneObjectManager SceneObj => _instance._sceneObj;
+    public static ItemDataBase ItemDataBase => _instance._itemDataBase;
+    public static UIManager UI => _instance._ui;
+    #endregion
 
+
+    public static Data Data => _instance._data;
     // 수정 사항 
     public static GameManager GameManager => _instance._gameManager;
     public static PoolManager Pool => _instance._pool;
@@ -48,6 +58,8 @@ public class Managers : MonoBehaviour
     {
         if (_instance == null)
         {
+            Debug.Log("Init");
+
             GameObject managers = GameObject.Find("@Managers");
             if (managers == null)
             {
@@ -59,6 +71,10 @@ public class Managers : MonoBehaviour
             _instance = managers.GetComponent<Managers>();
             
             Pool.Init();
+
+            #region 04.05 승현 추가
+            ItemDataBase.Init();
+            #endregion
         }
     }
 }
