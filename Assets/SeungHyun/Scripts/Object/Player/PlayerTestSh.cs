@@ -3,9 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Sh
-{
-    public class Player : Obj
+
+    public class PlayerTestSh: Obj
     {
 
         Vector2 inputVec;
@@ -28,7 +27,7 @@ namespace Sh
             transform.position = Vector3.MoveTowards(transform.position, newPos, 2f);
         }
     }
-}
+
 
 
 

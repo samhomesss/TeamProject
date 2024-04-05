@@ -2,8 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Sh
-{
+
     public class Node
     {
         public Node(Vector3 Pos)
@@ -14,4 +13,4 @@ namespace Sh
         public Color color = default;
     }
 
-}
+

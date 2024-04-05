@@ -87,7 +87,7 @@ namespace Hw
             _start.gameObject.SetActive(PhotonNetwork.LocalPlayer.IsMasterClient == true);//마스터 클라이언트는 _start버튼이 보이도록
             _ready.gameObject.SetActive(PhotonNetwork.LocalPlayer.IsMasterClient == false);//마스터 클라이언트는 레디버튼이 없어짐.
 
-            Player[] players = PhotonNetwork.PlayerList;//들어갈때 플레이어 리스트를 셈
+            Photon.Realtime.Player[] players = PhotonNetwork.PlayerList;//들어갈때 플레이어 리스트를 셈
 
 
 

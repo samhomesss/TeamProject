@@ -17,6 +17,11 @@ public class Define
         Die,
         Idle
     }
+    public enum UIEvent
+    {
+        Click,
+        Drag,
+    }
 
     public enum RelicType {
         BonusAttackSpeedRelic,
@@ -38,11 +43,15 @@ public class Define
         RightMouse,
         Enter,
         Drag,
+        Press,
+        Click,
     }
 
     public enum SceneType
     {
         None,
+        Login,
+        Lobby,
         InGame,
     }
 }

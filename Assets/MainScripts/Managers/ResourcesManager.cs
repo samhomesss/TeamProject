@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class ResourcesManager 
 {
-    public Object Load<T>(string path) where T : Object
+    public T Load<T>(string path) where T : Object
     {
         if (typeof(T) == typeof(GameObject))
         {
@@ -22,7 +22,7 @@ public class ResourcesManager
         return Resources.Load<T>(path);
     }
 
-    public GameObject Instantiate(string path, Transform parent)
+    public GameObject Instantiate(string path, Transform parent = null)
     {
         GameObject obj = Load<GameObject>($"Prefabs/{path}").GameObject();
 
