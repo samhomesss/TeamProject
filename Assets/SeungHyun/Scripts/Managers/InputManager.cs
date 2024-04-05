@@ -7,7 +7,7 @@ namespace Sh
 {
     public class InputManager
     {
-        public Action<Define.MouseEvent> MouseAction = null;
+        public Action<Define.MouseEventType> MouseAction = null;
 
         #region 03.31 승현 추가 
         // 체력 감소 액션 일단은 특정 상호 작용이 아닌 키로 감소 시키고 있어서 여기에 만들어 놓음 옮기면 됨
@@ -68,13 +68,13 @@ namespace Sh
             {
                 if (Input.GetMouseButton(0))
                 {
-                    MouseAction.Invoke(Define.MouseEvent.Press);
+                    MouseAction.Invoke(Define.MouseEventType.Press);
                     _pressed = true;
                 }
                 else
                 {
                     if (_pressed)
-                        MouseAction.Invoke(Define.MouseEvent.Click);
+                        MouseAction.Invoke(Define.MouseEventType.Click);
                     _pressed = false;
                 }
             }

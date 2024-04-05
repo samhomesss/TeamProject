@@ -4,8 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-namespace Sh
-{
+
     public static class Extension
     {
         public static T GetOrAddComponent<T>(this GameObject go) where T : UnityEngine.Component
@@ -18,5 +17,5 @@ namespace Sh
             UI_Base.BindEvent(go, action, type);
         }
     }
-}
+
 

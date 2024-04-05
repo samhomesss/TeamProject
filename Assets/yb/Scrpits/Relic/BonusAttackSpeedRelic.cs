@@ -4,6 +4,8 @@ using yb;
 
 namespace yb {
     public class BonusAttackSpeedRelic : MonoBehaviour, IRelic, IObtainableObject {
+        public string Name => gameObject.name;
+
         public Define.RelicType RelicType { get; } = Define.RelicType.BonusAttackSpeedRelic;
 
         public void DeleteRelic(PlayerController player) {

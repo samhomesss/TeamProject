@@ -6,12 +6,12 @@ namespace Sh
 {
     public class Define
     {
-        public enum Scene
+        public enum SceneType
         {
-            Unknown,
+            None,
             Login,
             Lobby,
-            Game,
+            InGame,
         }
 
         public enum UIEvent
@@ -20,12 +20,13 @@ namespace Sh
             Drag,
         }
 
-        public enum MouseEvent
+        public enum MouseEventType
         {
             Press,
             Click,
         }
 
+        // 현재는 안쓴다고 판단.
         public enum CameraMode
         {
             QuarterView,

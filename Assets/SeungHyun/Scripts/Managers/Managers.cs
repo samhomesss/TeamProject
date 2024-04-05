@@ -9,26 +9,26 @@ namespace Sh
         
         static Managers s_instance;
         static Managers Instance { get { Init(); return s_instance; } }
-
-        InputManager _input = new InputManager();
-        PoolManager _pool = new PoolManager();
-        ResourceManager _resource = new ResourceManager();
-        SceneManagerEx _scene = new SceneManagerEx();
-        UIManager _ui = new UIManager();
         
-        #region 04.01 승현 싱글톤 추가
-        SceneObjectManager _sceneObj = new SceneObjectManager(); // Scene에서 사용할 Object 저장소
-        ItemDataBase _itemDataBase = new ItemDataBase();
+        InputManager _input = new InputManager();//✔️
+        PoolManager _pool = new PoolManager();//✔️
+        ResourceManager _resource = new ResourceManager();//✔️
+        SceneManagerEx _scene = new SceneManagerEx();//✔️
+        UIManager _ui = new UIManager();//✔️
 
-        public static SceneObjectManager SceneObj { get { return Instance._sceneObj; } }
-        public static ItemDataBase ItemDataBase { get { return Instance._itemDataBase; } }
+        #region 04.01 승현 싱글톤 추가
+        SceneObjectManager _sceneObj = new SceneObjectManager(); // Scene에서 사용할 Object 저장소//✔️
+       // ItemDataBase _itemDataBase = new ItemDataBase(); //✔️
+
+        public static SceneObjectManager SceneObj { get { return Instance._sceneObj; } }//✔️
+        //public static ItemDataBase ItemDataBase { get { return Instance._itemDataBase; } }//✔️
         #endregion
 
-        public static InputManager Input { get { return Instance._input; } }
-        public static PoolManager Pool { get { return Instance._pool; } }
-        public static ResourceManager Resource { get { return Instance._resource; } }
-        public static SceneManagerEx Scene { get { return Instance._scene; } }
-        public static UIManager UI { get { return Instance._ui; } }
+        public static InputManager Input { get { return Instance._input; } }//✔️
+        public static PoolManager Pool { get { return Instance._pool; } }//✔️
+        public static ResourceManager Resource { get { return Instance._resource; } }//✔️
+        public static SceneManagerEx Scene { get { return Instance._scene; } }//✔️
+        public static UIManager UI { get { return Instance._ui; } }//✔️
 
         void Start()
         {
@@ -57,10 +57,11 @@ namespace Sh
 
                 s_instance._pool.Init();
                 // 승현 추가
-                s_instance._itemDataBase.Init();
+               // s_instance._itemDataBase.Init();
             }
         }
 
+        // 메인에 추가 해야 되는가?
         public static void Clear()
         {
             Input.Clear();
@@ -68,8 +69,6 @@ namespace Sh
             UI.Clear();
             Pool.Clear();
         }
-
-        
     }
 }
 

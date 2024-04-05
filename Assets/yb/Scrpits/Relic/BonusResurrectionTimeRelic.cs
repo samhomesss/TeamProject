@@ -4,6 +4,8 @@ using yb;
 
 namespace yb {
     public class BonusResurrectionTimeRelic : MonoBehaviour, IRelic, IObtainableObject {
+        public string Name => gameObject.name;
+
         public Define.RelicType RelicType { get; } = Define.RelicType.BonusResurrectionTimeRelic;
 
         public void DeleteRelic(PlayerController player) {

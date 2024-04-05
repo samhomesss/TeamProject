@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Sh
-{
     public class UI_Inven : UI_Scene
     {
 
@@ -31,7 +29,7 @@ namespace Sh
 
             GameObject gridPanel = Get<GameObject>((int)GameObjects.GridPanel);
             foreach (Transform child in gridPanel.transform)
-                Managers.Resource.Destroy(child.gameObject);
+                Managers.Resources.Destroy(child.gameObject);
 
             // 실제 인벤토리 정보를 참고해서
             for (int i = 0; i < 4; i++)
@@ -60,5 +58,5 @@ namespace Sh
             }
         }
     }
-}
+
 

@@ -22,15 +22,15 @@ namespace Hw
             PhotonNetwork.Instantiate("Prefabs/hw/PlayerPrefabs/Player",Vector3.zero,Quaternion.identity);
 
             // UI 
-            Sh.Managers.UI.ShowSceneUI<Sh.UI_Weapon>();
-            Sh.Managers.UI.ShowSceneUI<Sh.UI_Inven>();
-            Sh.Managers.UI.ShowSceneUI<Sh.UI_Hp>();
-            Sh.Managers.UI.ShowSceneUI<Sh.UI_MiniMap>();
-            Sh.Managers.UI.ShowSceneUI<Sh.ItemCreate_Button>();
+            //Sh.Managers.UI.ShowSceneUI<Sh.UI_Weapon>();
+            //Sh.Managers.UI.ShowSceneUI<Sh.UI_Inven>();
+            //Sh.Managers.UI.ShowSceneUI<Sh.UI_Hp>();
+            //Sh.Managers.UI.ShowSceneUI<Sh.UI_MiniMap>();
+            //Sh.Managers.UI.ShowSceneUI<Sh.ItemCreate_Button>();
 
-            //GameObject
-            Sh.Managers.SceneObj.ShowSceneObject<Sh.Map>();
-            Sh.Managers.SceneObj.ShowSceneObject<MiniMapCam>();
+            ////GameObject
+            //Sh.Managers.SceneObj.ShowSceneObject<Sh.Map>();
+            //Sh.Managers.SceneObj.ShowSceneObject<MiniMapCam>();
 
         }
         public override void Clear()

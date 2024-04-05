@@ -1,8 +1,7 @@
 using UnityEngine;
 using Color = UnityEngine.Color;
 
-namespace Sh
-{
+
     public class Map : Obj
     {
         public enum Texture
@@ -26,9 +25,9 @@ namespace Sh
         {
             var path = $"Prefabs/sh/Texture/White";
             
-            texture = Managers.Resource.Load<Texture2D>(path);
+            texture = Managers.Resources.Load<Texture2D>(path);
             // 플레이어를 생성하면서 넣어줌
-            player = Managers.SceneObj.ShowSceneObject<Player>().gameObject;
+            player = Managers.SceneObj.ShowSceneObject<PlayerTestSh>().gameObject;
 
             for (int i = 0; i < 64; i++)
             {
@@ -67,8 +66,8 @@ namespace Sh
             }
             meshRenderer.material.mainTexture = texture;
 
-            Player.OnNodeChanged -= UpdateColor;
-            Player.OnNodeChanged += UpdateColor;
+            PlayerTestSh.OnNodeChanged -= UpdateColor;
+            PlayerTestSh.OnNodeChanged += UpdateColor;
         }
 
         private void Update()
@@ -122,7 +121,7 @@ namespace Sh
             Color color = Color.white;
             switch (player.name)
             {
-                case "Player":
+                case "PlayerTestSh":
                     color = Color.yellow;
                     break;
                 case "Player2":
@@ -136,4 +135,4 @@ namespace Sh
 
         
     }
-}
+

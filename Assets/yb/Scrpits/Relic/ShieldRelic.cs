@@ -4,6 +4,8 @@ using yb;
 
 namespace yb {
     public class ShieldRelic : MonoBehaviour, IRelic, IObtainableObject {
+        public string Name => gameObject.name;
+
         public Define.RelicType RelicType { get; } = Define.RelicType.ShieldRelic;
 
         public void DeleteRelic(PlayerController player) {

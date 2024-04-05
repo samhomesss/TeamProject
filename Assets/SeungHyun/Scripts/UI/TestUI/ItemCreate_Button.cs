@@ -7,8 +7,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-namespace Sh
-{
+
     public class ItemCreate_Button : UI_Scene
     {
         public static event Action<Sprite> OnImageChanged;
@@ -35,6 +34,6 @@ namespace Sh
                 OnImageChanged.Invoke(_itemImage);
         }    
     }
-}
+
 
 

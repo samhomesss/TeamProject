@@ -14,6 +14,7 @@ namespace yb {
         protected float _projectileVelocity;
         protected int _defaultDamage;
 
+
         // 29 / 180 
         //29가 currentbullet
         //180이 _maxBullet
@@ -33,6 +34,7 @@ namespace yb {
         //추가 투사체 렐릭을 먹었을시 추가되는 발사체의 수
         protected int _bonusProjectile;
         protected IProjectileCreator _projectileCreator;
+        protected PlayerController _player;
         protected Transform _firePos;
         protected GameObject _weaponGameObject;
         protected bool isShot;
