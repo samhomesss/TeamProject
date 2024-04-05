@@ -1,7 +1,7 @@
 using UnityEngine;
 
 namespace yb {
-    public class PlayerState_Idle : IPlayerState {
+    public class PlayerState_Idle : PlayerStatus, IPlayerState {
         public PlayerState_Idle(PlayerController player) {
             player.ChangeFadeAnimation("Idle");
         }

@@ -11,6 +11,20 @@ public class Data
 
     private int _defaultPlayerMaxHp = 30;
 
+    private float _moveSpeedDecrease = 0.7f;
+
+    private float _defaultResurrectionTime = 8f;
+
+    private float _bonusResurrectionTime = 3f;
+
+    private int _defaultShotgunProjectile = 6;
+
+    private int[] _bonusProjectile = new int[] {1, 1, 3 };
+
+    private float[] _bonusProjectileChance = new float[] {0.5f, 0.2f,0.3f  };
+
+    private float[] _bonusAttackDelay = new float[] { 0.5f, 0.2f, 0.7f };
+
     private int[] _defaultWeaponDamage = new int[] {2, 1, 3};
 
     private float[] _defaultWeaponDelay = new float[] { 1f, .5f, 2f };
@@ -27,10 +41,20 @@ public class Data
 
     public int DefaultPlayerMaxHp => _defaultPlayerMaxHp;
 
-    public int DefaultWeaponDamage(int type) => _defaultWeaponDamage[type]; 
+    public float DefaultResurrectionTime => _defaultResurrectionTime;
+    public float BonusResurrectionTime => _bonusResurrectionTime;
+    public int DefaultShotgunProjectile => _defaultShotgunProjectile;
+
+    public int DefaultWeaponDamage(int type) => _defaultWeaponDamage[type];
+
+    public int BonusProjectile(int type) => _bonusProjectile[type]; 
+    public float BonusAttackDelay(int type) => _bonusAttackDelay[type]; 
+    public float BonusProjectileChance(int type) => _bonusProjectileChance[type]; 
     public float DefaultWeaponDelay(int type) => _defaultWeaponDelay[type]; 
     public float DefaultWeaponRealodTime(int type) => _defaultWeaponRealodTime[type]; 
     public float DefaultWeaponVelocity(int type) => _defaultProjectileVelocity[type]; 
     public int DefaultWeaponRemainBullet(int type) => _defaultWeaponRemainBullet[type]; 
-    public int DefaultWeaponMaxBullet(int type) => _defaultWeaponMaxBullet[type]; 
+    public int DefaultWeaponMaxBullet(int type) => _defaultWeaponMaxBullet[type];
+
+    public float MoveSpeedDecrease() => _moveSpeedDecrease;
 }

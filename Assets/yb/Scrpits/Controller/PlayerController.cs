@@ -8,6 +8,7 @@ namespace yb {
     public class PlayerController : MonoBehaviour, ITakeDamage {
         private readonly float _animationFadeTime = .3f;
         private Rigidbody _rigid;
+        private Data _data;
         private float moveX;
         private float moveZ;
         private Collider _collider;
@@ -18,20 +19,15 @@ namespace yb {
         private IRangedWeapon _rangeWeapon;
         private IItemDroplable _droplable = new ItemDroplable();
         private IObtainableObject _collideItem;
-
+        private bool[] _haveRelic = new bool[(int)Define.RelicType.Count];
         private PlayerStatus _status;
+        public PlayerStatus Status => _status;
         private RotateToMouseScript _rotateToMouseScript;
         public RotateToMouseScript RotateToMouseScript => _rotateToMouseScript;
         public IRangedWeapon RangedWeapon => _rangeWeapon;
         public Transform RangedWeaponsParent => _rangedWeaponsParent;
 
-        public enum State { 
-            Shot,
-            Reload,
-            Pickup,
-            Die,
-            Idle
-        }
+
         private void Awake() {
             _rigid = GetComponent<Rigidbody>();
             _collider = GetComponent<Collider>();
@@ -50,8 +46,9 @@ namespace yb {
             }
 
             _playerState = new PlayerState_Idle(this);
-            _rangeWeapon = new RangedWeapon_Pistol(_rangedWeaponsParent);
+            _rangeWeapon = new RangedWeapon_Pistol(_rangedWeaponsParent, this);
 
+            _data = Managers.Data;
 
             //test
             _droplable.Set("ObtainableRifle");
@@ -66,6 +63,22 @@ namespace yb {
             OnPickupUpdate();
             _rangeWeapon.OnUpdate();
             _playerState.OnUpdate(this);
+        }
+
+        public void SetRelic(IRelic relic) {
+            _haveRelic[(int)relic.RelicType] = true;
+            _rangeWeapon.OnUpdateRelic(this);
+            _status.SetResurrectionTime(_data.BonusResurrectionTime);
+        }
+
+        public void DeleteRelic(IRelic relic) {
+            _haveRelic[(int)relic.RelicType] = false;
+            _rangeWeapon.OnUpdateRelic(this);
+            _status.SetResurrectionTime(_data.DefaultResurrectionTime);
+        }
+
+        public bool[] IsRelic() {
+            return _haveRelic;
         }
 
         private void OnPickupUpdate() {
@@ -88,8 +101,8 @@ namespace yb {
         public void OnPickupEvent() => ChangeState(new PlayerState_Idle(this));
         public void ChangeState(IPlayerState playerState) =>  _playerState = playerState;
         public void ChangeFadeAnimation(string animation) => _animator.CrossFade(animation, _animationFadeTime);
-        public void ChangeIntigerAnimation(State state) => _animator.SetInteger("State", (int)state);
-        public void ChangeTriggerAnimation(State state) => _animator.SetTrigger(state.ToString());
+        public void ChangeIntigerAnimation(Define.PlayerState state) => _animator.SetInteger("State", (int)state);
+        public void ChangeTriggerAnimation(Define.PlayerState state) => _animator.SetTrigger(state.ToString());
 
         public void ChangeRangedWeapon(IRangedWeapon weapon) {
             foreach(Transform t in _rangedWeaponsParent) {
@@ -115,14 +128,14 @@ namespace yb {
         /// </summary>
         public void OnMoveUpdate() {
             Vector3 dir = new Vector3(moveX, 0f, moveZ);
-            _rigid.MovePosition(_rigid.position + dir * _status.MoveSpeed * Time.deltaTime);
+            _rigid.MovePosition(_rigid.position + dir * (_status.MoveSpeed * _status.MoveSpeedDecrease )* Time.deltaTime);
         }
 
         public void OnDieUpdate(GameObject attacker) {
             transform.LookAt(attacker.transform.position);
             _collider.enabled = false;
             _rigid.isKinematic = true;
-            ChangeTriggerAnimation(State.Die);
+            ChangeTriggerAnimation(Define.PlayerState.Die);
         }
 
         public void OnDieEvent() {
