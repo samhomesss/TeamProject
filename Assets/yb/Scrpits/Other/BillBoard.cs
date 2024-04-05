@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class BillBoard : MonoBehaviour
-{
-    void Update()
-    {
-        Vector3 cameraPos = Camera.main.transform.position;
-        transform.LookAt(cameraPos);
+namespace yb {
+    public class BillBoard : MonoBehaviour {
+        void Update() {
+            Vector3 cameraPos = Camera.main.transform.position;
+            transform.LookAt(cameraPos);
+        }
     }
 }

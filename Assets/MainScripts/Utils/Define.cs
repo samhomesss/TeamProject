@@ -18,6 +18,12 @@ public class Define
         Idle
     }
 
+    public enum User {
+        None,
+        Hw,
+        Yb,
+        Sh,
+    }
     public enum RelicType {
         BonusAttackSpeedRelic,
         BonusProjectileRelic,

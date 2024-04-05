@@ -12,22 +12,37 @@ namespace yb {
         private Data _data;
         private float moveX;
         private float moveZ;
+        private Camera _myCamera;
         private Collider _collider;
         private Animator _animator;
-        private Vector3 _mousePos;
-        private Transform _rangedWeaponsParent;
-        private IPlayerState _playerState;
-        private IRangedWeapon _rangeWeapon;
+        private PlayerPickupController _pickupController;
+        private PlayerStateController _stateController;
+        private PlayerWeaponController _weaponController;
+        private RotateToMouseScript _rotateToMouseScript;
         private IItemDroplable _droplable = new ItemDroplable();
-        private IObtainableObject _collideItem;
-        private bool[] _haveRelic = new bool[(int)Define.RelicType.Count];
         private PlayerStatus _status;
         private PhotonView _photonview; //0405 09:41분 이희웅 캐릭터간에 동기화를 위한 포톤 뷰 추가
+
+        /// <summary>
+        /// 스탯,능력치 클래스
+        /// 타고 들어가면 private로 플레이어의 정보들이 변수로 생성되어있음.
+        /// 필요시 get 프로퍼티 생성 후 사용
+        /// </summary>
         public PlayerStatus Status => _status;
-        private RotateToMouseScript _rotateToMouseScript;
+
+        /// <summary>
+        /// 플레이어 무기 클래스
+        /// 내부의 IRangedWeapon 변수가 무기의 정보를 지니고있음
+        /// 타고 들어가면 private로 무기의 정보들이 변수로 생성되어있음.
+        /// 필요시 get 프로퍼티 생성 후 사용
+        /// </summary>
+        public PlayerWeaponController WeaponController => _weaponController;
+
+
+        public PlayerPickupController PickupController => _pickupController;
+        public PlayerStateController StateController => _stateController;
+        public Camera MyCamera => _myCamera;
         public RotateToMouseScript RotateToMouseScript => _rotateToMouseScript;
-        public IRangedWeapon RangedWeapon => _rangeWeapon;
-        public Transform RangedWeaponsParent => _rangedWeaponsParent;
 
 
         private void Awake() {
@@ -37,23 +52,17 @@ namespace yb {
             _status = GetComponent<PlayerStatus>();
             _rotateToMouseScript = GetComponent<RotateToMouseScript>();
             _photonview = GetComponent<PhotonView>();
+            _weaponController = GetComponent<PlayerWeaponController>();
+            _stateController = GetComponent<PlayerStateController>();
+            _pickupController = GetComponent<PlayerPickupController>();
         }
 
-   
 
         private void Start() {
-            _rangedWeaponsParent = Util.FindChild(gameObject, "RangedWeapons", true).transform;
-             
-            foreach(Transform t in _rangedWeaponsParent) {
-                t.localScale = Vector3.zero;
-            }
-
-            _playerState = new PlayerState_Idle(this);
-            _rangeWeapon = new RangedWeapon_Pistol(_rangedWeaponsParent, this);
-
             _data = Managers.Data;
 
             //test
+            //사망시 set해둔 아이템 드랍
             _droplable.Set("ObtainableRifle");
             _droplable.Set("ObtainablePistol");
             _droplable.Set("ObtainableShotgun");
@@ -62,37 +71,8 @@ namespace yb {
         private void Update() {
             moveX = Input.GetAxisRaw("Horizontal");
             moveZ = Input.GetAxisRaw("Vertical");
-
-            OnPickupUpdate();
-            _rangeWeapon.OnUpdate();
-            _playerState.OnUpdate(this);
         }
-
-        public void SetRelic(IRelic relic) {
-            _haveRelic[(int)relic.RelicType] = true;
-            _rangeWeapon.OnUpdateRelic(this);
-            _status.SetResurrectionTime(_data.BonusResurrectionTime);
-        }
-
-        public void DeleteRelic(IRelic relic) {
-            _haveRelic[(int)relic.RelicType] = false;
-            _rangeWeapon.OnUpdateRelic(this);
-            _status.SetResurrectionTime(_data.DefaultResurrectionTime);
-        }
-
-        public bool[] IsRelic() {
-            return _haveRelic;
-        }
-
-        private void OnPickupUpdate() {
-            if (_collideItem == null)
-                return;
-
-            if (Input.GetKeyDown(KeyCode.G)) {
-                ChangeState(new PlayerState_Pickup(this));
-                _collideItem.Pickup(this);
-            }
-        }
+        public void SetCamera(Camera camera) => _myCamera = camera;
 
         public bool isMoving() {
             if (moveX == 0 && moveZ == 0)
@@ -101,30 +81,9 @@ namespace yb {
             return true;
         }
         
-        public void OnPickupEvent() => ChangeState(new PlayerState_Idle(this));
-        public void ChangeState(IPlayerState playerState) =>  _playerState = playerState;
         public void ChangeFadeAnimation(string animation) => _animator.CrossFade(animation, _animationFadeTime);
         public void ChangeIntigerAnimation(Define.PlayerState state) => _animator.SetInteger("State", (int)state);
         public void ChangeTriggerAnimation(Define.PlayerState state) => _animator.SetTrigger(state.ToString());
-
-        public void ChangeRangedWeapon(IRangedWeapon weapon) {
-            foreach(Transform t in _rangedWeaponsParent) {
-                if (t.name == weapon.WeaponType.ToString())
-                    t.localScale = weapon.DefaultScale;
-                else
-                t.localScale = Vector3.zero;
-            }
-            _rangeWeapon = weapon;
-        }
-
-
-        /// <summary>
-        /// 플레이어 총 발사 로직
-        /// </summary>
-        public void OnShotUpdate() => _rangeWeapon.Shot(_mousePos, this);
-
-        public void OnReloadUpdate() => _rangeWeapon.Reload(this);
-        
 
         /// <summary>
         /// 플레이어 이동 로직
@@ -144,9 +103,8 @@ namespace yb {
             ChangeTriggerAnimation(Define.PlayerState.Die);
         }
 
-        public void OnDieEvent() {
-            Managers.Resources.Destroy(gameObject);
-        }
+        public void OnDieEvent() =>  Managers.Resources.Destroy(gameObject);
+
         public void TakeDamage(int amout, GameObject attacker) {
             if (amout <= 0)
                 return;
@@ -155,22 +113,7 @@ namespace yb {
 
             if(hp <= 0) {
                 _droplable.Drop(transform.position);
-                ChangeState(new PlayerState_Die(this, attacker));
-            }
-        }
-
-        private void OnTriggerEnter(Collider c) {
-            if (c.CompareTag("ObtainableObject")) {
-                _collideItem = c.GetComponent<IObtainableObject>();
-                return;
-                
-            }
-        }
-
-        private void OnTriggerExit(Collider c) {
-            if(c.CompareTag("ObtainableObject")) {
-                if (_collideItem != null)
-                    _collideItem = null;
+                _stateController.ChangeState(new PlayerState_Die(this, attacker));
             }
         }
     }

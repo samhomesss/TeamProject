@@ -1,8 +1,10 @@
 using UnityEngine;
 
-public class PlayerStatus {
-    protected Data _data;
-    public PlayerStatus() {
-        _data = Managers.Data;
+namespace yb {
+    public class PlayerState {
+        protected Data _data;
+        public PlayerState() {
+            _data = Managers.Data;
+        }
     }
 }

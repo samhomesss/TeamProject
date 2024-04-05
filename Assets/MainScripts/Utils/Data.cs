@@ -11,7 +11,7 @@ public class Data
 
     private int _defaultPlayerMaxHp = 30;
 
-    private float _moveSpeedDecrease = 0.7f;
+    private float _moveSpeedDecrease = 0.5f;
 
     private float _defaultResurrectionTime = 8f;
 
