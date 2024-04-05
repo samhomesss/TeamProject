@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using yb;
 
-    public class UI_Inven : UI_Scene
+public class UI_Inven : UI_Scene
     {
 
         List<UI_Inven_Item> ui_Inven_Items = new List<UI_Inven_Item>();
@@ -17,7 +18,7 @@ using UnityEngine.UI;
         {
             Init();
             // 구독해주고
-            ItemCreate_Button.OnImageChanged += ChangeImage;
+            // ItemCreate_Button.OnImageChanged += ChangeImage;
         }
 
 

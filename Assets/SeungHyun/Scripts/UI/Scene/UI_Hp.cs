@@ -3,10 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using yb;
 //using static UnityEditor.Progress;
 
 
-    public class UI_Hp : UI_Scene
+public class UI_Hp : UI_Scene
     {
         enum GameObjects
         {
@@ -19,6 +20,7 @@ using UnityEngine.UI;
         private void Start()
         {
             Init();
+            
         }
 
         public override void Init()
@@ -39,8 +41,16 @@ using UnityEngine.UI;
             _hptext.text = ($"{_hpslider.value} / {_hpslider.maxValue}").ToString();
         }
 
+    // 한번 사용 해보려 함
+    public override void PlayerEvent(PlayerController player)
+    {
+       // Todo : 알려줘 윤범이형!!!~~~
+       // base.PlayerEvent(player);
+       // player.PlayerEvent.Item1 += HpDamaged;
+    }
 
-        public void HpDamaged(float damage)
+
+    public void HpDamaged(int damage , int maxHP)
         {
             _hpslider.value -= damage;
             _hptext.text = ($"{_hpslider.value} / {_hpslider.maxValue}").ToString();
