@@ -391,7 +391,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 171988006198558246, guid: 14d7cc83ddbaffe41baeb85281503b8f, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -0.000030517578
+      value: -0.000019073486
       objectReference: {fileID: 0}
     - target: {fileID: 171988006198558246, guid: 14d7cc83ddbaffe41baeb85281503b8f, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -563,7 +563,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2016732127174231790, guid: 14d7cc83ddbaffe41baeb85281503b8f, type: 3}
       propertyPath: m_Name
-      value: Canvas - GameReady
+      value: GameReady
       objectReference: {fileID: 0}
     - target: {fileID: 2125717663435778119, guid: 14d7cc83ddbaffe41baeb85281503b8f, type: 3}
       propertyPath: m_AnchorMax.y
@@ -976,6 +976,10 @@ PrefabInstance:
     - target: {fileID: 8038750650310498798, guid: 14d7cc83ddbaffe41baeb85281503b8f, type: 3}
       propertyPath: m_Name
       value: PlayerStatusInGameReadyInRoomSlot5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8166127594711522988, guid: 14d7cc83ddbaffe41baeb85281503b8f, type: 3}
+      propertyPath: m_Name
+      value: ChatingVariable
       objectReference: {fileID: 0}
     - target: {fileID: 8211361802423903572, guid: 14d7cc83ddbaffe41baeb85281503b8f, type: 3}
       propertyPath: m_AnchorMax.x
