@@ -14,7 +14,7 @@ public class ChattingManager : MonoBehaviourPun
 {
     [SerializeField] private TMP_InputField _inputchat;
     [SerializeField] private Transform _trContent;
-    [SerializeField] private TMP_Text[] _chatText;
+    [SerializeField] private TMP_Text _chatText;
 
     [SerializeField] private UnityEngine.UI.Button _extend_Button;
     [SerializeField] private RectTransform _scrollView_RectTransform;
@@ -26,7 +26,7 @@ public class ChattingManager : MonoBehaviourPun
         if (string.IsNullOrWhiteSpace(s))
             return;
 
-        photonView.RPC("RpcAddChat", RpcTarget.All,$"{PhotonNetwork.LocalPlayer.NickName} : {_inputchat.text}");
+        photonView.RPC("RpcAddChat", RpcTarget.All, $"{PhotonNetwork.LocalPlayer.NickName} : {_inputchat.text}");
         _inputchat.text = "";
 
         _inputchat.ActivateInputField();
@@ -36,20 +36,18 @@ public class ChattingManager : MonoBehaviourPun
     private void Start()
     {
 
-        _inputchat = transform.Find($"Panel - ChatingVariable/ChattingInput").GetComponent<TMP_InputField>();
+        _inputchat = transform.Find($"ChatingVariable/ChattingInput").GetComponent<TMP_InputField>();
         //onSubmit은 inputField의 프로퍼티 엔터를 누르면 호출되도록설정
         _inputchat.onSubmit.AddListener(Onsubmit);
 
-        for (int i = 0; i < _chatText.Length; i++)
-        {
-            _chatText[i] = transform.Find($"Panel - ChatingVariable/ScrollView/Viewport/Content/Chatitem_{i}").GetComponent<TMP_Text>();
-        }
-        _trContent = transform.Find($"Panel - ChatingVariable/ScrollView/Viewport/Content").GetComponent<Transform>();
-        _extend_Button = transform.Find($"Panel - ChatingVariable/ExtendButton").GetComponent<UnityEngine.UI.Button>();
-        _scrollView_RectTransform = transform.Find($"Panel - ChatingVariable/ScrollView").GetComponent<RectTransform>();
-        
+        _chatText = transform.Find($"ChatingVariable/ScrollView/Viewport/Content/Chat_list").GetComponent<TMP_Text>();
+        _trContent = transform.Find($"ChatingVariable/ScrollView/Viewport/Content").GetComponent<Transform>();
+        _extend_Button = transform.Find($"ChatingVariable/ExtendButton").GetComponent<UnityEngine.UI.Button>();
+        _scrollView_RectTransform = transform.Find($"ChatingVariable/ScrollView").GetComponent<RectTransform>();
 
-        _extend_Button.onClick.AddListener(() => {//채팅창 창크기를 조절하는 버튼, 버튼을 눌러 최소화, 최대화를 할 수 잇다.
+
+        _extend_Button.onClick.AddListener(() =>
+        {//채팅창 창크기를 조절하는 버튼, 버튼을 눌러 최소화, 최대화를 할 수 잇다.
             _extend_ButtonEnabled = !_extend_ButtonEnabled;
 
             if (_extend_ButtonEnabled)
@@ -71,26 +69,8 @@ public class ChattingManager : MonoBehaviourPun
     }
 
     [PunRPC]
-    void RpcAddChat(string msg)
+    void RpcAddChat(string msg) //들어온 채팅을 chat_text에 += 더해서 올린다.
     {
-        bool isInput = false;
-        for(int i =0; i< _chatText.Length; i++)
-        {
-            if (_chatText[i].text == "")
-            {
-                isInput = true;
-                _chatText[i].text = msg;
-                break;
-            }
-        }
-        if (!isInput)
-        {
-            for(int i = 1; i < _chatText.Length; i++)
-            {
-                _chatText[i - 1].text = _chatText[i].text;
-            }
-            _chatText[_chatText.Length - 1].text = msg;
-        }
+        _chatText.text += "\n"+msg;
     }
-
 }

@@ -13,8 +13,11 @@ public class GameScene : BaseScene
     {
         base.Init();
 
-        //GameObject go = PhotonNetwork.Instantiate("Prefabs/hw/PlayerPrefabs/Player", Vector3.zero, Quaternion.identity);
-        //go.name = "Player";
+        if (IsTestMode.Instance.CurrentUser != Define.User.Hw)
+            return;
+
+        GameObject go = PhotonNetwork.Instantiate("Prefabs/hw/PlayerPrefabs/Player", Vector3.zero, Quaternion.identity);
+        go.name = "Player";
         // UI 
        // Sh.Managers.UI.ShowSceneUI<Sh.UI_Weapon>();
        // Sh.Managers.UI.ShowSceneUI<Sh.UI_Inven>();
@@ -23,8 +26,8 @@ public class GameScene : BaseScene
        // Sh.Managers.UI.ShowSceneUI<Sh.ItemCreate_Button>();
        //
        // //GameObject
-       // Sh.Managers.SceneObj.ShowSceneObject<Sh.Map>();
-       // Sh.Managers.SceneObj.ShowSceneObject<MiniMapCam>();
+        Sh.Managers.SceneObj.ShowSceneObject<Sh.Map>();
+        Sh.Managers.SceneObj.ShowSceneObject<MiniMapCam>();
     }
 
 }

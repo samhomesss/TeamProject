@@ -9,6 +9,8 @@ public class IsTestMode : MonoBehaviour
     public Define.User CurrentUser;
     private void Awake() {
         Instance = this;
+
+        DontDestroyOnLoad(this);
     }
 
     private void Start() {
