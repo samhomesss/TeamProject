@@ -7,8 +7,6 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Hw
-{
     public class RegisterID : UI_Scene
     {
 
@@ -102,5 +100,3 @@ namespace Hw
         }
 
     }
-
-}

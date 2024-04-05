@@ -6,8 +6,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-namespace Hw
-{
+
     public class CreateRoom : UI_Scene
     {
         enum GameObjects
@@ -79,4 +78,3 @@ namespace Hw
             });
         }
     }
-} 

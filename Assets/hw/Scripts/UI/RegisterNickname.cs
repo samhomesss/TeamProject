@@ -6,8 +6,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Firebase.Extensions;
 
-namespace Hw
-{
+
     public class RegisterNickname : UI_Scene
     {
         enum GameObjects
@@ -77,6 +76,3 @@ namespace Hw
         }
 
     }
-}
-
-

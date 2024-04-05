@@ -6,11 +6,10 @@ using System.Data;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace Hw
-{
+
     public class GamePlayScene : BaseScene
     {
-        protected override void Init()
+        public override void Init()
         {
             base.Init();
 
@@ -37,5 +36,3 @@ namespace Hw
         {
         }
     }
-}
-
