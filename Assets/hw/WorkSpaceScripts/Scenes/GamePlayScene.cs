@@ -1,4 +1,5 @@
 using Photon.Pun;
+using Sh;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
@@ -19,7 +20,17 @@ namespace Hw
             //3.
 
             PhotonNetwork.Instantiate("Prefabs/hw/PlayerPrefabs/Player",Vector3.zero,Quaternion.identity);
-            Managers.SceneObj.ShowSceneObject<Map>();
+
+            // UI 
+            Sh.Managers.UI.ShowSceneUI<Sh.UI_Weapon>();
+            Sh.Managers.UI.ShowSceneUI<Sh.UI_Inven>();
+            Sh.Managers.UI.ShowSceneUI<Sh.UI_Hp>();
+            Sh.Managers.UI.ShowSceneUI<Sh.UI_MiniMap>();
+            Sh.Managers.UI.ShowSceneUI<Sh.ItemCreate_Button>();
+
+            //GameObject
+            Sh.Managers.SceneObj.ShowSceneObject<Sh.Map>();
+            Sh.Managers.SceneObj.ShowSceneObject<MiniMapCam>();
 
         }
         public override void Clear()

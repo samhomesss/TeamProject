@@ -38,7 +38,7 @@ namespace Sh
 
         public void SetCanvas(GameObject go, bool sort = true)
         {
-            Canvas canvas = Util.GetOrAddComponent<Canvas>(go);
+            Canvas canvas = Sh.Util.GetOrAddComponent<Canvas>(go);
             canvas.renderMode = RenderMode.ScreenSpaceOverlay;
             canvas.overrideSorting = true;
 
@@ -58,7 +58,7 @@ namespace Sh
             if (string.IsNullOrEmpty(name))
                 name = typeof(T).Name;
 
-            GameObject go = Managers.Resource.Instantiate($"UI/SubItem/{name}");
+            GameObject go = Sh.Managers.Resource.Instantiate($"UI/SubItem/{name}");
             if (parent != null)
                 go.transform.SetParent(parent);
 
@@ -86,8 +86,8 @@ namespace Sh
             if (string.IsNullOrEmpty(name))
                 name = typeof(T).Name;
 
-            GameObject go = Managers.Resource.Instantiate($"UI/Scene/{name}");
-            T sceneUI = Util.GetOrAddComponent<T>(go);
+            GameObject go = Sh.Managers.Resource.Instantiate($"UI/Scene/{name}");
+            T sceneUI = Sh.Util.GetOrAddComponent<T>(go);
             _sceneUI = sceneUI;
 
             go.transform.SetParent(Root.transform);
@@ -100,8 +100,8 @@ namespace Sh
             if (string.IsNullOrEmpty(name))
                 name = typeof(T).Name;
 
-            GameObject go = Managers.Resource.Instantiate($"Obj/Scene/{name}");
-            T sceneobj = Util.GetOrAddComponent<T>(go);
+            GameObject go = Sh.Managers.Resource.Instantiate($"Obj/Scene/{name}");
+            T sceneobj = Sh.Util.GetOrAddComponent<T>(go);
             _sceneObject = sceneobj.gameObject;
 
             go.transform.SetParent(ObjectRoot.transform);

@@ -5,13 +5,14 @@ using UnityEngine;
 namespace yb {
     public class CameraController : MonoBehaviour {
         Vector3 DestPos;
-        [SerializeField] GameObject _player;
+        private Transform _player;
 
         private void Start() {
-            DestPos = transform.position;
+            _player = transform.root;
+           DestPos = transform.position;
         }
         private void LateUpdate() {
-            transform.position = _player.transform.position + DestPos;
+           transform.position = _player.transform.position + DestPos;
         }
     }
 

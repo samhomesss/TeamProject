@@ -18,6 +18,7 @@ namespace Hw
 
         protected virtual void Init()
         {
+
             Object obj = GameObject.FindObjectOfType(typeof(EventSystem));//객체를 하나만들어 하이어라키창에 이벤트 시스템의 타입을 찾고 찾으면 가져옴
             if (obj == null)
                 Managers.Resource.Instantiate("UI/EventSystem").name = "@EventSystem";//Resources에 차지하고 있는 EventSystem프리펩이 메모리가 생성을 할때의 메모리보다 덜차지하기에 

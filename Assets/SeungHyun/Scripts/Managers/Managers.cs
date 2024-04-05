@@ -45,10 +45,10 @@ namespace Sh
         {
             if (s_instance == null)
             {
-                GameObject go = GameObject.Find("@Managers");
+                GameObject go = GameObject.Find("@2Managers");
                 if (go == null)
                 {
-                    go = new GameObject { name = "@Managers" };
+                    go = new GameObject { name = "@2Managers" };
                     go.AddComponent<Managers>();
                 }
 

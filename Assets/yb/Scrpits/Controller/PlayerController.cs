@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using UnityEditor;
+using Photon.Pun;
 
 namespace yb {
     public class PlayerController : MonoBehaviour, ITakeDamage {
@@ -21,6 +22,7 @@ namespace yb {
         private IObtainableObject _collideItem;
         private bool[] _haveRelic = new bool[(int)Define.RelicType.Count];
         private PlayerStatus _status;
+        private PhotonView _photonview; //0405 09:41분 이희웅 캐릭터간에 동기화를 위한 포톤 뷰 추가
         public PlayerStatus Status => _status;
         private RotateToMouseScript _rotateToMouseScript;
         public RotateToMouseScript RotateToMouseScript => _rotateToMouseScript;
@@ -34,6 +36,7 @@ namespace yb {
             _animator = GetComponent<Animator>();
             _status = GetComponent<PlayerStatus>();
             _rotateToMouseScript = GetComponent<RotateToMouseScript>();
+            _photonview = GetComponent<PhotonView>();
         }
 
    
@@ -127,8 +130,11 @@ namespace yb {
         /// 플레이어 이동 로직
         /// </summary>
         public void OnMoveUpdate() {
-            Vector3 dir = new Vector3(moveX, 0f, moveZ);
-            _rigid.MovePosition(_rigid.position + dir * (_status.MoveSpeed * _status.MoveSpeedDecrease )* Time.deltaTime);
+            if (_photonview.IsMine)//0405 09:41분 캐릭터간에 동기화를 위한 포톤 이동 분리 로직 추가
+            {
+                Vector3 dir = new Vector3(moveX, 0f, moveZ);
+                _rigid.MovePosition(_rigid.position + dir * (_status.MoveSpeed * _status.MoveSpeedDecrease) * Time.deltaTime);
+            }
         }
 
         public void OnDieUpdate(GameObject attacker) {

@@ -49,10 +49,10 @@ namespace Hw
         {
             if (s_instance == null)
             {
-                GameObject go = GameObject.Find("@Managers");
+                GameObject go = GameObject.Find("@1Managers");
                 if (go == null)
                 {
-                    go = new GameObject { name = "@Managers" };
+                    go = new GameObject { name = "@1Managers" };
                     go.AddComponent<Managers>();
                 }
 

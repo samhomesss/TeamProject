@@ -1,6 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using yb;
 
 namespace Sh
 {
@@ -9,6 +11,12 @@ namespace Sh
         public override void Init()
         {
             Managers.UI.SetCanvas(gameObject, false);
+        }
+
+        public void SetPlayer(PlayerController player)
+        {
+        //    Tuple<Action<int,int> hpevent, Action<) qw = player.이벤트싹다리턴
+        //        qw.item1 += 
         }
     }
 }

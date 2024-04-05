@@ -57,7 +57,7 @@ namespace Hw
 
                 //커스텀프로퍼티를 만들어 가지고 있던 PhotonView를 저장한다.
                 
-                PhotonNetwork.LoadLevel("GamePlay");
+                PhotonNetwork.LoadLevel("InGame");
 
             });
 
