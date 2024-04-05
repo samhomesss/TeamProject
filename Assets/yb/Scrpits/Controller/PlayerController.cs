@@ -4,6 +4,7 @@ using UnityEngine;
 using DG.Tweening;
 using UnityEditor;
 using Photon.Pun;
+using System;
 
 namespace yb {
     public class PlayerController : MonoBehaviour, ITakeDamage {
@@ -23,6 +24,25 @@ namespace yb {
         private PlayerStatus _status;
         private PhotonView _photonview; //0405 09:41분 이희웅 캐릭터간에 동기화를 위한 포톤 뷰 추가
 
+        //item1. 체력
+        //item2. 총알
+        //item3. 무기
+        //item4. 렐릭
+        //item5. 아이템
+        //item6. 미니맵
+        private Action<int, int> _hpEvent;
+        private Action<int, int> _bulletEvent;
+        private Action<int> _weaponEvent;
+        private Action<int> _relicEvent;
+        private Action<string> _itemEvent;
+        private Action _miniMapEvent;
+
+        private Tuple<Action<int, int>, Action<int, int>, Action<int>,
+            Action<int>, Action<string>, Action> _playerEvent;
+
+        public Tuple<Action<int, int>, Action<int, int>, Action<int>,
+            Action<int>, Action<string>, Action> PlayerEvent => _playerEvent;
+
         /// <summary>
         /// 스탯,능력치 클래스
         /// 타고 들어가면 private로 플레이어의 정보들이 변수로 생성되어있음.
@@ -37,8 +57,6 @@ namespace yb {
         /// 필요시 get 프로퍼티 생성 후 사용
         /// </summary>
         public PlayerWeaponController WeaponController => _weaponController;
-
-
         public PlayerPickupController PickupController => _pickupController;
         public PlayerStateController StateController => _stateController;
         public Camera MyCamera => _myCamera;
@@ -66,7 +84,10 @@ namespace yb {
             _droplable.Set("ObtainableRifle");
             _droplable.Set("ObtainablePistol");
             _droplable.Set("ObtainableShotgun");
+
+            _playerEvent = Tuple.Create(_hpEvent, _bulletEvent, _weaponEvent, _relicEvent, _itemEvent, _miniMapEvent);
         }
+
 
         private void Update() {
             moveX = Input.GetAxisRaw("Horizontal");
@@ -110,7 +131,7 @@ namespace yb {
                 return;
 
             int hp =_status.SetHp(-amout);
-
+            _hpEvent?.Invoke(_status.CurrentHp, _status.MaxHp);
             if(hp <= 0) {
                 _droplable.Drop(transform.position);
                 _stateController.ChangeState(new PlayerState_Die(this, attacker));

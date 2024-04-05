@@ -17,5 +17,6 @@ namespace yb {
         void OnUpdate();
 
         bool CanShot();
+
     }
 }

@@ -10,6 +10,8 @@ namespace yb {
             _projectileCreator = new ShotgunProjectileCreator();
             _weaponGameObject = Util.FindChild(parent.gameObject, "Shotgun", false);
             _firePos = Util.FindChild(_weaponGameObject, "FirePos", false).transform;
+            _player = player;
+            _player.PlayerEvent.Item3?.Invoke((int)WeaponType);
 
             _realodTime = _data.DefaultWeaponRealodTime((int)WeaponType);
             _defaultDamage = _data.DefaultWeaponDamage((int)WeaponType);
@@ -36,6 +38,8 @@ namespace yb {
                 _currentBullet = _remainBullet;
                 _maxBullet -= _remainBullet;
             }
+
+            _player.PlayerEvent.Item2.Invoke(_currentBullet, _maxBullet);
 
             player.StateController.ChangeState(new PlayerState_Idle(player));
         }
@@ -68,6 +72,8 @@ namespace yb {
             }
 
             _currentBullet--;
+            _player.PlayerEvent.Item2.Invoke(_currentBullet, _maxBullet);
+
             int projectileNumber = Random.Range(0, 1f) > _data.BonusProjectileChance((int)WeaponType) ? 1 : Mathf.Max(_data.DefaultShotgunProjectile + _bonusProjectile, 1);
 
             for(int i = 0; i< projectileNumber; i++) {
