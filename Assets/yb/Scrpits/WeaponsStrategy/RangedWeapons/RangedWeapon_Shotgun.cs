@@ -37,7 +37,7 @@ namespace yb {
                 _maxBullet -= _remainBullet;
             }
 
-            player.ChangeState(new PlayerState_Idle(player));
+            player.StateController.ChangeState(new PlayerState_Idle(player));
         }
         public void OnUpdate() {
             _currentDelay += Time.deltaTime;
@@ -63,7 +63,7 @@ namespace yb {
 
         public void Shot(Vector3 targetPos, PlayerController player) {
             if (_currentBullet == 0) {
-                player.ChangeState(new PlayerState_Reload(player, this));
+                player.StateController.ChangeState(new PlayerState_Reload(player, this));
                 return;
             }
 
@@ -74,12 +74,12 @@ namespace yb {
                 _projectileCreator.Create(_defaultDamage, _projectileVelocity, targetPos, _firePos.position, player);
             }
 
-            Camera.main.transform.DOShakeRotation(0.2f, 1f);
+            player.MyCamera.transform.DOShakeRotation(0.2f, 1f);
 
         }
 
         public void OnUpdateRelic(PlayerController player) {
-            _relics = player.IsRelic();
+            _relics = player.PickupController.IsRelic();
 
             for (int i = 0; i < _relics.Length; i++) {
                 if (_relics[i]) {

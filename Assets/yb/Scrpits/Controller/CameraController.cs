@@ -5,15 +5,17 @@ using UnityEngine;
 namespace yb {
     public class CameraController : MonoBehaviour {
         Vector3 DestPos;
-        private Transform _player;
+        [SerializeField]private GameObject _player;
 
         private void Start() {
-            _player = transform.root;
            DestPos = transform.position;
+            _player.GetComponent<PlayerController>().SetCamera(GetComponent<Camera>());  
         }
         private void LateUpdate() {
            transform.position = _player.transform.position + DestPos;
         }
+
+        
     }
 
 }

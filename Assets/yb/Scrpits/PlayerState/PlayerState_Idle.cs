@@ -1,23 +1,23 @@
 using UnityEngine;
 
 namespace yb {
-    public class PlayerState_Idle : PlayerStatus, IPlayerState {
+    public class PlayerState_Idle : PlayerState, IPlayerState {
         public PlayerState_Idle(PlayerController player) {
             player.ChangeFadeAnimation("Idle");
         }
         public void OnUpdate(PlayerController player) {
             if (Input.GetMouseButtonDown(0)) {
-                player.ChangeState(new PlayerState_Shot(player));
+                player.StateController.ChangeState(new PlayerState_Shot(player));
                 return;
             }
 
-            if(Input.GetKeyDown(KeyCode.R) && player.RangedWeapon.CanReload()) {
-                player.ChangeState(new PlayerState_Reload(player, player.RangedWeapon));
+            if(Input.GetKeyDown(KeyCode.R) && player.WeaponController.RangedWeapon.CanReload()) {
+                player.StateController.ChangeState(new PlayerState_Reload(player, player.WeaponController.RangedWeapon));
                 return;
             }
 
             if (player.isMoving()) {
-                player.ChangeState(new PlayerState_Move(player));
+                player.StateController.ChangeState(new PlayerState_Move(player));
                 return;
             }
         }

@@ -1,11 +1,11 @@
 using UnityEngine;
 
 namespace yb {
-    public class PlayerState_MovenShot : PlayerStatus, IPlayerState {
+    public class PlayerState_MovenShot : PlayerState, IPlayerState {
         IRangedWeapon _weapon;
 
         public PlayerState_MovenShot(PlayerController player) {
-            _weapon = player.RangedWeapon;
+            _weapon = player.WeaponController.RangedWeapon;
         }
         public void OnUpdate(PlayerController player) {
             if (_weapon.CanShot())
@@ -15,10 +15,10 @@ namespace yb {
                 player.Status.SetMoveSpeedDecrease(1f);
 
                 if (!player.isMoving()) {
-                    player.ChangeState(new PlayerState_Idle(player));
+                    player.StateController.ChangeState(new PlayerState_Idle(player));
                     return;
                 }
-                player.ChangeState(new PlayerState_Move(player));
+                player.StateController.ChangeState(new PlayerState_Move(player));
                 return;
             }
 

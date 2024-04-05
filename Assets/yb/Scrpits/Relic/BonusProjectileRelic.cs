@@ -7,7 +7,7 @@ namespace yb {
         public Define.RelicType RelicType { get; } = Define.RelicType.BonusProjectileRelic;
 
         public void DeleteRelic(PlayerController player) {
-            player.DeleteRelic(this);
+            player.PickupController.DeleteRelic(this);
         }
 
         public void Pickup(PlayerController player) {
@@ -15,7 +15,7 @@ namespace yb {
         }
 
         public void SetRelic(PlayerController player) {
-            player.SetRelic(this);
+            player.PickupController.SetRelic(this);
         }
     }
 }
