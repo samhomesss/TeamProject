@@ -4,6 +4,9 @@ using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+/// <summary>
+/// 해당 클래스는 0407 Managers에서 GameManager로 대체함, 추후 해당 스크립트가 필요시를 대비해 삭제는 X
+/// </summary>
 public class WorkFlow :MonoBehaviour
 {
         Define.SceneType sceneType = Define.SceneType.None;
