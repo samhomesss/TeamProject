@@ -6,8 +6,10 @@ using UnityEditor;
 using Photon.Pun;
 using System;
 
-namespace yb {
-    public class PlayerController : MonoBehaviour, ITakeDamage {
+namespace yb
+{
+    public class PlayerController : MonoBehaviour, ITakeDamage
+    {
         private readonly float _animationFadeTime = .3f;
         private Rigidbody _rigid;
         private Data _data;
@@ -37,10 +39,10 @@ namespace yb {
         private Action<string> _itemEvent;
         private Action _miniMapEvent;
 
-        private  Tuple<Action<int, int>, Action<int, int>, Action<int>,
+        private Tuple<Action<int, int>, Action<int, int>, Action<int>,
             Action<int>, Action<string>, Action> _playerEvent;
 
-        public  Tuple<Action<int, int>, Action<int, int>, Action<int>,
+        public Tuple<Action<int, int>, Action<int, int>, Action<int>,
             Action<int>, Action<string>, Action> PlayerEvent => _playerEvent;
 
         /// <summary>
@@ -63,7 +65,8 @@ namespace yb {
         public RotateToMouseScript RotateToMouseScript => _rotateToMouseScript;
 
 
-        private void Awake() {
+        private void Awake()
+        {
             _rigid = GetComponent<Rigidbody>();
             _collider = GetComponent<Collider>();
             _animator = GetComponent<Animator>();
@@ -76,7 +79,8 @@ namespace yb {
         }
 
 
-        private void Start() {
+        private void Start()
+        {
             _data = Managers.Data;
 
             //test
@@ -89,27 +93,42 @@ namespace yb {
         }
 
 
-        private void Update() {
+        private void Update()
+        {
             moveX = Input.GetAxisRaw("Horizontal");
             moveZ = Input.GetAxisRaw("Vertical");
         }
         public void SetCamera(Camera camera) => _myCamera = camera;
 
-        public bool isMoving() {
+        public bool isMoving()
+        {
             if (moveX == 0 && moveZ == 0)
                 return false;
 
             return true;
         }
-        
-        public void ChangeFadeAnimation(string animation) => _animator.CrossFade(animation, _animationFadeTime);
-        public void ChangeIntigerAnimation(Define.PlayerState state) => _animator.SetInteger("State", (int)state);
-        public void ChangeTriggerAnimation(Define.PlayerState state) => _animator.SetTrigger(state.ToString());
+
+        public void ChangeFadeAnimation(string animation)
+        {
+            if (_photonview.IsMine)// 0408 07:42 이희웅 애니메이션 동기화 작업추가
+                _animator.CrossFade(animation, _animationFadeTime);
+        }
+        public void ChangeIntigerAnimation(Define.PlayerState state)
+        {
+            if (_photonview.IsMine)// 0408 07:42 이희웅 애니메이션 동기화 작업추가
+                _animator.SetInteger("State", (int)state);
+        }
+        public void ChangeTriggerAnimation(Define.PlayerState state)
+        {
+            if (_photonview.IsMine)// 0408 07:42 이희웅 애니메이션 동기화 작업추가
+                _animator.SetTrigger(state.ToString());
+        }
 
         /// <summary>
         /// 플레이어 이동 로직
         /// </summary>
-        public void OnMoveUpdate() {
+        public void OnMoveUpdate()
+        {
             if (_photonview.IsMine)//0405 09:41분 캐릭터간에 동기화를 위한 포톤 이동 분리 로직 추가
             {
                 Vector3 dir = new Vector3(moveX, 0f, moveZ);
@@ -117,22 +136,25 @@ namespace yb {
             }
         }
 
-        public void OnDieUpdate(GameObject attacker) {
+        public void OnDieUpdate(GameObject attacker)
+        {
             transform.LookAt(attacker.transform.position);
             _collider.enabled = false;
             _rigid.isKinematic = true;
             ChangeTriggerAnimation(Define.PlayerState.Die);
         }
 
-        public void OnDieEvent() =>  Managers.Resources.Destroy(gameObject);
+        public void OnDieEvent() => Managers.Resources.Destroy(gameObject);
 
-        public void TakeDamage(int amout, GameObject attacker) {
+        public void TakeDamage(int amout, GameObject attacker)
+        {
             if (amout <= 0)
                 return;
 
-            int hp =_status.SetHp(-amout);
+            int hp = _status.SetHp(-amout);
             _hpEvent?.Invoke(_status.CurrentHp, _status.MaxHp);
-            if(hp <= 0) {
+            if (hp <= 0)
+            {
                 _droplable.Drop(transform.position);
                 _stateController.ChangeState(new PlayerState_Die(this, attacker));
             }
