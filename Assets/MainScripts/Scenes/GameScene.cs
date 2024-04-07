@@ -17,19 +17,20 @@ using UnityEngine;
         {
             GameObject go = PhotonNetwork.Instantiate("Prefabs/hw/PlayerPrefabs/Player", Vector3.zero, Quaternion.identity);
             go.name = "Player";
+
+
+            Managers.UI.ShowSceneUI<UI_Weapon>();
+            Managers.UI.ShowSceneUI<UI_Inven>();
+            Managers.UI.ShowSceneUI<UI_Hp>();
+            Managers.UI.ShowSceneUI<UI_MiniMap>();
             // UI 
+
+            //GameObject
+            Managers.SceneObj.ShowSceneObject<Map>();
+            Managers.SceneObj.ShowSceneObject<MiniMapCam>();
         }
-
-        Managers.UI.ShowSceneUI<UI_Weapon>();
-         Managers.UI.ShowSceneUI<UI_Inven>();
-         Managers.UI.ShowSceneUI<UI_Hp>();
-         Managers.UI.ShowSceneUI<UI_MiniMap>();
-         //Managers.UI.ShowSceneUI<ItemCreate_Button>();
-
-         ////GameObject
-         //Managers.SceneObj.ShowSceneObject<Map>();
-         //Managers.SceneObj.ShowSceneObject<MiniMapCam>();
-     }
+        //Managers.UI.ShowSceneUI<ItemCreate_Button>();
+    }
 
  }
 

@@ -7,19 +7,16 @@ public class IsTestMode : MonoBehaviour
     public static IsTestMode Instance;
 
     public Define.User CurrentUser;
-    private void Awake() {
-        if (Instance != null)
-        {
-            Destroy(Instance);
-        }
-        else
+    private void Awake()
+    {
         Instance = this;
 
         DontDestroyOnLoad(this);
     }
 
-    private void Start() {
+    private void Start()
+    {
         if (CurrentUser == Define.User.None)
-            CurrentUser = Define.User.Hw;
+            Debug.Log("현재 유저를 정하세요");
     }
 }
