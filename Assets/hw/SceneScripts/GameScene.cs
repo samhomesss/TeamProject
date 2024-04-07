@@ -1,14 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Hw
 {
-    public class UI_Scene : UI_Base
+    public class GameScene : BaseScene
     {
         public override void Init()
         {
-            Managers.UI.SetCanvas(gameObject, false);
+            base.Init();
+        }
+        public override void Clear()
+        {
         }
     }
 }

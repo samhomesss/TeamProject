@@ -7,8 +7,6 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Hw
-{
     public class LoginUI : UI_Scene
     {
         enum GameObjects
@@ -119,5 +117,3 @@ namespace Hw
             #endregion
         }
     }
-
-}

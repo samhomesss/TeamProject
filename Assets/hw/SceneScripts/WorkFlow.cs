@@ -1,14 +1,25 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace Hw
+public class WorkFlow :MonoBehaviour
 {
-public class WorkFlow
-{
-        Define.Scene sceneType = Define.Scene.Unknown;
-        public void Update()
+        Define.SceneType sceneType = Define.SceneType.None;
+
+    WorkFlow _instance;
+    public WorkFlow Instance => _instance;
+    private void Awake()
+    {
+        if (_instance == null)
+            _instance = this;
+        else
+            Destroy(_instance);
+     
+        DontDestroyOnLoad(this);
+    }
+    public void Update()
         {
             ProgramWorkFlow();
         }
@@ -17,13 +28,13 @@ public class WorkFlow
         {
             switch (sceneType)
             {
-                case Define.Scene.Unknown:
+                case Define.SceneType.None:
                     {
                         SceneManager.LoadScene("LoginScene");
                         sceneType++;
                     }
                     break;
-                case Define.Scene.Login:
+                case Define.SceneType.Login:
                     {
                         if (LoginInformation.loggedIn && LoginInformation.profile != null)//로그인이 된상태 + 로그인이 돼서 프로파일이 생긴다면 로비로 입장
                         {
@@ -36,10 +47,10 @@ public class WorkFlow
                         }
                     }
                     break;
-                case Define.Scene.JoinedRoom:
+                case Define.SceneType.Lobby:
                     //TODO: 로비에 있을때 마스터 유저가 Start버튼을 누르면 Game씬으로 전환 되게끔 작성
                     break;
-                case Define.Scene.Game:
+                case Define.SceneType.InGame:
                     break;
                 default:
                     break;
@@ -47,5 +58,3 @@ public class WorkFlow
         }
     }
 
-
-}

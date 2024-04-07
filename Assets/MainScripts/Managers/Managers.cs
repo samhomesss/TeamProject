@@ -7,12 +7,7 @@ using UnityEngine;
 public class Managers : MonoBehaviour
 {
     private static Managers _instance;
-    public static Managers Instance {
-        get {
-            Init();
-            return _instance;
-        }
-    }
+    public static Managers Instance { get { Init();return _instance; } }
 
 
     private Data _data = new Data();
@@ -34,6 +29,10 @@ public class Managers : MonoBehaviour
     public static UIManager UI => _instance._ui;
     #endregion
 
+    #region 04.05 이희웅 추가
+    //[SerializeField]WorkFlow _workFlow = new WorkFlow(); //3.31일 20:08 분 워크플로우 싱글톤 추가
+    //public static WorkFlow Work { get { return Instance._workFlow; } } // 0405 17:57분 워크플로우가 필요없어,삭제함
+    #endregion
 
     public static Data Data => _instance._data;
     // 수정 사항 
@@ -51,14 +50,14 @@ public class Managers : MonoBehaviour
     private void Update()
     {
         Input.OnUpdate();
-        GameManager.Workflow();
+        //GameManager.Workflow(); 0405 17:57분 희웅 삭제, 워크플로우가 필요없어,삭제함
     }
 
     private static void Init()
     {
         if (_instance == null)
         {
-            Debug.Log("Init");
+           // Debug.Log("Init");
 
             GameObject managers = GameObject.Find("@Managers");
             if (managers == null)

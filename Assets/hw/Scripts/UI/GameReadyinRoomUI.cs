@@ -8,8 +8,6 @@ using ExitGames.Client.Photon.StructWrapping;
 using Hashtable = ExitGames.Client.Photon.Hashtable;
 using System;
 
-namespace Hw
-{
     public class GameReadyinRoomUI : MonoBehaviour, IInRoomCallbacks
     {
         [SerializeField] Transform _playerStatusInGameReadyInRoomContent;//스크롤뷰 content 위치로 붙일 위치
@@ -176,6 +174,3 @@ namespace Hw
         {
         }
     }
-}
-
-
