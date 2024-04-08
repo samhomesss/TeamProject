@@ -10,7 +10,7 @@ namespace yb {
             if(IsTestMode.Instance.CurrentUser == Define.User.Hw)//0408 15:06 ÀÌÈñ¿õ Å×½ºÆ®
                 vfx = PhotonNetworkUtil.CreatePhotonObject("Prefabs/yb/Projectile/Default", createPos);
             else
-                vfx = Managers.Resources.Instantiate("Prefabs/yb/Projectile/Default", null).GetComponent<ProjectileMoveScript>();
+                vfx = Managers.Resources.Instantiate("yb/Projectile/Default", null).GetComponent<ProjectileMoveScript>();
             vfx.Init(player.RotateToMouseScript.GetRotation(), defaultDamage, player.gameObject);
         }
     }
