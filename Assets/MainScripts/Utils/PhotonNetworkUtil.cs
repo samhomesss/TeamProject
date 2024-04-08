@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class PhotonNetworkUtil : MonoBehaviourPunCallbacks
 {
-    public static ProjectileMoveScript CreatePhotonObject(string name,Vector3 position)
+    public static ProjectileMoveScript CreatePhotonObject(string name,Vector3 position, Quaternion quaternion)
     {
-        return PhotonNetwork.Instantiate(name, position, Quaternion.identity).GetComponent<ProjectileMoveScript>();
+        return PhotonNetwork.Instantiate(name, position, quaternion).GetComponent<ProjectileMoveScript>();
     }
 
 
