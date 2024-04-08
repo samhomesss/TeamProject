@@ -124,13 +124,11 @@ namespace yb
 
         public void ChangeIntigerAnimation(Define.PlayerState state)//0408 16:38분 이희웅 업데이트 추가
         {
-            //if(state == Define.PlayerState.Shot)
                 if(_photonview.IsMine)
                     _animator.SetInteger("State", (int)state);
         }
         public void ChangeTriggerAnimation(Define.PlayerState state)//0408 16:38분 이희웅 업데이트 추가
         {
-            //if (state == Define.PlayerState.Shot)
                 if (_photonview.IsMine)
                     _animator.SetTrigger(state.ToString());
         }
