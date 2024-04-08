@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Item : MonoBehaviour
 {
-     
+    public int ItemID => itemID; 
     int itemID;
    
     private void Start()
@@ -27,6 +27,6 @@ public class Item : MonoBehaviour
                 break;
         }
 
-        Debug.Log(itemID + ":" + go.name);
+        //Debug.Log(itemID + ":" + go.name);
     }
 }

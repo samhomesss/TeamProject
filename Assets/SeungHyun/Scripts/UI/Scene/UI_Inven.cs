@@ -9,6 +9,7 @@ public class UI_Inven : UI_Scene
 
         List<UI_Inven_Item> ui_Inven_Items = new List<UI_Inven_Item>();
         UI_Inven_Item invenItem;
+
         enum GameObjects
         {
             GridPanel
@@ -17,8 +18,9 @@ public class UI_Inven : UI_Scene
         void Start()
         {
             Init();
-            // 구독해주고
-            // ItemCreate_Button.OnImageChanged += ChangeImage;
+        // 구독해주고
+        //UI_ItemCreateButton.OnItemCreateClicked += ChangeImage;
+        ItemInfoName.OnItemGet += ChangeImage;
         }
 
 
@@ -43,7 +45,9 @@ public class UI_Inven : UI_Scene
             }
         }
 
-        public void ChangeImage(Sprite itemimage)
+        // 버튼 이용해서 아이템 먹었을때 사용 한거 
+        // 번호를 넘겨주는 아이템 번호로 사용
+        public void ChangeImage(int itemID)
         {
             for (int i = 0; i < ui_Inven_Items.Count; i++)
             {
@@ -52,8 +56,9 @@ public class UI_Inven : UI_Scene
                     continue;
                 }
 
-                ui_Inven_Items[i].SetIsEmpty(false);
-                ui_Inven_Items[i].transform.GetChild(0).GetComponentInChildren<Image>().sprite = itemimage;
+                ui_Inven_Items[i].IsEmpty = false;
+                ui_Inven_Items[i].transform.GetChild(0).GetComponentInChildren<Image>().sprite = Managers.ItemDataBase.GetItemData(itemID).itemImage;
+                ui_Inven_Items[i].SlotItemID = itemID; // 데이터 넘겨주는 형식
                 break;
                  
             }

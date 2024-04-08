@@ -20,7 +20,8 @@ public class GameSceneSH : BaseScene
         Managers.UI.ShowSceneUI<UI_Inven>();
         Managers.UI.ShowSceneUI<UI_Hp>();
         Managers.UI.ShowSceneUI<UI_MiniMap>();
-        //Managers.UI.ShowSceneUI<ItemCreate_Button>();
+       // Managers.UI.ShowSceneUI<UI_ItemCreateButton>();
+
         //GameObject
         Managers.SceneObj.ShowSceneObject<Map>();
         Managers.SceneObj.ShowSceneObject<MiniMapCam>();

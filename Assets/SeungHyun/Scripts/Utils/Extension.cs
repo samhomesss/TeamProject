@@ -16,6 +16,8 @@ using UnityEngine.EventSystems;
         {
             UI_Base.BindEvent(go, action, type);
         }
+
+       
     }
 
 

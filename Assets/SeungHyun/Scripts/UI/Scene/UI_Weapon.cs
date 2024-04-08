@@ -9,7 +9,7 @@ using UnityEngine.UI;
         enum GameObjects
         {
             MainWeapon,
-            SubWeapon,
+            //SubWeapon,
             BulletText,
         }
         // 나중에 이미지 바꿀때 사용
@@ -34,7 +34,7 @@ using UnityEngine.UI;
 
             Bind<GameObject>(typeof(GameObjects));
             GameObject mainWeapon = GetObject((int)GameObjects.MainWeapon);
-            GameObject subWeapon = GetObject((int)GameObjects.SubWeapon);
+            //GameObject subWeapon = GetObject((int)GameObjects.SubWeapon);
             GameObject BulletText = GetObject((int)GameObjects.BulletText);
 
             // 총알 나가는 거 구독 해주고
@@ -42,7 +42,7 @@ using UnityEngine.UI;
             //Managers.Input.BulletReduce += BulletCount;
 
             _mainWeaponImage = mainWeapon.GetComponentInChildren<Image>();
-            _subWeaponImage = subWeapon.GetComponentInChildren<Image>();    
+            //_subWeaponImage = subWeapon.GetComponentInChildren<Image>();    
             _bulletText = BulletText.GetComponent<Text>();
 
 
