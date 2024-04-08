@@ -8,7 +8,7 @@ namespace yb {
             ProjectileMoveScript vfx;
             if (IsTestMode.Instance.CurrentUser == Define.User.Hw)//0408 15:06 ÀÌÈñ¿õ Å×½ºÆ®
             {
-                vfx = PhotonNetworkUtil.CreatePhotonObject("Prefabs/yb/Projectile/Default", createPos);
+                vfx = PhotonNetworkUtil.CreatePhotonObject("Prefabs/yb/Projectile/Default", createPos, player.RotateToMouseScript.GetRotation());
             }
             else
             {
