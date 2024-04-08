@@ -21,7 +21,7 @@ public class RotateToMouseScript : MonoBehaviour {
 	private Quaternion rotation;
 	private Camera cam;
 	private WaitForSeconds updateTime = new WaitForSeconds (0.01f);
-	private PhotonView _photonView;
+	private PhotonView _photonView;//0408 11:30 이희웅 동기화를 위한 PhotonView 추가
 
 	public void StartUpdateRay (){
 		StartCoroutine (UpdateRay());
@@ -59,8 +59,8 @@ public class RotateToMouseScript : MonoBehaviour {
         _photonView = GetComponent<PhotonView>();
     }
     public void RotateToMouse (GameObject obj, Vector3 destination ) {
-		if (_photonView.IsMine)
-		{
+		if (_photonView.IsMine)//0408 11:30 이희웅 개별동작을 위한 조건부 추가
+        {
             direction = destination - obj.transform.position;
             Vector3 dir = new Vector3(direction.x, 0f, direction.z);
             rotation = Quaternion.LookRotation(dir);

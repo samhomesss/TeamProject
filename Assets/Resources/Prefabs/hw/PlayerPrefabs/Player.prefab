@@ -1239,11 +1239,11 @@ GameObject:
   - component: {fileID: 8717406228910821382}
   - component: {fileID: 5982792418100407990}
   - component: {fileID: 2738568469435595941}
-  - component: {fileID: 546668607394497961}
   - component: {fileID: 1547793894201161286}
   - component: {fileID: 1657753375582993581}
   - component: {fileID: 3972074204042081810}
   - component: {fileID: 747112771085808553}
+  - component: {fileID: 3566697583604899592}
   m_Layer: 0
   m_Name: Model
   m_TagString: Player
@@ -1437,8 +1437,8 @@ MonoBehaviour:
   observableSearch: 2
   ObservedComponents:
   - {fileID: 2738568469435595941}
-  - {fileID: 546668607394497961}
   - {fileID: 1547793894201161286}
+  - {fileID: 3566697583604899592}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -1458,36 +1458,6 @@ MonoBehaviour:
   m_SynchronizeRotation: 1
   m_SynchronizeScale: 0
   m_UseLocal: 1
---- !u!114 &546668607394497961
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5521008402934817919}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b8c4a61274f60b4ea5fb4299cfdbf14, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ShowLayerWeightsInspector: 1
-  ShowParameterInspector: 1
-  m_SynchronizeParameters:
-  - Type: 9
-    SynchronizeType: 1
-    Name: Shot
-  - Type: 9
-    SynchronizeType: 1
-    Name: Reload
-  - Type: 9
-    SynchronizeType: 1
-    Name: Pickup
-  - Type: 9
-    SynchronizeType: 1
-    Name: Die
-  m_SynchronizeLayers:
-  - SynchronizeType: 0
-    LayerIndex: 0
 --- !u!114 &1547793894201161286
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1540,6 +1510,42 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1213014b509124e4290032e946971913, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &3566697583604899592
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5521008402934817919}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b8c4a61274f60b4ea5fb4299cfdbf14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowLayerWeightsInspector: 1
+  ShowParameterInspector: 1
+  m_SynchronizeParameters:
+  - Type: 9
+    SynchronizeType: 1
+    Name: Shot
+  - Type: 9
+    SynchronizeType: 1
+    Name: Reload
+  - Type: 9
+    SynchronizeType: 1
+    Name: Pickup
+  - Type: 9
+    SynchronizeType: 1
+    Name: Die
+  - Type: 4
+    SynchronizeType: 2
+    Name: Move
+  - Type: 4
+    SynchronizeType: 1
+    Name: Idle
+  m_SynchronizeLayers:
+  - SynchronizeType: 0
+    LayerIndex: 0
 --- !u!1 &5543392221820212291
 GameObject:
   m_ObjectHideFlags: 0

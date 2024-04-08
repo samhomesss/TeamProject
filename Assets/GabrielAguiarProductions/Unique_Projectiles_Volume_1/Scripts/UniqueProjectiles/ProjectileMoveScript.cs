@@ -14,9 +14,11 @@
 #pragma warning disable 0219 // variable assigned but not used.
 #pragma warning disable 0414 // private field assigned but not used.
 
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 using yb;
 
 public class ProjectileMoveScript : MonoBehaviour {
@@ -42,7 +44,8 @@ public class ProjectileMoveScript : MonoBehaviour {
         rb = GetComponent<Rigidbody>();
 	}
 
-    public void Init(Quaternion rotate, int damage, GameObject creator) {
+    public void Init(Quaternion rotate, int damage, GameObject creator) 
+    {
         transform.localRotation = rotate;
         _damage = damage;
         _creator = creator;
@@ -92,6 +95,7 @@ public class ProjectileMoveScript : MonoBehaviour {
                 var ps = trails[i].GetComponent<ParticleSystem>();
                 if (ps != null) {
                     ps.Stop();
+                   // StartCoroutine(Util.CoActive(false, ps.gameObject, ps.main.duration + ps.main.startLifetime.constantMax));
                     Destroy(ps.gameObject, ps.main.duration + ps.main.startLifetime.constantMax);
                 }
             }

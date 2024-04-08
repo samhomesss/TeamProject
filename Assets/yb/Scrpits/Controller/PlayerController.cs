@@ -99,6 +99,7 @@ namespace yb
         }
         public void SetCamera(Camera camera) => _myCamera = camera;
 
+       
         public bool isMoving()
         {
             if (moveX == 0 && moveZ == 0)
@@ -107,14 +108,14 @@ namespace yb
             return true;
         }
 
-        public void ChangeFadeAnimation(string animation)
+        public void ChangeFadeAnimation(string animation) //0408 이희웅 움직임 애니메이션 추가
         {
-            if(animation == "Move")
+            if(isMoving())
             {
                 _animator.SetBool("Move", true);
                 _animator.SetBool("Idle", false);
             }           
-            else if(animation == "Idle")
+            else
             {
                 _animator.SetBool("Move", false);
                 _animator.SetBool("Idle", true);
