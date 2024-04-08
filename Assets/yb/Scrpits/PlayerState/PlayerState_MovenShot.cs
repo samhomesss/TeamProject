@@ -4,7 +4,8 @@ namespace yb {
     public class PlayerState_MovenShot : PlayerState, IPlayerState {
         IRangedWeapon _weapon;
 
-        public PlayerState_MovenShot(PlayerController player) {
+        public PlayerState_MovenShot(PlayerController player) : base(player)
+        {
             _weapon = player.WeaponController.RangedWeapon;
         }
         public void OnUpdate(PlayerController player) {

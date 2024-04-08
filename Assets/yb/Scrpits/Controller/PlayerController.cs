@@ -50,7 +50,7 @@ namespace yb
         /// 필요시 get 프로퍼티 생성 후 사용
         /// </summary>
         public PlayerStatus Status => _status;
-
+        public PhotonView PhotonView => _photonview;
         /// <summary>
         /// 플레이어 무기 클래스
         /// 내부의 IRangedWeapon 변수가 무기의 정보를 지니고있음

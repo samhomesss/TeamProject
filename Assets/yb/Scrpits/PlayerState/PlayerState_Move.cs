@@ -2,7 +2,8 @@ using UnityEngine;
 
 namespace yb {
     public class PlayerState_Move : PlayerState, IPlayerState {
-        public PlayerState_Move(PlayerController player) {
+        public PlayerState_Move(PlayerController player) : base(player)
+        {
             player.ChangeFadeAnimation("Move");
         }
         public void OnUpdate(PlayerController player) {

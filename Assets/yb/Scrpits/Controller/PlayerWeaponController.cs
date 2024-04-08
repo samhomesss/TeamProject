@@ -13,14 +13,12 @@ namespace yb
         public IRangedWeapon RangedWeapon => _rangeWeapon;
         private Transform _rangedWeaponsParent;
         public Transform RangedWeaponsParent => _rangedWeaponsParent;
-        private PhotonView _photonview;
 
         private void Awake() => _player = GetComponent<PlayerController>();
 
         private void Start()
         {
             _rangedWeaponsParent = Util.FindChild(gameObject, "RangedWeapons", true).transform;
-            _photonview = GetComponent<PhotonView>();
             _rangeWeapon = new RangedWeapon_Pistol(_rangedWeaponsParent, _player);
 
             foreach (Transform t in _rangedWeaponsParent)
@@ -29,16 +27,7 @@ namespace yb
 
         private void Update() => _rangeWeapon.OnUpdate();
 
-        public void OnShotUpdate()
-        {
-            if (IsTestMode.Instance.CurrentUser == Define.User.Hw)
-            {
-                if (_photonview.IsMine) //15:11 ÀÌÈñ¿õ Å×½ºÆ® µ¿±âÈ­
-                    _rangeWeapon.Shot(Vector3.zero, _player);
-            }
-            else
-                _rangeWeapon.Shot(Vector3.zero, _player);
-        }
+        public void OnShotUpdate() => _rangeWeapon.Shot(Vector3.zero, _player);
         public void OnReloadUpdate() => _rangeWeapon.Reload(_player);
 
         public void SetRelic(IRelic relic) => _rangeWeapon.OnUpdateRelic(_player);
