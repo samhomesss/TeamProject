@@ -8,7 +8,12 @@ public class InputManager
 {
     public Action OnKeyboardEvent;
     public Action<Define.MouseEventType> OnMouseEvent;
-    
+
+    #region 임시 추가 승현 04.08
+    //Todo : 윤범이 형 Action 가져와서 실행 시켜야됨
+    public Action GetItemEvent;
+    #endregion
+
     public void OnUpdate()
     {
         if (EventSystem.current.IsPointerOverGameObject())
@@ -34,5 +39,12 @@ public class InputManager
 
         if (Input.GetMouseButtonUp(1))
             OnMouseEvent?.Invoke(Define.MouseEventType.RightMouseUp);
+
+        #region 승현 추가 04.08
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            GetItemEvent?.Invoke();
+        }
+        #endregion
     }
 }

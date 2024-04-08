@@ -1,4 +1,5 @@
 ﻿using DG.Tweening;
+using Photon.Realtime;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -6,6 +7,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using static UnityEditor.Progress;
 
 
 public class UI_Inven_Item : UI_Base 
@@ -29,10 +31,16 @@ public class UI_Inven_Item : UI_Base
         set { _slotItemID = value; }
     }  
 
+    //public static GameObject ItemInfo
+    //{
+    //    get { return go; }
+    //    set { go = value; } 
+    //}
+
     string _name;
     bool _isEmpty = true; // 아이템 유무 확인 
     GameObject _icon; // 아이템의 아이콘
-    GameObject go = null;
+    //static GameObject go = null; // 해당 아이템을 가져오고
     int _slotItemID; // 현재 이 창이 들고 있는 ItemID 
 
     static public event Action<int> OnItemInfoChanged; // 올렸을때 아이템 인포를 조정
@@ -50,7 +58,7 @@ public class UI_Inven_Item : UI_Base
         // 아이콘을 가지고 사용하는거
         _icon = Get<GameObject>((int)GameObjects.ItemIcon);
         _icon.BindEvent(UseItem);
-        _icon.BindEvent(CheckItemInfo , Define.UIEvent.Enter); // 들어올때 사용할 이벤트 Drag 하나 더 생성 해야 함
+        _icon.BindEvent(CheckItemInfo, Define.UIEvent.Enter); // 들어올때 사용할 이벤트 Drag 하나 더 생성 해야 함
         _icon.BindEvent(DestroyItemInfo, Define.UIEvent.Exit);
     }
 
@@ -64,7 +72,7 @@ public class UI_Inven_Item : UI_Base
         _isEmpty = true;
         _icon.GetComponent<Image>().sprite = Managers.ItemDataBase.GetItemData(0).itemImage;
         _slotItemID = 0;
-        Destroy(go);
+        UI_ItemInfo.ItemInfo.SetActive(false);
     }
 
     #region ItemInfo
@@ -73,20 +81,18 @@ public class UI_Inven_Item : UI_Base
     {
         if (_icon.GetComponent<Image>().sprite == null) // 아이템이 없으면 Null 반환
             return;
-        Debug.Log("마우스 커서가 아이템 창 위에 있음");
-        go = Managers.Resources.Instantiate($"sh/UI/Scene/UI_ItemInfo"); // 창 생성
-        
-        OnItemInfoChanged?.Invoke(_slotItemID); // 여기 슬롯의 아이템의 정보를 전달 해줌
 
-        go.transform.GetChild(0).transform.position = gameObject.transform.position + new Vector3(-80 , 100 , 0);
+        UI_ItemInfo.ItemInfo.SetActive(true);
+        UI_ItemInfo.ItemInfo.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<Image>().sprite = Managers.ItemDataBase.GetItemData(_slotItemID).itemImage; // 한번 초기화 해주면 되는 이유
+        UI_ItemInfo.ItemInfo.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<Text>().text = Managers.ItemDataBase.GetItemData(_slotItemID).itemName; // 한번 초기화 
+        OnItemInfoChanged?.Invoke(_slotItemID); // 여기 슬롯의 아이템의 정보를 전달 해줌
+        UI_ItemInfo.ItemInfo.transform.GetChild(0).transform.position = gameObject.transform.position + new Vector3(-80, 100, 0);
+
     }
     // 아이템 위에서 손을 땠을때 사용
     public void DestroyItemInfo(PointerEventData PointerEventData)
     {
-        //GameObject go2 = new GameObject();
-        //go2.name = ("Test");
-        //go2.AddComponent<UI_Inven_Item>();
-        Destroy(go);
+        UI_ItemInfo.ItemInfo.SetActive(false);
     }
     #endregion
 

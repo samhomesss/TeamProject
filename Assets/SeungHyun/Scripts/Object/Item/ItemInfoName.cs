@@ -10,33 +10,30 @@ public class ItemInfoName : UI_Scene
     GameObject go = null; // 초기화 까지 해주고
     string itemName; // 띄울 아이템 이름
     Text itemInfoTextUI; // UI에서 띄울 아이템 텍스트 이름
-                         // 해당 아이템을 먹었을때 창 띄우게 설정 하면 될듯?
+
     float diff; // 거리
     public static event Action<int> OnItemGet; //아이템 획득 했을때
 
-    // 플레이어 이동 액션에 달아 주면 될듯?
     private void Start()
     {
-        PlayerTestSh.OnItemCheacked += CloseByPlayer;
+        PlayerTestSh.OnItemCheacked += CloseByPlayer; // 이거 부분 바꿔 줘야됨
+        Managers.Input.GetItemEvent += IsClosedItem; // 이거 부분 바꿔 줘야됨 
     }
 
-    private void Update()
+    // 해당 아이템이 가까이 있어서 특정 키로 아이템을 먹는 작업 
+    void IsClosedItem()
     {
-        // Todo : 이부분은 나중에 윤범이 형 꺼 가지고 와서 Update에서 제거하고 Action으로 대체
-        if (Input.GetKeyDown(KeyCode.F)) // 키 눌렀을때
+        if (diff <= 3f)
         {
-            if (diff <= 3f)
-            {
-                OnItemGet?.Invoke(gameObject.GetComponent<Item>().ItemID); // 해당 아이템의 아이템 정보를 전달 해주고
-                Destroy(gameObject); // 파괴
-                Destroy(go);
-                PlayerTestSh.OnItemCheacked -= CloseByPlayer;
-
-            }
-
+            OnItemGet?.Invoke(gameObject.GetComponent<Item>().ItemID); // 해당 아이템의 아이템 정보를 전달 해주고
+            Destroy(gameObject); // 파괴
+            Destroy(go);
+            PlayerTestSh.OnItemCheacked -= CloseByPlayer;
+            Managers.Input.GetItemEvent -= IsClosedItem;
         }
     }
 
+    // 아이템 이 가까이 있어서 아이템을 먹는 작업
     void CloseByPlayer()
     {
         diff = Vector3.Distance(Map.Player.transform.position, gameObject.transform.position);
@@ -65,17 +62,13 @@ public class ItemInfoName : UI_Scene
                         }
                     }
                 }
-                //go.GetComponent<RectTransform>().anchoredPosition = screenPoint;
                 
 
-                //Debug.Log($"{gameObject.transform.position} | {screenPoint}");
 
                 itemInfoTextUI = go.transform.GetChild(0).GetChild(1).GetComponent<Text>();
                 itemName = Managers.ItemDataBase.GetItemData(gameObject.GetComponent<Item>().ItemID).itemName.ToString();
 
                 itemInfoTextUI.text = itemName; // 아이템의 이름 적용 
-                //go.GetComponent<Canvas>().worldCamera = Camera.main;
-                //go.transform.position = Camera.main.WorldToScreenPoint(transform.position + Vector3.up * 20);
 
               
             }
@@ -84,7 +77,6 @@ public class ItemInfoName : UI_Scene
         {
             if (go != null)
             {
-                // Debug.Log("들어옴"); // 확인차 
                 Destroy(go);
             }
         }

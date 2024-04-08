@@ -22,6 +22,7 @@ public class ItemDataBase
         Pistol = 50, // 아이템 번호 50 
         Rifle, // 51
         ShotGun, // 52
+        Relic = 1000,
     }
 
     string[] itemDataName = Enum.GetNames(typeof(ItemsData));
@@ -45,16 +46,14 @@ public class ItemDataBase
         {
             if (_itemDictionary.TryGetValue(itemData.itemID, out ItemData testData))
             {
-                //Debug.Log($"키 중복: {itemData.itemID}");
+
             }
             else
             {
-                //Debug.Log($"키 등록: {itemData.itemID}");
                 _itemDictionary.Add(itemData.itemID, itemData);
             }
         }
 
-       // Debug.Log(_itemDictionary[50].name);
 
     }
 

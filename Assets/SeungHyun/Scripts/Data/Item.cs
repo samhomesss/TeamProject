@@ -23,10 +23,12 @@ public class Item : MonoBehaviour
             case "ShotGun":
                 itemID = 52;
                 break;
+            case "Relic":
+                itemID = 1000;
+                break;
             default:
                 break;
         }
 
-        //Debug.Log(itemID + ":" + go.name);
     }
 }

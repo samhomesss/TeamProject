@@ -14,7 +14,7 @@ using UnityEngine.UI;
         }
         // 나중에 이미지 바꿀때 사용
         Image _mainWeaponImage;
-        Image _subWeaponImage;
+       // Image _subWeaponImage;
 
         Text _bulletText;
 
