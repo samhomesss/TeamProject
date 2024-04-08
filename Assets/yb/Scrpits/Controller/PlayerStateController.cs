@@ -9,17 +9,10 @@ namespace yb {
         private IPlayerState _playerState;
         private PlayerController _player;
 
-        private PhotonView _photonview;
-
         private void Awake() => _player = GetComponent<PlayerController>();
-        void Start()
-        {
-            _playerState = new PlayerState_Idle(_player);
-            _photonview = GetComponent<PhotonView>();
-        }
+        void Start()=>_playerState = new PlayerState_Idle(_player);
 
         void Update() {
-            if(_photonview.IsMine)
             _playerState.OnUpdate(_player);
         }
 

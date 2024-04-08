@@ -14,6 +14,8 @@ namespace yb
         private Transform _rangedWeaponsParent;
         public Transform RangedWeaponsParent => _rangedWeaponsParent;
 
+        private PhotonView _photonview;//0409 08:06 ÀÌÈñ¿õ ÄÚµå ¼öÁ¤ ÃÑ¾Ë µ¿±âÈ­¸¦ À§ÇÑ Æ÷Åæºä »ý¼º
+
         private void Awake() => _player = GetComponent<PlayerController>();
 
         private void Start()
@@ -23,11 +25,17 @@ namespace yb
 
             foreach (Transform t in _rangedWeaponsParent)
                 t.localScale = Vector3.zero;
+
+            _photonview = GetComponent<PhotonView>(); //0409 08:06 ÀÌÈñ¿õ ÄÚµå ¼öÁ¤ ÃÑ¾Ë µ¿±âÈ­¸¦ À§ÇÑ Æ÷Åæºä ÃÊ±âÈ­
         }
 
         private void Update() => _rangeWeapon.OnUpdate();
 
-        public void OnShotUpdate() => _rangeWeapon.Shot(Vector3.zero, _player);
+        public void OnShotUpdate()
+        {
+            if(_photonview.IsMine) //0409 08:06 ÀÌÈñ¿õ ÄÚµå ¼öÁ¤ ÃÑ¾Ë µ¿±âÈ­¸¦ À§ÇÑ ÄÚµå
+            _rangeWeapon.Shot(Vector3.zero, _player);
+        }
         public void OnReloadUpdate() => _rangeWeapon.Reload(_player);
 
         public void SetRelic(IRelic relic) => _rangeWeapon.OnUpdateRelic(_player);
