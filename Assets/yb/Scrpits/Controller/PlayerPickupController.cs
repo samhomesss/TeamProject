@@ -30,21 +30,21 @@ namespace yb {
             if (Input.GetKeyDown(KeyCode.G)) {
                 _player.StateController.ChangeState(new PlayerState_Pickup(_player));
                 _collideItem.Pickup(_player);
-                _player.PlayerEvent.Item5?.Invoke(_collideItem.Name);
+           //     _player.PlayerEvent.Item5?.Invoke(_collideItem.Name);
             }
         }
         public void SetRelic(IRelic relic) {
             _haveRelic[(int)relic.RelicType] = true;
             _player.WeaponController.SetRelic(relic);
             _player.Status.SetResurrectionTime(_data.BonusResurrectionTime);
-            _player.PlayerEvent.Item4?.Invoke((int)relic.RelicType);
+     //       _player.PlayerEvent.Item4?.Invoke((int)relic.RelicType);
         }
 
         public void DeleteRelic(IRelic relic) {
             _haveRelic[(int)relic.RelicType] = true;
             _player.WeaponController.SetRelic(relic);
             _player.Status.SetResurrectionTime(_data.DefaultResurrectionTime);
-            _player.PlayerEvent.Item4?.Invoke((int)relic.RelicType);
+       //     _player.PlayerEvent.Item4?.Invoke((int)relic.RelicType);
         }
 
         public bool[] IsRelic() => _haveRelic;

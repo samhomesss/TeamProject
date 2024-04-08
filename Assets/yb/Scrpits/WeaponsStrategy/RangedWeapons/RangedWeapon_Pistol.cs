@@ -13,7 +13,7 @@ namespace yb {
             _firePos = Util.FindChild(_weaponGameObject, "FirePos", false).transform;
             _weaponGameObject.transform.localScale = DefaultScale;
             _player = player;
-            _player.PlayerEvent.Item3?.Invoke((int)WeaponType);
+      //      _player.PlayerEvent.Item3?.Invoke((int)WeaponType);
 
             _realodTime = _data.DefaultWeaponRealodTime((int)WeaponType);
             _defaultDamage = _data.DefaultWeaponDamage((int)WeaponType);
@@ -50,7 +50,7 @@ namespace yb {
                 _maxBullet -= _remainBullet;
             }
 
-            _player.PlayerEvent.Item2.Invoke(_currentBullet, _maxBullet);
+      //      _player.PlayerEvent.Item2.Invoke(_currentBullet, _maxBullet);
             player.StateController.ChangeState(new PlayerState_Idle(player));
         }
 
@@ -74,7 +74,7 @@ namespace yb {
             }
 
             _currentBullet--;
-            _player.PlayerEvent.Item2.Invoke(_currentBullet, _maxBullet);
+       //     _player.PlayerEvent.Item2.Invoke(_currentBullet, _maxBullet);
             int projectileNumber = Random.Range(0, 1f) > _data.BonusProjectileChance((int)WeaponType) ? 1 : Mathf.Max(_bonusProjectile, 1);
 
             for (int i = 0; i< projectileNumber; i++)

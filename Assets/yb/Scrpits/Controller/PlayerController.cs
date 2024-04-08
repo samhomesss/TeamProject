@@ -25,25 +25,24 @@ namespace yb
         private IItemDroplable _droplable = new ItemDroplable();
         private PlayerStatus _status;
         private PhotonView _photonview; //0405 09:41분 이희웅 캐릭터간에 동기화를 위한 포톤 뷰 추가
-
         //item1. 체력
         //item2. 총알
         //item3. 무기
         //item4. 렐릭
         //item5. 아이템
         //item6. 미니맵
-        private Action<int, int> _hpEvent;
-        private Action<int, int> _bulletEvent;
-        private Action<int> _weaponEvent;
-        private Action<int> _relicEvent;
-        private Action<string> _itemEvent;
-        private Action _miniMapEvent;
+        //private Action<int, int> _hpEvent;
+        //private Action<int, int> _bulletEvent;
+        //private Action<int> _weaponEvent;
+        //private Action<int> _relicEvent;
+        //private Action<string> _itemEvent;
+        //private Action _miniMapEvent;
 
-        private Tuple<Action<int, int>, Action<int, int>, Action<int>,
-            Action<int>, Action<string>, Action> _playerEvent;
+        //private Tuple<Action<int, int>, Action<int, int>, Action<int>,
+        //    Action<int>, Action<string>, Action> _playerEvent;
 
-        public Tuple<Action<int, int>, Action<int, int>, Action<int>,
-            Action<int>, Action<string>, Action> PlayerEvent => _playerEvent;
+        //public Tuple<Action<int, int>, Action<int, int>, Action<int>,
+        //    Action<int>, Action<string>, Action> PlayerEvent => _playerEvent;
 
         /// <summary>
         /// 스탯,능력치 클래스
@@ -89,7 +88,7 @@ namespace yb
             _droplable.Set("ObtainablePistol");
             _droplable.Set("ObtainableShotgun");
 
-            _playerEvent = Tuple.Create(_hpEvent, _bulletEvent, _weaponEvent, _relicEvent, _itemEvent, _miniMapEvent);
+           // _playerEvent = Tuple.Create(_hpEvent, _bulletEvent, _weaponEvent, _relicEvent, _itemEvent, _miniMapEvent);
         }
 
 
@@ -110,20 +109,21 @@ namespace yb
 
         public void ChangeFadeAnimation(string animation)
         {
-            if (_photonview.IsMine)// 0408 07:42 이희웅 애니메이션 동기화 작업추가
-                _animator.CrossFade(animation, _animationFadeTime);
-        }
-        public void ChangeIntigerAnimation(Define.PlayerState state)
-        {
-            if (_photonview.IsMine)// 0408 07:42 이희웅 애니메이션 동기화 작업추가
-                _animator.SetInteger("State", (int)state);
-        }
-        public void ChangeTriggerAnimation(Define.PlayerState state)
-        {
-            if (_photonview.IsMine)// 0408 07:42 이희웅 애니메이션 동기화 작업추가
-                _animator.SetTrigger(state.ToString());
+            if(animation == "Move")
+            {
+                _animator.SetBool("Move", true);
+                _animator.SetBool("Idle", false);
+            }           
+            else if(animation == "Idle")
+            {
+                _animator.SetBool("Move", false);
+                _animator.SetBool("Idle", true);
+            }
         }
 
+        public void ChangeIntigerAnimation(Define.PlayerState state)=> _animator.SetInteger("State", (int)state);
+        public void ChangeTriggerAnimation(Define.PlayerState state)=>_animator.SetTrigger(state.ToString());
+        
         /// <summary>
         /// 플레이어 이동 로직
         /// </summary>
@@ -152,7 +152,7 @@ namespace yb
                 return;
 
             int hp = _status.SetHp(-amout);
-            _hpEvent?.Invoke(_status.CurrentHp, _status.MaxHp);
+            //_hpEvent?.Invoke(_status.CurrentHp, _status.MaxHp);
             if (hp <= 0)
             {
                 _droplable.Drop(transform.position);
