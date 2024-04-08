@@ -41,6 +41,7 @@ MonoBehaviour:
   - RespawnSpaceship
   - RpcAddChat
   - RPCCustomType
+  - Create
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1
