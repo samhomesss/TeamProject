@@ -5,8 +5,8 @@ using UnityEngine.UI;
 
 public class UI_RelicInven : UI_Scene
 {
-
-    List<UI_RelicInven_Item> ui_RelicInven_Items = new List<UI_RelicInven_Item>();
+    public static List<UI_RelicInven_Item> UI_RelicInven_Items => ui_RelicInven_Items; // 해당 리스트를 가져오는 프로퍼티
+    static List<UI_RelicInven_Item> ui_RelicInven_Items = new List<UI_RelicInven_Item>();
     UI_RelicInven_Item relicInvenItem;
 
     enum GameObjects
@@ -51,7 +51,7 @@ public class UI_RelicInven : UI_Scene
     {
         for (int i = 0; i < ui_RelicInven_Items.Count; i++)
         {
-            if (!ui_RelicInven_Items[i].IsEmpty)
+            if (!ui_RelicInven_Items[i].IsEmpty) // 유물창이 비었는지
             {
                 continue;
             }

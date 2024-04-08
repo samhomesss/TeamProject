@@ -14,14 +14,14 @@ public class UI_Inven : UI_Scene
     {
         GridPanel
     }
-
+     
     void Start()
     {
         Init();
-    // 구독해주고
-    //UI_ItemCreateButton.OnItemCreateClicked += ChangeImage;
-    ItemInfoName.OnItemGet -= ChangeImage;
-    ItemInfoName.OnItemGet += ChangeImage;
+        // 구독해주고
+        //UI_ItemCreateButton.OnItemCreateClicked += ChangeImage;
+        ItemInfoName.OnItemGet -= ChangeImage;
+        ItemInfoName.OnItemGet += ChangeImage;
      }
 
 
@@ -30,7 +30,6 @@ public class UI_Inven : UI_Scene
         base.Init();
 
         Bind<GameObject>(typeof(GameObjects));
-
         GameObject gridPanel = Get<GameObject>((int)GameObjects.GridPanel);
         foreach (Transform child in gridPanel.transform)
             Managers.Resources.Destroy(child.gameObject);
@@ -59,7 +58,7 @@ public class UI_Inven : UI_Scene
             }
         // Item 적용 부분
 
-        if (itemID / 500 == 0)
+        if (itemID / 500 == 0) // 이거 조건 없어도 될듯?
         {
             ui_Inven_Items[i].IsEmpty = false;
             ui_Inven_Items[i].transform.GetChild(0).GetComponentInChildren<Image>().sprite = Managers.ItemDataBase.GetItemData(itemID).itemImage;

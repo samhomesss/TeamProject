@@ -40,8 +40,6 @@ public class UI_RelicInven_Item : UI_Base
 
     static public event Action<int> OnItemInfoChanged; // 올렸을때 아이템 인포를 조정
 
-
-
     void Start()
     {
         Init();

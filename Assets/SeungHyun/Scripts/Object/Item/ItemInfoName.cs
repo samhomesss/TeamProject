@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 using UnityEngine.UI;
 using static Define;
@@ -23,13 +24,40 @@ public class ItemInfoName : UI_Scene
     // 해당 아이템이 가까이 있어서 특정 키로 아이템을 먹는 작업 
     void IsClosedItem()
     {
+        int count = 0;
+
         if (diff <= 3f)
         {
-            OnItemGet?.Invoke(gameObject.GetComponent<Item>().ItemID); // 해당 아이템의 아이템 정보를 전달 해주고
-            Destroy(gameObject); // 파괴
-            Destroy(go);
-            PlayerTestSh.OnItemCheacked -= CloseByPlayer;
-            Managers.Input.GetItemEvent -= IsClosedItem;
+
+            switch (gameObject.GetComponent<Item>().ItemID / 500)
+            {
+                case 0: // 장비아이템
+                    break;
+                case 1: // 일반 아이템
+                    break;
+                case 2: // 유물 아이템
+                    for (int i = 0; i < UI_RelicInven.UI_RelicInven_Items.Count; i++)
+                    {
+                        if (!UI_RelicInven.UI_RelicInven_Items[i].IsEmpty)
+                        {
+                            count++;
+                            if (count == 2)
+                            // 아이템 꽉찼으면 바꿀껀지 팝업창 만들고 선택해서 띄우기 
+                            // 먹었던 아니면 먹지 않은 아이템 떨구기
+                            continue;
+                        }
+                        OnItemGet?.Invoke(gameObject.GetComponent<Item>().ItemID);
+                        Destroy(gameObject);
+                        Destroy(go);
+                        PlayerTestSh.OnItemCheacked -= CloseByPlayer; // 플레이어 근처에 아이템 띄우는거 
+                        Managers.Input.GetItemEvent -= IsClosedItem; // 아이템 먹는거 
+                        break;
+                    }
+                    break;
+               
+            }
+
+           
         }
     }
 
