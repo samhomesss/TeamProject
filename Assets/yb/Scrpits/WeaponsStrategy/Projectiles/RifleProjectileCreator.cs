@@ -15,8 +15,7 @@ namespace yb
                 _photonView = player.GetComponent<PhotonView>();
                 if (_photonView.IsMine)
                 {
-                    vfx = PhotonNetworkUtil.CreatePhotonObject("Prefabs/yb/Projectile/Default", createPos);
-                    vfx.Init(player.RotateToMouseScript.GetRotation(), defaultDamage, player.gameObject);
+                    vfx = PhotonNetworkUtil.CreatePhotonObject("Prefabs/yb/Projectile/Default", createPos, defaultDamage, player.gameObject, player.RotateToMouseScript.GetRotation());
                 }
             }
             else
