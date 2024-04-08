@@ -88,7 +88,7 @@ namespace yb
             _droplable.Set("ObtainablePistol");
             _droplable.Set("ObtainableShotgun");
 
-           // _playerEvent = Tuple.Create(_hpEvent, _bulletEvent, _weaponEvent, _relicEvent, _itemEvent, _miniMapEvent);
+            // _playerEvent = Tuple.Create(_hpEvent, _bulletEvent, _weaponEvent, _relicEvent, _itemEvent, _miniMapEvent);
         }
 
 
@@ -99,7 +99,7 @@ namespace yb
         }
         public void SetCamera(Camera camera) => _myCamera = camera;
 
-       
+
         public bool isMoving()
         {
             if (moveX == 0 && moveZ == 0)
@@ -110,11 +110,11 @@ namespace yb
 
         public void ChangeFadeAnimation(string animation) //0408 이희웅 움직임 애니메이션 추가
         {
-            if(isMoving())
+            if (isMoving())
             {
                 _animator.SetBool("Move", true);
                 _animator.SetBool("Idle", false);
-            }           
+            }
             else
             {
                 _animator.SetBool("Move", false);
@@ -122,9 +122,19 @@ namespace yb
             }
         }
 
-        public void ChangeIntigerAnimation(Define.PlayerState state)=> _animator.SetInteger("State", (int)state);
-        public void ChangeTriggerAnimation(Define.PlayerState state)=>_animator.SetTrigger(state.ToString());
-        
+        public void ChangeIntigerAnimation(Define.PlayerState state)//0408 16:38분 이희웅 업데이트 추가
+        {
+            if(state == Define.PlayerState.Shot)
+                if(_photonview.IsMine)
+                    _animator.SetInteger("State", (int)state);
+        }
+        public void ChangeTriggerAnimation(Define.PlayerState state)//0408 16:38분 이희웅 업데이트 추가
+        {
+            if (state == Define.PlayerState.Shot)
+                if (_photonview.IsMine)
+                    _animator.SetTrigger(state.ToString());
+        }
+
         /// <summary>
         /// 플레이어 이동 로직
         /// </summary>
