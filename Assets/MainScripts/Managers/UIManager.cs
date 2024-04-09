@@ -33,6 +33,17 @@ public class UIManager
         }
     }
 
+    public GameObject UIInfoRoot
+    {
+        get
+        {
+            GameObject root = GameObject.Find("@UI_ItemInfo");
+            if (root == null)
+                root = new GameObject { name = "@UI_ItemInfo" };
+            return root;
+        }
+    }
+
 
     public void SetCanvas(GameObject go, bool sort = true)
     {
@@ -104,6 +115,20 @@ public class UIManager
         _sceneObject = sceneobj.gameObject;
 
         go.transform.SetParent(ObjectRoot.transform);
+
+        return sceneobj;
+    }
+
+    public T ShowSceneUIInfo<T>(string name = null, string user = "sh") where T : UI_Scene
+    {
+        if (string.IsNullOrEmpty(name))
+            name = typeof(T).Name;
+
+        GameObject go = Managers.Resources.Instantiate($"{user}/UI/Scene/{name}");
+        T sceneobj = Util.GetOrAddComponent<T>(go);
+        _sceneObject = sceneobj.gameObject;
+
+        go.transform.SetParent(UIInfoRoot.transform);
 
         return sceneobj;
     }
