@@ -14750,7 +14750,7 @@ MonoBehaviour:
   m_SynchronizeVelocity: 1
   m_SynchronizeAngularVelocity: 0
   m_TeleportEnabled: 0
-  m_TeleportIfDistanceGreaterThan: 3
+  m_TeleportIfDistanceGreaterThan: 2.16
 --- !u!1 &1399422420123134
 GameObject:
   m_ObjectHideFlags: 0

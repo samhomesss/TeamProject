@@ -44,6 +44,12 @@ public class ProjectileMoveScript : MonoBehaviour {
         rb = GetComponent<Rigidbody>();
 	}
 
+    public void Init(int damage, GameObject creator) //0409 12:45 이희웅 함수 오버로딩 추가  
+    {
+        _damage = damage;
+        _creator = creator;
+    }
+
     public void Init(Quaternion rotate, int damage, GameObject creator) 
     {
         transform.localRotation = rotate;
