@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace yb {
+    /// <summary>
+    /// 모든 유닛 능력치 관련 클래스
+    /// </summary>
     public class BaseStatus : MonoBehaviour {
         protected Data _data;
         protected int _currentHp;

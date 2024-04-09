@@ -3,6 +3,9 @@ using Photon.Realtime;
 using UnityEngine;
 
 namespace yb {
+    /// <summary>
+    /// Pistol 발사체 생성 클래스
+    /// </summary>
     public class PistolProjectileCreator : IProjectileCreator {
 
         public void Create(int defaultDamage, float projectileSpeed, Vector3 targetPos, Vector3 createPos, PlayerController player) {

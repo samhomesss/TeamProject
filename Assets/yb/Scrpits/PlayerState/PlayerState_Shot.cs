@@ -1,5 +1,8 @@
 using UnityEngine;
 namespace yb {
+    /// <summary>
+    /// 플레이어 사격 상태
+    /// </summary>
     public class PlayerState_Shot : PlayerState, IPlayerState {
         IRangedWeapon _weapon;
         public PlayerState_Shot(PlayerController player){
@@ -7,8 +10,7 @@ namespace yb {
         }
         public void OnUpdate(PlayerController player) {
             if(_weapon.CanShot())
-                player.ChangeTriggerAnimation(Define.PlayerState.Shot);
-
+                player.ChangeTriggerAnimation(Define.PlayerState.Shot);  
             
             if (Input.GetMouseButtonUp(0)) {
                 player.StateController.ChangeState(new PlayerState_Idle(player));

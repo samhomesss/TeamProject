@@ -3,7 +3,9 @@ using UnityEngine;
 using yb;
 
 namespace yb
-{
+{    /// <summary>
+     /// Rifle 발사체 생성 클래스
+     /// </summary>
     public class RifleProjectileCreator : IProjectileCreator
     {
         PhotonView _photonView;

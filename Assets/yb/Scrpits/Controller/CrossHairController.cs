@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
 
+/// <summary>
+/// 조준점 클래스(현재 사용x)
+/// </summary>
 namespace yb {
     public class CrossHairController : MonoBehaviour {
         void Update() {
             OnMoveUpdate();
         }
-
+        
         private void OnMoveUpdate() {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             bool hit = Physics.Raycast(ray, out var target, float.MaxValue);

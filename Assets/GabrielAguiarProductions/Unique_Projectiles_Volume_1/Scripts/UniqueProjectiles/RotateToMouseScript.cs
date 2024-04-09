@@ -59,7 +59,8 @@ public class RotateToMouseScript : MonoBehaviour {
         _photonView = GetComponent<PhotonView>();
     }
     public void RotateToMouse (GameObject obj, Vector3 destination ) {
-		if (_photonView.IsMine)//0408 11:30 이희웅 개별동작을 위한 조건부 추가
+		//todo
+		//if (_photonView.IsMine)//0408 11:30 이희웅 개별동작을 위한 조건부 추가
         {
             direction = destination - obj.transform.position;
             Vector3 dir = new Vector3(direction.x, 0f, direction.z);
