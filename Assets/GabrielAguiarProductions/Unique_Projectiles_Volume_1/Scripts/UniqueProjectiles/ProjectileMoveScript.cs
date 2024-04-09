@@ -42,13 +42,6 @@ public class ProjectileMoveScript : MonoBehaviourPunCallbacks {
     private int _damage;
     private GameObject _creator;
 
-    private PhotonView _photonView; //0409 16:30분 이희웅 추가
-
-	void Start () {
-        rb = GetComponent<Rigidbody>();
-        _photonView = GetComponent<PhotonView>();   
-
-    }
 
     public void Init(int damage, GameObject creator) //0409 12:45 이희웅 함수 오버로딩 추가  
     {
@@ -86,19 +79,19 @@ public class ProjectileMoveScript : MonoBehaviourPunCallbacks {
 
         if (!collided) {
             if (co.collider.CompareTag("Obstacle")) {
-                Crash(co);
+                Crash(co, _creator);
                 return;
             }
 
             if (co.collider.CompareTag("Player") || co.collider.CompareTag("DestructibleObject")) {
                 co.collider.GetComponent<ITakeDamage>().TakeDamage(_damage, gameObject);
-                Crash(co);
+                Crash(co, _creator);
                 return;
             }
         }
     }
 
-    private void Crash(Collision co) {
+    private void Crash(Collision co,GameObject creator) {//0409 16:39 희웅creator 매개변수
         collided = true;
 
         //if (trails.Count > 0) {
@@ -121,7 +114,7 @@ public class ProjectileMoveScript : MonoBehaviourPunCallbacks {
         Vector3 pos = contact.point;
 
         if (hitPrefab != null) {
-            if (_photonView.IsMine)
+            if (creator.GetComponent<PhotonView>().IsMine)
             {
                 var hitVFX = PhotonNetwork.Instantiate("Prefabs/yb/Hits/default", pos, rot) as GameObject;
                 var ps = hitVFX.GetComponent<ParticleSystem>();
