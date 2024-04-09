@@ -8,14 +8,26 @@ using static Define;
 
 public class ItemInfoName : UI_Scene
 {
+    public static GameObject Item => _item;
+    public static int Count
+    {
+        get {return _count; }
+        set { _count = value; }
+    }
     GameObject go = null; // 초기화 까지 해주고 아이템 이름 오브젝트
-    GameObject panel = null; // 아이템 먹었을때 꽉 차있으면 물어볼 panel
+    // GameObject panel = null; // 아이템 먹었을때 꽉 차있으면 물어볼 panel
     // 이후 저 상태에서 클릭 하면 아이템 바꾸고 원래 있었던 아이템을 드롭 시킴
     string itemName; // 띄울 아이템 이름
     Text itemInfoTextUI; // UI에서 띄울 아이템 텍스트 이름
 
     float diff; // 거리
     public static event Action<int> OnItemGet; //아이템 획득 했을때
+    #region 이건 패널쪽 만들어서 다시 생성
+    public static event Action OnChangedItem; // 아이템을 바꿀때 
+    #endregion 
+    static int _count;
+    
+    static GameObject _item;
 
     private void Start()
     {
@@ -24,13 +36,12 @@ public class ItemInfoName : UI_Scene
     }
 
     // 해당 아이템이 가까이 있어서 특정 키로 아이템을 먹는 작업 
-    void IsClosedItem()
+    void  IsClosedItem()
     {
-        int count = 0;
+        int itemcount = 0;
 
         if (diff <= 3f)
         {
-
             switch (gameObject.GetComponent<Item>().ItemID / 500)
             {
                 case 0: // 장비아이템
@@ -42,10 +53,17 @@ public class ItemInfoName : UI_Scene
                     {
                         if (!UI_RelicInven.UI_RelicInven_Items[i].IsEmpty)
                         {
-                            count++;
-                            if (count == 2)
+                            itemcount++;
+                            if (itemcount == 2)
                             {
-                                panel = Managers.Resources.Instantiate($"sh/UI/Scene/UI_ItemChangePanel"); // 아이템 생성 
+                                _count = itemcount; // 해당 count가 그냥 진행되면서 빠져 버려 변수 하나 더 만듬
+                                _item = gameObject;
+                                #region 패널을 가져와서 해야 될듯?
+                                Managers.UI.ShowSceneUI<UI_ItemChangePanel>();
+                                UI_ItemChangePanel.OnChangedItem?.Invoke();
+                                UI_RelicInven_Item.OnChangedItem += DestroyAction;
+
+                                #endregion
                             }
                             // 아이템 꽉찼으면 바꿀껀지 팝업창 만들고 선택해서 띄우기 
                             // 먹었던 아니면 먹지 않은 아이템 떨구기
@@ -64,6 +82,13 @@ public class ItemInfoName : UI_Scene
 
            
         }
+    }
+
+    void DestroyAction()
+    {
+        PlayerTestSh.OnItemCheacked -= CloseByPlayer; // 플레이어 근처에 아이템 띄우는거 
+        Managers.Input.GetItemEvent -= IsClosedItem; // 아이템 먹는거
+        Destroy(go);
     }
 
     // 아이템 이 가까이 있어서 아이템을 먹는 작업

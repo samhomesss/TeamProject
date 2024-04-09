@@ -26,6 +26,12 @@ public class Item : MonoBehaviour
             case "Relic":
                 itemID = 1000;
                 break;
+            case "Relic2":
+                itemID = 1001;
+                break;
+            case "Relic3":
+                itemID = 1002;
+                break;
             default:
                 break;
         }

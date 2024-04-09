@@ -23,6 +23,8 @@ public class ItemDataBase
         Rifle, // 51
         ShotGun, // 52
         Relic = 1000,
+        Relic2,
+        Relic3,
     }
 
     string[] itemDataName = Enum.GetNames(typeof(ItemsData));
