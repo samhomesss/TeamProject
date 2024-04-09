@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class GameScene : BaseScene
 {
-    [SerializeField] private PhotonView _photonView;
+    private PhotonView _photonView;
     public override void Clear()
     {
     }
@@ -22,6 +22,7 @@ public class GameScene : BaseScene
             if (_photonView.IsMine)
             {
                 Util.FindChild(go, "Camera", true).active = true;
+                Util.FindChild(go, "Camera", true).GetComponent<AudioListener>().enabled = true;
             }
             //    Managers.UI.ShowSceneUI<UI_Weapon>();
             //    Managers.UI.ShowSceneUI<UI_Inven>();
