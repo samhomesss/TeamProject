@@ -63,9 +63,26 @@ public class UI_RelicInven_Item : UI_Base
         //    _icon.BindEvent(ChangeRelic); // 유물 아이템을 바꾼다고 생각 click했을때 바꾸는것
         //}
         #endregion
-        UI_ItemChangePanel.OnChangedItem += ChangeAction;
+        // UI_ItemChangePanel.OnChangedItem += ChangeAction;
         _icon.BindEvent(CheckItemInfo, Define.UIEvent.Enter); // 마우스가 들어갔을때 이벤트
         _icon.BindEvent(DestroyItemInfo, Define.UIEvent.Exit); // 마우스가 나갔을때 이벤트
+
+        DrapDropItem.OnisEmptySlot -= IsEmptySlot;
+        DrapDropItem.OnisEmptySlot += IsEmptySlot;
+        DrapDropItem.OnisEmptySlot -= DrapItem;
+        DrapDropItem.OnisEmptySlot += DrapItem;
+    }
+
+    void IsEmptySlot()
+    {
+        _isEmpty = true;
+    }
+
+    void DrapItem()
+    {
+        GameObject go = Managers.Resources.Instantiate($"sh/Relic/{Managers.ItemDataBase.GetItemData(_beforeChagnedItemID).itemName}"); // 아이템 생성
+        go.transform.position = Map.Player.transform.position;
+        _slotItemID = 0;
     }
 
     // 유물 아이템 바꾼다고 선택할때 사용
@@ -76,7 +93,7 @@ public class UI_RelicInven_Item : UI_Base
     {
         if (_isChanged == false)
         {
-            _icon.BindEvent(ChangeRelic);
+            _icon.BindEvent(ChangeRelic); // 클릭 액션 
         }
     }
 
@@ -89,6 +106,7 @@ public class UI_RelicInven_Item : UI_Base
         if (ItemInfoName.Count == 2 )
         {
             _beforeChagnedItemID = _slotItemID;
+            // Todo : 지워야되고
             _icon.GetComponent<Image>().sprite = Managers.ItemDataBase.GetItemData(UI_ItemChangePanel.ItemID).itemImage; // 먹으려고 하는 아이템 이미지로 바꿔주고
             _slotItemID = UI_ItemChangePanel.ItemID; // 해당 아이템의 ID를 받아와서 
             Destroy(ItemInfoName.Item);

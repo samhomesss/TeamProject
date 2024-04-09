@@ -15,11 +15,9 @@ public class Item : MonoBehaviour
             case "Pistol":
                 itemID = 50;
                 break;
-
             case "Rifle":
                 itemID = 51;
                 break;
-
             case "ShotGun":
                 itemID = 52;
                 break;

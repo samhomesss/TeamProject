@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+// 아이템 먹었을때 바뀌는 거 띄워줄 패널
+// 현재 방식이 바뀌어서 사용하지 않을듯?
 public class UI_ItemChangePanel : UI_Scene
 {
     public static Action OnChangedItem; // 아이템을 바꿀때 
