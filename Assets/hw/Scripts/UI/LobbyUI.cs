@@ -64,7 +64,9 @@ public class LobbyUI : UI_Scene, ILobbyCallbacks
         var lines = File.ReadAllLines("Assets/TestOption.txt"); //테스트 옵션 설정
         if (lines.Length > 0)
         {
-            testLoginToggle.gameObject.SetActive(lines[0].Equals("1"));
+            string firstLine = lines[0];
+            bool isValidOption = firstLine[0] >= '1' && firstLine[0] <= '8';
+            testLoginToggle.gameObject.SetActive(isValidOption);
         }
     }
 
