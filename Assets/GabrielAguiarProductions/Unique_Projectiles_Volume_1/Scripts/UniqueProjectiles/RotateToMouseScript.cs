@@ -60,12 +60,15 @@ public class RotateToMouseScript : MonoBehaviour {
     }
     public void RotateToMouse (GameObject obj, Vector3 destination ) {
 		//todo
-		//if (_photonView.IsMine)//0408 11:30 이희웅 개별동작을 위한 조건부 추가
-        {
-            direction = destination - obj.transform.position;
-            Vector3 dir = new Vector3(direction.x, 0f, direction.z);
-            rotation = Quaternion.LookRotation(dir);
-            obj.transform.localRotation = Quaternion.Lerp(obj.transform.rotation, rotation, 1);
+		if(IsTestMode.Instance.CurrentUser == Define.User.Hw)
+		{
+            if (_photonView.IsMine)//0408 11:30 이희웅 개별동작을 위한 조건부 추가
+            {
+                direction = destination - obj.transform.position;
+                Vector3 dir = new Vector3(direction.x, 0f, direction.z);
+                rotation = Quaternion.LookRotation(dir);
+                obj.transform.localRotation = Quaternion.Lerp(obj.transform.rotation, rotation, 1);
+            }
         }
 	}
 

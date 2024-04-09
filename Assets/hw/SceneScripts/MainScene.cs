@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 namespace Hw
 {
-    public class GameScene : BaseScene
+    public class MainScene : BaseScene
     {
         public override void Init()
         {
