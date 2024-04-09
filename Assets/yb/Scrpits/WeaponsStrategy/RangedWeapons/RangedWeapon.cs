@@ -1,10 +1,12 @@
 using UnityEngine;
 using DG.Tweening;
 namespace yb {
+    /// <summary>
+    /// 무기 관련 클래스
+    /// </summary>
     public class  RangedWeapon{
         public RangedWeapon() {
             _data = Managers.Data;
-            
         }
         
         protected Data _data;
@@ -15,9 +17,7 @@ namespace yb {
         protected int _defaultDamage;
 
 
-        // 29 / 180 
-        //29가 currentbullet
-        //180이 _maxBullet
+
 
         //현재 총알 수
         protected int _currentBullet;
@@ -33,12 +33,12 @@ namespace yb {
 
         //추가 투사체 렐릭을 먹었을시 추가되는 발사체의 수
         protected int _bonusProjectile;
-        protected IProjectileCreator _projectileCreator;
+        protected IProjectileCreator _projectileCreator;  //발사체 생성용 변수
         protected PlayerController _player;
-        protected Transform _firePos;
-        protected GameObject _weaponGameObject;
+        protected Transform _firePos;  //발사체 생성 위치 
+        protected GameObject _weaponGameObject;  //무기 오브젝트 저장용 변수
         protected bool isShot;
-        protected bool[] _relics = new bool[(int)Define.RelicType.Count];
+        protected bool[] _relics = new bool[(int)Define.RelicType.Count];  //보유 렐릭
 
         
     }

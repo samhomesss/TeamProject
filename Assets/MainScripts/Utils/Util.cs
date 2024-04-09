@@ -17,6 +17,12 @@ public class Util : MonoBehaviour
     //    private float m_Height;
     //}
 
+    public static IEnumerator CoActive(bool trigger, GameObject go, float time)
+    {
+        yield return new WaitForSeconds(time);
+        go.SetActive(trigger);
+    }//오브젝트 비활성화 코루틴 추가;
+
     public static T FindChild<T>(GameObject go, string name = null, bool recursive = false) where T : UnityEngine.Object
     {
         if (go == null)

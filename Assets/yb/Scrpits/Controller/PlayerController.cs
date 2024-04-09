@@ -6,64 +6,71 @@ using UnityEditor;
 using Photon.Pun;
 using System;
 
-namespace yb {
-    public class PlayerController : MonoBehaviour, ITakeDamage {
-        private readonly float _animationFadeTime = .3f;
+namespace yb
+{
+    public class PlayerController : MonoBehaviour, ITakeDamage
+    {
+        
+        private readonly float _animationFadeTime = .3f;  //애니메이션 페이드 시간
         private Rigidbody _rigid;
-        private Data _data;
-        private float moveX;
-        private float moveZ;
-        private Camera _myCamera;
+        private Data _data;  //기본 데이터
+        private float moveX;  //이동량x
+        private float moveZ;  //이동량z
+        private Camera _myCamera;  //내 카메라(카메라 쪽에서 할당중)
         private Collider _collider;
         private Animator _animator;
         private PlayerPickupController _pickupController;
         private PlayerStateController _stateController;
         private PlayerWeaponController _weaponController;
         private RotateToMouseScript _rotateToMouseScript;
-        private IItemDroplable _droplable = new ItemDroplable();
-        private PlayerStatus _status;
+        private IItemDroplable _droplable = new ItemDroplable();  //아이템 드롭용 변수. set함수로 드롭할 아이템 저장. drop함수로 아이템 드롭
+        private PlayerStatus _status;  //플레이어 능력치
         private PhotonView _photonview; //0405 09:41분 이희웅 캐릭터간에 동기화를 위한 포톤 뷰 추가
-
-        //item1. 체력
-        //item2. 총알
-        //item3. 무기
-        //item4. 렐릭
-        //item5. 아이템
-        //item6. 미니맵
-        private Action<int, int> _hpEvent;
-        private Action<int, int> _bulletEvent;
-        private Action<int> _weaponEvent;
-        private Action<int> _relicEvent;
-        private Action<string> _itemEvent;
-        private Action _miniMapEvent;
-
-        private  Tuple<Action<int, int>, Action<int, int>, Action<int>,
-            Action<int>, Action<string>, Action> _playerEvent;
-
-        public  Tuple<Action<int, int>, Action<int, int>, Action<int>,
-            Action<int>, Action<string>, Action> PlayerEvent => _playerEvent;
+        
 
         /// <summary>
-        /// 스탯,능력치 클래스
-        /// 타고 들어가면 private로 플레이어의 정보들이 변수로 생성되어있음.
-        /// 필요시 get 프로퍼티 생성 후 사용
+        /// 플레이어 hp변경시 호출
+        /// <현재 hp, 최대 hp>
         /// </summary>
+        public Action<int, int> HpEvent;  
+
+        /// <summary>
+        /// 무기 총알 변경시 호출
+        /// <현재 총알, 최대 총알>
+        /// </summary>
+        public Action<int, int> BulletEvent;
+
+        /// <summary>
+        /// 플레이어 무기 변경시 호출
+        /// <define.weaponType>
+        /// </summary>
+        public Action<int> WeaponEvent;
+
+        /// <summary>
+        /// 렐릭 습득 및 제거시 호출
+        /// <define.relicType>
+        /// </summary>
+        public Action<int> RelicEvent;
+
+        /// <summary>
+        /// 아이템 습득 시 호출
+        /// <아이템의 이름을 문자열로 저장>
+        /// </summary>
+        public Action<string> ItemEvent;
+        public Action MiniMapEvent;
+                
         public PlayerStatus Status => _status;
-
-        /// <summary>
-        /// 플레이어 무기 클래스
-        /// 내부의 IRangedWeapon 변수가 무기의 정보를 지니고있음
-        /// 타고 들어가면 private로 무기의 정보들이 변수로 생성되어있음.
-        /// 필요시 get 프로퍼티 생성 후 사용
-        /// </summary>
+        public PhotonView PhotonView => _photonview;
+        
         public PlayerWeaponController WeaponController => _weaponController;
         public PlayerPickupController PickupController => _pickupController;
         public PlayerStateController StateController => _stateController;
         public Camera MyCamera => _myCamera;
-        public RotateToMouseScript RotateToMouseScript => _rotateToMouseScript;
+        public RotateToMouseScript RotateToMouseScript => _rotateToMouseScript;  //플레이어 회전용 변수
 
 
-        private void Awake() {
+        private void Awake()
+        {
             _rigid = GetComponent<Rigidbody>();
             _collider = GetComponent<Collider>();
             _animator = GetComponent<Animator>();
@@ -76,40 +83,83 @@ namespace yb {
         }
 
 
-        private void Start() {
+        private void Start()
+        {
             _data = Managers.Data;
 
-            //test
             //사망시 set해둔 아이템 드랍
             _droplable.Set("ObtainableRifle");
             _droplable.Set("ObtainablePistol");
             _droplable.Set("ObtainableShotgun");
 
-            _playerEvent = Tuple.Create(_hpEvent, _bulletEvent, _weaponEvent, _relicEvent, _itemEvent, _miniMapEvent);
         }
 
 
-        private void Update() {
+        private void Update()
+        {
             moveX = Input.GetAxisRaw("Horizontal");
             moveZ = Input.GetAxisRaw("Vertical");
         }
         public void SetCamera(Camera camera) => _myCamera = camera;
 
-        public bool isMoving() {
+
+        /// <summary>
+        /// 플레이어 이동 상황 체크
+        /// </summary>
+        /// <returns></returns>
+        public bool isMoving()
+        {
             if (moveX == 0 && moveZ == 0)
                 return false;
 
             return true;
         }
-        
-        public void ChangeFadeAnimation(string animation) => _animator.CrossFade(animation, _animationFadeTime);
-        public void ChangeIntigerAnimation(Define.PlayerState state) => _animator.SetInteger("State", (int)state);
-        public void ChangeTriggerAnimation(Define.PlayerState state) => _animator.SetTrigger(state.ToString());
+
+        /// <summary>
+        /// Bool파라미터로 애니메이션 체인지
+        /// </summary>
+        /// <param name="animation"></param>
+        public void ChangeBoolAnimation(string animation) //0408 이희웅 움직임 애니메이션 추가
+        {
+            if (isMoving())
+            {
+                _animator.SetBool("Move", true);
+                _animator.SetBool("Idle", false);
+            }
+            else
+            {
+                _animator.SetBool("Move", false);
+                _animator.SetBool("Idle", true);
+            }
+        }
+
+        /// <summary>
+        /// int파라미터로 애니메이션 체인지
+        /// </summary>
+        /// <param name="state"></param>
+        public void ChangeIntigerAnimation(Define.PlayerState state)//0408 16:38분 이희웅 업데이트 추가
+        {
+            //if(state == Define.PlayerState.Shot)
+                if(_photonview.IsMine)
+                    _animator.SetInteger("State", (int)state);
+        }
+
+        /// <summary>
+        /// trigger파라미터로 애니메이션 체인지
+        /// </summary>
+        /// <param name="state"></param>
+        public void ChangeTriggerAnimation(Define.PlayerState state)//0408 16:38분 이희웅 업데이트 추가
+        {
+            //if (state == Define.PlayerState.Shot)
+                if (_photonview.IsMine)
+                    _animator.SetTrigger(state.ToString());
+        }
 
         /// <summary>
         /// 플레이어 이동 로직
         /// </summary>
-        public void OnMoveUpdate() {
+        public void OnMoveUpdate()
+        {
             if (_photonview.IsMine)//0405 09:41분 캐릭터간에 동기화를 위한 포톤 이동 분리 로직 추가
             {
                 Vector3 dir = new Vector3(moveX, 0f, moveZ);
@@ -117,22 +167,37 @@ namespace yb {
             }
         }
 
-        public void OnDieUpdate(GameObject attacker) {
+        /// <summary>
+        /// 플레이어 State사망으로 변경 및 사망 애니메이션 출력
+        /// </summary>
+        /// <param name="attacker"></param>
+        public void OnDieUpdate(GameObject attacker)
+        {
             transform.LookAt(attacker.transform.position);
             _collider.enabled = false;
             _rigid.isKinematic = true;
             ChangeTriggerAnimation(Define.PlayerState.Die);
         }
 
-        public void OnDieEvent() =>  Managers.Resources.Destroy(gameObject);
+        /// <summary>
+        /// 플레이어 사망 이벤트(애니메이션에서 이벤트로 호출)
+        /// </summary>
+        public void OnDieEvent() => Managers.Resources.Destroy(gameObject);
 
-        public void TakeDamage(int amout, GameObject attacker) {
+        /// <summary>
+        /// 플레이어 피격 판정(피격 데미지, 공격자)
+        /// </summary>
+        /// <param name="amout"></param>
+        /// <param name="attacker"></param>
+        public void TakeDamage(int amout, GameObject attacker)
+        {
             if (amout <= 0)
                 return;
 
-            int hp =_status.SetHp(-amout);
-            _hpEvent?.Invoke(_status.CurrentHp, _status.MaxHp);
-            if(hp <= 0) {
+            int hp = _status.SetHp(-amout);
+            HpEvent?.Invoke(_status.CurrentHp, _status.MaxHp);
+            if (hp <= 0)
+            {
                 _droplable.Drop(transform.position);
                 _stateController.ChangeState(new PlayerState_Die(this, attacker));
             }

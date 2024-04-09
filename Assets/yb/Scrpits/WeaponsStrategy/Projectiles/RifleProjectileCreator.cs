@@ -1,12 +1,21 @@
+using Photon.Pun;
 using UnityEngine;
 using yb;
 
 namespace yb {
+    /// <summary>
+    /// Rifle 발사체 생성 클래스
+    /// </summary>
     public class RifleProjectileCreator : IProjectileCreator {
+
         public void Create(int defaultDamage, float projectileSpeed, Vector3 targetPos, Vector3 createPos, PlayerController player) {
             ProjectileMoveScript vfx;
-            vfx = Managers.Resources.Instantiate("yb/Projectile/Default", null).GetComponent<ProjectileMoveScript>();
-            vfx.transform.position = createPos;
+            if (IsTestMode.Instance.CurrentUser == Define.User.Hw)//0408 15:06 이희웅 테스트
+                vfx = PhotonNetworkUtil.CreatePhotonObject("Prefabs/yb/Projectile/Default", createPos);
+            else
+                vfx = Managers.Resources.Instantiate("yb/Projectile/Default", null).GetComponent<ProjectileMoveScript>();
+
+
             vfx.Init(player.RotateToMouseScript.GetRotation(), defaultDamage, player.gameObject);
         }
     }

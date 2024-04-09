@@ -262,6 +262,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5cb77f9b4609f2a4b901b3fa55a89f64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _photonView: {fileID: 0}
 --- !u!4 &804886024
 Transform:
   m_ObjectHideFlags: 0
@@ -723,7 +724,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c99284e61ad15e4eaada2fc30145ee9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CurrentUser: 1
+  CurrentUser: 2
 --- !u!4 &1169753312
 Transform:
   m_ObjectHideFlags: 0
@@ -853,6 +854,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2881695747894699527, guid: 567a0c86a8edadb4392cba3466227742, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2965611802986451658, guid: 567a0c86a8edadb4392cba3466227742, type: 3}
       propertyPath: m_Name
       value: Player

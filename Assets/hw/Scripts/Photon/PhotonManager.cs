@@ -1,4 +1,5 @@
 using Photon.Pun;
+using Photon.Realtime;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -36,9 +37,11 @@ public class PhotonManager : MonoBehaviourPunCallbacks
         }
     }
 
-    private void OnApplicationQuit() // OnApplicationQuit()이 호출될때 현재 플레이어가 참여중인 방을 나가게됨
+    public void OnApplicationQuit() // OnApplicationQuit()이 호출될때 현재 플레이어가 참여중인 방을 나가게됨
     {
         PhotonNetwork.LeaveRoom();
+        PhotonNetwork.JoinLobby();
+
     }
 
 
@@ -82,9 +85,10 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     public override void OnLeftRoom()
     {
         base.OnLeftRoom();
+        SceneManager.LoadScene("LobbyScene");
         PhotonNetwork.LocalPlayer.SetCustomProperties(new ExitGames.Client.Photon.Hashtable()
         {
 
-        });
+        });//방을 나왔으니 커스텀 프로퍼티 초기화
     }
 }

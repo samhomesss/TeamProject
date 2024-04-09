@@ -4,6 +4,16 @@ using UnityEngine;
 
 public class Define 
 {
+    public enum GameState
+    {
+        None,
+        Login,
+        WaitUntilLoggedIn,
+        InLobby,
+        InGameReady,
+        InGamePlay,
+    }
+
     public enum WeaponType {
         Pistol,
         Rifle,

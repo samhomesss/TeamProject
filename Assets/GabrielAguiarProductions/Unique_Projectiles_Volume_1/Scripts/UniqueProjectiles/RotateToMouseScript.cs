@@ -4,8 +4,10 @@
 //This is just a basic example.
 //
 
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class RotateToMouseScript : MonoBehaviour {
@@ -18,12 +20,14 @@ public class RotateToMouseScript : MonoBehaviour {
 	private Vector3 direction;
 	private Quaternion rotation;
 	private Camera cam;
-	private WaitForSeconds updateTime = new WaitForSeconds (0.01f); 
-
+	private WaitForSeconds updateTime = new WaitForSeconds (0.01f);
+	private PhotonView _photonView;//0408 11:30 이희웅 동기화를 위한 PhotonView 추가
 
 	public void StartUpdateRay (){
 		StartCoroutine (UpdateRay());
 	}
+
+
 
 	IEnumerator UpdateRay (){
 		if (cam != null) {
@@ -50,14 +54,24 @@ public class RotateToMouseScript : MonoBehaviour {
 			Debug.Log ("Camera not set");
 	}
 
-	public void RotateToMouse (GameObject obj, Vector3 destination ) {
-		direction = destination - obj.transform.position;
-		Vector3 dir = new Vector3(direction.x, 0f, direction.z);
-		rotation = Quaternion.LookRotation (dir);
-		obj.transform.localRotation = Quaternion.Lerp (obj.transform.rotation, rotation, 1);
+    private void Start()
+    {
+        _photonView = GetComponent<PhotonView>();
+    }
+    public void RotateToMouse (GameObject obj, Vector3 destination ) {
+		//todo
+		//if (_photonView.IsMine)//0408 11:30 이희웅 개별동작을 위한 조건부 추가
+        {
+            direction = destination - obj.transform.position;
+            Vector3 dir = new Vector3(direction.x, 0f, direction.z);
+            rotation = Quaternion.LookRotation(dir);
+            obj.transform.localRotation = Quaternion.Lerp(obj.transform.rotation, rotation, 1);
+        }
 	}
 
-	public void Set2D (bool state){
+
+
+    public void Set2D (bool state){
 		use2D = state;
 	}
 

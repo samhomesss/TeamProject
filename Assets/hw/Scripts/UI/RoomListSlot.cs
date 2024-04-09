@@ -4,8 +4,6 @@ using UnityEngine.Events;
 using UnityEngine.UI;
 
 
-namespace Hw
-{
     public class RoomListSlot : UI_Scene
     {
         enum GameObjects
@@ -68,4 +66,3 @@ namespace Hw
             rect.sizeDelta = new Vector2(rect.sizeDelta.x, itemHeight);
         }
     }
-}

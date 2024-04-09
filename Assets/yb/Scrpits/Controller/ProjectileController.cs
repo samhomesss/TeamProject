@@ -2,11 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// 발사체 관리 클래스
+/// </summary>
 namespace yb {
     public class ProjectileController : MonoBehaviour {
         private Rigidbody _rigid;
-        private int _damage;
-        private float _speed;
+        private int _damage;  //발사체의 데미지
+        private float _speed;  //발사체의 이동속도 
         private PlayerController _creator;
         public void Init(int damage, float speed, Vector3 targetPos, Vector3 createPos, PlayerController creator) {
             _rigid = GetComponent<Rigidbody>();
@@ -19,6 +22,7 @@ namespace yb {
             StartCoroutine(CoDestroy(3f));
         }
 
+        
         IEnumerator CoDestroy(float time) {
             yield return new WaitForSeconds(time);
             Managers.Resources.Destroy(gameObject);
@@ -34,8 +38,9 @@ namespace yb {
                 return;
             }
 
+            
             if (c.CompareTag("Player") || c.CompareTag("DestructibleObject")) {
-                c.GetComponent<ITakeDamage>().TakeDamage(_damage, gameObject);
+                c.GetComponent<ITakeDamage>().TakeDamage(_damage, gameObject);  //플레이어나 파괴 가능한 오브젝트와 접촉시 데미지를 입힘
                 Managers.Resources.Destroy(gameObject);
                 return;
             }
