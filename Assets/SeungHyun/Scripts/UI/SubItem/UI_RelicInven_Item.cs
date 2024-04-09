@@ -74,7 +74,10 @@ public class UI_RelicInven_Item : UI_Base
     // Action 사용을 위한 방식
     public void ChangeAction()
     {
-        _icon.BindEvent(ChangeRelic);
+        if (_isChanged == false)
+        {
+            _icon.BindEvent(ChangeRelic);
+        }
     }
 
     public void ChangeRelic(PointerEventData PointerEventData)
@@ -83,7 +86,7 @@ public class UI_RelicInven_Item : UI_Base
         // 아이템을 클릭해서 바꾸면 해당 아이템의 이미지를 패널에 있는 이미지로 바꾸고 
         // 현재 들고 있는 아이템을 바꿔서 떨어트려 주면 됨
         #endregion
-        if (ItemInfoName.Count == 2)
+        if (ItemInfoName.Count == 2 )
         {
             _beforeChagnedItemID = _slotItemID;
             _icon.GetComponent<Image>().sprite = Managers.ItemDataBase.GetItemData(UI_ItemChangePanel.ItemID).itemImage; // 먹으려고 하는 아이템 이미지로 바꿔주고
@@ -96,6 +99,8 @@ public class UI_RelicInven_Item : UI_Base
             ItemInfoName.Count = 0;
             Debug.Log(ItemInfoName.Count);
             OnChangedItem?.Invoke();
+
+            
         }
         
     }

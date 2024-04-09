@@ -50,7 +50,7 @@ public class Managers : MonoBehaviour
     {
         Input.OnUpdate();
         //GameManager.Workflow(); 0405 17:57분 희웅 삭제, 워크플로우가 필요없어,삭제함
-        GameManager.Update(); //0407 17:00 희웅 추가, 워크플로우를 없애고, 게임씬을 관리해줄 GameManager 싱글톤 업데이트 추가
+        //GameManager.Update(); //0407 17:00 희웅 추가, 워크플로우를 없애고, 게임씬을 관리해줄 GameManager 싱글톤 업데이트 추가
     }
 
     private static void Init()

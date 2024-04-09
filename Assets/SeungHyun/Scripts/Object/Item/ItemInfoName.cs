@@ -14,16 +14,24 @@ public class ItemInfoName : UI_Scene
         get {return _count; }
         set { _count = value; }
     }
+    public static float DiffFloat
+    {
+        get { return _diffFloat; }
+        set { _diffFloat = value; }
+    }
+
     GameObject go = null; // 초기화 까지 해주고 아이템 이름 오브젝트
     // GameObject panel = null; // 아이템 먹었을때 꽉 차있으면 물어볼 panel
     // 이후 저 상태에서 클릭 하면 아이템 바꾸고 원래 있었던 아이템을 드롭 시킴
     string itemName; // 띄울 아이템 이름
     Text itemInfoTextUI; // UI에서 띄울 아이템 텍스트 이름
 
+    static float _diffFloat;
     float diff; // 거리
     public static event Action<int> OnItemGet; //아이템 획득 했을때
+    public static event Action OnItemNotCloesed; // 아이템 가까이 없을때
     #region 이건 패널쪽 만들어서 다시 생성
-    public static event Action OnChangedItem; // 아이템을 바꿀때 
+   // public static event Action OnChangedItem; // 아이템을 바꿀때 
     #endregion 
     static int _count;
     
@@ -95,7 +103,7 @@ public class ItemInfoName : UI_Scene
     void CloseByPlayer()
     {
         diff = Vector3.Distance(Map.Player.transform.position, gameObject.transform.position);
-
+        _diffFloat = diff;
         if (diff <= 3f)
         {
             if (go != null )
@@ -120,8 +128,6 @@ public class ItemInfoName : UI_Scene
                         }
                     }
                 }
-                
-
 
                 itemInfoTextUI = go.transform.GetChild(0).GetChild(1).GetComponent<Text>();
                 itemName = Managers.ItemDataBase.GetItemData(gameObject.GetComponent<Item>().ItemID).itemName.ToString();
@@ -135,6 +141,13 @@ public class ItemInfoName : UI_Scene
         {
             if (go != null)
             {
+                if (UI_ItemChangePanel.ItemChagnePanel != null)
+                {
+                    Destroy(UI_ItemChangePanel.ItemChagnePanel);
+                    Count = 0;
+                    UI_RelicInven_Item.IsChanged = false;
+
+                }
                 Destroy(go);
             }
         }
