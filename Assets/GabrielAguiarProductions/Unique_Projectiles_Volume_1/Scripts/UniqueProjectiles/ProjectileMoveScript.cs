@@ -119,10 +119,9 @@ public class ProjectileMoveScript : MonoBehaviourPunCallbacks {
         Vector3 pos = contact.point;
 
         if (hitPrefab != null) {
-            //var hitVFX = PhotonNetwork.Instantiate("Prefabs/yb/Hits/default", pos, rot) as GameObject;
-            //var ps = hitVFX.GetComponent<ParticleSystem>();
-            //ps
-            this.AddComponent<VFXLifeController>().Init();
+            var hitVFX = PhotonNetwork.Instantiate("Prefabs/yb/Hits/default", pos, rot) as GameObject;
+            var ps = hitVFX.GetComponent<ParticleSystem>();
+            hitVFX.AddComponent<VFXLifeController>().Init();
             //if (ps == null) {
             //    var psChild = hitVFX.transform.GetChild(0).GetComponent<ParticleSystem>();
             //    CoDestroyPhoton(hitVFX, psChild.main.duration);
