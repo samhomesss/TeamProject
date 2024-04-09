@@ -14,14 +14,16 @@
 #pragma warning disable 0219 // variable assigned but not used.
 #pragma warning disable 0414 // private field assigned but not used.
 
+using Photon.Pun;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UIElements;
 using yb;
 
-public class ProjectileMoveScript : MonoBehaviour {
+public class ProjectileMoveScript : MonoBehaviourPunCallbacks {
 
     public bool rotate = false;
     public float rotateAmount;
@@ -42,6 +44,8 @@ public class ProjectileMoveScript : MonoBehaviour {
 
 	void Start () {
         rb = GetComponent<Rigidbody>();
+
+
 	}
 
     public void Init(int damage, GameObject creator) //0409 12:45 이희웅 함수 오버로딩 추가  
@@ -95,17 +99,17 @@ public class ProjectileMoveScript : MonoBehaviour {
     private void Crash(Collision co) {
         collided = true;
 
-        if (trails.Count > 0) {
-            for (int i = 0; i < trails.Count; i++) {
-                trails[i].transform.parent = null;
-                var ps = trails[i].GetComponent<ParticleSystem>();
-                if (ps != null) {
-                    ps.Stop();
-                   // StartCoroutine(Util.CoActive(false, ps.gameObject, ps.main.duration + ps.main.startLifetime.constantMax));
-                    Destroy(ps.gameObject, ps.main.duration + ps.main.startLifetime.constantMax);
-                }
-            }
-        }
+        //if (trails.Count > 0) {
+        //    for (int i = 0; i < trails.Count; i++) {
+        //        trails[i].transform.parent = null;
+        //        var ps = trails[i].GetComponent<ParticleSystem>();
+        //        if (ps != null) {
+        //            ps.Stop();
+        //            StartCoroutine(Util.CoActive(false, ps.gameObject, ps.main.duration + ps.main.startLifetime.constantMax));
+        //            CoDestroyPhoton(ps.gameObject, ps.main.duration + ps.main.startLifetime.constantMax); 
+        //        }
+        //    }
+        //}
 
         speed = 0;
         GetComponent<Rigidbody>().isKinematic = true;
@@ -115,19 +119,21 @@ public class ProjectileMoveScript : MonoBehaviour {
         Vector3 pos = contact.point;
 
         if (hitPrefab != null) {
-            var hitVFX = Instantiate(hitPrefab, pos, rot) as GameObject;
+            var hitVFX = PhotonNetwork.Instantiate("Prefabs/yb/Hits/default", pos, rot) as GameObject;
 
             var ps = hitVFX.GetComponent<ParticleSystem>();
-            if (ps == null) {
-                var psChild = hitVFX.transform.GetChild(0).GetComponent<ParticleSystem>();
-                Destroy(hitVFX, psChild.main.duration);
-            } else
-                Destroy(hitVFX, ps.main.duration);
+            ps.AddComponent<VFXLifeController>().Init(ps.main.duration);
+            //if (ps == null) {
+            //    var psChild = hitVFX.transform.GetChild(0).GetComponent<ParticleSystem>();
+            //    CoDestroyPhoton(hitVFX, psChild.main.duration);
+            //} else
+            //    CoDestroyPhoton(hitVFX, ps.main.duration);
         }
         StartCoroutine(DestroyParticle(0f));
     }
 
-	public IEnumerator DestroyParticle (float waitTime) {
+
+    public IEnumerator DestroyParticle (float waitTime) {
 
 		if (transform.childCount > 0 && waitTime != 0) {
 			List<Transform> tList = new List<Transform> ();
@@ -146,7 +152,7 @@ public class ProjectileMoveScript : MonoBehaviour {
 		}
 		
 		yield return new WaitForSeconds (waitTime);
-		Destroy (gameObject);
+        PhotonNetwork.Destroy(gameObject);
 	}
 
 }
