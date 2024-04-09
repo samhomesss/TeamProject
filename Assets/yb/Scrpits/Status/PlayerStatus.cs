@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace yb {
+
+    /// <summary>
+    /// 플레이어 능력치 
+    /// </summary>
     public class PlayerStatus : BaseStatus {
         private float _moveSpeed;
 

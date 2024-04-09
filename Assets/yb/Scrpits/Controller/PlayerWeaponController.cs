@@ -4,34 +4,43 @@ using System.Collections.Generic;
 using UnityEngine;
 using yb;
 
+/// <summary>
+/// 플레이어 무기 관리 클래스
+/// </summary>
 namespace yb
 {
     public class PlayerWeaponController : MonoBehaviour
     {
         private PlayerController _player;
-        private IRangedWeapon _rangeWeapon;
+        private IRangedWeapon _rangeWeapon;  //현재 플레이어가 장착중인 무기
         public IRangedWeapon RangedWeapon => _rangeWeapon;
-        private Transform _rangedWeaponsParent;
+        private Transform _rangedWeaponsParent;  //하이어라키 상에서 플레이어의 무기 오브젝트들의 부모 오브젝트
         public Transform RangedWeaponsParent => _rangedWeaponsParent;
 
         private void Awake() => _player = GetComponent<PlayerController>();
 
+        
         private void Start()
         {
             _rangedWeaponsParent = Util.FindChild(gameObject, "RangedWeapons", true).transform;
-            _rangeWeapon = new RangedWeapon_Pistol(_rangedWeaponsParent, _player);
-
+            
             foreach (Transform t in _rangedWeaponsParent)
-                t.localScale = Vector3.zero;
+                t.localScale = Vector3.zero;  //모든 무기의 크기를 zero로 초기화
+
+            _rangeWeapon = new RangedWeapon_Pistol(_rangedWeaponsParent, _player);  //기본 무기를 Pistol로 할당
         }
 
-        private void Update() => _rangeWeapon.OnUpdate();
+        private void Update() => _rangeWeapon.OnUpdate();  //장착중인 무기에 맞는 Update함수 호출
 
-        public void OnShotUpdate() => _rangeWeapon.Shot(Vector3.zero, _player);
-        public void OnReloadUpdate() => _rangeWeapon.Reload(_player);
+        public void OnShotUpdate() => _rangeWeapon.Shot(Vector3.zero, _player);  //장착중인 무기에 맞는 Shot함수 호출
+        public void OnReloadUpdate() => _rangeWeapon.Reload(_player);  //장착중인 무기에 맞는 Reload함수 호출
 
-        public void SetRelic(IRelic relic) => _rangeWeapon.OnUpdateRelic(_player);
+        public void SetRelic(IRelic relic) => _rangeWeapon.OnUpdateRelic(_player);  //렐릭 습득시 무기에 렐릭효과 부여.
 
+        /// <summary>
+        /// 무기 교체 함수
+        /// </summary>
+        /// <param name="weapon"></param>
         public void ChangeRangedWeapon(IRangedWeapon weapon)
         {
             foreach (Transform t in _rangedWeaponsParent)

@@ -34,7 +34,8 @@ public class GameManager : MonoBehaviour
     }
     public void Update()
     {
-        ProgramWorkFlow();
+        //todo
+        //ProgramWorkFlow();
     }
 
     public void ProgramWorkFlow()

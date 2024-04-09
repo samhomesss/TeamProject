@@ -3,6 +3,9 @@ using UnityEngine;
 using yb;
 
 namespace yb {
+    /// <summary>
+    /// Rifle 발사체 생성 클래스
+    /// </summary>
     public class RifleProjectileCreator : IProjectileCreator {
 
         public void Create(int defaultDamage, float projectileSpeed, Vector3 targetPos, Vector3 createPos, PlayerController player) {
