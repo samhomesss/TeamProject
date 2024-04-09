@@ -82,12 +82,21 @@ public class UI_Inven_Item : UI_Base
         if (_icon.GetComponent<Image>().sprite == null) // 아이템이 없으면 Null 반환
             return;
 
-        UI_ItemInfo.ItemInfo.SetActive(true);
-        UI_ItemInfo.ItemInfo.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<Image>().sprite = Managers.ItemDataBase.GetItemData(_slotItemID).itemImage; // 한번 초기화 해주면 되는 이유
-        UI_ItemInfo.ItemInfo.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<Text>().text = Managers.ItemDataBase.GetItemData(_slotItemID).itemName; // 한번 초기화 
-        OnItemInfoChanged?.Invoke(_slotItemID); // 여기 슬롯의 아이템의 정보를 전달 해줌
-        UI_ItemInfo.ItemInfo.transform.GetChild(0).transform.position = gameObject.transform.position + new Vector3(-80, 100, 0);
+        GameObject Info = Util.FindChild(UI_ItemInfo.ItemInfo, "ItemInfoBackGround", true);
+        GameObject InfoImage = Util.FindChild(UI_ItemInfo.ItemInfo, "ItemImage", true);
+        GameObject InfoText = Util.FindChild(UI_ItemInfo.ItemInfo, "ItemInfoText", true);
 
+        UI_ItemInfo.ItemInfo.SetActive(true);
+        InfoImage.GetComponent<Image>().sprite = Managers.ItemDataBase.GetItemData(_slotItemID).itemImage; // 한번 초기화 해주면 되는 이유
+        InfoText.GetComponent<Text>().text = Managers.ItemDataBase.GetItemData(_slotItemID).itemName; // 한번 초기화 
+        OnItemInfoChanged?.Invoke(_slotItemID); // 여기 슬롯의 아이템의 정보를 전달 해줌
+        Info.transform.position = gameObject.transform.position + new Vector3(-80, 100, 0);
+        #region 위에로 따로 처리
+        //UI_ItemInfo.ItemInfo.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<Image>().sprite = Managers.ItemDataBase.GetItemData(_slotItemID).itemImage; // 한번 초기화 해주면 되는 이유
+        //UI_ItemInfo.ItemInfo.transform.GetChild(0).GetChild(1).GetChild(0).GetComponent<Text>().text = Managers.ItemDataBase.GetItemData(_slotItemID).itemName; // 한번 초기화 
+        //OnItemInfoChanged?.Invoke(_slotItemID); // 여기 슬롯의 아이템의 정보를 전달 해줌
+        //UI_ItemInfo.ItemInfo.transform.GetChild(0).transform.position = gameObject.transform.position + new Vector3(-80, 100, 0);
+        #endregion
     }
     // 아이템 위에서 손을 땠을때 사용
     public void DestroyItemInfo(PointerEventData PointerEventData)

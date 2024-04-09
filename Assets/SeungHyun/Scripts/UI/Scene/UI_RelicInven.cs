@@ -1,11 +1,11 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class UI_RelicInven : UI_Scene
 {
-    public static List<UI_RelicInven_Item> UI_RelicInven_Items => ui_RelicInven_Items; // ÇØ´ç ¸®½ºÆ®¸¦ °¡Á®¿À´Â ÇÁ·ÎÆÛÆ¼
+    public static List<UI_RelicInven_Item> UI_RelicInven_Items => ui_RelicInven_Items; // í•´ë‹¹ ë¦¬ìŠ¤íŠ¸ë¥¼ ê°€ì ¸ì˜¤ëŠ” í”„ë¡œí¼í‹°
     static List<UI_RelicInven_Item> ui_RelicInven_Items = new List<UI_RelicInven_Item>();
     UI_RelicInven_Item relicInvenItem;
 
@@ -17,7 +17,7 @@ public class UI_RelicInven : UI_Scene
     void Start()
     {
         Init();
-        // ±¸µ¶ÇØÁÖ°í
+        // êµ¬ë…í•´ì£¼ê³ 
         //UI_ItemCreateButton.OnItemCreateClicked += ChangeImage;
         ItemInfoName.OnItemGet -= ChangeImage;
         ItemInfoName.OnItemGet += ChangeImage;
@@ -34,33 +34,32 @@ public class UI_RelicInven : UI_Scene
         foreach (Transform child in gridPanel.transform)
             Managers.Resources.Destroy(child.gameObject);
 
-        // ½ÇÁ¦ ÀÎº¥Åä¸® Á¤º¸¸¦ Âü°íÇØ¼­
+        // ì‹¤ì œ ì¸ë²¤í† ë¦¬ ì •ë³´ë¥¼ ì°¸ê³ í•´ì„œ
         for (int i = 0; i < 2; i++)
         {
             GameObject item = Managers.UI.MakeSubItem<UI_RelicInven_Item>(gridPanel.transform).gameObject;
-            relicInvenItem = item.GetOrAddComponent<UI_RelicInven_Item>();
-            // ¸®½ºÆ®¿¡ Ãß°¡
+            relicInvenItem = item.GetOrAddComponent<UI_RelicInven_Item>(); // í•´ë‹¹ ì»´í¬ë„ŒíŠ¸ ì¶”ê°€í•´ì„œ 
+            // ë¦¬ìŠ¤íŠ¸ì— ì¶”ê°€
             ui_RelicInven_Items.Add(relicInvenItem);
-            relicInvenItem.SetInfo($"À¯¹°{i}¹ø");
+            relicInvenItem.SetInfo($"ìœ ë¬¼{i}ë²ˆ");
         }
     }
 
-    // ¹öÆ° ÀÌ¿ëÇØ¼­ ¾ÆÀÌÅÛ ¸Ô¾úÀ»¶§ »ç¿ë ÇÑ°Å 
-    // ¹øÈ£¸¦ ³Ñ°ÜÁÖ´Â ¾ÆÀÌÅÛ ¹øÈ£·Î »ç¿ë
-    public void ChangeImage(int itemID)
+    // ë²ˆí˜¸ë¥¼ ë„˜ê²¨ì£¼ëŠ” ì•„ì´í…œ ë²ˆí˜¸ë¡œ ì‚¬ìš©
+    public void ChangeImage(int itemID) // ìœ ë¬¼ ì¸í…í† ë¦¬ì— ì•„ì´í…œì´ ë“¤ì–´ ì™”ì„ë•Œ ì•„ì´í…œ ì´ë¯¸ì§€ ë°”ê¿”ì£¼ëŠ”ê±°
     {
         for (int i = 0; i < ui_RelicInven_Items.Count; i++)
         {
-            if (!ui_RelicInven_Items[i].IsEmpty) // À¯¹°Ã¢ÀÌ ºñ¾ú´ÂÁö
+            if (!ui_RelicInven_Items[i].IsEmpty) // ìœ ë¬¼ì°½ì´ ë¹„ì—ˆëŠ”ì§€
             {
-                continue;
+                continue; // ë¹„ì–´ìˆì§€ ì•Šìœ¼ë©´ ê·¸ëƒ¥ ë‹¤ìŒêº¼ë¡œ ì§„í–‰
             }
-            if (itemID / 500 == 2)
-            {
-                ui_RelicInven_Items[i].IsEmpty = false;
-                ui_RelicInven_Items[i].transform.GetChild(0).GetComponentInChildren<Image>().sprite = Managers.ItemDataBase.GetItemData(itemID).itemImage;
-                ui_RelicInven_Items[i].SlotItemID = itemID; // µ¥ÀÌÅÍ ³Ñ°ÜÁÖ´Â Çü½Ä
-            }
+            
+            GameObject RelicImage = Util.FindChild(ui_RelicInven_Items[i].gameObject, "ItemIcon", true);
+            ui_RelicInven_Items[i].IsEmpty = false;
+            RelicImage.GetComponent<Image>().sprite = Managers.ItemDataBase.GetItemData(itemID).itemImage;
+            ui_RelicInven_Items[i].SlotItemID = itemID; 
+            
             
             break;
 

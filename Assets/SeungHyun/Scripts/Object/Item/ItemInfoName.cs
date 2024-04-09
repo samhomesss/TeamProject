@@ -8,7 +8,9 @@ using static Define;
 
 public class ItemInfoName : UI_Scene
 {
-    GameObject go = null; // 초기화 까지 해주고
+    GameObject go = null; // 초기화 까지 해주고 아이템 이름 오브젝트
+    GameObject panel = null; // 아이템 먹었을때 꽉 차있으면 물어볼 panel
+    // 이후 저 상태에서 클릭 하면 아이템 바꾸고 원래 있었던 아이템을 드롭 시킴
     string itemName; // 띄울 아이템 이름
     Text itemInfoTextUI; // UI에서 띄울 아이템 텍스트 이름
 
@@ -42,6 +44,9 @@ public class ItemInfoName : UI_Scene
                         {
                             count++;
                             if (count == 2)
+                            {
+                                panel = Managers.Resources.Instantiate($"sh/UI/Scene/UI_ItemChangePanel"); // 아이템 생성 
+                            }
                             // 아이템 꽉찼으면 바꿀껀지 팝업창 만들고 선택해서 띄우기 
                             // 먹었던 아니면 먹지 않은 아이템 떨구기
                             continue;
