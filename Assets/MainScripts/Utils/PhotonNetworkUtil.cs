@@ -10,6 +10,7 @@ public class PhotonNetworkUtil : MonoBehaviourPunCallbacks
         var _shotBullet = PhotonNetwork.Instantiate(name, position, quaternion).GetComponent<ProjectileMoveScript>();
         _shotBullet.Init(damage,creator);
         _shotBullet.AddComponent<BulletLifeController>().Init();
+        
 
         return _shotBullet;
 

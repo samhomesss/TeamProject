@@ -6,8 +6,9 @@ using UnityEngine;
 
 public class VFXLifeController : MonoBehaviour
 {
+    private const float BULLET_LIFE_DEFAULT_TIME = 3.0f;
     private float _time;
-    public void Init(float time)
+    public void Init(float time = BULLET_LIFE_DEFAULT_TIME)
     {
         _time = time;
     }
