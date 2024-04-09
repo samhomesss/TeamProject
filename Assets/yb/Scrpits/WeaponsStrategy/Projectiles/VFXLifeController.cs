@@ -14,6 +14,7 @@ public class VFXLifeController : MonoBehaviour
     }
     private void Start()
     {
+        if(GetComponent<PhotonView>().IsMine)
         StartCoroutine(CoDestroyPhoton(_time));
     }
 

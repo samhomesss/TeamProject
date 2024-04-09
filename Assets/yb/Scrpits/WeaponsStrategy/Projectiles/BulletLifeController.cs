@@ -13,7 +13,8 @@ public class BulletLifeController : MonoBehaviour
     }
     private void Start()
     {
-            StartCoroutine(CoDestroyPhoton(_time));
+        if(GetComponent<PhotonView>().IsMine)
+      StartCoroutine(CoDestroyPhoton(_time));
     }
 
     public IEnumerator CoDestroyPhoton(float time)

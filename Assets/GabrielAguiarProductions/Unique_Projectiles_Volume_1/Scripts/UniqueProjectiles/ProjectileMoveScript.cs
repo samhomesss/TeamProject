@@ -152,6 +152,8 @@ public class ProjectileMoveScript : MonoBehaviourPunCallbacks {
 		}
 		
 		yield return new WaitForSeconds (waitTime);
+
+        if(GetComponent<PhotonView>().IsMine)
         PhotonNetwork.Destroy(gameObject);
 	}
 
