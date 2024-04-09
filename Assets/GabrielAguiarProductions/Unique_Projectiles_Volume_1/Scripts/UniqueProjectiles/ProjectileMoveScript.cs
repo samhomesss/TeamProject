@@ -42,8 +42,12 @@ public class ProjectileMoveScript : MonoBehaviourPunCallbacks {
     private int _damage;
     private GameObject _creator;
 
+    void Start()
+    {
+        rb = GetComponent<Rigidbody>();
 
-    public void Init(int damage, GameObject creator) //0409 12:45 이희웅 함수 오버로딩 추가  
+    }
+        public void Init(int damage, GameObject creator) //0409 12:45 이희웅 함수 오버로딩 추가  
     {
         _damage = damage;
         _creator = creator;
@@ -62,8 +66,6 @@ public class ProjectileMoveScript : MonoBehaviourPunCallbacks {
         _creator = creator;
     }
     
- 
-
 	void FixedUpdate () {
         Vector3 dir = new Vector3(transform.forward.x, 0f, transform.forward.z);
         rb.position += (dir) * (speed * Time.deltaTime);
@@ -79,19 +81,19 @@ public class ProjectileMoveScript : MonoBehaviourPunCallbacks {
 
         if (!collided) {
             if (co.collider.CompareTag("Obstacle")) {
-                Crash(co, _creator);
+                Crash(co);
                 return;
             }
 
             if (co.collider.CompareTag("Player") || co.collider.CompareTag("DestructibleObject")) {
                 co.collider.GetComponent<ITakeDamage>().TakeDamage(_damage, gameObject);
-                Crash(co, _creator);
+                Crash(co);
                 return;
             }
         }
     }
 
-    private void Crash(Collision co,GameObject creator) {//0409 16:39 희웅creator 매개변수
+    private void Crash(Collision co) {
         collided = true;
 
         //if (trails.Count > 0) {
@@ -114,13 +116,12 @@ public class ProjectileMoveScript : MonoBehaviourPunCallbacks {
         Vector3 pos = contact.point;
 
         if (hitPrefab != null) {
-            if (creator.GetComponent<PhotonView>().IsMine)
+            if (_creator.GetComponent<PhotonView>().IsMine)
             {
                 var hitVFX = PhotonNetwork.Instantiate("Prefabs/yb/Hits/default", pos, rot) as GameObject;
                 var ps = hitVFX.GetComponent<ParticleSystem>();
-                hitVFX.AddComponent<VFXLifeController>().Init();
+                ps.AddComponent<VFXLifeController>().Init();
             }
-            
             //if (ps == null) {
             //    var psChild = hitVFX.transform.GetChild(0).GetComponent<ParticleSystem>();
             //    CoDestroyPhoton(hitVFX, psChild.main.duration);
