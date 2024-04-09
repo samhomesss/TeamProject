@@ -42,11 +42,13 @@ public class ProjectileMoveScript : MonoBehaviourPunCallbacks {
     private int _damage;
     private GameObject _creator;
 
+    private PhotonView _photonView; //0409 16:30분 이희웅 추가
+
 	void Start () {
         rb = GetComponent<Rigidbody>();
+        _photonView = GetComponent<PhotonView>();   
 
-
-	}
+    }
 
     public void Init(int damage, GameObject creator) //0409 12:45 이희웅 함수 오버로딩 추가  
     {
@@ -119,9 +121,13 @@ public class ProjectileMoveScript : MonoBehaviourPunCallbacks {
         Vector3 pos = contact.point;
 
         if (hitPrefab != null) {
-            var hitVFX = PhotonNetwork.Instantiate("Prefabs/yb/Hits/default", pos, rot) as GameObject;
-            var ps = hitVFX.GetComponent<ParticleSystem>();
-            hitVFX.AddComponent<VFXLifeController>().Init();
+            if (_photonView.IsMine)
+            {
+                var hitVFX = PhotonNetwork.Instantiate("Prefabs/yb/Hits/default", pos, rot) as GameObject;
+                var ps = hitVFX.GetComponent<ParticleSystem>();
+                hitVFX.AddComponent<VFXLifeController>().Init();
+            }
+            
             //if (ps == null) {
             //    var psChild = hitVFX.transform.GetChild(0).GetComponent<ParticleSystem>();
             //    CoDestroyPhoton(hitVFX, psChild.main.duration);
