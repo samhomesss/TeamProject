@@ -3,12 +3,15 @@ using Photon.Realtime;
 using UnityEngine;
 using yb;
 using static yb.IRangedWeapon;
-namespace yb {
+namespace yb
+{
     /// <summary>
     /// Pistol 클래스
     /// </summary>
-    public class RangedWeapon_Pistol : RangedWeapon, IRangedWeapon {
-        public RangedWeapon_Pistol(Transform parent, PlayerController player) : base() {
+    public class RangedWeapon_Pistol : RangedWeapon, IRangedWeapon
+    {
+        public RangedWeapon_Pistol(Transform parent, PlayerController player) : base()
+        {
             DefaultScale = new Vector3(.4f, .4f, .4f);  //무기 기본 크기
             WeaponType = Define.WeaponType.Pistol;  //무기 타입 지정
             _projectileCreator = new PistolProjectileCreator();  //무기 발사체 생성 클래스 할당
@@ -19,7 +22,7 @@ namespace yb {
             _player.WeaponEvent?.Invoke((int)WeaponType);
 
             //각종 스탯을 기본 스탯애 맞게 할당
-            _realodTime = _data.DefaultWeaponRealodTime((int)WeaponType);  
+            _realodTime = _data.DefaultWeaponRealodTime((int)WeaponType);
             _defaultDamage = _data.DefaultWeaponDamage((int)WeaponType);
             _projectileVelocity = _data.DefaultWeaponVelocity((int)WeaponType);
             _remainBullet = _data.DefaultWeaponRemainBullet((int)WeaponType);
@@ -33,11 +36,12 @@ namespace yb {
         public Define.WeaponType WeaponType { get; set; }  //무기 타입
         public Vector3 DefaultScale { get; set; }  //무기 기본 크기
 
-       /// <summary>
-       /// 재장전 가능한 상태인가?
-       /// </summary>
-       /// <returns></returns>
-        public bool CanReload() {
+        /// <summary>
+        /// 재장전 가능한 상태인가?
+        /// </summary>
+        /// <returns></returns>
+        public bool CanReload()
+        {
             if (_currentBullet == _remainBullet)
                 return false;
 
@@ -51,14 +55,17 @@ namespace yb {
         /// 재장전(애니메이션 이벤트로 호출)
         /// </summary>
         /// <param name="player"></param>
-        public void Reload(PlayerController player) {
-            if(_remainBullet >= _maxBullet) {
+        public void Reload(PlayerController player)
+        {
+            if (_remainBullet >= _maxBullet)
+            {
                 _currentBullet = _remainBullet;
                 _maxBullet -= 0;
                 return;
             }
 
-            if(_remainBullet < _maxBullet) {
+            if (_remainBullet < _maxBullet)
+            {
                 _currentBullet = _remainBullet;
                 _maxBullet -= _remainBullet;
             }
@@ -69,7 +76,8 @@ namespace yb {
         /// <summary>
         /// 무기 공격속도 계산
         /// </summary>
-        public void OnUpdate() {
+        public void OnUpdate()
+        {
             _currentDelay += Time.deltaTime;
         }
 
@@ -77,8 +85,10 @@ namespace yb {
         /// 발사가 가능한 상태인가?
         /// </summary>
         /// <returns></returns>
-        public bool CanShot() {
-            if (_currentDelay >= _maxDelay + _bonusAttackDelay) {
+        public bool CanShot()
+        {
+            if (_currentDelay >= _maxDelay + _bonusAttackDelay)
+            {
                 _currentDelay = 0f;
                 return true;
             }
@@ -90,9 +100,11 @@ namespace yb {
         /// </summary>
         /// <param name="targetPos"></param>
         /// <param name="player"></param>
-        public void Shot(Vector3 targetPos, PlayerController player) {
+        public void Shot(Vector3 targetPos, PlayerController player)
+        {
 
-            if (_currentBullet == 0) {
+            if (_currentBullet == 0)
+            {
                 player.StateController.ChangeState(new PlayerState_Reload(player, this));
                 return;
             }
@@ -102,7 +114,7 @@ namespace yb {
 
             int projectileNumber = Random.Range(0, 1f) > _data.BonusProjectileChance((int)WeaponType) ? 1 : Mathf.Max(_bonusProjectile, 1);
 
-            for (int i = 0; i< projectileNumber; i++)
+            for (int i = 0; i < projectileNumber; i++)
                 _projectileCreator.Create(_defaultDamage, _projectileVelocity, targetPos, _firePos.position, player);
 
             player.MyCamera.transform.DOShakeRotation(0.2f, 1f);
@@ -112,13 +124,17 @@ namespace yb {
         /// 렐릭 습득 및 제거시 호출
         /// </summary>
         /// <param name="player"></param>
-        public void OnUpdateRelic(PlayerController player) {
+        public void OnUpdateRelic(PlayerController player)
+        {
             _relics = player.PickupController.IsRelic();
 
-            for(int i = 0; i< _relics.Length; i++) {
-                if ( _relics[i]) {
+            for (int i = 0; i < _relics.Length; i++)
+            {
+                if (_relics[i])
+                {
                     //렐릭 추가
-                    switch(i) {
+                    switch (i)
+                    {
                         case (int)Define.RelicType.BonusAttackSpeedRelic:
                             _bonusAttackDelay = -_data.BonusAttackDelay((int)WeaponType);
                             break;
@@ -128,9 +144,11 @@ namespace yb {
                     }
                     continue;
                 }
-                if (!_relics[i]) {
+                if (!_relics[i])
+                {
                     //렐릭 제거
-                    switch (i) {
+                    switch (i)
+                    {
                         case (int)Define.RelicType.BonusAttackSpeedRelic:
                             _bonusAttackDelay = 0f;
                             break;

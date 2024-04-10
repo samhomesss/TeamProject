@@ -1,3 +1,5 @@
+using Photon.Pun;
+using System;
 using UnityEngine;
 
 namespace yb {
@@ -6,5 +8,9 @@ namespace yb {
     /// </summary>
     public interface ITakeDamage {
         void TakeDamage(int amout, GameObject attacker);
+
+        public PhotonView IphotonView { get; } //0410 18:42 ¿Ã»Òøı ∆˜≈Ê∫‰ ¿Œ≈Õ∆‰¿ÃΩ∫ √ﬂ∞°
+
+        void TakeDamagePhoton(int amout, int attackerViewNum);//0410 19:00 ¿Ã»Òøı ∆˜≈Ê∫‰ ¿Œ≈Õ∆‰¿ÃΩ∫ √ﬂ∞°
     }
 }

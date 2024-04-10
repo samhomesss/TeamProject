@@ -5,12 +5,13 @@ using DG.Tweening;
 using UnityEditor;
 using Photon.Pun;
 using System;
+using UnityEditor.Experimental.GraphView;
 
 namespace yb
 {
     public class PlayerController : MonoBehaviour, ITakeDamage
     {
-        
+
         private readonly float _animationFadeTime = .3f;  //애니메이션 페이드 시간
         private Rigidbody _rigid;
         private Data _data;  //기본 데이터
@@ -26,13 +27,13 @@ namespace yb
         private IItemDroplable _droplable = new ItemDroplable();  //아이템 드롭용 변수. set함수로 드롭할 아이템 저장. drop함수로 아이템 드롭
         private PlayerStatus _status;  //플레이어 능력치
         private PhotonView _photonview; //0405 09:41분 이희웅 캐릭터간에 동기화를 위한 포톤 뷰 추가
-        
+        private GameObject attacker;
 
         /// <summary>
         /// 플레이어 hp변경시 호출
         /// <현재 hp, 최대 hp>
         /// </summary>
-        public Action<int, int> HpEvent;  
+        public Action<int, int> HpEvent;
 
         /// <summary>
         /// 무기 총알 변경시 호출
@@ -58,16 +59,17 @@ namespace yb
         /// </summary>
         public Action<string> ItemEvent;
         public Action MiniMapEvent;
-                
+
         public PlayerStatus Status => _status;
         public PhotonView PhotonView => _photonview;
-        
+
         public PlayerWeaponController WeaponController => _weaponController;
         public PlayerPickupController PickupController => _pickupController;
         public PlayerStateController StateController => _stateController;
         public Camera MyCamera => _myCamera;
         public RotateToMouseScript RotateToMouseScript => _rotateToMouseScript;  //플레이어 회전용 변수
 
+        public PhotonView IphotonView { get => _photonview; }//0410 18:42 이희웅 포톤뷰 인터페이스 추가
 
         private void Awake()
         {
@@ -197,6 +199,22 @@ namespace yb
             if (hp <= 0)
             {
                 _droplable.Drop(transform.position);
+                _stateController.ChangeState(new PlayerState_Die(this, attacker));
+            }
+        }
+
+        [PunRPC]
+        public void TakeDamagePhoton(int amout, int attackerViewNum)//0410 19:24 이희웅 포톤용 메서드 추가  
+        {
+            if (amout <= 0)
+                return;
+
+            int hp = _status.SetHp(-amout);
+            HpEvent?.Invoke(_status.CurrentHp, _status.MaxHp);
+            if (hp <= 0)
+            {
+                _droplable.Drop(transform.position);
+                attacker = PhotonNetwork.GetPhotonView(attackerViewNum).gameObject; //PunRpc에서 GameObject를 직렬화 해서 보낼 수 없기에 직렬화 해서 보낼 수 있는 attackerViewNum을 보내고 해당 attackerViewNum을 포톤네트워크에서 찾아서 넣어준다.
                 _stateController.ChangeState(new PlayerState_Die(this, attacker));
             }
         }

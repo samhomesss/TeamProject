@@ -23,7 +23,7 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using yb;
 
-public class ProjectileMoveScript : MonoBehaviourPunCallbacks {
+public class ProjectileMoveScript : MonoBehaviourPunCallbacks { //0410 17:28 이희웅 데미지 동기화를 위한 Action 인터페이스 구현
 
     public bool rotate = false;
     public float rotateAmount;
@@ -42,6 +42,7 @@ public class ProjectileMoveScript : MonoBehaviourPunCallbacks {
     private int _damage;
     private GameObject _creator;
 
+    public event Action itakeDamageAction;
 
     void Start()
     {
@@ -91,7 +92,14 @@ public class ProjectileMoveScript : MonoBehaviourPunCallbacks {
 
                 if (co.collider.CompareTag("Player") || co.collider.CompareTag("DestructibleObject"))
                 {
-                    co.collider.GetComponent<ITakeDamage>().TakeDamage(_damage, gameObject);
+                    if(IsTestMode.Instance.CurrentUser == Define.User.Hw)//0410 17:00 이희웅 테스트 추가
+                    {
+                        co.collider.GetComponent<ITakeDamage>().IphotonView.RPC("TakeDamagePhoton", RpcTarget.All, _damage,gameObject.GetComponent<PhotonView>().ViewID);
+                    }
+                    else
+                    {
+                        co.collider.GetComponent<ITakeDamage>().TakeDamage(_damage, gameObject);
+                    }
                     Crash(co);
                     return;
                 }
