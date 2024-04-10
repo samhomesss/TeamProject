@@ -1,3 +1,4 @@
+using Photon.Pun;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -26,8 +27,7 @@ namespace yb {
             int dx = 0;
             int dy = -1;
             int t = 0;
-            int count = _itemsList.Count; 
-
+            int count = _itemsList.Count;
             for (int i = 0; i < count; i++) {
                 if ((-count / 2 < x) && (x <= count / 2) && (-count / 2 < z) && (z <= count / 2)) {
                     string path = $"yb/Item/{_itemsList[i]}";

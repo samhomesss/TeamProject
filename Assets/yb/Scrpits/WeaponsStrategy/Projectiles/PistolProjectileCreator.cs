@@ -14,17 +14,10 @@ namespace yb {
             {
                 vfx = PhotonNetworkUtil.CreatePhotonObject("Prefabs/yb/Projectile/Default", createPos, defaultDamage, player.gameObject, player.RotateToMouseScript.GetRotation());
             }
-            else
-            {
-                vfx = Managers.Resources.Instantiate("yb/Projectile/Default", null).GetComponent<ProjectileMoveScript>();
-                vfx.Init(player.RotateToMouseScript.GetRotation(), defaultDamage, player.gameObject);
-            }
-                vfx = PhotonNetworkUtil.CreatePhotonObject("Prefabs/yb/Projectile/Default", createPos);
             else {
                 vfx = Managers.Resources.Instantiate("yb/Projectile/Default", null).GetComponent<ProjectileMoveScript>();
                 vfx.Init(player.RotateToMouseScript.GetRotation(), defaultDamage, createPos, player.gameObject);
             }
-            vfx.Init(player.RotateToMouseScript.GetRotation(), defaultDamage, player.gameObject);
         }
     }
 }
