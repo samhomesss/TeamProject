@@ -61,7 +61,7 @@ namespace yb
             if (hp <= 0)
             {
                 _droplable.Drop(transform.position);  //사망시 저장해둔 아이템 모두 드랍
-                Managers.Resources.Destroy(gameObject);
+               PhotonNetwork.Destroy(gameObject);
             }
         }
     }
