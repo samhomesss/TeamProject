@@ -22,6 +22,8 @@ namespace yb {
 
         protected override void Init() {
             base.Init();
+            _maxHp = _data.DefaultPlayerMaxHp;
+            _currentHp = _maxHp;
             _moveSpeed = _data.DefaultPlayerMoveSpeed;
             _resurrectionTime = _data.DefaultResurrectionTime;
         }

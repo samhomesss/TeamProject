@@ -37,9 +37,23 @@ public class Data
 
     private int[] _defaultWeaponMaxBullet = new int[] {60, 120, 30 };
 
+    private int _defaultShieldMaxHp = 10;
+
+    private float _defaultShieldRecuveryTime = 3f;
+
+    private float _defaultGuardSpeed = 3f;
+
+    private float _defaultGuardRadius = 3f;
+
     public float DefaultPlayerMoveSpeed => _defaultPlayerMoveSpeed;
+    public float DefaultShieldRecuveryTime => _defaultShieldRecuveryTime;
+    public float DefaultGuardRadius => _defaultGuardRadius;
+    public float DefaultGuardSpeed => _defaultGuardSpeed;
+
+
 
     public int DefaultPlayerMaxHp => _defaultPlayerMaxHp;
+    public int DefaultShieldMaxHp => _defaultShieldMaxHp;
 
     public float DefaultResurrectionTime => _defaultResurrectionTime;
     public float BonusResurrectionTime => _bonusResurrectionTime;

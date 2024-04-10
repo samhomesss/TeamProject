@@ -8,6 +8,8 @@ TagManager:
   - DestructibleObject
   - ObtainableObject
   - Bullet
+  - Guard
+  - Shield
   layers:
   - Default
   - TransparentFX

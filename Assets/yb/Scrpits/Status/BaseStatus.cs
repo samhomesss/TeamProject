@@ -19,8 +19,6 @@ namespace yb {
 
         protected virtual void Init() {
             _data = Managers.Data;
-            _maxHp = _data.DefaultPlayerMaxHp;
-            _currentHp = _maxHp;
         }
 
         public int SetHp(int amout) {

@@ -62,8 +62,19 @@ namespace yb {
         public void SetRelic(IRelic relic) {
             _haveRelic[(int)relic.RelicType] = true;
             _player.WeaponController.SetRelic(relic);
-            _player.Status.SetResurrectionTime(_data.BonusResurrectionTime);
             _player.RelicEvent?.Invoke((int)relic.RelicType);
+            Debug.Log($"{relic.RelicType.ToString()}·¼¸¯À» ½Àµæ");
+            switch(relic.RelicType) {
+                case Define.RelicType.BonusResurrectionTimeRelic:
+                    _player.Status.SetResurrectionTime(_data.BonusResurrectionTime);
+                    break;
+                case Define.RelicType.GuardRelic:
+                    _player.SetGuard(true);
+                    break;
+                case Define.RelicType.ShieldRelic:
+                    _player.SetShield(true);
+                    break;
+            }
         }
 
         /// <summary>
@@ -73,8 +84,19 @@ namespace yb {
         public void DeleteRelic(IRelic relic) {
             _haveRelic[(int)relic.RelicType] = true;
             _player.WeaponController.SetRelic(relic);
-            _player.Status.SetResurrectionTime(_data.DefaultResurrectionTime);
             _player.RelicEvent?.Invoke((int)relic.RelicType);
+
+            switch (relic.RelicType) {
+                case Define.RelicType.BonusResurrectionTimeRelic:
+                    _player.Status.SetResurrectionTime(_data.DefaultResurrectionTime);
+                    break;
+                case Define.RelicType.GuardRelic:
+                    _player.SetGuard(false);
+                    break;
+                case Define.RelicType.ShieldRelic:
+                    _player.SetShield(false);
+                    break;
+            }
         }
 
 

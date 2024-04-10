@@ -27,6 +27,8 @@ namespace yb
         private IItemDroplable _droplable = new ItemDroplable();  //아이템 드롭용 변수. set함수로 드롭할 아이템 저장. drop함수로 아이템 드롭
         private PlayerStatus _status;  //플레이어 능력치
         private PhotonView _photonview; //0405 09:41분 이희웅 캐릭터간에 동기화를 위한 포톤 뷰 추가
+        private PlayerGuardController _guardController;
+        private PlayerShieldController _shieldController;
         private GameObject attacker;
 
         /// <summary>
@@ -82,6 +84,10 @@ namespace yb
             _weaponController = GetComponent<PlayerWeaponController>();
             _stateController = GetComponent<PlayerStateController>();
             _pickupController = GetComponent<PlayerPickupController>();
+            _guardController = transform.parent.GetComponentInChildren<PlayerGuardController>();
+            _shieldController = transform.parent.GetComponentInChildren<PlayerShieldController>();
+            _guardController.gameObject.SetActive(false);
+            _shieldController.gameObject.SetActive(false);
         }
 
 
@@ -104,6 +110,21 @@ namespace yb
         }
         public void SetCamera(Camera camera) => _myCamera = camera;
 
+        /// <summary>
+        /// 가드 렐릭 습득or 제거시 활성화
+        /// </summary>
+        /// <param name="trigger"></param>
+        public void SetGuard(bool trigger) {
+            _guardController.gameObject.SetActive(trigger);
+        }
+
+        /// <summary>
+        /// 실드 렐릭 습득or 제거시 활성화
+        /// </summary>
+        /// <param name="trigger"></param>
+        public void SetShield(bool trigger) {
+            _shieldController.gameObject.SetActive(trigger);
+        }
 
         /// <summary>
         /// 플레이어 이동 상황 체크
@@ -163,7 +184,8 @@ namespace yb
             if (_photonview.IsMine)//0405 09:41분 캐릭터간에 동기화를 위한 포톤 이동 분리 로직 추가
             {
                 Vector3 dir = new Vector3(moveX, 0f, moveZ);
-                _rigid.MovePosition(_rigid.position + dir * (_status.MoveSpeed * _status.MoveSpeedDecrease) * Time.deltaTime);
+                //_rigid.MovePosition(_rigid.position + dir * (_status.MoveSpeed * _status.MoveSpeedDecrease) * Time.deltaTime);
+                transform.parent.Translate(dir * (_status.MoveSpeed * _status.MoveSpeedDecrease) * Time.deltaTime);
             }
         }
 
@@ -195,6 +217,7 @@ namespace yb
                 return;
 
             int hp = _status.SetHp(-amout);
+            Debug.Log($"플레이어가 데미지를{amout}만큼 입음");
             HpEvent?.Invoke(_status.CurrentHp, _status.MaxHp);
             if (hp <= 0)
             {

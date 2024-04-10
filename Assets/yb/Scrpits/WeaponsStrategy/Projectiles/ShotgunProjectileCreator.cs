@@ -16,7 +16,7 @@ namespace yb {
             else
             {
                 vfx = Managers.Resources.Instantiate("yb/Projectile/Default", null).GetComponent<ProjectileMoveScript>();
-                vfx.Init(player.RotateToMouseScript.GetRotation(), defaultDamage, player.gameObject);
+                vfx.Init(player.RotateToMouseScript.GetRotation(), defaultDamage, createPos, player.gameObject);
             }
             
             Quaternion original = player.RotateToMouseScript.GetRotation();
