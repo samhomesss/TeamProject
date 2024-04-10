@@ -12,6 +12,7 @@ public class UI_RelicInven_Item : UI_Base
         ItemIcon,
         ItemNameText,
     }
+    //public static int BeforeItemID => _beforeChagnedItemID;
     public int SlotItemID
     {
         get { return _slotItemID; }
@@ -36,8 +37,8 @@ public class UI_RelicInven_Item : UI_Base
     bool _isEmpty = true; // 아이템 유무 확인 아이템이 인벤안에 없는가?
     static bool _isChanged = false; // 아이템을 바꾸는 상황
     GameObject _icon; // 아이템의 아이콘
-
-    int _beforeChagnedItemID; // 아이템 바꾸기전 아이템 아이디
+    //GameObject go;// 떨어질때 만들어질 아이템
+    //static int _beforeChagnedItemID; // 아이템 바꾸기전 아이템 아이디
 
     static public event Action<int> OnItemInfoChanged; // 올렸을때 아이템 인포를 조정
     static public event Action OnChangedItem; // 아이템을 바꿧을때 필요한 이벤트
@@ -67,36 +68,65 @@ public class UI_RelicInven_Item : UI_Base
         _icon.BindEvent(CheckItemInfo, Define.UIEvent.Enter); // 마우스가 들어갔을때 이벤트
         _icon.BindEvent(DestroyItemInfo, Define.UIEvent.Exit); // 마우스가 나갔을때 이벤트
 
-        DrapDropItem.OnisEmptySlot -= IsEmptySlot;
-        DrapDropItem.OnisEmptySlot += IsEmptySlot;
-        DrapDropItem.OnisEmptySlot -= DrapItem;
-        DrapDropItem.OnisEmptySlot += DrapItem;
+        #region 주석처리
+        //DrapDropItem.OnisEmptySlot -= SlotReset;
+        //DrapDropItem.OnisEmptySlot += SlotReset;
+        // DrapDropItem.OnisEmptySlot -= IsEmptySlot;
+        // DrapDropItem.OnisEmptySlot += IsEmptySlot;
+        // DrapDropItem.OnisEmptySlot -= DrapItem;
+        // DrapDropItem.OnisEmptySlot += DrapItem;
+        #endregion
+    }
+
+    #region 주석처리 현재 사용 안함
+    void SlotReset()
+    {
+        _slotItemID = 0;
+    }
+
+    void ImageUpdate()
+    {
+        if (_icon.GetComponent<Image>().sprite != null) 
+        {
+            //_slotItemID = 
+        }
     }
 
     void IsEmptySlot()
     {
+        //if (_slotItemID == 0)
+        //    return;
         _isEmpty = true;
     }
 
     void DrapItem()
     {
-        GameObject go = Managers.Resources.Instantiate($"sh/Relic/{Managers.ItemDataBase.GetItemData(_beforeChagnedItemID).itemName}"); // 아이템 생성
-        go.transform.position = Map.Player.transform.position;
-        _slotItemID = 0;
+        if (_slotItemID == 0)
+            return;
+        Debug.Log("슬롯데이터가 0이 되었습니다.");
+        //Transform playerTrans = Map.Player.transform;
+        //GameObject go = Managers.Resources.Instantiate($"sh/Relic/{Managers.ItemDataBase.GetItemData(_beforeChagnedItemID).itemName}"); // 아이템 생성
+        //go.transform.position = Map.Player.transform.position;
+        //_slotItemID = 0;
     }
-
+    #endregion
     // 유물 아이템 바꾼다고 선택할때 사용
     // 아마 원래 UseItem이었을 것이다.
 
+    #region 주석처리 클릭액션을 통해서 유물을 바꿀때 사용하는 액션 
     // Action 사용을 위한 방식
+    /*
     public void ChangeAction()
     {
         if (_isChanged == false)
         {
-            _icon.BindEvent(ChangeRelic); // 클릭 액션 
+            //_icon.BindEvent(ChangeRelic); // 클릭 액션 
         }
     }
-
+    */
+    #endregion
+    #region 주석처리 유물을 클릭했을때 바꾸는 상황
+    /*
     public void ChangeRelic(PointerEventData PointerEventData)
     {
         #region 주석 나중에 지우면 됨
@@ -105,6 +135,7 @@ public class UI_RelicInven_Item : UI_Base
         #endregion
         if (ItemInfoName.Count == 2 )
         {
+            
             _beforeChagnedItemID = _slotItemID;
             // Todo : 지워야되고
             _icon.GetComponent<Image>().sprite = Managers.ItemDataBase.GetItemData(UI_ItemChangePanel.ItemID).itemImage; // 먹으려고 하는 아이템 이미지로 바꿔주고
@@ -122,6 +153,8 @@ public class UI_RelicInven_Item : UI_Base
         }
         
     }
+    */
+    #endregion
 
     #region ItemInfo
     /// <summary>
@@ -136,7 +169,7 @@ public class UI_RelicInven_Item : UI_Base
         GameObject Info = Util.FindChild(UI_ItemInfo.ItemInfo, "ItemInfoBackGround", true);
         GameObject InfoImage = Util.FindChild(UI_ItemInfo.ItemInfo, "ItemImage", true);
         GameObject InfoText = Util.FindChild(UI_ItemInfo.ItemInfo, "ItemInfoText", true);
-
+        //_beforeChagnedItemID = _slotItemID;
         UI_ItemInfo.ItemInfo.SetActive(true);
         InfoImage.GetComponent<Image>().sprite = Managers.ItemDataBase.GetItemData(_slotItemID).itemImage; // 한번 초기화 해주면 되는 이유
         InfoText.GetComponent<Text>().text = Managers.ItemDataBase.GetItemData(_slotItemID).itemName; // 한번 초기화 

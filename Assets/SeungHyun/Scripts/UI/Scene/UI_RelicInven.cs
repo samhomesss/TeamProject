@@ -8,7 +8,7 @@ public class UI_RelicInven : UI_Scene
     public static List<UI_RelicInven_Item> UI_RelicInven_Items => ui_RelicInven_Items; // 해당 리스트를 가져오는 프로퍼티
     static List<UI_RelicInven_Item> ui_RelicInven_Items = new List<UI_RelicInven_Item>();
     UI_RelicInven_Item relicInvenItem;
-
+    GameObject[] RelicImage = new GameObject[2]; // 유물 아이템 이미지 저장
     enum GameObjects
     {
         GridPanel
@@ -19,10 +19,20 @@ public class UI_RelicInven : UI_Scene
         Init();
         // 구독해주고
         //UI_ItemCreateButton.OnItemCreateClicked += ChangeImage;
-        ItemInfoName.OnItemGet -= ChangeImage;
-        ItemInfoName.OnItemGet += ChangeImage;
+        ItemInfoName.OnRelicGet -= ChangeImage;
+        ItemInfoName.OnRelicGet += ChangeImage;
     }
-
+    #region 현재 사용 안함 지워야함
+    // 테스트용 지워야함
+    //private void Update()
+    //{
+    //    for (int i = 0; i < ui_RelicInven_Items.Count; i++)
+    //    {
+    //        Debug.Log(i+"번째 인벤창이 가지고 있는 아이템ID는" + UI_RelicInven_Items[i].SlotItemID);
+    //        Debug.Log(i + "번째 인벤창이 비어있는가?" + UI_RelicInven_Items[i].IsEmpty);
+    //    }
+    //}
+    #endregion
 
     public override void Init()
     {
@@ -46,21 +56,23 @@ public class UI_RelicInven : UI_Scene
     }
 
     // 번호를 넘겨주는 아이템 번호로 사용
+    /// <summary>
+    /// 아이템의 번호 가 들어왓을때 
+    /// </summary>
+    /// <param name="itemID"></param>
     public void ChangeImage(int itemID) // 유물 인텝토리에 아이템이 들어 왔을때 아이템 이미지 바꿔주는거
     {
         for (int i = 0; i < ui_RelicInven_Items.Count; i++)
         {
-            if (!ui_RelicInven_Items[i].IsEmpty) // 유물창이 비었는지
+            if (!ui_RelicInven_Items[i].IsEmpty) // 유물창이 비었는지 
             {
                 continue; // 비어있지 않으면 그냥 다음꺼로 진행
             }
-            
-            GameObject RelicImage = Util.FindChild(ui_RelicInven_Items[i].gameObject, "ItemIcon", true);
+            // 시작점 문제인가?
+            RelicImage[i] = Util.FindChild(ui_RelicInven_Items[i].gameObject, "ItemIcon", true);
             ui_RelicInven_Items[i].IsEmpty = false;
-            RelicImage.GetComponent<Image>().sprite = Managers.ItemDataBase.GetItemData(itemID).itemImage;
+            RelicImage[i].GetComponent<Image>().sprite = Managers.ItemDataBase.GetItemData(itemID).itemImage;
             ui_RelicInven_Items[i].SlotItemID = itemID; 
-            
-            
             break;
 
         }
