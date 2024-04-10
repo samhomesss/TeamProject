@@ -34,11 +34,25 @@ namespace yb {
             if (_collideItem == null)
                 return;
 
-            if (Input.GetKeyDown(KeyCode.G)) {
-                _player.StateController.ChangeState(new PlayerState_Pickup(_player));
-                _collideItem.Pickup(_player);
-                _player.ItemEvent?.Invoke(_collideItem.Name);
+            if(IsTestMode.Instance.CurrentUser == Define.User.Hw)
+            {
+                if (Input.GetKeyDown(KeyCode.G))
+                {
+                    _player.StateController.ChangeState(new PlayerState_Pickup(_player));
+                    _collideItem.Pickup(_player);
+                    _player.ItemEvent?.Invoke(_collideItem.Name);
+                }
             }
+            else
+            {
+                if (Input.GetKeyDown(KeyCode.G))
+                {
+                    _player.StateController.ChangeState(new PlayerState_Pickup(_player));
+                    _collideItem.Pickup(_player);
+                    _player.ItemEvent?.Invoke(_collideItem.Name);
+                }
+            }
+          
         }
 
         /// <summary>
