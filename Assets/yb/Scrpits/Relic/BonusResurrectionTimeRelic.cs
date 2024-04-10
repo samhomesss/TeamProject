@@ -18,6 +18,8 @@ namespace yb {
 
         public void SetRelic(PlayerController player) {
             player.PickupController.SetRelic(this);
+            Managers.Resources.Destroy(gameObject);
+
         }
     }
 }

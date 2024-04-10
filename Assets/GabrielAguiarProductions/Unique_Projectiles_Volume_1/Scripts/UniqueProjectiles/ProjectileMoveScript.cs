@@ -51,7 +51,8 @@ public class ProjectileMoveScript : MonoBehaviour {
         _creator = creator;
     }
     
-    public void Init(Quaternion rotate, int damage, Vector3 ran,  GameObject creator) {
+    public void Init(Quaternion rotate, int damage, Vector3 pos,  GameObject creator) {
+        transform.position = pos;
         transform.localRotation = rotate;
         _damage = damage;
         _creator = creator;
@@ -64,7 +65,6 @@ public class ProjectileMoveScript : MonoBehaviour {
         rb.position += (dir) * (speed * Time.deltaTime);
     }
 
-
     void OnCollisionEnter(Collision co) {
         if (co.gameObject == _creator)
             return;
@@ -72,15 +72,27 @@ public class ProjectileMoveScript : MonoBehaviour {
         if (co.collider.CompareTag("Bullet"))
             return;
 
+        if (co.collider.CompareTag("Guard")) {
+            if (co.collider.transform.parent.gameObject == co.gameObject)
+                return;
+
+            Debug.Log("투사체가 가드에 막힘");
+            Crash(co);
+        }
+
         if (!collided) {
             if (co.collider.CompareTag("Obstacle")) {
                 Crash(co);
                 return;
             }
 
-            if (co.collider.CompareTag("Player") || co.collider.CompareTag("DestructibleObject")) {
+            if (co.collider.CompareTag("Player") || co.collider.CompareTag("DestructibleObject")
+                || co.collider.CompareTag("Shield")) {
                 co.collider.GetComponent<ITakeDamage>().TakeDamage(_damage, gameObject);
                 Crash(co);
+
+                if(co.collider.CompareTag("Shield"))
+                    Debug.Log("투사체가 실드에 막힘");
                 return;
             }
         }
