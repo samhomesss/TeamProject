@@ -9,7 +9,7 @@ using UnityEditor.Experimental.GraphView;
 
 namespace yb
 {
-    public class PlayerController : MonoBehaviour, ITakeDamage
+    public class PlayerController : MonoBehaviour, ITakeDamage, ITakeDamagePhoton
     {
 
         private readonly float _animationFadeTime = .3f;  //애니메이션 페이드 시간

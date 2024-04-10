@@ -8,9 +8,5 @@ namespace yb {
     /// </summary>
     public interface ITakeDamage {
         void TakeDamage(int amout, GameObject attacker);
-
-        public PhotonView IphotonView { get; } //0410 18:42 ÀÌÈñ¿õ Æ÷Åæºä ÀÎÅÍÆäÀÌ½º Ãß°¡
-
-        void TakeDamagePhoton(int amout, int attackerViewNum);//0410 19:00 ÀÌÈñ¿õ Æ÷Åæºä ÀÎÅÍÆäÀÌ½º Ãß°¡
     }
 }

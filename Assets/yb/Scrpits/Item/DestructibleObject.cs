@@ -10,7 +10,7 @@ using UnityEngine;
 /// </summary>
 namespace yb
 {
-    public class DestructibleObject : MonoBehaviourPunCallbacks, ITakeDamage //0410 16:14 이희웅 MonoBehaviour ->  MonoBehaviourPunCallbacks 으로 변경
+    public class DestructibleObject : MonoBehaviourPunCallbacks, ITakeDamage ,ITakeDamagePhoton //0410 16:14 이희웅 MonoBehaviour ->  MonoBehaviourPunCallbacks 으로 변경
     {
         private DestructibleObjectStatus _status;  //오브젝트 능력치 관련 변수
         private IItemDroplable _droplable = new ItemDroplable();  //오브젝트 드랍 아이템 관련 변수

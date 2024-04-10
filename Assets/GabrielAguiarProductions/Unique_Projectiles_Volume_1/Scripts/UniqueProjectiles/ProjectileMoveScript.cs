@@ -94,7 +94,7 @@ public class ProjectileMoveScript : MonoBehaviourPunCallbacks { //0410 17:28 이
                 {
                     if(IsTestMode.Instance.CurrentUser == Define.User.Hw)//0410 17:00 이희웅 테스트 추가
                     {
-                        co.collider.GetComponent<ITakeDamage>().IphotonView.RPC("TakeDamagePhoton", RpcTarget.All, _damage,gameObject.GetComponent<PhotonView>().ViewID);
+                        co.collider.GetComponent<ITakeDamagePhoton>().IphotonView.RPC("TakeDamagePhoton", RpcTarget.All, _damage,gameObject.GetComponent<PhotonView>().ViewID);
                     }
                     else
                     {
