@@ -9,11 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6920578011637594445}
-  - component: {fileID: 7679131706957400299}
   - component: {fileID: 9198941824307174935}
   - component: {fileID: 4519008604695608104}
-  - component: {fileID: -5495118831022843413}
-  - component: {fileID: 3446523769504858988}
+  - component: {fileID: 6776426229564873519}
   m_Layer: 0
   m_Name: ObtainablePistol
   m_TagString: ObtainableObject
@@ -37,18 +35,6 @@ Transform:
   - {fileID: 6371358868364931682}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7679131706957400299
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4298465571147130166}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5c25a679888cafe4991738648a7d7488, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &9198941824307174935
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -82,7 +68,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 2, y: 2, z: 2}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &-5495118831022843413
+--- !u!114 &6776426229564873519
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -100,27 +86,10 @@ MonoBehaviour:
   Synchronization: 3
   OwnershipTransfer: 0
   observableSearch: 2
-  ObservedComponents:
-  - {fileID: 3446523769504858988}
+  ObservedComponents: []
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
---- !u!114 &3446523769504858988
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4298465571147130166}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SynchronizePosition: 1
-  m_SynchronizeRotation: 1
-  m_SynchronizeScale: 0
-  m_UseLocal: 1
 --- !u!1001 &2094501398597376376
 PrefabInstance:
   m_ObjectHideFlags: 0

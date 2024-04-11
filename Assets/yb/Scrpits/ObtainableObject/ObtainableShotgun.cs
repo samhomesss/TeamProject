@@ -6,7 +6,7 @@ namespace yb
     /// <summary>
     /// È¹µæ °¡´ÉÇÑ Shotgun¾ÆÀÌÅÛ
     /// </summary>
-    public class ObtainableShotgun : MonoBehaviourPunCallbacks, IObtainableObject, IObtainableObjectPhoton
+    public class ObtainableShotgun : MonoBehaviourPunCallbacks, IObtainableObject
     {//0411 07:57 ÀÌÈñ¿õ MonoBehaviour -> MonoBehaviourPunCallbacks À¸·Î ¼öÁ¤
         private PhotonView _photonView;//0411 08:55 ÀÌÈñ¿õ µ¿±âÈ­¸¦ À§ÇÑ Æ÷Åæºä Ãß°¡
         public PhotonView IObtainableObjectPhotonView => _photonView;
@@ -21,16 +21,14 @@ namespace yb
         public void Pickup(PlayerController player)
         {
             player.WeaponController.ChangeRangedWeapon(new RangedWeapon_Shotgun(player.WeaponController.RangedWeaponsParent, player));
-            Managers.Resources.Destroy(gameObject);
-        }
-
-        [PunRPC]
-        public void PickupPhoton(int PlayerViewID)//0411 07:58 ÀÌÈñ¿õ Æ÷Åæ¿ë RPC¸Þ¼­µå Ãß°¡
-        {
-            PlayerController player;
-            player = PhotonNetwork.GetPhotonView(PlayerViewID).GetComponent<PlayerController>();
-            player.WeaponController.ChangeRangedWeapon(new RangedWeapon_Shotgun(player.WeaponController.RangedWeaponsParent, player));
-            Managers.Resources.Destroy(gameObject);
+            if (IsTestMode.Instance.CurrentUser == Define.User.Hw)
+            {
+                PhotonNetwork.Destroy(gameObject);
+            }
+            else
+            {
+                Managers.Resources.Destroy(gameObject);
+            }
         }
     }
 }

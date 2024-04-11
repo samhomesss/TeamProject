@@ -1,3 +1,4 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -63,4 +64,5 @@ public class ResourcesManager
         else
             Object.Destroy(go, time);
     }
+
 }

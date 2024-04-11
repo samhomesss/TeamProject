@@ -9,11 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7409957505911172949}
-  - component: {fileID: 2482415231178345280}
   - component: {fileID: 6545763765850950910}
   - component: {fileID: 8618787788710129132}
-  - component: {fileID: -4225585972182061817}
-  - component: {fileID: 8727838258083910215}
+  - component: {fileID: -7929608505014981327}
   m_Layer: 0
   m_Name: ObtainableShotgun
   m_TagString: ObtainableObject
@@ -37,18 +35,6 @@ Transform:
   - {fileID: 7192113232129481098}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2482415231178345280
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 123285457326479727}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5c25a679888cafe4991738648a7d7488, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!65 &6545763765850950910
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -82,7 +68,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ea0d8e8bbc3822418330ceafa8d5ee0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &-4225585972182061817
+--- !u!114 &-7929608505014981327
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -100,27 +86,10 @@ MonoBehaviour:
   Synchronization: 3
   OwnershipTransfer: 0
   observableSearch: 2
-  ObservedComponents:
-  - {fileID: 8727838258083910215}
+  ObservedComponents: []
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
---- !u!114 &8727838258083910215
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 123285457326479727}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SynchronizePosition: 1
-  m_SynchronizeRotation: 1
-  m_SynchronizeScale: 0
-  m_UseLocal: 1
 --- !u!1001 &2789188525079098000
 PrefabInstance:
   m_ObjectHideFlags: 0

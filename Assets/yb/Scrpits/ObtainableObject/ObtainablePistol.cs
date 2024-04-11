@@ -1,3 +1,4 @@
+using ExitGames.Client.Photon;
 using Photon.Pun;
 using Photon.Realtime;
 using Unity.VisualScripting;
@@ -7,7 +8,7 @@ namespace yb {
     /// <summary>
     /// È¹µæ °¡´ÉÇÑ Pistol¾ÆÀÌÅÛ
     /// </summary>
-    public class ObtainablePistol : MonoBehaviourPunCallbacks, IObtainableObject, IObtainableObjectPhoton
+    public class ObtainablePistol : MonoBehaviourPunCallbacks, IObtainableObject
     {//0411 07:49 ÀÌÈñ¿õ MonoBehaviour -> MonoBehaviourPunCallbacks À¸·Î ¼öÁ¤
         private PhotonView _photonView; //0411 08:55 ÀÌÈñ¿õ µ¿±âÈ­¸¦ À§ÇÑ Æ÷Åæºä Ãß°¡
         public PhotonView IObtainableObjectPhotonView => _photonView;
@@ -19,19 +20,22 @@ namespace yb {
         /// </summary>
         /// <param name="player"></param>
 
-        private void Start() => _photonView = GetComponent<PhotonView>();
+        private void Start()
+        {
+            _photonView = GetComponent<PhotonView>();
+        }
         public void Pickup(PlayerController player) {
             player.WeaponController.ChangeRangedWeapon(new RangedWeapon_Pistol(player.WeaponController.RangedWeaponsParent, player));
-            Managers.Resources.Destroy(gameObject);
+            if(IsTestMode.Instance.CurrentUser == Define.User.Hw)
+            {
+               PhotonNetwork.Destroy(gameObject);
+            }
+            else
+            {
+                Managers.Resources.Destroy(gameObject);
+            }
+            
         }
 
-        [PunRPC]
-        public void PickupPhoton(int PlayerViewID)//0411 07:53 ÀÌÈñ¿õ Æ÷Åæ¿ë RPC¸Þ¼­µå Ãß°¡
-        {
-            PlayerController player;
-            player = PhotonNetwork.GetPhotonView(PlayerViewID).GetComponent<PlayerController>();
-            player.WeaponController.ChangeRangedWeapon(new RangedWeapon_Pistol(player.WeaponController.RangedWeaponsParent, player));
-            Managers.Resources.Destroy(gameObject);
-        }
     }
 }
