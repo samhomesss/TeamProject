@@ -79,6 +79,8 @@ namespace yb
         public void OnUpdate()
         {
             _currentDelay += Time.deltaTime;
+            Debug.Log($"공격속도는 {_maxDelay + _bonusAttackDelay}초");
+            Debug.Log($"현재 딜레이 {_currentDelay}");
         }
 
         /// <summary>
@@ -87,7 +89,7 @@ namespace yb
         /// <returns></returns>
         public bool CanShot()
         {
-            if (_currentDelay >= _maxDelay + _bonusAttackDelay)
+            if (_currentDelay >= _maxDelay + _bonusAttackDelay && !_player.Animator.GetCurrentAnimatorStateInfo(0).IsName("Shot"))
             {
                 _currentDelay = 0f;
                 return true;
@@ -116,6 +118,7 @@ namespace yb
 
             for (int i = 0; i < projectileNumber; i++)
                 _projectileCreator.Create(_defaultDamage, _projectileVelocity, targetPos, _firePos.position, player);
+
 
             player.MyCamera.transform.DOShakeRotation(0.2f, 1f);
         }

@@ -125,13 +125,17 @@ public class ProjectileMoveScript : MonoBehaviourPunCallbacks
             if (co.collider.CompareTag("Bullet"))
                 return;
 
+            if (co.collider.CompareTag("Guard")) {
+                if (co.collider.transform.parent.gameObject == co.gameObject) {
+                    return;
+                }
+            }
+
             if (!collided) {
                 if (co.collider.CompareTag("Guard")) {
-                    if (co.collider.transform.parent.gameObject == co.gameObject) {
-                        Crash(co);
-                        Debug.Log("투사체가 가드에 막힘");
-                        return;
-                    }
+                    Crash(co);
+                    Debug.Log("투사체가 가드에 막힘");
+                    return;
                 }
 
                 if (co.collider.CompareTag("Obstacle")) {

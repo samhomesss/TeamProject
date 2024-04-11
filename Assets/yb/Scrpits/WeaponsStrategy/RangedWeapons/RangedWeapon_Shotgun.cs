@@ -48,8 +48,7 @@ namespace yb {
         }
 
         public bool CanShot() {
-            if (_currentDelay >= _maxDelay + _bonusAttackDelay) {
-                _currentDelay = 0f;
+            if (_currentDelay >= _maxDelay + _bonusAttackDelay && !_player.Animator.GetCurrentAnimatorStateInfo(0).IsName("Shot")) {
                 return true;
             }
             return false;
@@ -79,6 +78,7 @@ namespace yb {
             for(int i = 0; i< projectileNumber; i++) {
                 _projectileCreator.Create(_defaultDamage, _projectileVelocity, targetPos, _firePos.position, player);
             }
+            _currentDelay = 0f;
 
             player.MyCamera.transform.DOShakeRotation(0.2f, 1f);
 

@@ -88,6 +88,7 @@ namespace yb
         public PlayerStatus Status => _status;
         public PhotonView PhotonView => _photonview;
 
+        public Animator Animator => _animator;
         public PlayerWeaponController WeaponController => _weaponController;
         public PlayerPickupController PickupController => _pickupController;
         public PlayerStateController StateController => _stateController;
