@@ -50,6 +50,7 @@ namespace yb
                 else
                     t.localScale = Vector3.zero;
             }
+            Debug.Log($"{weapon.WeaponType.ToString()}¹«±â¸¦ ½Àµæ");
             _rangeWeapon = weapon;
         }
     }
