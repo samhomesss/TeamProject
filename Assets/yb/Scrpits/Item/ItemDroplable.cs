@@ -37,14 +37,13 @@ namespace yb {
                         if (!PhotonNetwork.IsMasterClient)
                             return;
 
-                        go = PhotonNetwork.Instantiate($"Prefabs/{path}",Vector3.zero,Quaternion.identity);
+                        go = PhotonNetwork.Instantiate($"Prefabs/{path}", new Vector3(pos.x + x, 1f, pos.z + z), Quaternion.identity);
                     }
                     else
                     {
                         go = Managers.Resources.Instantiate(path, null);
+                        go.transform.position = new Vector3(pos.x + x, 1f, pos.z + z);
                     }
-
-                    go.transform.position = new Vector3(pos.x + x, 1f, pos.z + z);
                 }
 
                 if ((x == z) || ((x < 0) && (x == -z)) || ((x > 0) && (x == 1 - z))) {

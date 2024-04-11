@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 3924954257916774512}
   - component: {fileID: 4419666342777934028}
   - component: {fileID: 6178121965904842447}
-  - component: {fileID: -1362150869660021146}
   m_Layer: 0
   m_Name: ObtainableRifle
   m_TagString: ObtainableObject
@@ -91,22 +90,6 @@ MonoBehaviour:
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
---- !u!114 &-1362150869660021146
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6575944134925060122}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SynchronizePosition: 1
-  m_SynchronizeRotation: 1
-  m_SynchronizeScale: 0
-  m_UseLocal: 1
 --- !u!1001 &9113945485771943597
 PrefabInstance:
   m_ObjectHideFlags: 0
