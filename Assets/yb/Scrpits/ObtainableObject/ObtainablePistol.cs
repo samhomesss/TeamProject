@@ -28,7 +28,8 @@ namespace yb {
             player.WeaponController.ChangeRangedWeapon(new RangedWeapon_Pistol(player.WeaponController.RangedWeaponsParent, player));
             if(IsTestMode.Instance.CurrentUser == Define.User.Hw)
             {
-               gameObject.GetComponent<PhotonView>().TransferOwnership(player.GetComponent<PhotonView>().ViewID);
+               //GetComponent<PhotonView>().TransferOwnership(player.GetComponent<PhotonView>().ViewID);
+               if(player.GetComponent<PhotonView>().IsMine)
                PhotonNetwork.Destroy(gameObject);
             }
             else
