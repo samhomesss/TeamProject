@@ -34,6 +34,9 @@ namespace yb {
                     GameObject go;
                     if (IsTestMode.Instance.CurrentUser == Define.User.Hw) //0411 12:42 ÀÌÈñ¿õ Æ÷Åæ Å×½ºÆ®¿ë Á¶°Ç¹®»ðÀÔ
                     {
+                        if (!PhotonNetwork.IsMasterClient)
+                            return;
+
                         go = PhotonNetwork.Instantiate($"Prefabs/{path}",Vector3.zero,Quaternion.identity);
                     }
                     else
