@@ -42,6 +42,9 @@ namespace yb
                 if (_photonview.IsMine) //0409 08:06 이희웅 코드 수정 총알 동기화를 위한 코드
                     _rangeWeapon.Shot(Vector3.zero, _player);//장착중인 무기에 맞는 Shot함수 호출
             }
+            else {
+                _rangeWeapon.Shot(Vector3.zero, _player);//장착중인 무기에 맞는 Shot함수 호출
+            }
         }
         public void OnReloadUpdate() => _rangeWeapon.Reload(_player);//장착중인 무기에 맞는 Reload함수 호출
 

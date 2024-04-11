@@ -9,9 +9,12 @@ using UnityEditor.Experimental.GraphView;
 
 namespace yb
 {
+   
+    
     public class PlayerController : MonoBehaviour, ITakeDamage, ITakeDamagePhoton
     {
 
+       
         private readonly float _animationFadeTime = .3f;  //애니메이션 페이드 시간
         private Rigidbody _rigid;
         private Data _data;  //기본 데이터
@@ -85,6 +88,7 @@ namespace yb
         public PlayerStatus Status => _status;
         public PhotonView PhotonView => _photonview;
 
+        public Animator Animator => _animator;
         public PlayerWeaponController WeaponController => _weaponController;
         public PlayerPickupController PickupController => _pickupController;
         public PlayerStateController StateController => _stateController;

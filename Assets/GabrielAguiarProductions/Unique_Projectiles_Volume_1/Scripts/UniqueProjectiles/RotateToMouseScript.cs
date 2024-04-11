@@ -70,6 +70,12 @@ public class RotateToMouseScript : MonoBehaviour {
                 obj.transform.localRotation = Quaternion.Lerp(obj.transform.rotation, rotation, 1);
             }
         }
+		else {
+            direction = destination - obj.transform.position;
+            Vector3 dir = new Vector3(direction.x, 0f, direction.z);
+            rotation = Quaternion.LookRotation(dir);
+            obj.transform.localRotation = Quaternion.Lerp(obj.transform.rotation, rotation, 1);
+        }
 	}
 
 

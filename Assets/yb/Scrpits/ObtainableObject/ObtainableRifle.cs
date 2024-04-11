@@ -14,7 +14,7 @@ namespace yb
         /// 아이템 픽업 시, 플레이어의 무기를 이 아이템으로 교체
         /// </summary>
         private void Start() => _photonView = GetComponent<PhotonView>();
-        public void Pickup(PlayerController player)
+        public override void Pickup(PlayerController player)
         {
             player.WeaponController.ChangeRangedWeapon(new RangedWeapon_Rifle(player.WeaponController.RangedWeaponsParent, player));
             if (IsTestMode.Instance.CurrentUser == Define.User.Hw)

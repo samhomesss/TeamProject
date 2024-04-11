@@ -41,8 +41,15 @@ namespace yb
         /// </summary>
         private void OnPickupUpdate()
         {
-            if (_collideItemPhoton == null) //0411 18:29 이희웅 포톤용 테스트 함수 추가
-                return;
+            if (IsTestMode.Instance.CurrentUser == Define.User.Hw)//0411 07:42 이희웅 포톤동기화 테스트모드 추가
+            {
+                if (_collideItemPhoton == null) //0411 18:29 이희웅 포톤용 테스트 함수 추가
+                    return;
+            }
+            else {
+                if (_collideItem == null)
+                    return;
+            }
 
             //if (_collideItem == null) //0411 18:29 이희웅 포톤용 테스트 함수를 위해 주석처리
             //    return;
@@ -61,6 +68,7 @@ namespace yb
             {
                 if (Input.GetKeyDown(KeyCode.G))
                 {
+                    Debug.Log("누름");
                     _player.StateController.ChangeState(new PlayerState_Pickup(_player));
                     _collideItem.Pickup(_player);
                     _player.ItemEvent?.Invoke(_collideItem.Name);
@@ -131,6 +139,7 @@ namespace yb
                 {
                     _collideItem = c.GetComponent<IObtainableObject>();
                     c.GetComponent<IObtainableObject>().ShowName();
+                    Debug.Log(_collideItem.ToString());
                     return;
                 }
 
