@@ -11,6 +11,8 @@ namespace yb
         private PhotonView _photonView;//0411 08:55 이희웅 동기화를 위한 포톤뷰 추가
         public string Name => gameObject.name;
 
+        public PhotonView iObtainableObjectPhotonview => _photonView;
+
 
         /// <summary>
         /// 아이템 픽업 시, 플레이어의 무기를 이 아이템으로 교체
@@ -24,9 +26,18 @@ namespace yb
             if (IsTestMode.Instance.CurrentUser == Define.User.Hw)
             {
                 //GetComponent<PhotonView>().TransferOwnership(player.GetComponent<PhotonView>().ViewID);
-                if (!PhotonNetwork.IsMasterClient)
-                    return;
-                PhotonNetwork.Destroy(gameObject);
+                //if (!PhotonNetwork.IsMasterClient)
+                //{
+                //    Debug.Log("클라이언트 호출");
+                //    return;
+                //}
+                //else
+                //    Debug.Log("마스터가 삭제함");
+                //}
+                //
+                //{
+                //if(player.PhotonView.IsMine)
+                    PhotonNetwork.Destroy(gameObject);
             }
             else
             {

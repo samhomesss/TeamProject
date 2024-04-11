@@ -1,3 +1,4 @@
+using ExitGames.Client.Photon.StructWrapping;
 using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
@@ -45,6 +46,7 @@ namespace yb
                 if (Input.GetKeyDown(KeyCode.G))
                 {
                     _player.StateController.ChangeState(new PlayerState_Pickup(_player));
+                    _collideItem.iObtainableObjectPhotonview.TransferOwnership(_player.GetComponent<PhotonView>().ViewID);
                     _collideItem.Pickup(_player);
                     _player.ItemEvent?.Invoke(_collideItem.Name);
                     _collideItem = null;

@@ -1,3 +1,4 @@
+using Photon.Pun;
 using UnityEngine;
 
 namespace yb {
@@ -7,5 +8,7 @@ namespace yb {
     public interface IObtainableObject {
         public string Name { get; }  //아이템의 이름
         void Pickup(PlayerController player);  //픽업 함수
+
+        public PhotonView iObtainableObjectPhotonview { get; } //0411 15:34 이희웅 포톤뷰 프로퍼티 추가
     }
 }
