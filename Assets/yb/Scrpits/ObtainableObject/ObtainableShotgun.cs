@@ -8,10 +8,7 @@ namespace yb
     /// </summary>
     public class ObtainableShotgun : ObtainableObject
     {//0411 07:57 이희웅 MonoBehaviour -> MonoBehaviourPunCallbacks 으로 수정
-        private PhotonView _photonView;//0411 08:55 이희웅 동기화를 위한 포톤뷰 추가
-        public string Name => gameObject.name;
-        public string NamePhoton => gameObject.name;
-        public PhotonView IObtainableObjectPhotonView => _photonView;
+       //0411 08:55 이희웅 동기화를 위한 포톤뷰 추가
 
         /// <summary>
         /// 아이템 픽업 시, 플레이어의 무기를 이 아이템으로 교체
@@ -33,7 +30,7 @@ namespace yb
         }
 
         [PunRPC]
-        public void PickupPhoton(int playerViewId)
+        public override void PickupPhoton(int playerViewId)
         {
             PlayerController player;
             player = PhotonNetwork.GetPhotonView(playerViewId).GetComponent<PlayerController>();

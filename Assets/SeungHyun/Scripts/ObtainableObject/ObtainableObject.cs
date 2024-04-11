@@ -1,3 +1,4 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,14 +6,21 @@ using UnityEngine.UI;
 using yb;
 
 // 새로 추가 승현 부모 클래스로 만듬
-public class ObtainableObject : MonoBehaviour, IObtainableObject
+public class ObtainableObject : MonoBehaviourPunCallbacks, IObtainableObject, IObtainableObjectPhoton
 {
     GameObject itemNameObject;
     Text itemInfoTextUI;
     int itemID;
-   // public string itemName;
+    // public string itemName;
+    protected PhotonView _photonView;
     public string Name => gameObject.name;
+
+    public PhotonView IObtainableObjectPhotonView => _photonView;
+
+    public string NamePhoton => gameObject.name;
+
     public virtual void Pickup(PlayerController player) { }
+
     public virtual void ShowName()
     {
         if (itemNameObject != null)
@@ -45,5 +53,10 @@ public class ObtainableObject : MonoBehaviour, IObtainableObject
     {
         if (itemNameObject != null)
             Destroy(itemNameObject);
+    }
+
+    public virtual void PickupPhoton(int playerViewId)
+    {
+      
     }
 }

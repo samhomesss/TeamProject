@@ -15,7 +15,7 @@ public class Define
     }
 
     public enum WeaponType {
-        Pistol = 50,
+        Pistol,
         Rifle,
         Shotgun,
     }

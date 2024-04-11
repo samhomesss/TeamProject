@@ -54,6 +54,7 @@ namespace yb
                     _player.StateController.ChangeState(new PlayerState_Pickup(_player));
                     _collideItemPhoton.IObtainableObjectPhotonView.RPC("PickupPhoton", RpcTarget.All, _player.IphotonView.ViewID);
                     _player.ItemEvent?.Invoke(_collideItemPhoton.NamePhoton);
+                    _collideItemPhoton = null;
                 }
             }
             else
