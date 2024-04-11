@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using yb;
+using static UnityEditor.Progress;
 
 public class UI_Inven : UI_Scene
 {
-
+    //ItemInfoName iteminfoname;
+    Map map;
     List<UI_Inven_Item> ui_Inven_Items = new List<UI_Inven_Item>();
     UI_Inven_Item invenItem;
 
@@ -17,13 +19,21 @@ public class UI_Inven : UI_Scene
      
     void Start()
     {
+        map = Map.MapObject.GetComponent<Map>();
+        //iteminfoname = ItemInfoName.ItemNameObject.GetComponent<ItemInfoName>();
         Init();
+        SetPlayer(map.Player);
         // 구독해주고
         //UI_ItemCreateButton.OnItemCreateClicked += ChangeImage;
-        ItemInfoName.OnRelicGet -= ChangeImage;
-        ItemInfoName.OnRelicGet += ChangeImage;
+        
+        //ItemInfoName.OnRelicGet -= ChangeImage;
+        //ItemInfoName.OnRelicGet += ChangeImage;
      }
 
+    void SetPlayer(PlayerController player)
+    {
+        player.ItemEvent += ChangeImage;
+    }
 
     public override void Init()
     {
@@ -46,24 +56,28 @@ public class UI_Inven : UI_Scene
     }
 
     // 번호를 넘겨주는 아이템 번호로 사용
-    public void ChangeImage(int itemID)
+    public void ChangeImage(string ItemID)
     {
-        for (int i = 0; i < ui_Inven_Items.Count; i++)
-        {
+        if (ItemID == "ShieldRelic" || ItemID == "BonusAttackSpeedRelic" || ItemID == "BonusProjectileRelic"
+             || ItemID == "BonusResurrectionTimeRelic" || ItemID == "GuardRelic" || ItemID == "Pistol" || ItemID == "Shotgun" || ItemID == "Rifle")
+        { return; }
+
+            for (int i = 0; i < ui_Inven_Items.Count; i++)
+            {
             if (!ui_Inven_Items[i].IsEmpty)
             {
                 continue;
             }
         // Item 적용 부분
 
-        if (itemID / 500 == 0) // 이거 조건 없어도 될듯? 아이템을 먹을때 해당 판정을 먼저함
-        {
+        //if (itemID / 500 == 0) // 이거 조건 없어도 될듯? 아이템을 먹을때 해당 판정을 먼저함
+        //{
             
             ui_Inven_Items[i].IsEmpty = false;
             // 아랫부분 추후에 수정하고
-            ui_Inven_Items[i].transform.GetChild(0).GetComponentInChildren<Image>().sprite = Managers.ItemDataBase.GetItemData(itemID).itemImage;
-            ui_Inven_Items[i].SlotItemID = itemID; // 데이터 넘겨주는 형식
-        }
+            ui_Inven_Items[i].transform.GetChild(0).GetComponentInChildren<Image>().sprite = Managers.ItemDataBase.GetItemData(ItemID).itemImage;
+            ui_Inven_Items[i].SlotItemID = Managers.ItemDataBase.GetItemData(ItemID).itemName; // 데이터 넘겨주는 형식
+       // }
             break;
         }
     }

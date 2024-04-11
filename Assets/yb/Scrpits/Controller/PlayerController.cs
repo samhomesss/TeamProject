@@ -44,13 +44,13 @@ namespace yb
         /// 플레이어 무기 변경시 호출
         /// <define.weaponType>
         /// </summary>
-        public Action<int> WeaponEvent;
+        public Action<string> WeaponEvent;
 
         /// <summary>
         /// 렐릭 습득시 호출
         /// <define.relicType>
         /// </summary>
-        public Action<int> SetRelicEvent;
+        public Action<string> SetRelicEvent;
 
         /// <summary>
         /// 아이템 습득 시 호출
@@ -68,7 +68,7 @@ namespace yb
         /// <summary>
         /// 렐릭 제거시 호출
         /// </summary>
-        public Action<int> DestroyRelicEvent;
+        public Action<string> DestroyRelicEvent;
 
         /// <summary>
         /// 현재 맵에 색상이 얼마나 띄워져 있는지 판단

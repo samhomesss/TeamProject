@@ -16,54 +16,61 @@ using UnityEngine;
 
 public class ItemDataBase
 {
-    public enum ItemsData
-    {
-        Default = 0,
-        Pistol = 50, // 아이템 번호 50 
-        Rifle, // 51
-        ShotGun, // 52
-        Relic = 1000,
-        Relic2,
-        Relic3,
-    }
+    #region 주석처리
+    //public enum ItemsData
+    //{
+    //    Default = 0,
+    //    Pistol = 50, // 아이템 번호 50 
+    //    Rifle, // 51
+    //    ShotGun, // 52
+    //    Relic = 1000,
+    //    Relic2,
+    //    Relic3,
+    //}
 
-    string[] itemDataName = Enum.GetNames(typeof(ItemsData));
-    int itemDataLength;
-
+    //string[] itemDataName = Enum.GetNames(typeof(ItemsData));
     // 아이템을 관리 하는 Dictionary
     // ItemData(이름,이미지,타입,아이템 아이디)
+    #endregion
     List<ItemData> itemDatas = new List<ItemData>();
-    Dictionary<int, ItemData> _itemDictionary = new Dictionary<int, ItemData>();
+    Dictionary<string, ItemData> _itemDictionary = new Dictionary<string, ItemData>();
 
     public void Init()
     {
-        itemDataLength = itemDataName.Length;
-        for (int i = 0; i < itemDataLength; i++)
-        {
-            var path = $"Prefabs/sh/Data/{itemDataName[i]}";
-            itemDatas.Add(Managers.Resources.Load<ItemData>(path));
-        }
+        itemDatas.Add(new ItemData((int)Define.WeaponType.Pistol, "Pistol", Managers.Resources.Load<Sprite>("Prefabs/sh/UI/Texture/Pistol")));
+        itemDatas.Add(new ItemData((int)Define.WeaponType.Rifle, "Rifle", Managers.Resources.Load<Sprite>("Prefabs/sh/UI/Texture/Rifle")));
+        itemDatas.Add(new ItemData((int)Define.WeaponType.Shotgun, "Shotgun", Managers.Resources.Load<Sprite>("Prefabs/sh/UI/Texture/Shotgun")));
+        itemDatas.Add(new ItemData((int)Define.RelicType.ShieldRelic, "ShieldRelic", Managers.Resources.Load<Sprite>("Prefabs/sh/UI/Texture/ShieldRelic")));
+        itemDatas.Add(new ItemData((int)Define.RelicType.BonusAttackSpeedRelic, "BonusAttackSpeedRelic", Managers.Resources.Load<Sprite>("Prefabs/sh/UI/Texture/BonusAttackSpeedRelic")));
+        itemDatas.Add(new ItemData((int)Define.RelicType.BonusProjectileRelic, "BonusProjectileRelic", Managers.Resources.Load<Sprite>("Prefabs/sh/UI/Texture/BonusProjectileRelic")));
+        itemDatas.Add(new ItemData((int)Define.RelicType.BonusResurrectionTimeRelic, "BonusResurrectionTimeRelic", Managers.Resources.Load<Sprite>("Prefabs/sh/UI/Texture/BonusResurrectionTimeRelic")));
+        itemDatas.Add(new ItemData((int)Define.RelicType.GuardRelic, "GuardRelic", Managers.Resources.Load<Sprite>("Prefabs/sh/UI/Texture/GuardRelic")));
 
+        #region 주석처리
+        //itemDataLength = itemDataName.Length;
+        //for (int i = 0; i < itemDatas.Count; i++)
+        //{
+
+        //}
+        #endregion
         foreach (ItemData itemData in itemDatas)
         {
-            if (_itemDictionary.TryGetValue(itemData.itemID, out ItemData testData))
+            if (_itemDictionary.TryGetValue(itemData.itemName, out ItemData testData))
             {
-
+                //Debug.Log($"이미 {itemData.itemName}가 존재함");
             }
             else
             {
-                _itemDictionary.Add(itemData.itemID, itemData);
+                _itemDictionary.Add(itemData.itemName, itemData);
             }
         }
-
-
     }
 
     // 밖에서 정보 가져오는거 
-    public ItemData GetItemData(int itemID)
+    public ItemData GetItemData(string itemName)
     {
 
-        return _itemDictionary[itemID];
+        return _itemDictionary[itemName];
     }
 
 }

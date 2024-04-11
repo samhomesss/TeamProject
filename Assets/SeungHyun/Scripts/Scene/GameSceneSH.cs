@@ -20,17 +20,19 @@ public class GameSceneSH : BaseScene
         Managers.UI.ShowSceneUI<UI_MiniMap>();
         Managers.UI.ShowSceneUI<UI_RelicInven>();
         Managers.UI.ShowSceneUI<UI_PlayerColorPercent>();
-        
+
         // UIInfo
         UI_ItemInfo.ItemInfo = Managers.UI.ShowSceneUIInfo<UI_ItemInfo>().gameObject;
         UI_ItemInfo.ItemInfo.SetActive(false);
+
+        // 플레이어들에게 보여야 하는 UI
+        Managers.UI.ShowSceneUI<UI_PlayerName>();
+
 
         //GameObject
         Managers.SceneObj.ShowSceneObject<Map>();
         Managers.SceneObj.ShowSceneObject<MiniMapCam>();
 
-        // 플레이어들에게 보여야 하는 UI
-        Managers.UI.ShowSceneUI<UI_PlayerName>();
-    }
+    }  
 
 }

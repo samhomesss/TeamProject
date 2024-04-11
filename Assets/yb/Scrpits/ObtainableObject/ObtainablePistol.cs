@@ -15,13 +15,18 @@ namespace yb {
         /// <param name="player"></param>
         public override void Pickup(PlayerController player) {
             player.WeaponController.ChangeRangedWeapon(new RangedWeapon_Pistol(player.WeaponController.RangedWeaponsParent, player));
-            player.WeaponEvent?.Invoke(50);
+            player.WeaponEvent?.Invoke(Define.WeaponType.Pistol.ToString());
             Managers.Resources.Destroy(gameObject);
         }
 
         public override void ShowName(PlayerController player)
         {
             base.ShowName(player);
+        }
+
+        public override void HideName()
+        {
+            base.HideName();
         }
     }
 }

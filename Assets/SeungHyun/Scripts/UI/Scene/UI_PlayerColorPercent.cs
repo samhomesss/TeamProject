@@ -18,10 +18,11 @@ public class UI_PlayerColorPercent : UI_Scene
     int player8Count;
 
     GameObject[] _playerSlider = new GameObject[8];
-
+    Map map; // 플레이어를  가지고 오기 위한 map
     
     private void Start()
     {
+        map = Map.MapObject.GetComponent<Map>();
         ActionInit();
         for (int i = 0; i < _playerSlider.Length; i++)
         {
@@ -31,9 +32,9 @@ public class UI_PlayerColorPercent : UI_Scene
 
     void ActionInit()
     {
-        
-        PlayerTestSh.OnPlayerColorChecked -= ColorPercent;
-        PlayerTestSh.OnPlayerColorChecked += ColorPercent;
+        SetPlayer(map.Player);
+        //PlayerTestSh.OnPlayerColorChecked -= ColorPercent;
+        //PlayerTestSh.OnPlayerColorChecked += ColorPercent;
     }
 
     void ColorPercent()
@@ -100,7 +101,7 @@ public class UI_PlayerColorPercent : UI_Scene
     // Todo: 윤범이형 액션 연결
     void SetPlayer(PlayerController player)
     {
-        player.ColorPercentEvent -= ColorPercent;
+        //player.ColorPercentEvent -= ColorPercent;
         player.ColorPercentEvent += ColorPercent;
     }
 }

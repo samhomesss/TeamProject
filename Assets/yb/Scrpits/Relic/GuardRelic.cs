@@ -11,7 +11,7 @@ namespace yb {
         public void DeleteRelic(PlayerController player) {
             player.PickupController.DeleteRelic(this);
             // 아래에 있는 이벤트 새로 만들기 
-            player.DestroyRelicEvent?.Invoke((int)RelicType);
+            player.DestroyRelicEvent?.Invoke(RelicType.ToString());
         }
 
         public override void Pickup(PlayerController player) {
@@ -20,7 +20,7 @@ namespace yb {
 
         public void SetRelic(PlayerController player) {
             player.PickupController.SetRelic(this);
-            player.SetRelicEvent?.Invoke((int)RelicType);
+            player.SetRelicEvent?.Invoke(RelicType.ToString());
             Managers.Resources.Destroy(gameObject);
 
         }
@@ -28,6 +28,11 @@ namespace yb {
         public override void ShowName(PlayerController player)
         {
             base.ShowName(player);
+        }
+
+        public override void HideName()
+        {
+            base.HideName();
         }
     }
 }

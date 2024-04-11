@@ -49,7 +49,7 @@ namespace yb {
         public void SetRelic(IRelic relic) {
             _haveRelic[(int)relic.RelicType] = true;
             _player.WeaponController.SetRelic(relic);
-            _player.SetRelicEvent?.Invoke((int)relic.RelicType);
+            _player.SetRelicEvent?.Invoke(relic.RelicType.ToString());
             Debug.Log($"{relic.RelicType.ToString()}·¼¸¯À» ½Àµæ");
             switch(relic.RelicType) {
                 case Define.RelicType.BonusResurrectionTimeRelic:
@@ -71,7 +71,7 @@ namespace yb {
         public void DeleteRelic(IRelic relic) {
             _haveRelic[(int)relic.RelicType] = true;
             _player.WeaponController.SetRelic(relic);
-            _player.SetRelicEvent?.Invoke((int)relic.RelicType);
+            _player.DestroyRelicEvent?.Invoke(relic.RelicType.ToString());
 
             switch (relic.RelicType) {
                 case Define.RelicType.BonusResurrectionTimeRelic:
@@ -101,6 +101,7 @@ namespace yb {
                 {
                     _collideItem = null;
                     c.GetComponent<IObtainableObject>().HideName();
+                    
                 }
         }
     }

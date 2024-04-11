@@ -7,9 +7,10 @@ using yb;
 // 새로 추가 승현 부모 클래스로 만듬
 public class ObtainableObject : MonoBehaviour, IObtainableObject
 {
-    GameObject itemNameObject;
+
+    [SerializeField] GameObject itemNameObject;
     Text itemInfoTextUI;
-    int itemID;
+    //int itemID;
     
    // public string itemName;
     public string Name => gameObject.name;

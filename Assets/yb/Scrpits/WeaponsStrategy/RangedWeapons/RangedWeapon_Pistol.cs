@@ -16,7 +16,7 @@ namespace yb {
             _firePos = Util.FindChild(_weaponGameObject, "FirePos", false).transform;  //발사체 발사 위치 서치
             _weaponGameObject.transform.localScale = DefaultScale;  //무기의 크기를 기본 크기로 할당
             _player = player;
-            _player.WeaponEvent?.Invoke((int)WeaponType);
+            _player.WeaponEvent?.Invoke(WeaponType.ToString());
 
             //각종 스탯을 기본 스탯애 맞게 할당
             _realodTime = _data.DefaultWeaponRealodTime((int)WeaponType);  

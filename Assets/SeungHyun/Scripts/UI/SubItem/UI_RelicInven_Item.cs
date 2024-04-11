@@ -13,7 +13,7 @@ public class UI_RelicInven_Item : UI_Base
         ItemNameText,
     }
     //public static int BeforeItemID => _beforeChagnedItemID;
-    public int SlotItemID
+    public string SlotItemID
     {
         get { return _slotItemID; }
         set { _slotItemID = value; }
@@ -32,7 +32,7 @@ public class UI_RelicInven_Item : UI_Base
 
     public GameObject Icon => _icon; // 아이템 아이콘
 
-    int _slotItemID; // 현재 이 창이 들고 있는 ItemID 
+    string _slotItemID; // 현재 이 창이 들고 있는 ItemID 
     string _name; // 이름 설정 할때 사용
     bool _isEmpty = true; // 아이템 유무 확인 아이템이 인벤안에 없는가?
     static bool _isChanged = false; // 아이템을 바꾸는 상황
@@ -40,7 +40,7 @@ public class UI_RelicInven_Item : UI_Base
     //GameObject go;// 떨어질때 만들어질 아이템
     //static int _beforeChagnedItemID; // 아이템 바꾸기전 아이템 아이디
 
-    static public event Action<int> OnItemInfoChanged; // 올렸을때 아이템 인포를 조정
+    //public event Action<string> OnItemInfoChanged; // 올렸을때 아이템 인포를 조정
     //static public event Action OnChangedItem; // 아이템을 바꿧을때 필요한 이벤트
 
     void Start()
@@ -79,36 +79,36 @@ public class UI_RelicInven_Item : UI_Base
     }
 
     #region 주석처리 현재 사용 안함
-    void SlotReset()
-    {
-        _slotItemID = 0;
-    }
+    //void SlotReset()
+    //{
+    //   // _slotItemID = 0;
+    //}
 
-    void ImageUpdate()
-    {
-        if (_icon.GetComponent<Image>().sprite != null) 
-        {
-            //_slotItemID = 
-        }
-    }
+    //void ImageUpdate()
+    //{
+    //    if (_icon.GetComponent<Image>().sprite != null) 
+    //    {
+    //        //_slotItemID = 
+    //    }
+    //}
 
-    void IsEmptySlot()
-    {
-        //if (_slotItemID == 0)
-        //    return;
-        _isEmpty = true;
-    }
+    //void IsEmptySlot()
+    //{
+    //    //if (_slotItemID == 0)
+    //    //    return;
+    //    //_isEmpty = true;
+    //}
 
-    void DrapItem()
-    {
-        if (_slotItemID == 0)
-            return;
-        Debug.Log("슬롯데이터가 0이 되었습니다.");
-        //Transform playerTrans = Map.Player.transform;
-        //GameObject go = Managers.Resources.Instantiate($"sh/Relic/{Managers.ItemDataBase.GetItemData(_beforeChagnedItemID).itemName}"); // 아이템 생성
-        //go.transform.position = Map.Player.transform.position;
-        //_slotItemID = 0;
-    }
+    //void DrapItem()
+    //{
+    //   // if (_slotItemID == 0)
+    //    //    return;
+    //    //Debug.Log("슬롯데이터가 0이 되었습니다.");
+    //    //Transform playerTrans = Map.Player.transform;
+    //    //GameObject go = Managers.Resources.Instantiate($"sh/Relic/{Managers.ItemDataBase.GetItemData(_beforeChagnedItemID).itemName}"); // 아이템 생성
+    //    //go.transform.position = Map.Player.transform.position;
+    //    //_slotItemID = 0;
+    //}
     #endregion
     // 유물 아이템 바꾼다고 선택할때 사용
     // 아마 원래 UseItem이었을 것이다.
@@ -172,7 +172,7 @@ public class UI_RelicInven_Item : UI_Base
         UI_ItemInfo.ItemInfo.SetActive(true);
         InfoImage.GetComponent<Image>().sprite = Managers.ItemDataBase.GetItemData(_slotItemID).itemImage; // 한번 초기화 해주면 되는 이유
         InfoText.GetComponent<Text>().text = Managers.ItemDataBase.GetItemData(_slotItemID).itemName; // 한번 초기화 
-        OnItemInfoChanged?.Invoke(_slotItemID); // 여기 슬롯의 아이템의 정보를 전달 해줌
+        //OnItemInfoChanged?.Invoke(_slotItemID); // 여기 슬롯의 아이템의 정보를 전달 해줌
         Info.transform.position = gameObject.transform.position + new Vector3(-80, 100, 0);
 
     }

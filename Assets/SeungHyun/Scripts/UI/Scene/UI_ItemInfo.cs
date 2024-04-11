@@ -38,13 +38,14 @@ public class UI_ItemInfo : UI_Scene
         _infoImage = Util.FindChild(UI_ItemInfo.ItemInfo, "ItemImage", true);
         _infoText = Util.FindChild(UI_ItemInfo.ItemInfo, "ItemInfoText", true);
 
-        UI_Inven_Item.OnItemInfoChanged -= ChangeItemInfo;
-        UI_Inven_Item.OnItemInfoChanged += ChangeItemInfo;
-        UI_RelicInven_Item.OnItemInfoChanged -= ChangeItemInfo;
-        UI_RelicInven_Item.OnItemInfoChanged += ChangeItemInfo;
+
+       // UI_Inven_Item.OnItemInfoChanged -= ChangeItemInfo;
+       // UI_Inven_Item.OnItemInfoChanged += ChangeItemInfo;
+       // UI_RelicInven_Item.OnItemInfoChanged -= ChangeItemInfo;
+       // UI_RelicInven_Item.OnItemInfoChanged += ChangeItemInfo;
     }
 
-    void ChangeItemInfo(int itemID)
+    void ChangeItemInfo(string itemID)
     {
         Debug.Log($"itemID´Â {itemID} ");
         _infoImage.GetComponent<Image>().sprite = Managers.ItemDataBase.GetItemData(itemID).itemImage;

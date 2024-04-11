@@ -12,7 +12,7 @@ namespace yb {
             _weaponGameObject = Util.FindChild(parent.gameObject, "Rifle", false);
             _firePos = Util.FindChild(_weaponGameObject, "FirePos", false).transform;
             _player = player;
-            _player.WeaponEvent?.Invoke((int)WeaponType);
+            _player.WeaponEvent?.Invoke(WeaponType.ToString());
 
             _realodTime = _data.DefaultWeaponRealodTime((int)WeaponType);
             _defaultDamage = _data.DefaultWeaponDamage((int)WeaponType);
@@ -39,7 +39,7 @@ namespace yb {
                 _currentBullet = _remainBullet;
                 _maxBullet -= _remainBullet;
             }
-            _player.WeaponEvent?.Invoke((int)WeaponType);
+            _player.WeaponEvent?.Invoke(WeaponType.ToString());
 
             player.StateController.ChangeState(new PlayerState_Idle(player));
         }
