@@ -42,7 +42,7 @@ public class Define
         Sh,
     }
     public enum RelicType {
-        BonusAttackSpeedRelic = 1001,
+        BonusAttackSpeedRelic,
         BonusProjectileRelic,
         BonusResurrectionTimeRelic,
         GuardRelic,

@@ -15,7 +15,7 @@ namespace yb {
             if (_weapon.CanShot())
                 player.ChangeTriggerAnimation(Define.PlayerState.Shot);  //사격이 가능한 상태면 사격 애니메이션 실행
 
-            if (Input.GetMouseButtonUp(0)) {
+            if (!Input.GetMouseButton(0)) {
                 player.Status.SetMoveSpeedDecrease(1f);  //마우스 클릭을 중지 시 이동속도 원상복구
 
                 if (!player.isMoving()) {
