@@ -36,7 +36,6 @@ namespace yb {
             {
                 Managers.Resources.Destroy(gameObject);
             }
-            
         }
 
     }

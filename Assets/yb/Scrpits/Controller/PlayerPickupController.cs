@@ -14,7 +14,6 @@ namespace yb
         private PlayerController _player;
         private Data _data;
         private IObtainableObject _collideItem;  //플레이어와 충돌중인 아이템 저장
-        private IObtainableObjectPhoton _collideItemPhoton; //0411 07:46 이희웅 포톤 동기화를 위한 인터페이스 추가
 
 
         private bool[] _haveRelic = new bool[(int)Define.RelicType.Count];  //플레이어가 보유한 모든 렐릭
@@ -40,26 +39,15 @@ namespace yb
         /// </summary>
         private void OnPickupUpdate()
         {
-            //if (_collideItemPhoton == null) //0411 08:29 이희웅 포톤용 테스트 함수 추가
-            //    return;
-
-            if (_collideItem == null) //0411 08:29 이희웅 포톤용 테스트 함수를 위해 주석처리
+            if (_collideItem == null)
                 return;
 
-            //if (IsTestMode.Instance.CurrentUser == Define.User.Hw)//0411 07:42 이희웅 포톤동기화 테스트모드 추가
-            //{
-            //    if (Input.GetKeyDown(KeyCode.G))
-            //    {
-            //        _player.StateController.ChangeState(new PlayerState_Pickup(_player));
-            //        _collideItemPhoton.IObtainableObjectPhotonView.RPC("PickupPhoton", RpcTarget.All, _player.IphotonView.ViewID);
-            //        _player.ItemEvent?.Invoke(_collideItemPhoton.NamePhoton);
-            //    }
-            //}
                 if (Input.GetKeyDown(KeyCode.G))
                 {
                     _player.StateController.ChangeState(new PlayerState_Pickup(_player));
                     _collideItem.Pickup(_player);
                     _player.ItemEvent?.Invoke(_collideItem.Name);
+                    _collideItem = null;
                 }
             }
 

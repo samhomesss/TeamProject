@@ -9,9 +9,7 @@ namespace yb
     public class ObtainableRifle : MonoBehaviourPunCallbacks, IObtainableObject
     {//0411 07:56 ÀÌÈñ¿õ MonoBehaviour -> MonoBehaviourPunCallbacks À¸·Î ¼öÁ¤
         private PhotonView _photonView;//0411 08:55 ÀÌÈñ¿õ µ¿±âÈ­¸¦ À§ÇÑ Æ÷Åæºä Ãß°¡
-        public PhotonView IObtainableObjectPhotonView => _photonView;
         public string Name => gameObject.name;
-        public string NamePhoton => gameObject.name;
 
 
         /// <summary>
@@ -26,7 +24,7 @@ namespace yb
             if (IsTestMode.Instance.CurrentUser == Define.User.Hw)
             {
                 //GetComponent<PhotonView>().TransferOwnership(player.GetComponent<PhotonView>().ViewID);
-                if (GetComponent<PhotonView>().IsMine)
+                if (_photonView.IsMine)
                     PhotonNetwork.Destroy(gameObject);
             }
             else
