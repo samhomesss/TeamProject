@@ -1,3 +1,4 @@
+using Photon.Pun;
 using UnityEditor;
 using UnityEngine;
 using yb;
@@ -6,7 +7,10 @@ namespace yb {
     public class BonusResurrectionTimeRelic : MonoBehaviour, IRelic, IObtainableObject {
         public string Name => gameObject.name;
 
+
         public Define.RelicType RelicType { get; } = Define.RelicType.BonusResurrectionTimeRelic;
+
+        public PhotonView iObtainableObjectPhotonview => throw new System.NotImplementedException();
 
         public void DeleteRelic(PlayerController player) {
             player.PickupController.DeleteRelic(this);
