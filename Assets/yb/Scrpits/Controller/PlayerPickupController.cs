@@ -52,7 +52,6 @@ namespace yb
                 if (Input.GetKeyDown(KeyCode.G))
                 {
                     _player.StateController.ChangeState(new PlayerState_Pickup(_player));
-                    if(PhotonNetwork.IsMasterClient)
                     _collideItemPhoton.IObtainableObjectPhotonView.RPC("PickupPhoton", RpcTarget.All, _player.IphotonView.ViewID);
                     _player.ItemEvent?.Invoke(_collideItemPhoton.NamePhoton);
                 }

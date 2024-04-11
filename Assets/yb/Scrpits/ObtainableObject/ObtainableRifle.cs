@@ -40,6 +40,7 @@ namespace yb
             PlayerController player;
             player = PhotonNetwork.GetPhotonView(playerViewId).GetComponent<PlayerController>();
             player.WeaponController.ChangeRangedWeapon(new RangedWeapon_Rifle(player.WeaponController.RangedWeaponsParent, player));
+            if(player.GetComponent<PhotonView>().IsMine)
             PhotonNetwork.Destroy(gameObject);
 
         }
