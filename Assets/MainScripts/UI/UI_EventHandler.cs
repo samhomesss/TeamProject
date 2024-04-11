@@ -12,6 +12,7 @@ public class UI_EventHandler : MonoBehaviour, IPointerClickHandler, IPointerEnte
     #region 04.05 ½ÂÇö Ãß°¡
     public Action<PointerEventData> OnDragHandler = null;
     public Action<PointerEventData> OnExitHandler = null;
+
     #endregion
     public void OnPointerClick(PointerEventData eventData)
     {

@@ -60,7 +60,27 @@ namespace yb
         /// <아이템의 이름을 문자열로 저장>
         /// </summary>
         public Action<string> ItemEvent;
-        public Action MiniMapEvent;
+
+        /// <summary>
+        /// 플레이어가 움직일때 
+        /// Map에 노드 색상 칠해주는거 
+        /// </summary>
+        public Action MapEvent;
+
+        #region 승현 추가 04.11
+        /// <summary>
+        /// 현재 맵에 색상이 얼마나 띄워져 있는지 판단
+        /// 매 프레임이 아닌 움직였는데 2초가 지나 있다면으로 변경
+        /// </summary>
+        public Action ColorPercentEvent;
+
+        /// <summary>
+        /// 아이템이 근처에 있을때 판정
+        /// </summary>
+        public Action ClosedItemEvent;
+
+        float resetTimer = 0; // 이벤트를 호출할 친구를 초기화 시키는 것
+        #endregion
 
         public PlayerStatus Status => _status;
         public PhotonView PhotonView => _photonview;
@@ -102,12 +122,16 @@ namespace yb
 
         }
 
-
         private void Update()
         {
             moveX = Input.GetAxisRaw("Horizontal");
             moveZ = Input.GetAxisRaw("Vertical");
+
+            #region 04.11 승현 추가 
+            resetTimer += Time.deltaTime; // 매 프레임이 아닌 초마다 실행 시킬 조건
+            #endregion  
         }
+
         public void SetCamera(Camera camera) => _myCamera = camera;
 
         /// <summary>
@@ -134,7 +158,14 @@ namespace yb
         {
             if (moveX == 0 && moveZ == 0)
                 return false;
-
+            #region 승현 추가 04.11
+            MapEvent?.Invoke();
+            ClosedItemEvent?.Invoke();
+            if (resetTimer >= 1) // 매순간 호출 될 친구가 아니기에 
+            {
+                ColorPercentEvent?.Invoke();
+            }
+            #endregion
             return true;
         }
 

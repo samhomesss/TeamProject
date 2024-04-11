@@ -4,7 +4,7 @@ using UnityEngine;
 using yb;
 
 namespace yb {
-    public class ShieldRelic : MonoBehaviour, IRelic, IObtainableObject {
+    public class ShieldRelic : ObtainableObject, IRelic {
         public string Name => gameObject.name;
 
         public Define.RelicType RelicType { get; } = Define.RelicType.ShieldRelic;
@@ -13,7 +13,7 @@ namespace yb {
             player.PickupController.DeleteRelic(this);
         }
 
-        public void Pickup(PlayerController player) {
+        public override void Pickup(PlayerController player) {
             SetRelic(player);
         }
 
@@ -21,6 +21,11 @@ namespace yb {
             player.PickupController.SetRelic(this);
             Managers.Resources.Destroy(gameObject);
 
+        }
+
+        public override void ShowName()
+        {
+            base.ShowName();
         }
     }
 }

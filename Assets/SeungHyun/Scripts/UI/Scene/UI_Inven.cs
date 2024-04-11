@@ -20,8 +20,8 @@ public class UI_Inven : UI_Scene
         Init();
         // 구독해주고
         //UI_ItemCreateButton.OnItemCreateClicked += ChangeImage;
-        ItemInfoName.OnItemGet -= ChangeImage;
-        ItemInfoName.OnItemGet += ChangeImage;
+        ItemInfoName.OnRelicGet -= ChangeImage;
+        ItemInfoName.OnRelicGet += ChangeImage;
      }
 
 
@@ -52,7 +52,6 @@ public class UI_Inven : UI_Scene
         {
             if (!ui_Inven_Items[i].IsEmpty)
             {
-                
                 continue;
             }
         // Item 적용 부분

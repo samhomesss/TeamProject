@@ -11,6 +11,7 @@ public class InputManager
 
     #region 임시 추가 승현 04.08
     //Todo : 윤범이 형 Action 가져와서 실행 시켜야됨
+    // 완성하면 지우면 됨
     public Action GetItemEvent;
     #endregion
 
@@ -41,6 +42,7 @@ public class InputManager
             OnMouseEvent?.Invoke(Define.MouseEventType.RightMouseUp);
 
         #region 승현 추가 04.08
+        // ToDo : 합치면 지워야됨
         if (Input.GetKeyDown(KeyCode.F))
         {
             GetItemEvent?.Invoke();

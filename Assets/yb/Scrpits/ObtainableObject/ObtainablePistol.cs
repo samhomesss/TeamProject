@@ -2,20 +2,22 @@ using ExitGames.Client.Photon;
 using Photon.Pun;
 using Photon.Realtime;
 using Unity.VisualScripting;
+using UnityEditor.Timeline;
 using UnityEngine;
 
 namespace yb {
+    // Interface를 상속 받는 부모 클래스를 받아와서 하는게 제일 좋아보이긴함
     /// <summary>
     /// 획득 가능한 Pistol아이템
     /// </summary>
-    public class ObtainablePistol : MonoBehaviourPunCallbacks, IObtainableObject ,IObtainableObjectPhoton
+
+    public class ObtainablePistol : ObtainableObject
     {//0411 07:49 이희웅 MonoBehaviour -> MonoBehaviourPunCallbacks 으로 수정
         private PhotonView _photonView; //0411 08:55 이희웅 동기화를 위한 포톤뷰 추가
         public string Name => gameObject.name;
         public string NamePhoton => gameObject.name;
         public PhotonView IObtainableObjectPhotonView => _photonView;
-
-
+        
         /// <summary>
         /// 아이템 픽업 시, 플레이어의 무기를 이 아이템으로 교체
         /// </summary>
@@ -33,6 +35,7 @@ namespace yb {
             }
             else
             {
+                player.WeaponEvent?.Invoke(50);
                 Managers.Resources.Destroy(gameObject);
             }
         }
@@ -45,6 +48,12 @@ namespace yb {
             player.WeaponController.ChangeRangedWeapon(new RangedWeapon_Pistol(player.WeaponController.RangedWeaponsParent, player));
             if (PhotonNetwork.IsMasterClient)
                 PhotonNetwork.Destroy(gameObject);
+       
+        }
+
+        public override void ShowName()
+        {
+            base.ShowName();
         }
     }
 }

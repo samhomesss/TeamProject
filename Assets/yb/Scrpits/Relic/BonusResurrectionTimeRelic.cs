@@ -4,7 +4,7 @@ using UnityEngine;
 using yb;
 
 namespace yb {
-    public class BonusResurrectionTimeRelic : MonoBehaviour, IRelic, IObtainableObject {
+    public class BonusResurrectionTimeRelic : ObtainableObject, IRelic {
         public string Name => gameObject.name;
 
 
@@ -15,7 +15,7 @@ namespace yb {
             player.PickupController.DeleteRelic(this);
         }
 
-        public void Pickup(PlayerController player) {
+        public override void Pickup(PlayerController player) {
             SetRelic(player);
         }
 
@@ -23,6 +23,11 @@ namespace yb {
             player.PickupController.SetRelic(this);
             Managers.Resources.Destroy(gameObject);
 
+        }
+
+        public override void ShowName()
+        {
+            base.ShowName();
         }
     }
 }

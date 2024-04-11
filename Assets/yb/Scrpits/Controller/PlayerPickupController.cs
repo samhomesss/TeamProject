@@ -116,6 +116,7 @@ namespace yb
         }
 
 
+
         private void OnTriggerEnter(Collider c)
         {
             if (c.CompareTag("ObtainableObject"))
@@ -128,14 +129,17 @@ namespace yb
                 else
                 {
                     _collideItem = c.GetComponent<IObtainableObject>();
+                    c.GetComponent<IObtainableObject>().ShowName();
                     return;
                 }
+
             }
         }
 
         private void OnTriggerExit(Collider c)
         {
             if (c.CompareTag("ObtainableObject"))
+
                 if (IsTestMode.Instance.CurrentUser == Define.User.Hw) //0411 08:10 ÀÌÈñ¿õ Æ÷Åæ µ¿±âÈ­¸¦ À§ÇÑ ºÐ±â Ãß°¡
                 {
                     if (_collideItemPhoton != null)
@@ -144,7 +148,11 @@ namespace yb
                 else
                 {
                     if (_collideItem != null)
+                    {
                         _collideItem = null;
+                        c.GetComponent<IObtainableObject>().HideName();
+                    }
+
                 }
         }
     }

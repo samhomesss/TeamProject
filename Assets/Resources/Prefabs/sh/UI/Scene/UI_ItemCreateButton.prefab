@@ -133,7 +133,6 @@ GameObject:
   - component: {fileID: 5172863208841197742}
   - component: {fileID: 482753413548271393}
   - component: {fileID: 790505258629518945}
-  - component: {fileID: 3724679262173187766}
   m_Layer: 5
   m_Name: UI_ItemCreateButton
   m_TagString: Untagged
@@ -224,18 +223,6 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &3724679262173187766
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7322496395535660460}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c3fa08683d911d74e9647562abf673e2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &7882167522000296087
 GameObject:
   m_ObjectHideFlags: 0
