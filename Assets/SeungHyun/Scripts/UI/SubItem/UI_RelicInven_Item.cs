@@ -41,7 +41,7 @@ public class UI_RelicInven_Item : UI_Base
     //static int _beforeChagnedItemID; // 아이템 바꾸기전 아이템 아이디
 
     static public event Action<int> OnItemInfoChanged; // 올렸을때 아이템 인포를 조정
-    static public event Action OnChangedItem; // 아이템을 바꿧을때 필요한 이벤트
+    //static public event Action OnChangedItem; // 아이템을 바꿧을때 필요한 이벤트
 
     void Start()
     {
@@ -156,7 +156,7 @@ public class UI_RelicInven_Item : UI_Base
     */
     #endregion
 
-    #region ItemInfo
+    
     /// <summary>
     /// 아이템이 인벤토리안에 들어 왔을때 아이템 창안에 손 올렸을때 
     /// 해당 아이템을 띄우는 정보창 
@@ -169,7 +169,6 @@ public class UI_RelicInven_Item : UI_Base
         GameObject Info = Util.FindChild(UI_ItemInfo.ItemInfo, "ItemInfoBackGround", true);
         GameObject InfoImage = Util.FindChild(UI_ItemInfo.ItemInfo, "ItemImage", true);
         GameObject InfoText = Util.FindChild(UI_ItemInfo.ItemInfo, "ItemInfoText", true);
-        //_beforeChagnedItemID = _slotItemID;
         UI_ItemInfo.ItemInfo.SetActive(true);
         InfoImage.GetComponent<Image>().sprite = Managers.ItemDataBase.GetItemData(_slotItemID).itemImage; // 한번 초기화 해주면 되는 이유
         InfoText.GetComponent<Text>().text = Managers.ItemDataBase.GetItemData(_slotItemID).itemName; // 한번 초기화 
@@ -185,7 +184,6 @@ public class UI_RelicInven_Item : UI_Base
     {
         UI_ItemInfo.ItemInfo.SetActive(false);
     }
-    #endregion
 
     // 인벤토리를 생성할때 인벤 위에 이름을 설정 하는거 
     public void SetInfo(string name)

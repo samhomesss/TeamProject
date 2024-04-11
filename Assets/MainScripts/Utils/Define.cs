@@ -15,7 +15,7 @@ public class Define
     }
 
     public enum WeaponType {
-        Pistol,
+        Pistol = 50,
         Rifle,
         Shotgun,
     }
@@ -42,7 +42,7 @@ public class Define
         Sh,
     }
     public enum RelicType {
-        BonusAttackSpeedRelic,
+        BonusAttackSpeedRelic = 1001,
         BonusProjectileRelic,
         BonusResurrectionTimeRelic,
         GuardRelic,

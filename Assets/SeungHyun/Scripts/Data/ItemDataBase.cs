@@ -40,7 +40,6 @@ public class ItemDataBase
         for (int i = 0; i < itemDataLength; i++)
         {
             var path = $"Prefabs/sh/Data/{itemDataName[i]}";
-
             itemDatas.Add(Managers.Resources.Load<ItemData>(path));
         }
 

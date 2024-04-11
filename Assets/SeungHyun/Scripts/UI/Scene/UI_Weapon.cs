@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using yb;
 
 
 public class UI_Weapon : UI_Scene
@@ -59,11 +60,12 @@ public class UI_Weapon : UI_Scene
 
 
     // 총알 나가는거
-    void BulletCount(int bulletnum)
+    void BulletCount(int bulletnum , int maxBullet)
     {
         if (!isReload)
         {
             _bulletCount -= bulletnum;
+            _maxBullet = maxBullet;
             if (_bulletCount == 0)
             {
                 StartCoroutine("ReloadBullet");
@@ -81,6 +83,14 @@ public class UI_Weapon : UI_Scene
         yield return new WaitForSeconds(2f);
         isReload = false;
     }
+
+    void SetPlayer(PlayerController player)
+    {
+        player.BulletEvent -= BulletCount;
+        player.BulletEvent += BulletCount;
+    }
+
+
 }
 
 

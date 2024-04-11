@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using yb;
 
 public class UI_PlayerName : UI_Scene
 {
@@ -33,5 +34,11 @@ public class UI_PlayerName : UI_Scene
                 }
             }
         }
+    }
+    // ToDo: 윤범이형 액션 추가
+    void SetPlayer(PlayerController player)
+    {
+        player.MapEvent -= PlayerName;
+        player.MapEvent += PlayerName;
     }
 }

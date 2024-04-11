@@ -4,6 +4,7 @@ using System.Drawing;
 using UnityEngine;
 using UnityEngine.Profiling;
 using UnityEngine.UI;
+using yb;
 using Color = UnityEngine.Color;
 public class UI_PlayerColorPercent : UI_Scene
 {
@@ -29,6 +30,7 @@ public class UI_PlayerColorPercent : UI_Scene
 
     void ActionInit()
     {
+        
         PlayerTestSh.OnPlayerColorChecked -= ColorPercent;
         PlayerTestSh.OnPlayerColorChecked += ColorPercent;
     }
@@ -94,4 +96,10 @@ public class UI_PlayerColorPercent : UI_Scene
 
     }
 
+    // Todo: 윤범이형 액션 연결
+    void SetPlayer(PlayerController player)
+    {
+        player.ColorPercentEvent -= ColorPercent;
+        player.ColorPercentEvent += ColorPercent;
+    }
 }

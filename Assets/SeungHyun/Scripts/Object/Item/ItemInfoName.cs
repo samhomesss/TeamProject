@@ -4,10 +4,15 @@ using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
 using UnityEngine.UI;
+using yb;
 using static Define;
 
 public class ItemInfoName : UI_Scene
 {
+    #region 04.11 Test 플레이어 연결
+    PlayerController _player2;
+    #endregion
+
     public static GameObject Item => _item; // 아이템 패널용 아이템 전달 방식
     public static int Count
     {
@@ -41,8 +46,10 @@ public class ItemInfoName : UI_Scene
 
     private void Start()
     {
+       //_player2 = GameObject.Find("Player1").GetComponent<PlayerController>();
+       // SetPlayer(_player2);
         PlayerTestSh.OnItemCheacked += CloseByPlayer; // 이거 부분 바꿔 줘야됨
-        Managers.Input.GetItemEvent += IsClosedItem; // 이거 부분 바꿔 줘야됨 
+        Managers.Input.GetItemEvent += IsClosedItem; // 이거 부분 바꿔 줘야됨  // F키 눌렀을때 
     }
 
     // 아이템이 가까이 있고 아이템을 판단
@@ -103,21 +110,65 @@ public class ItemInfoName : UI_Scene
                     break;
                
             }
-
-           
         }
     }
 
+    void PickUpRelic(int ItemID)
+    {
+        if (ItemID / 500 == 2)
+        {
+            for (int i = 0; i < UI_RelicInven.UI_RelicInven_Items.Count; i++)
+            {
+                if (!UI_RelicInven.UI_RelicInven_Items[i].IsEmpty)
+                    continue;
+
+                OnRelicGet?.Invoke(gameObject.GetComponent<Item>().ItemID);
+                Destroy(gameObject);
+                Destroy(itemNameObject);
+                PlayerTestSh.OnItemCheacked -= CloseByPlayer; // 플레이어 근처에 아이템 띄우는거 
+                Managers.Input.GetItemEvent -= IsClosedItem; // 아이템 먹는거 
+                break;
+            }
+        }
+    }
+
+    void PickUpItem(string ItemID)
+    {
+        //if (ItemID / 500 == 1)
+        //{
+        //    OnitemGet?.Invoke(ItemID);
+        //    Destroy(gameObject);
+        //    Destroy(itemNameObject);
+        //    PlayerTestSh.OnItemCheacked -= CloseByPlayer; // 플레이어 근처에 아이템 띄우는거 
+        //    Managers.Input.GetItemEvent -= IsClosedItem; // 아이템 먹는거 
+        //}
+    }
+
+    void PickUpWeapon(int ItemID)
+    {
+        if (ItemID / 500 == 0)
+        {
+            OnWeaponGet?.Invoke(ItemID);
+            Destroy(gameObject);
+            Destroy(itemNameObject);
+            PlayerTestSh.OnItemCheacked -= CloseByPlayer; // 플레이어 근처에 아이템 띄우는거 
+            Managers.Input.GetItemEvent -= IsClosedItem; // 아이템 먹는거 
+        }
+    }
+
+    #region 주석처리 안쓰는 함수
+    // 사실상 안쓰는 함수
     void DestroyAction()
     {
         PlayerTestSh.OnItemCheacked -= CloseByPlayer; // 플레이어 근처에 아이템 띄우는거 
         Managers.Input.GetItemEvent -= IsClosedItem; // 아이템 먹는거
         Destroy(itemNameObject);
     }
-
+    #endregion
     // 아이템 이 가까이 있어서 아이템을 먹는 작업
     void CloseByPlayer()
     {
+        // 거리 계산을 플레이어 에서 하는게 좋아 보임
         diff = Vector3.Distance(Map.Player.transform.position, gameObject.transform.position);
         _diffFloat = diff;
         if (diff <= 3f)
@@ -168,5 +219,15 @@ public class ItemInfoName : UI_Scene
             }
         }
 
+    }
+
+    // 윤범이형 Action 연결
+    void SetPlayer(PlayerController player)
+    {
+        player.ClosedItemEvent = null;
+        player.ClosedItemEvent += CloseByPlayer;
+        player.WeaponEvent += PickUpWeapon;
+        player.RelicEvent += PickUpRelic;
+        player.ItemEvent += PickUpItem; // 픽업 아이템 손 봐야 됨
     }
 }

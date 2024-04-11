@@ -85,10 +85,11 @@ namespace yb {
             }
         }
 
-
+        // 아이템 이름 띄우는 함수를 Interface로 구현 해서 넣어주는게 좋아보인다.
         private void OnTriggerEnter(Collider c) {
             if (c.CompareTag("ObtainableObject")) {
                 _collideItem = c.GetComponent<IObtainableObject>();
+                c.GetComponent<IObtainableObject>().ShowName();
                 return;
             }
         }
@@ -96,7 +97,10 @@ namespace yb {
         private void OnTriggerExit(Collider c) {
             if (c.CompareTag("ObtainableObject"))
                 if (_collideItem != null)
+                {
                     _collideItem = null;
+                    c.GetComponent<IObtainableObject>().HideName();
+                }
         }
     }
 }

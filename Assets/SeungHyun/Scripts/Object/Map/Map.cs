@@ -1,28 +1,30 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using yb;
 using static UnityEditor.Progress;
 using Color = UnityEngine.Color;
 
 
 public class Map : Obj
 {
+    #region Property
     public enum PlayerName
     {
         Player1, Player2, Player3, Player4, Player5, Player6, Player7, Player8
     }
-
     public enum Texture
     {
         White,
     }
     public static Node[,] Node => node;
-    public static int ColorCount => _colorcount; // 안쓰고 있음
+   // public static int ColorCount => _colorcount; // 안쓰고 있음
     public static GameObject Player => player;
+    #endregion
 
     static GameObject player; // 플레이어 프리팹
     static Node[,] node = new Node[64, 64];
-    static int _colorcount = 0;
+    //static int _colorcount = 0;
 
     Texture2D texture;
     MeshRenderer meshRenderer;
@@ -33,8 +35,9 @@ public class Map : Obj
 
     static Dictionary<string, Color> playerColors = new Dictionary<string, Color>();
 
-    //public static event Action<GameObject> OnChangePercent; // 미니맵 옆 퍼센테이지 바꾸는거
-    public static event Action OnColorPercent;
+    // public static event Action<GameObject> OnChangePercent; // 미니맵 옆 퍼센테이지 바꾸는거
+    // public static event Action OnColorPercent;
+
     private void Awake()
     {
         var path = $"Prefabs/sh/Texture/White";
@@ -85,6 +88,7 @@ public class Map : Obj
             }
         }
         meshRenderer.material.mainTexture = texture;
+        
         PlayerTestSh.OnNodeChanged -= UpdateColor;
         PlayerTestSh.OnNodeChanged += UpdateColor;
        // PlayerTestSh.OnPlayerColorChecked -= PlayerColorCount;
@@ -185,6 +189,13 @@ public class Map : Obj
         //    //    color = Color.black;
         //    //    break;
         #endregion
+    }
+
+    // 윤범이형 Action 추가 
+    public void SetPlayer(PlayerController player)
+    {
+        player.MapEvent -= UpdateColor;
+        player.MapEvent += UpdateColor;
     }
 
 }
