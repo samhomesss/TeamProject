@@ -38,6 +38,7 @@ namespace yb {
                 _player.StateController.ChangeState(new PlayerState_Pickup(_player));
                 _collideItem.Pickup(_player);
                 _player.ItemEvent?.Invoke(_collideItem.Name);
+                _collideItem.HideName();
             }
         }
 
@@ -48,7 +49,7 @@ namespace yb {
         public void SetRelic(IRelic relic) {
             _haveRelic[(int)relic.RelicType] = true;
             _player.WeaponController.SetRelic(relic);
-            _player.RelicEvent?.Invoke((int)relic.RelicType);
+            _player.SetRelicEvent?.Invoke((int)relic.RelicType);
             Debug.Log($"{relic.RelicType.ToString()}·¼¸¯À» ½Àµæ");
             switch(relic.RelicType) {
                 case Define.RelicType.BonusResurrectionTimeRelic:
@@ -70,7 +71,7 @@ namespace yb {
         public void DeleteRelic(IRelic relic) {
             _haveRelic[(int)relic.RelicType] = true;
             _player.WeaponController.SetRelic(relic);
-            _player.RelicEvent?.Invoke((int)relic.RelicType);
+            _player.SetRelicEvent?.Invoke((int)relic.RelicType);
 
             switch (relic.RelicType) {
                 case Define.RelicType.BonusResurrectionTimeRelic:
@@ -89,7 +90,7 @@ namespace yb {
         private void OnTriggerEnter(Collider c) {
             if (c.CompareTag("ObtainableObject")) {
                 _collideItem = c.GetComponent<IObtainableObject>();
-                c.GetComponent<IObtainableObject>().ShowName();
+                c.GetComponent<IObtainableObject>().ShowName(_player);
                 return;
             }
         }

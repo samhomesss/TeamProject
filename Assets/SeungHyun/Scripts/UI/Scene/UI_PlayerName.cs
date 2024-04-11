@@ -7,11 +7,12 @@ using yb;
 public class UI_PlayerName : UI_Scene
 {
     GameObject NameText; // 플레이어의 이름오브젝트
-
+    Map map;
     private void Start()
     {
+        map = Map.MapObject.GetComponent<Map>();
         NameText = Util.FindChild(gameObject, "NameText", true);
-        NameText.GetComponent<Text>().text = Map.Player.name; // 이름 텍스트를 이걸로 설정해주고
+        NameText.GetComponent<Text>().text = map.Player.name; // 이름 텍스트를 이걸로 설정해주고
         PlayerName();
         PlayerTestSh.OnNamePos += PlayerName;
     }
@@ -20,7 +21,7 @@ public class UI_PlayerName : UI_Scene
     void PlayerName()
     {
         // 위치는 Map.Player.tranform.position을 상속 받은 PlayerController의 위치에 넣어주면 됨
-        Vector2 screenPoint = RectTransformUtility.WorldToScreenPoint(Camera.main, Map.Player.transform.position); // 여기서 계산이 끝나는게 아니고 
+        Vector2 screenPoint = RectTransformUtility.WorldToScreenPoint(Camera.main, map.Player.transform.position); // 여기서 계산이 끝나는게 아니고 
         RectTransform mainCanvasRect = gameObject.GetComponent<RectTransform>();
         if (RectTransformUtility.ScreenPointToLocalPointInRectangle(mainCanvasRect, screenPoint, null, out Vector2 localPoint)) // 해당 캔버스에서 어떤 위치에 있는지 찾아야됨
         {

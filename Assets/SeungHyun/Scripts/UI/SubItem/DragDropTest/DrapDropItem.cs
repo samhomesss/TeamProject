@@ -10,12 +10,12 @@ public class DrapDropItem : MonoBehaviour, IPointerDownHandler, IBeginDragHandle
 {
     RectTransform _rectTransform;
     CanvasGroup _canvasGroup;
-
+    Map map;
     public static event Action OnisEmptySlot;
 
-    private void Awake()
+    private void Start()
     {
-
+        map = Map.MapObject.GetComponent<Map>();
         _rectTransform = GetComponent<RectTransform>();
         _canvasGroup = GetComponent<CanvasGroup>();
     }
@@ -52,10 +52,11 @@ public class DrapDropItem : MonoBehaviour, IPointerDownHandler, IBeginDragHandle
             //수정사항
             eventData.pointerDrag.GetComponentInParent<UI_RelicInven_Item>().IsEmpty = true;
             //OnisEmptySlot?.Invoke();
+            
             GameObject go = Managers.Resources.Instantiate($"sh/Relic/{Managers.ItemDataBase.GetItemData(eventData.pointerDrag.GetComponentInParent<UI_RelicInven_Item>().SlotItemID).itemName}"); // 아이템 생성
             eventData.pointerDrag.GetComponentInParent<UI_RelicInven_Item>().SlotItemID = 0;
             // Todo: 플레이어 위치를 받아와야 하는데 이걸 플레이어 를 따로 받아와야 할듯?
-            go.transform.position = Map.Player.transform.position;
+            go.transform.position = map.Player.transform.position;
         }
     }
 

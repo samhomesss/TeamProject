@@ -31,6 +31,7 @@ public class ItemDataBase
     int itemDataLength;
 
     // 아이템을 관리 하는 Dictionary
+    // ItemData(이름,이미지,타입,아이템 아이디)
     List<ItemData> itemDatas = new List<ItemData>();
     Dictionary<int, ItemData> _itemDictionary = new Dictionary<int, ItemData>();
 

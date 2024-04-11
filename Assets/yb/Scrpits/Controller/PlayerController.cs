@@ -47,10 +47,10 @@ namespace yb
         public Action<int> WeaponEvent;
 
         /// <summary>
-        /// 렐릭 습득 및 제거시 호출
+        /// 렐릭 습득시 호출
         /// <define.relicType>
         /// </summary>
-        public Action<int> RelicEvent;
+        public Action<int> SetRelicEvent;
 
         /// <summary>
         /// 아이템 습득 시 호출
@@ -65,6 +65,11 @@ namespace yb
         public Action MapEvent;
 
         #region 승현 추가 04.11
+        /// <summary>
+        /// 렐릭 제거시 호출
+        /// </summary>
+        public Action<int> DestroyRelicEvent;
+
         /// <summary>
         /// 현재 맵에 색상이 얼마나 띄워져 있는지 판단
         /// 매 프레임이 아닌 움직였는데 2초가 지나 있다면으로 변경

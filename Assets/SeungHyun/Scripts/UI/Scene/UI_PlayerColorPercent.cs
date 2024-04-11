@@ -19,6 +19,7 @@ public class UI_PlayerColorPercent : UI_Scene
 
     GameObject[] _playerSlider = new GameObject[8];
 
+    
     private void Start()
     {
         ActionInit();

@@ -46,10 +46,11 @@ public class ItemInfoName : UI_Scene
 
     private void Start()
     {
-       //_player2 = GameObject.Find("Player1").GetComponent<PlayerController>();
-       // SetPlayer(_player2);
-        PlayerTestSh.OnItemCheacked += CloseByPlayer; // 이거 부분 바꿔 줘야됨
-        Managers.Input.GetItemEvent += IsClosedItem; // 이거 부분 바꿔 줘야됨  // F키 눌렀을때 
+        // 플레이어만 플레이어 컨트롤러 달아서 사용해 보면 될듯?
+       _player2 = GameObject.Find("Player1").GetComponent<PlayerController>();
+        SetPlayer(_player2);
+       // PlayerTestSh.OnItemCheacked += CloseByPlayer; // 이거 부분 바꿔 줘야됨
+       // Managers.Input.GetItemEvent += IsClosedItem; // 이거 부분 바꿔 줘야됨  // F키 눌렀을때 
     }
 
     // 아이템이 가까이 있고 아이템을 판단
@@ -67,14 +68,14 @@ public class ItemInfoName : UI_Scene
                     OnWeaponGet?.Invoke(gameObject.GetComponent<Item>().ItemID);
                     Destroy(gameObject);
                     Destroy(itemNameObject);
-                    PlayerTestSh.OnItemCheacked -= CloseByPlayer; // 플레이어 근처에 아이템 띄우는거 
+                    //PlayerTestSh.OnItemCheacked -= CloseByPlayer; // 플레이어 근처에 아이템 띄우는거 
                     Managers.Input.GetItemEvent -= IsClosedItem; // 아이템 먹는거 
                     break;
                 case 1: // 일반 아이템
                     OnitemGet?.Invoke(gameObject.GetComponent<Item>().ItemID);
                     Destroy(gameObject);
                     Destroy(itemNameObject);
-                    PlayerTestSh.OnItemCheacked -= CloseByPlayer; // 플레이어 근처에 아이템 띄우는거 
+                    //PlayerTestSh.OnItemCheacked -= CloseByPlayer; // 플레이어 근처에 아이템 띄우는거 
                     Managers.Input.GetItemEvent -= IsClosedItem; // 아이템 먹는거 
                     break;
                 case 2: // 유물 아이템
@@ -103,7 +104,7 @@ public class ItemInfoName : UI_Scene
                         OnRelicGet?.Invoke(gameObject.GetComponent<Item>().ItemID);
                         Destroy(gameObject);
                         Destroy(itemNameObject);
-                        PlayerTestSh.OnItemCheacked -= CloseByPlayer; // 플레이어 근처에 아이템 띄우는거 
+                        //PlayerTestSh.OnItemCheacked -= CloseByPlayer; // 플레이어 근처에 아이템 띄우는거 
                         Managers.Input.GetItemEvent -= IsClosedItem; // 아이템 먹는거 
                         break;
                     }
@@ -123,10 +124,10 @@ public class ItemInfoName : UI_Scene
                     continue;
 
                 OnRelicGet?.Invoke(gameObject.GetComponent<Item>().ItemID);
-                Destroy(gameObject);
-                Destroy(itemNameObject);
-                PlayerTestSh.OnItemCheacked -= CloseByPlayer; // 플레이어 근처에 아이템 띄우는거 
-                Managers.Input.GetItemEvent -= IsClosedItem; // 아이템 먹는거 
+               // Destroy(gameObject);
+                //Destroy(itemNameObject);
+               // PlayerTestSh.OnItemCheacked -= CloseByPlayer; // 플레이어 근처에 아이템 띄우는거 
+               // Managers.Input.GetItemEvent -= IsClosedItem; // 아이템 먹는거 
                 break;
             }
         }
@@ -149,23 +150,24 @@ public class ItemInfoName : UI_Scene
         if (ItemID / 500 == 0)
         {
             OnWeaponGet?.Invoke(ItemID);
-            Destroy(gameObject);
-            Destroy(itemNameObject);
-            PlayerTestSh.OnItemCheacked -= CloseByPlayer; // 플레이어 근처에 아이템 띄우는거 
-            Managers.Input.GetItemEvent -= IsClosedItem; // 아이템 먹는거 
+           // Destroy(gameObject);
+           // Destroy(itemNameObject);
+            //PlayerTestSh.OnItemCheacked -= CloseByPlayer; // 플레이어 근처에 아이템 띄우는거 
+           // Managers.Input.GetItemEvent -= IsClosedItem; // 아이템 먹는거 
         }
     }
 
     #region 주석처리 안쓰는 함수
     // 사실상 안쓰는 함수
-    void DestroyAction()
-    {
-        PlayerTestSh.OnItemCheacked -= CloseByPlayer; // 플레이어 근처에 아이템 띄우는거 
-        Managers.Input.GetItemEvent -= IsClosedItem; // 아이템 먹는거
-        Destroy(itemNameObject);
-    }
+    //void DestroyAction()
+    //{
+    //   // PlayerTestSh.OnItemCheacked -= CloseByPlayer; // 플레이어 근처에 아이템 띄우는거 
+    //    Managers.Input.GetItemEvent -= IsClosedItem; // 아이템 먹는거
+    //    Destroy(itemNameObject);
+    //}
     #endregion
     // 아이템 이 가까이 있어서 아이템을 먹는 작업
+    /*
     void CloseByPlayer()
     {
         // 거리 계산을 플레이어 에서 하는게 좋아 보임
@@ -220,14 +222,15 @@ public class ItemInfoName : UI_Scene
         }
 
     }
-
+    */
     // 윤범이형 Action 연결
+    // 연결이 되어 있는 상태이고 
     void SetPlayer(PlayerController player)
     {
-        player.ClosedItemEvent = null;
-        player.ClosedItemEvent += CloseByPlayer;
+        //player.ClosedItemEvent = null;
+       // player.ClosedItemEvent += CloseByPlayer;
         player.WeaponEvent += PickUpWeapon;
-        player.RelicEvent += PickUpRelic;
-        player.ItemEvent += PickUpItem; // 픽업 아이템 손 봐야 됨
+        player.SetRelicEvent += PickUpRelic;
+        player.ItemEvent += PickUpItem; // 픽업 아이템 손 봐야 됨 -> string 형식인데 아직 사용하지는 않음
     }
 }

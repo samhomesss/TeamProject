@@ -15,6 +15,7 @@ namespace yb {
 
         public void DeleteRelic(PlayerController player) {
             player.PickupController.DeleteRelic(this);  //∑º∏Ø ªË¡¶
+            player.DestroyRelicEvent?.Invoke((int)RelicType);
         }
 
         public override void Pickup(PlayerController player) {
@@ -23,12 +24,13 @@ namespace yb {
 
         public void SetRelic(PlayerController player) {
             player.PickupController.SetRelic(this);
+            player.SetRelicEvent?.Invoke((int)RelicType);
             Managers.Resources.Destroy(gameObject);
         }
 
-        public override void ShowName()
+        public override void ShowName(PlayerController player)
         {
-            base.ShowName();
+            base.ShowName(player);
         }
     }
 }

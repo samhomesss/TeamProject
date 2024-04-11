@@ -7,7 +7,7 @@ namespace yb {
     public interface IObtainableObject {
         public string Name { get; }  //아이템의 이름
         void Pickup(PlayerController player);  //픽업 함수
-        void ShowName();
+        void ShowName(PlayerController player);
         void HideName();
     }
 }

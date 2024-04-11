@@ -15,6 +15,7 @@ public class UI_Weapon : UI_Scene
     }
 
     public static Image MainWeaponImage => _mainWeaponImage; // 메인 총 이미지
+    Map map;
     GameObject mainWeapon;
     // 나중에 이미지 바꿀때 사용
     static Image _mainWeaponImage;
@@ -28,6 +29,7 @@ public class UI_Weapon : UI_Scene
     private void Start()
     {
         Init();
+        map = Map.MapObject.GetComponent<Map>();
     }
     public override void Init()
     {
@@ -54,7 +56,7 @@ public class UI_Weapon : UI_Scene
         mainWeapon.transform.GetChild(0).GetComponentInChildren<Image>().sprite = Managers.ItemDataBase.GetItemData(itemID).itemImage;
         _mainWeaponImage = mainWeapon.GetComponentInChildren<Image>(); // 단순 업데이트 
         GameObject go = Managers.Resources.Instantiate($"sh/Weapon/{Managers.ItemDataBase.GetItemData(beforeItemID).itemName}"); // 아이템 생성
-        go.transform.position = Map.Player.transform.position;
+        go.transform.position = map.Player.transform.position;
         slotItemID = itemID;
     }
 

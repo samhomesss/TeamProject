@@ -16,9 +16,9 @@ namespace yb {
             Managers.Resources.Destroy(gameObject);
         }
 
-        public override void ShowName()
+        public override void ShowName(PlayerController player)
         {
-            base.ShowName();
+            base.ShowName(player);
         }
     }
 }
