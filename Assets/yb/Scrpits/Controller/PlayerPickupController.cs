@@ -43,15 +43,15 @@ namespace yb
             if (_collideItem == null)
                 return;
 
-                if (Input.GetKeyDown(KeyCode.G))
-                {
-                    _player.StateController.ChangeState(new PlayerState_Pickup(_player));
-                    _collideItem.iObtainableObjectPhotonview.TransferOwnership(_player.GetComponent<PhotonView>().ViewID);
-                    _collideItem.Pickup(_player);
-                    _player.ItemEvent?.Invoke(_collideItem.Name);
-                    _collideItem = null;
-                }
+            if (Input.GetKeyDown(KeyCode.G))
+            {
+                _player.StateController.ChangeState(new PlayerState_Pickup(_player));
+                _collideItem.iObtainableObjectPhotonview.TransferOwnership(_player.GetComponent<PhotonView>().ViewID);
+                _collideItem.Pickup(_player);
+                _player.ItemEvent?.Invoke(_collideItem.Name);
+                _collideItem = null;
             }
+        }
 
 
         /// <summary>
@@ -107,16 +107,16 @@ namespace yb
         {
             if (c.CompareTag("ObtainableObject"))
             {
-                    _collideItem = c.GetComponent<IObtainableObject>();
-                    return;
+                _collideItem = c.GetComponent<IObtainableObject>();
+                return;
             }
         }
 
         private void OnTriggerExit(Collider c)
         {
             if (c.CompareTag("ObtainableObject"))
-                    if (_collideItem != null)
-                        _collideItem = null;
+                if (_collideItem != null)
+                    _collideItem = null;
         }
     }
 }

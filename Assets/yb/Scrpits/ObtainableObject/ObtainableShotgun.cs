@@ -23,7 +23,7 @@ namespace yb
             player.WeaponController.ChangeRangedWeapon(new RangedWeapon_Shotgun(player.WeaponController.RangedWeaponsParent, player));
             if (IsTestMode.Instance.CurrentUser == Define.User.Hw)
             {
-                PhotonNetwork.Destroy(gameObject);
+                    PhotonNetwork.Destroy(gameObject);
             }
             else
             {
