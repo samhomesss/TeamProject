@@ -26,7 +26,7 @@ namespace yb
             if (IsTestMode.Instance.CurrentUser == Define.User.Hw)
             {
                 //GetComponent<PhotonView>().TransferOwnership(player.GetComponent<PhotonView>().ViewID);
-                if (player.GetComponent<PhotonView>().IsMine)
+                if (GetComponent<PhotonView>().IsMine)
                     PhotonNetwork.Destroy(gameObject);
             }
             else
