@@ -36,6 +36,7 @@ public class ItemDataBase
 
     public void Init()
     {
+
         itemDataLength = itemDataName.Length;
         for (int i = 0; i < itemDataLength; i++)
         {

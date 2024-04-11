@@ -78,76 +78,105 @@ public class ProjectileMoveScript : MonoBehaviourPunCallbacks
 
     void OnCollisionEnter(Collision co)
     {
-        if (GetComponent<PhotonView>().IsMine) //0409 17:30 이희웅 총알 소유권 추가
+        if(IsTestMode.Instance.CurrentUser == Define.User.Hw) {
+            if (GetComponent<PhotonView>().IsMine) //0409 17:30 이희웅 총알 소유권 추가
         {
+                if (co.gameObject == _creator)
+                    return;
+
+                if (co.collider.CompareTag("Bullet"))
+                    return;
+
+                if (co.collider.CompareTag("Guard")) {
+                    if (co.collider.transform.parent.gameObject == co.gameObject)
+                        return;
+
+                    Debug.Log("투사체가 가드에 막힘");
+                    Crash(co);
+                }
+
+                if (!collided) {
+                    if (co.collider.CompareTag("Obstacle")) {
+                        Crash(co);
+                        return;
+                    }
+
+                    if (co.collider.CompareTag("Player") || co.collider.CompareTag("DestructibleObject")
+                        || co.collider.CompareTag("Shield")) {
+                        if (IsTestMode.Instance.CurrentUser == Define.User.Hw)//0410 17:00 이희웅 테스트 추가
+                        {
+                            co.collider.GetComponent<ITakeDamagePhoton>().IphotonView.RPC("TakeDamagePhoton", RpcTarget.All, _damage, gameObject.GetComponent<PhotonView>().ViewID);
+                        } else {
+                            co.collider.GetComponent<ITakeDamage>().TakeDamage(_damage, gameObject);
+                        }
+                        Crash(co);
+
+                        if (co.collider.CompareTag("Shield"))
+                            Debug.Log("투사체가 실드에 막힘");
+                        return;
+                    }
+                }
+            }
+        }
+        else {
             if (co.gameObject == _creator)
                 return;
 
             if (co.collider.CompareTag("Bullet"))
                 return;
 
-            if (co.collider.CompareTag("Guard"))
-            {
-                if (co.collider.transform.parent.gameObject == co.gameObject)
-                    return;
+            if (!collided) {
+                if (co.collider.CompareTag("Guard")) {
+                    if (co.collider.transform.parent.gameObject == co.gameObject) {
+                        Crash(co);
+                        Debug.Log("투사체가 가드에 막힘");
+                        return;
+                    }
+                }
 
-                Debug.Log("투사체가 가드에 막힘");
-                Crash(co);
-            }
-
-            if (!collided)
-            {
-                if (co.collider.CompareTag("Obstacle"))
-                {
+                if (co.collider.CompareTag("Obstacle")) {
+                    Debug.Log("장애물과 부딪힘");
                     Crash(co);
                     return;
                 }
 
                 if (co.collider.CompareTag("Player") || co.collider.CompareTag("DestructibleObject")
-                    || co.collider.CompareTag("Shield"))
-                {
-                    if (IsTestMode.Instance.CurrentUser == Define.User.Hw)//0410 17:00 이희웅 테스트 추가
-                    {
-                        co.collider.GetComponent<ITakeDamagePhoton>().IphotonView.RPC("TakeDamagePhoton", RpcTarget.All, _damage, gameObject.GetComponent<PhotonView>().ViewID);
-                    }
-                    else
-                    {
-                        co.collider.GetComponent<ITakeDamage>().TakeDamage(_damage, gameObject);
-                    }
+                    || co.collider.CompareTag("Shield")) {
+                    co.collider.GetComponent<ITakeDamage>().TakeDamage(_damage, gameObject);
                     Crash(co);
-
+                    Debug.Log($"{co.collider.tag}와 부딪힘");
                     if (co.collider.CompareTag("Shield"))
                         Debug.Log("투사체가 실드에 막힘");
                     return;
                 }
             }
         }
+        
     }
-        private void Crash(Collision co)
-        {
-            collided = true;
+    private void Crash(Collision co) {
+        collided = true;
 
-            //if (trails.Count > 0) {
-            //    for (int i = 0; i < trails.Count; i++) {
-            //        trails[i].transform.parent = null;
-            //        var ps = trails[i].GetComponent<ParticleSystem>();
-            //        if (ps != null) {
-            //            ps.Stop();
-            //            StartCoroutine(Util.CoActive(false, ps.gameObject, ps.main.duration + ps.main.startLifetime.constantMax));
-            //            CoDestroyPhoton(ps.gameObject, ps.main.duration + ps.main.startLifetime.constantMax); 
-            //        }
-            //    }
-            //}
+        //if (trails.Count > 0) {
+        //    for (int i = 0; i < trails.Count; i++) {
+        //        trails[i].transform.parent = null;
+        //        var ps = trails[i].GetComponent<ParticleSystem>();
+        //        if (ps != null) {
+        //            ps.Stop();
+        //            StartCoroutine(Util.CoActive(false, ps.gameObject, ps.main.duration + ps.main.startLifetime.constantMax));
+        //            CoDestroyPhoton(ps.gameObject, ps.main.duration + ps.main.startLifetime.constantMax); 
+        //        }
+        //    }
+        //}
 
-            speed = 0;
-            GetComponent<Rigidbody>().isKinematic = true;
+        speed = 0;
+        GetComponent<Rigidbody>().isKinematic = true;
 
-            ContactPoint contact = co.contacts[0];
-            Quaternion rot = Quaternion.FromToRotation(Vector3.up, contact.normal);
-            Vector3 pos = contact.point;
+        ContactPoint contact = co.contacts[0];
+        Quaternion rot = Quaternion.FromToRotation(Vector3.up, contact.normal);
+        Vector3 pos = contact.point;
 
-            if (hitPrefab != null)
-            {
+        if (IsTestMode.Instance.CurrentUser == Define.User.Hw) {
+            if (hitPrefab != null) {
                 if (_creator.GetComponent<PhotonView>().IsMine)//0409 17:12 이희웅 파티클 생성에 대한 소유권 추가
                 {
                     var hitVFX = PhotonNetwork.Instantiate("Prefabs/yb/Hits/default", pos, rot) as GameObject;
@@ -160,13 +189,23 @@ public class ProjectileMoveScript : MonoBehaviourPunCallbacks
                 //} else
                 //    CoDestroyPhoton(hitVFX, ps.main.duration);
             }
-            StartCoroutine(DestroyParticle(0f));
         }
+        else {
+            if (hitPrefab != null) {
+                var hitVFX = Instantiate(hitPrefab, null) as GameObject;
+                hitVFX.transform.position = pos;
+                hitVFX.transform.rotation = rot;
+                var ps = hitVFX.GetComponent<ParticleSystem>();
+                ps.AddComponent<VFXLifeController>().Init();
+            }
+        }
+           
+            StartCoroutine(DestroyParticle(0f));
+ }
 
 
         public IEnumerator DestroyParticle(float waitTime)
         {
-
             if (transform.childCount > 0 && waitTime != 0)
             {
                 List<Transform> tList = new List<Transform>();
@@ -189,8 +228,14 @@ public class ProjectileMoveScript : MonoBehaviourPunCallbacks
 
             yield return new WaitForSeconds(waitTime);
 
+        if(IsTestMode.Instance.CurrentUser == Define.User.Hw) {
             if (GetComponent<PhotonView>().IsMine)//0409 17:00 이희웅 총알에 대한 소유권 추가
                 PhotonNetwork.Destroy(gameObject);
         }
+        else {
+            Managers.Resources.Destroy(gameObject);
+        }
+           
+        }
 
-    }
+}

@@ -21,7 +21,7 @@ namespace yb {
         /// <param name="player"></param>
 
         private void Start() => _photonView = GetComponent<PhotonView>();
-        public void Pickup(PlayerController player) {
+        public override void Pickup(PlayerController player) {
             player.WeaponController.ChangeRangedWeapon(new RangedWeapon_Pistol(player.WeaponController.RangedWeaponsParent, player));
             if(IsTestMode.Instance.CurrentUser == Define.User.Hw)
             {
