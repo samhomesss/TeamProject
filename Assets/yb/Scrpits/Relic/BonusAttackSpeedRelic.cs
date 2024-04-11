@@ -14,7 +14,6 @@ namespace yb {
 
         public Define.RelicType RelicType { get; } = Define.RelicType.BonusAttackSpeedRelic;
 
-        public PhotonView iObtainableObjectPhotonview => throw new System.NotImplementedException();
 
         public void DeleteRelic(PlayerController player) {
             player.PickupController.DeleteRelic(this);  //∑º∏Ø ªË¡¶

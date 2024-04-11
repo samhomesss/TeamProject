@@ -14,7 +14,8 @@ namespace yb
     {
         private PlayerController _player;
         private Data _data;
-        private IObtainableObject _collideItem;  //플레이어와 충돌중인 아이템 저장
+        private IObtainableObject _collideItem;
+        private IObtainableObjectPhoton _collideItemPhoton;//플레이어와 충돌중인 아이템 저장
 
 
         private bool[] _haveRelic = new bool[(int)Define.RelicType.Count];  //플레이어가 보유한 모든 렐릭
@@ -40,19 +41,32 @@ namespace yb
         /// </summary>
         private void OnPickupUpdate()
         {
-            if (_collideItem == null)
+            if (_collideItemPhoton == null) //0411 18:29 이희웅 포톤용 테스트 함수 추가
                 return;
 
-            if (Input.GetKeyDown(KeyCode.G))
+            //if (_collideItem == null) //0411 18:29 이희웅 포톤용 테스트 함수를 위해 주석처리
+            //    return;
+
+            if (IsTestMode.Instance.CurrentUser == Define.User.Hw)//0411 07:42 이희웅 포톤동기화 테스트모드 추가
             {
-                _player.StateController.ChangeState(new PlayerState_Pickup(_player));
-                _collideItem.iObtainableObjectPhotonview.TransferOwnership(_player.GetComponent<PhotonView>().ViewID);
-                _collideItem.Pickup(_player);
-                _player.ItemEvent?.Invoke(_collideItem.Name);
-                _collideItem = null;
+                if (Input.GetKeyDown(KeyCode.G))
+                {
+                    _player.StateController.ChangeState(new PlayerState_Pickup(_player));
+                    if(_player.GetComponent<PhotonView>().IsMine)
+                    _collideItemPhoton.IObtainableObjectPhotonView.RPC("PickupPhoton", RpcTarget.All, _player.IphotonView.ViewID);
+                    _player.ItemEvent?.Invoke(_collideItemPhoton.NamePhoton);
+                }
+            }
+            else
+            {
+                if (Input.GetKeyDown(KeyCode.G))
+                {
+                    _player.StateController.ChangeState(new PlayerState_Pickup(_player));
+                    _collideItem.Pickup(_player);
+                    _player.ItemEvent?.Invoke(_collideItem.Name);
+                }
             }
         }
-
 
         /// <summary>
         /// 플레이어가 렐릭을 습득 시 렐릭 할당. 각 렐릭 클래스에서 호출
@@ -107,17 +121,32 @@ namespace yb
         {
             if (c.CompareTag("ObtainableObject"))
             {
-                _collideItem = c.GetComponent<IObtainableObject>();
-                return;
+                if (IsTestMode.Instance.CurrentUser == Define.User.Hw) //0411 08:10 이희웅 포톤 동기화를 위한 분기 추가
+                {
+                    _collideItemPhoton = c.GetComponent<IObtainableObjectPhoton>();
+                    return;
+                }
+                else
+                {
+                    _collideItem = c.GetComponent<IObtainableObject>();
+                    return;
+                }
             }
         }
 
         private void OnTriggerExit(Collider c)
         {
             if (c.CompareTag("ObtainableObject"))
-                if (_collideItem != null)
-                    _collideItem = null;
+                if (IsTestMode.Instance.CurrentUser == Define.User.Hw) //0411 08:10 이희웅 포톤 동기화를 위한 분기 추가
+                {
+                    if (_collideItemPhoton != null)
+                        _collideItemPhoton = null;
+                }
+                else
+                {
+                    if (_collideItem != null)
+                        _collideItem = null;
+                }
         }
     }
 }
-

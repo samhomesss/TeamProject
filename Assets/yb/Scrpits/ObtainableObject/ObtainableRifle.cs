@@ -6,12 +6,14 @@ namespace yb
     /// <summary>
     /// 획득 가능한 Rifle아이템
     /// </summary>
-    public class ObtainableRifle : MonoBehaviourPunCallbacks, IObtainableObject
+    public class ObtainableRifle : MonoBehaviourPunCallbacks, IObtainableObject, IObtainableObjectPhoton
     {//0411 07:56 이희웅 MonoBehaviour -> MonoBehaviourPunCallbacks 으로 수정
         private PhotonView _photonView;//0411 08:55 이희웅 동기화를 위한 포톤뷰 추가
         public string Name => gameObject.name;
+        public string NamePhoton => gameObject.name;
+        public PhotonView IObtainableObjectPhotonView => _photonView;
 
-        public PhotonView iObtainableObjectPhotonview => _photonView;
+     
 
 
         /// <summary>
@@ -25,24 +27,21 @@ namespace yb
             player.WeaponController.ChangeRangedWeapon(new RangedWeapon_Rifle(player.WeaponController.RangedWeaponsParent, player));
             if (IsTestMode.Instance.CurrentUser == Define.User.Hw)
             {
-                //GetComponent<PhotonView>().TransferOwnership(player.GetComponent<PhotonView>().ViewID);
-                //if (!PhotonNetwork.IsMasterClient)
-                //{
-                //    Debug.Log("클라이언트 호출");
-                //    return;
-                //}
-                //else
-                //    Debug.Log("마스터가 삭제함");
-                //}
-                //
-                //{
-                //if(player.PhotonView.IsMine)
                     PhotonNetwork.Destroy(gameObject);
             }
             else
             {
                 Managers.Resources.Destroy(gameObject);
             }
+        }
+        [PunRPC]
+        public void PickupPhoton(int playerViewId)
+        {
+            PlayerController player;
+            player = PhotonNetwork.GetPhotonView(playerViewId).GetComponent<PlayerController>();
+            player.WeaponController.ChangeRangedWeapon(new RangedWeapon_Rifle(player.WeaponController.RangedWeaponsParent, player));
+            PhotonNetwork.Destroy(gameObject);
+
         }
     }
 }

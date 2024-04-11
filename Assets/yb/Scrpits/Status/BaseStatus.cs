@@ -21,7 +21,7 @@ namespace yb {
             _data = Managers.Data;
             if(IsTestMode.Instance.CurrentUser == Define.User.Hw) // 0410 22:52분 이희웅 테스트 모드 추가
             {
-                _maxHp = _data.DefaultPlayerMaxHp;
+                _maxHp = 1;
                 _currentHp = _maxHp;
             }
         }

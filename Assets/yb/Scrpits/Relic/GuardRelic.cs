@@ -9,7 +9,6 @@ namespace yb {
 
         public Define.RelicType RelicType { get; } = Define.RelicType.GuardRelic;
 
-        public PhotonView iObtainableObjectPhotonview => throw new System.NotImplementedException();
 
         public void DeleteRelic(PlayerController player) {
             player.PickupController.DeleteRelic(this);

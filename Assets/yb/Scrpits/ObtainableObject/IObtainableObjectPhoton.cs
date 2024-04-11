@@ -10,6 +10,7 @@ namespace yb
     {
         public PhotonView IObtainableObjectPhotonView { get; }
         public string NamePhoton { get; }  //아이템의 이름
-        void PickupPhoton(int PlayerViewID);  //픽업 함수, 파라미터는 직렬화 할 수 있는 플레이어의 VIewID를 넣어둠
+
+        void PickupPhoton(int playerViewId);
     }
 }
