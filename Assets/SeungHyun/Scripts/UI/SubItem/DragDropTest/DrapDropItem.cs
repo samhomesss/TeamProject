@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
+// 아이템 드래그 드롭할 창에 놔두는거
 public class DrapDropItem : MonoBehaviour, IPointerDownHandler, IBeginDragHandler, IEndDragHandler, IDragHandler, IDropHandler
 {
     RectTransform _rectTransform;
@@ -14,11 +15,13 @@ public class DrapDropItem : MonoBehaviour, IPointerDownHandler, IBeginDragHandle
 
     private void Awake()
     {
+
         _rectTransform = GetComponent<RectTransform>();
         _canvasGroup = GetComponent<CanvasGroup>();
     }
     public void OnBeginDrag(PointerEventData eventData)
     {
+        if (eventData.pointerDrag.GetComponent<Image>().sprite == default) { return; }
         Debug.Log("OnBeginDrag");
         _canvasGroup.alpha = 0.6f;
         _canvasGroup.blocksRaycasts = false;
@@ -26,13 +29,14 @@ public class DrapDropItem : MonoBehaviour, IPointerDownHandler, IBeginDragHandle
 
     public void OnDrag(PointerEventData eventData)
     {
+        if (eventData.pointerDrag.GetComponent<Image>().sprite == default) { return; }
+
         Debug.Log("OnDrag");
         _rectTransform.anchoredPosition += eventData.delta;
     }
 
     public void OnDrop(PointerEventData eventData)
     {
-        throw new System.NotImplementedException();
     }
 
     public void OnEndDrag(PointerEventData eventData)

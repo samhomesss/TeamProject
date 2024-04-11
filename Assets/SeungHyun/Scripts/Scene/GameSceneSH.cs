@@ -12,23 +12,25 @@ public class GameSceneSH : BaseScene
     {
         base.Init();
 
-        // GameObject go = PhotonNetwork.Instantiate("Prefabs/hw/PlayerPrefabs/Player", Vector3.zero, Quaternion.identity);
-        // go.name = "Player";
-
         // UI 
+        Managers.UI.ShowSceneUI<UI_Timer>();
         Managers.UI.ShowSceneUI<UI_Weapon>();
         Managers.UI.ShowSceneUI<UI_Inven>();
         Managers.UI.ShowSceneUI<UI_Hp>();
         Managers.UI.ShowSceneUI<UI_MiniMap>();
         Managers.UI.ShowSceneUI<UI_RelicInven>();
+        Managers.UI.ShowSceneUI<UI_PlayerColorPercent>();
+        
         // UIInfo
         UI_ItemInfo.ItemInfo = Managers.UI.ShowSceneUIInfo<UI_ItemInfo>().gameObject;
         UI_ItemInfo.ItemInfo.SetActive(false);
-       // Managers.UI.ShowSceneUI<UI_ItemCreateButton>();
 
         //GameObject
         Managers.SceneObj.ShowSceneObject<Map>();
         Managers.SceneObj.ShowSceneObject<MiniMapCam>();
+
+        // 플레이어들에게 보여야 하는 UI
+        Managers.UI.ShowSceneUI<UI_PlayerName>();
     }
 
 }
