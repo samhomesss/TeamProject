@@ -10,8 +10,6 @@ namespace yb {
     /// </summary>
     public class ItemDroplable : IItemDroplable {
         private List<string> _itemsList = new List<string>();  //드랍할 아이템 목록을 string으로 저장
-        Dictionary<int, GameObject> _itemSummonNumber = new Dictionary<int, GameObject>();
-        int itemkeynumber = 0;
         public void Set(string item) {
              _itemsList.Add(item);
         }
@@ -39,7 +37,7 @@ namespace yb {
                         if (!PhotonNetwork.IsMasterClient)
                             return;
 
-                        _itemSummonNumber.Add(itemkeynumber++, PhotonNetwork.Instantiate($"Prefabs/{path}", new Vector3(pos.x + x, 1f, pos.z + z), Quaternion.identity));
+                         PhotonNetwork.Instantiate($"Prefabs/{path}", new Vector3(pos.x + x, 1f, pos.z + z), Quaternion.identity);
 
                     }
                     else
