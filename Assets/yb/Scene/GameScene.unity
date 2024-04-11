@@ -995,6 +995,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 9
       objectReference: {fileID: 0}
+    - target: {fileID: 1509248172085482787, guid: 567a0c86a8edadb4392cba3466227742, type: 3}
+      propertyPath: sceneViewId
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1518572425866688908, guid: 567a0c86a8edadb4392cba3466227742, type: 3}
       propertyPath: m_Layer
       value: 9
@@ -1395,6 +1399,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 9
       objectReference: {fileID: 0}
+    - target: {fileID: 8592151345784912213, guid: 567a0c86a8edadb4392cba3466227742, type: 3}
+      propertyPath: sceneViewId
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 8609093510595873081, guid: 567a0c86a8edadb4392cba3466227742, type: 3}
       propertyPath: m_Layer
       value: 9
@@ -1447,6 +1455,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 10.039
       objectReference: {fileID: 0}
+    - target: {fileID: 8855771590329482296, guid: 567a0c86a8edadb4392cba3466227742, type: 3}
+      propertyPath: sceneViewId
+      value: 6
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1467,6 +1479,10 @@ PrefabInstance:
     - target: {fileID: 197652381689429901, guid: 23dbacc84e93bd249914ac32b62e9b81, type: 3}
       propertyPath: m_Layer
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3575781774053209620, guid: 23dbacc84e93bd249914ac32b62e9b81, type: 3}
+      propertyPath: sceneViewId
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 7636687299090613499, guid: 23dbacc84e93bd249914ac32b62e9b81, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1643,6 +1659,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 619464070874084198, guid: 7b75dcc6cc12cec49ace341e56e8f9ec, type: 3}
+      propertyPath: sceneViewId
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 873865408040924043, guid: 7b75dcc6cc12cec49ace341e56e8f9ec, type: 3}
       propertyPath: m_LocalPosition.x
       value: -12.64

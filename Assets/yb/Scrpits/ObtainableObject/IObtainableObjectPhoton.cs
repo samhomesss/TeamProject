@@ -12,5 +12,6 @@ namespace yb
         public string NamePhoton { get; }  //아이템의 이름
 
         void PickupPhoton(int playerViewId);
+
     }
 }

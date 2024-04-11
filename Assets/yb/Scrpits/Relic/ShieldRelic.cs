@@ -5,8 +5,9 @@ using yb;
 
 namespace yb {
     public class ShieldRelic : ObtainableObject, IRelic {
-        public string Name => gameObject.name;
 
+        public string Name => gameObject.name;
+        private void Start() => _photonView = GetComponent<PhotonView>();
         public Define.RelicType RelicType { get; } = Define.RelicType.ShieldRelic;
 
         public void DeleteRelic(PlayerController player) {
@@ -14,6 +15,14 @@ namespace yb {
         }
 
         public override void Pickup(PlayerController player) {
+            SetRelic(player);
+        }
+
+        [PunRPC]
+        public override void PickupPhoton(int playerViewId)
+        {
+            PlayerController player;
+            player = PhotonNetwork.GetPhotonView(playerViewId).GetComponent<PlayerController>();
             SetRelic(player);
         }
 

@@ -2,6 +2,7 @@ using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using yb;
 
 public class GameScene : BaseScene
 {
@@ -17,6 +18,11 @@ public class GameScene : BaseScene
         if (IsTestMode.Instance.CurrentUser == Define.User.Hw)
         {
             GameObject go = PhotonNetwork.Instantiate("Prefabs/hw/PlayerPrefabs/Player", Vector3.zero, Quaternion.identity);
+            GameObject guardRelic = PhotonNetwork.Instantiate("Prefabs/yb/Relic/GuardRelic", new Vector3(2,1,10), Quaternion.identity);
+            GameObject ShieldRelic = PhotonNetwork.Instantiate("Prefabs/yb/Relic/ShieldRelic", new Vector3(10, 1, 2), Quaternion.identity);
+            
+
+
             go.name = "Player";
             _photonView = Util.FindChild(go, "Model").GetComponent<PhotonView>();
             if (_photonView.IsMine)

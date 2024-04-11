@@ -79,8 +79,8 @@ namespace yb
         public void OnUpdate()
         {
             _currentDelay += Time.deltaTime;
-            Debug.Log($"공격속도는 {_maxDelay + _bonusAttackDelay}초");
-            Debug.Log($"현재 딜레이 {_currentDelay}");
+            //Debug.Log($"공격속도는 {_maxDelay + _bonusAttackDelay}초"); 0412 07:42 이희웅 찍어놓은 로그가 안보여서 주석처리 
+            //Debug.Log($"현재 딜레이 {_currentDelay}"); 0412 07:42 이희웅 찍어놓은 로그가 안보여서 주석처리 
         }
 
         /// <summary>
