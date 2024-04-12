@@ -21,7 +21,6 @@ namespace yb {
             player.PickupController.SetRelic(this);
             player.SetRelicEvent?.Invoke(RelicType.ToString());
             Managers.Resources.Destroy(gameObject);
-
         }
 
         public override void ShowName(PlayerController player)

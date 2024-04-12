@@ -14,9 +14,11 @@ public class UI_Hp : UI_Scene
         HP_Slider,
         HP_Text,
     }
+
     Map map;
     Slider _hpslider;
     Text _hptext;
+
     private void Start()
     {
         map = Map.MapObject.GetComponent<Map>();

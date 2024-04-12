@@ -14,12 +14,12 @@ public class UI_Weapon : UI_Scene
         BulletText,
     }
 
-    public static Image MainWeaponImage => _mainWeaponImage; // 메인 총 이미지
+    //public static Image MainWeaponImage => _mainWeaponImage; // 메인 총 이미지
     //ItemInfoName itemInfoName;
     Map map;
     GameObject mainWeapon;
     // 나중에 이미지 바꿀때 사용
-    static Image _mainWeaponImage;
+    Image _mainWeaponImage;
     Text _bulletText;
     bool isReload = false; // 장전중인지 아닌지
     // 총알도 설정 해놓은 수치가 따로 있는지 확인하고 설정 해야 할 듯?
@@ -58,6 +58,7 @@ public class UI_Weapon : UI_Scene
         _mainWeaponImage = mainWeapon.GetComponentInChildren<Image>(); // 단순 업데이트 
         GameObject go = Managers.Resources.Instantiate($"sh/Weapon/{Managers.ItemDataBase.GetItemData(beforeItemID).itemName}"); // 아이템 생성
         go.transform.position = map.Player.transform.position;
+        Debug.Log(go.name);
         slotItemID = itemID;
     }
 

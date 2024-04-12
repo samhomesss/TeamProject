@@ -11,6 +11,8 @@ namespace yb {
         private PlayerController _player;
         private Data _data;
         private IObtainableObject _collideItem;  //플레이어와 충돌중인 아이템 저장
+        #region 승현 추가 04.12
+        #endregion
 
         private bool[] _haveRelic = new bool[(int)Define.RelicType.Count];  //플레이어가 보유한 모든 렐릭
 
@@ -25,8 +27,8 @@ namespace yb {
 
         private void Update() {
             OnPickupUpdate();
+           
         }
-
         /// <summary>
         /// 플레이어가 아이템과 충돌중일 때, 특정 키 입력시 아이템 습득
         /// </summary>
@@ -47,21 +49,24 @@ namespace yb {
         /// </summary>
         /// <param name="relic"></param>
         public void SetRelic(IRelic relic) {
-            _haveRelic[(int)relic.RelicType] = true;
-            _player.WeaponController.SetRelic(relic);
-            _player.SetRelicEvent?.Invoke(relic.RelicType.ToString());
-            Debug.Log($"{relic.RelicType.ToString()}렐릭을 습득");
-            switch(relic.RelicType) {
+           
+             _haveRelic[(int)relic.RelicType] = true;
+              _player.WeaponController.SetRelic(relic);
+             //_player.SetRelicEvent?.Invoke(RelicType.ToString());
+             Debug.Log($"{relic.RelicType.ToString()}렐릭을 습득");
+             switch (relic.RelicType)
+             {
                 case Define.RelicType.BonusResurrectionTimeRelic:
-                    _player.Status.SetResurrectionTime(_data.BonusResurrectionTime);
-                    break;
+                  _player.Status.SetResurrectionTime(_data.BonusResurrectionTime);
+                  break;
                 case Define.RelicType.GuardRelic:
-                    _player.SetGuard(true);
-                    break;
+                  _player.SetGuard(true);
+                  break;
                 case Define.RelicType.ShieldRelic:
-                    _player.SetShield(true);
-                    break;
-            }
+                  _player.SetShield(true);
+                  break;
+             }
+            
         }
 
         /// <summary>

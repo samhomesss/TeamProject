@@ -12,7 +12,7 @@ namespace yb {
         /// </summary>
         public override void Pickup(PlayerController player) {
             player.WeaponController.ChangeRangedWeapon(new RangedWeapon_Rifle(player.WeaponController.RangedWeaponsParent, player));
-            player.WeaponEvent?.Invoke(Define.WeaponType.Rifle.ToString());
+            //player.WeaponEvent?.Invoke(Define.WeaponType.Rifle.ToString());
             Managers.Resources.Destroy(gameObject);
         }
 

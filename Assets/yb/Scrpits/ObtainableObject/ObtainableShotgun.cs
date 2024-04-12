@@ -11,7 +11,7 @@ namespace yb {
         /// </summary>
         public override void Pickup(PlayerController player) {
             player.WeaponController.ChangeRangedWeapon(new RangedWeapon_Shotgun(player.WeaponController.RangedWeaponsParent, player));
-            player.WeaponEvent?.Invoke(Define.WeaponType.Shotgun.ToString());
+            //player.WeaponEvent?.Invoke(Define.WeaponType.Shotgun.ToString());
             Managers.Resources.Destroy(gameObject);
         }
 

@@ -24,18 +24,18 @@ public class UI_RelicInven_Item : UI_Base
         set { _isEmpty = value; }
     } // 비어있는가 판정
 
-    public static bool IsChanged
-    {
-        get { return _isChanged;  }
-        set { _isChanged = value; }
-    }// _isChanged property
+    //public static bool IsChanged
+    //{
+    //    get { return _isChanged;  }
+    //    set { _isChanged = value; }
+    //}// _isChanged property
 
     public GameObject Icon => _icon; // 아이템 아이콘
 
     string _slotItemID; // 현재 이 창이 들고 있는 ItemID 
     string _name; // 이름 설정 할때 사용
     bool _isEmpty = true; // 아이템 유무 확인 아이템이 인벤안에 없는가?
-    static bool _isChanged = false; // 아이템을 바꾸는 상황
+    //static bool _isChanged = false; // 아이템을 바꾸는 상황
     GameObject _icon; // 아이템의 아이콘
     //GameObject go;// 떨어질때 만들어질 아이템
     //static int _beforeChagnedItemID; // 아이템 바꾸기전 아이템 아이디
