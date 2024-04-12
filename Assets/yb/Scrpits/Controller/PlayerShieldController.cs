@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 namespace yb {
-    public class PlayerShieldController : MonoBehaviour, ITakeDamage, ITakeDamagePhoton
+    public class PlayerShieldController : MonoBehaviour, ITakeDamage, ITakeDamagePhoton//0412 09:30 ÀÌÈñ¿õ Æ÷Åæ¿ë ÀÎÅÍÆäÀÌ½º Ãß°¡
     {
         private const float ShieldDefaultAlpha = 0.5f;
         private const float ColorR = 0.3f;
@@ -19,9 +19,9 @@ namespace yb {
         private bool _isTakeDamage;
         private float _shieldTimer;
 
-        private PhotonView _photonView;
+        private PhotonView _photonView; //0412 09:30 ÀÌÈñ¿õ Æ÷Åæ ºä Ãß°¡
 
-        public PhotonView IphotonView => _photonView;
+        public PhotonView IphotonView => _photonView;//0412 09:30 ÀÌÈñ¿õ Æ÷Åæ ºä Ãß°¡
 
         private void Start() {
             _player = GetComponentInParent<PlayerController>();
@@ -77,6 +77,7 @@ namespace yb {
             }
         }
 
+        [PunRPC]
         public void TakeDamagePhoton(int amout, int attackerViewNum)
         {
             int hp = _status.SetHp(-amout);
