@@ -29,7 +29,7 @@ public class UI_RelicInven : UI_Scene
         player.SetRelicEvent += ChangeImage;
     }
 
-    public override void Init()
+    public override void Init()//UI 렐릭인벤 생성될때 칸까지 생성해주는 초기화 함수
     {
         base.Init();
 

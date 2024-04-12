@@ -1,7 +1,6 @@
 using Photon.Pun;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using yb;
 
 public class GameScene : BaseScene
@@ -11,6 +10,12 @@ public class GameScene : BaseScene
     {
     }
 
+    void OnSetRelic(string itemID, UnityAction setRelicAction, UnityAction destroyRelicAction)
+    {
+        setRelicAction?.Invoke();
+        destroyRelicAction?.Invoke();
+    }
+
     public override void Init()
     {
         base.Init();
@@ -18,6 +23,7 @@ public class GameScene : BaseScene
         if (IsTestMode.Instance.CurrentUser == Define.User.Hw)
         {
             GameObject go = PhotonNetwork.Instantiate("Prefabs/hw/PlayerPrefabs/Player", Vector3.zero, Quaternion.identity);
+            go.GetComponentInChildren<PlayerController>().SetRelicEvent += OnSetRelic;
 
             if (PhotonNetwork.IsMasterClient)
             {
@@ -35,29 +41,26 @@ public class GameScene : BaseScene
                 Util.FindChild(go, "Camera", true).active = true;
                 Util.FindChild(go, "Camera", true).GetComponent<AudioListener>().enabled = true;
             }
-            //    Managers.UI.ShowSceneUI<UI_Weapon>();
-            //    Managers.UI.ShowSceneUI<UI_Inven>();
-            //    Managers.UI.ShowSceneUI<UI_Hp>();
-            //    Managers.UI.ShowSceneUI<UI_MiniMap>();
-            //    // UI 
-            //if (IsTestMode.Instance.CurrentUser == Define.User.Hw)
-            //{
-            //    GameObject go = PhotonNetwork.Instantiate("Prefabs/hw/PlayerPrefabs/Player", Vector3.zero, Quaternion.identity);
-            //    go.name = "Player";
-            //    _photonView = Util.FindChild(go, "Model").GetComponent<PhotonView>();
-            //    if (_photonView.IsMine)
-            //    {
-            //        Util.FindChild(go, "Camera", true).active = true;
-            //        Util.FindChild(go, "Camera", true).GetComponent<AudioListener>().enabled = true;
-            //    }
-            //    //    Managers.UI.ShowSceneUI<UI_Weapon>();
-            //    //    Managers.UI.ShowSceneUI<UI_Inven>();
-            //    //    Managers.UI.ShowSceneUI<UI_Hp>();
-            //    //    Managers.UI.ShowSceneUI<UI_MiniMap>();
-            //    //    // UI 
-
-
+            
         }
+
+        Managers.UI.ShowSceneUI<UI_Timer>();
+        Managers.UI.ShowSceneUI<UI_Weapon>();
+        Managers.UI.ShowSceneUI<UI_Inven>();
+        Managers.UI.ShowSceneUI<UI_Hp>();
+        Managers.UI.ShowSceneUI<UI_MiniMap>();
+        Managers.UI.ShowSceneUI<UI_RelicInven>();
+        Managers.UI.ShowSceneUI<UI_PlayerColorPercent>();
+
+        // UIInfo
+        UI_ItemInfo.ItemInfo = Managers.UI.ShowSceneUIInfo<UI_ItemInfo>().gameObject;
+        UI_ItemInfo.ItemInfo.SetActive(false);
+
+        // 플레이어들에게 보여야 하는 UI
+        Managers.UI.ShowSceneUI<UI_PlayerName>();
+
+        //GameObject
+        Managers.SceneObj.ShowSceneObject<Map>();
+        Managers.SceneObj.ShowSceneObject<MiniMapCam>();
     }
 }
-

@@ -6,6 +6,7 @@ using UnityEngine.Events;
 public class CoroutineHelper : MonoBehaviour
 {
     public static CoroutineHelper Instance;
+
     private void Awake() {
         Instance = this;
     }
