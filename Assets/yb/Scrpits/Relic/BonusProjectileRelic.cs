@@ -9,11 +9,21 @@ namespace yb {
 
         public Define.RelicType RelicType { get; } = Define.RelicType.BonusProjectileRelic;
 
+        private void Start() => _photonView = GetComponent<PhotonView>();
+       
         public void DeleteRelic(PlayerController player) {
             player.PickupController.DeleteRelic(this);
         }
 
         public override void Pickup(PlayerController player) {
+            SetRelic(player);
+        }
+
+        [PunRPC]
+        public override void PickupPhoton(int playerViewId)
+        {
+            PlayerController player;
+            player = PhotonNetwork.GetPhotonView(playerViewId).GetComponent<PlayerController>();
             SetRelic(player);
         }
 

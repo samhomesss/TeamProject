@@ -12,8 +12,10 @@ namespace yb {
     public class BonusAttackSpeedRelic : ObtainableObject, IRelic {
         public string Name => gameObject.name;
 
+
         public Define.RelicType RelicType { get; } = Define.RelicType.BonusAttackSpeedRelic;
 
+        private void Start() => _photonView = GetComponent<PhotonView>();
 
         public void DeleteRelic(PlayerController player) {
             player.PickupController.DeleteRelic(this);  //렐릭 삭제
@@ -21,6 +23,14 @@ namespace yb {
 
         public override void Pickup(PlayerController player) {
             SetRelic(player);  //이 아이템을 주으면 렐릭 할당
+        }
+
+        [PunRPC]
+        public override void PickupPhoton(int playerViewId)
+        {
+            PlayerController player;
+            player = PhotonNetwork.GetPhotonView(playerViewId).GetComponent<PlayerController>();
+            SetRelic(player);
         }
 
         public void SetRelic(PlayerController player) {
