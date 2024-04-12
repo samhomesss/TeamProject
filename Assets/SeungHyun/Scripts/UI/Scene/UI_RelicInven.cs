@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 using yb;
 
@@ -53,7 +54,7 @@ public class UI_RelicInven : UI_Scene
     /// 아이템의 번호 가 들어왓을때 
     /// </summary>
     /// <param name="itemID"></param>
-    public void ChangeImage(string itemID) // 유물 인텝토리에 아이템이 들어 왔을때 아이템 이미지 바꿔주는거
+    public void ChangeImage(string itemID , UnityAction call1, UnityAction call2) // 유물 인텝토리에 아이템이 들어 왔을때 아이템 이미지 바꿔주는거
     {
         for (int i = 0; i < ui_RelicInven_Items.Count; i++)
         {
@@ -61,11 +62,14 @@ public class UI_RelicInven : UI_Scene
             {
                 continue; 
             }
-            
+            call1?.Invoke();
+            call2?.Invoke();
+
             RelicImage[i] = Util.FindChild(ui_RelicInven_Items[i].gameObject, "ItemIcon", true);
             ui_RelicInven_Items[i].IsEmpty = false;
             RelicImage[i].GetComponent<Image>().sprite = Managers.ItemDataBase.GetItemData(itemID).itemImage;
             ui_RelicInven_Items[i].SlotItemID = Managers.ItemDataBase.GetItemData(itemID).itemName; 
+
             break;
 
         }

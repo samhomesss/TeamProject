@@ -20,7 +20,10 @@ public class UI_RelicInven_Item : UI_Base
     } // 해당 슬롯의 아이템
     public bool IsEmpty
     {
-        get { return _isEmpty; }
+        get {
+
+            return _isEmpty; 
+        }
         set { _isEmpty = value; }
     } // 비어있는가 판정
 

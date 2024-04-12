@@ -6,6 +6,7 @@ using UnityEditor;
 using Photon.Pun;
 using System;
 using UnityEditor.Experimental.GraphView;
+using UnityEngine.Events;
 
 namespace yb
 {
@@ -58,7 +59,7 @@ namespace yb
         /// 렐릭 습득시 호출
         /// <define.relicType>
         /// </summary>
-        public Action<string> SetRelicEvent;
+        public Action<string, UnityAction , UnityAction> SetRelicEvent;
 
         /// <summary>
         /// 아이템 습득 시 호출
@@ -76,7 +77,7 @@ namespace yb
         /// <summary>
         /// 렐릭 제거시 호출
         /// </summary>
-        public Action<string> DestroyRelicEvent;
+        public Action<string, UnityAction , UnityAction> DestroyRelicEvent;
 
         /// <summary>
         /// 현재 맵에 색상이 얼마나 띄워져 있는지 판단

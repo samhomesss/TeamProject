@@ -14,11 +14,12 @@ namespace yb {
 
         public Define.RelicType RelicType { get; } = Define.RelicType.BonusAttackSpeedRelic;
 
+        public Transform MyTransform => transform;
 
         public void DeleteRelic(PlayerController player) {
-            player.PickupController.DeleteRelic(this);  //·¼¸¯ »èÁ¦
-            player.DestroyRelicEvent?.Invoke(RelicType.ToString());
+            player.PickupController.DeleteRelic(this);
             player.HaveRelicNumber--;
+           // player.DestroyRelicEvent?.Invoke(RelicType.ToString() , () => player.PickupController.DeleteRelic(this) , () => player.HaveRelicNumber--);
         }
 
         public override void Pickup(PlayerController player) {
@@ -27,9 +28,7 @@ namespace yb {
         }
 
         public void SetRelic(PlayerController player) {
-            player.PickupController.SetRelic(this);
-            player.SetRelicEvent?.Invoke(RelicType.ToString());
-            Managers.Resources.Destroy(gameObject);
+            player.SetRelicEvent?.Invoke(RelicType.ToString() , () => player.PickupController.SetRelic(this) , () => Managers.Resources.Destroy(gameObject));
         }
 
         public override void ShowName(PlayerController player)

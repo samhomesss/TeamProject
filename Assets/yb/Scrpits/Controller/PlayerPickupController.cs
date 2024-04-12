@@ -121,7 +121,6 @@ namespace yb
         {
             _haveRelic[(int)relic.RelicType] = true;
             _player.WeaponController.SetRelic(relic);
-            _player.DestroyRelicEvent?.Invoke(relic.RelicType.ToString());
 
             switch (relic.RelicType)
             {
