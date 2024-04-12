@@ -128,12 +128,13 @@ public class ProjectileMoveScript : MonoBehaviourPunCallbacks
             if (co.collider.CompareTag("Bullet"))
                 return;
 
-            if(co.collider.transform.parent != null) {
-                if (co.collider.transform.parent.gameObject == _creator.transform.parent.gameObject) {
+            if(co.collider.CompareTag("Player")) {
+                if (co.collider.gameObject == _creator) {
                     Debug.Log("내 가드와 충돌함");
                     return;
                 }
             }
+            
             
 
             if (!collided) {

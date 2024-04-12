@@ -14,6 +14,7 @@ namespace yb
     public class PlayerController : MonoBehaviour, ITakeDamage, ITakeDamagePhoton
     {
         private readonly float _animationFadeTime = .3f;  //애니메이션 페이드 시간
+        public const int MaxRelicNumber = 2;
         private Vector3 _playerMoveVelocity;
         private Rigidbody _rigid;
         private Data _data;  //기본 데이터
@@ -31,7 +32,9 @@ namespace yb
         private PhotonView _photonview; //0405 09:41분 이희웅 캐릭터간에 동기화를 위한 포톤 뷰 추가
         private PlayerGuardController _guardController;
         private PlayerShieldController _shieldController;
-        private GameObject attacker;
+        private GameObject _attacker;
+        public int HaveItemNumber { get; set; }
+        public int HaveRelicNumber { get; set; }
 
         /// <summary>
         /// 플레이어 hp변경시 호출
@@ -280,8 +283,8 @@ namespace yb
             if (hp <= 0)
             {
                 _droplable.Drop(transform.position);
-                attacker = PhotonNetwork.GetPhotonView(attackerViewNum).gameObject; //PunRpc에서 GameObject를 직렬화 해서 보낼 수 없기에 직렬화 해서 보낼 수 있는 attackerViewNum을 보내고 해당 attackerViewNum을 포톤네트워크에서 찾아서 넣어준다.
-                _stateController.ChangeState(new PlayerState_Die(this, attacker));
+                _attacker = PhotonNetwork.GetPhotonView(attackerViewNum).gameObject; //PunRpc에서 GameObject를 직렬화 해서 보낼 수 없기에 직렬화 해서 보낼 수 있는 attackerViewNum을 보내고 해당 attackerViewNum을 포톤네트워크에서 찾아서 넣어준다.
+                _stateController.ChangeState(new PlayerState_Die(this, _attacker));
             }
         }
     }
