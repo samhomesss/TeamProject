@@ -7,6 +7,7 @@ using Photon.Pun;
 using System;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine.Events;
+using Photon.Realtime;
 
 namespace yb
 {
@@ -281,11 +282,12 @@ namespace yb
             }
         }
 
-        [PunRPC]//0413 03:46 이희웅 포톤용 메서드 추가 플레이어 이름지정
-        public void RenamePlayer(int PlayerViewId)
-        {
-            PhotonNetwork.GetPhotonView(PlayerViewId).transform.parent.name = $"Player{PhotonNetwork.LocalPlayer.ActorNumber}";
-        }
+        //[PunRPC]//0413 03:46 이희웅 포톤용 메서드 추가 플레이어 이름지정
+        //public void RenamePlayer(int PlayerViewId)
+        //{
+        //    Debug.Log($"{PhotonNetwork.GetPhotonView(PlayerViewId)}플레이어가 들어왔습니다{PhotonNetwork.LocalPlayer.ActorNumber}");
+        //    PhotonNetwork.GetPhotonView(PlayerViewId).transform.parent.name = $"Player{PhotonNetwork.LocalPlayer.ActorNumber}";
+        //}
         [PunRPC]
         public void TakeDamagePhoton(int amout, int attackerViewNum)//0410 19:24 이희웅 포톤용 메서드 추가  
         {
