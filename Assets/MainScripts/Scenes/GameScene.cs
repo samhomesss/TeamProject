@@ -34,13 +34,11 @@ public class GameScene : BaseScene
                 GameObject BonusResurrectionTimeRelic = PhotonNetwork.Instantiate("Prefabs/yb/Relic/BonusResurrectionTimeRelic", new Vector3(1, 1, 6), Quaternion.identity);
             }
             _photonView = Util.FindChild(go, "Model").GetComponent<PhotonView>();
-            go.name = $"Player{_photonView.Owner.ActorNumber}";
             if (_photonView.IsMine)
             {
                 Util.FindChild(go, "Camera", true).active = true;
                 Util.FindChild(go, "Camera", true).GetComponent<AudioListener>().enabled = true;
-
-                //_photonView.RPC("RenamePlayer", RpcTarget.All, _photonView.ViewID);
+                _photonView.RPC("RenamePlayer", RpcTarget.All, _photonView.ViewID);
             }
             
         }
