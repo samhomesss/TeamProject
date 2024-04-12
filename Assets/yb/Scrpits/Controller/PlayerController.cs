@@ -13,9 +13,8 @@ namespace yb
     
     public class PlayerController : MonoBehaviour, ITakeDamage, ITakeDamagePhoton
     {
-
-       
         private readonly float _animationFadeTime = .3f;  //애니메이션 페이드 시간
+        private Vector3 _playerMoveVelocity;
         private Rigidbody _rigid;
         private Data _data;  //기본 데이터
         private float moveX;  //이동량x
@@ -87,6 +86,8 @@ namespace yb
 
         public PlayerStatus Status => _status;
         public PhotonView PhotonView => _photonview;
+
+        public Vector3 PlayerMoveVelocity => _playerMoveVelocity;
 
         public Animator Animator => _animator;
         public PlayerWeaponController WeaponController => _weaponController;
@@ -207,20 +208,30 @@ namespace yb
         /// <param name="state"></param>
         public void ChangeTriggerAnimation(Define.PlayerState state)//0408 16:38분 이희웅 업데이트 추가
         {
-                if (_photonview.IsMine)
-                    _animator.SetTrigger(state.ToString());
+              if (_photonview.IsMine)
+                 _animator.SetTrigger(state.ToString());
         }
 
         /// <summary>
         /// 플레이어 이동 로직
         /// </summary>
-        public void OnMoveUpdate()
-        {
-            if (_photonview.IsMine)//0405 09:41분 캐릭터간에 동기화를 위한 포톤 이동 분리 로직 추가
-            {
+        public void OnMoveUpdate() {
+            if (IsTestMode.Instance.CurrentUser == Define.User.Yb) {
                 Vector3 dir = new Vector3(moveX, 0f, moveZ);
                 //_rigid.MovePosition(_rigid.position + dir * (_status.MoveSpeed * _status.MoveSpeedDecrease) * Time.deltaTime);
                 transform.parent.Translate(dir * (_status.MoveSpeed * _status.MoveSpeedDecrease) * Time.deltaTime); //0410 23:44 이희웅 포톤 동기화 문제로 인해 해당기능 주석처리 
+
+                _rigid.MovePosition(_rigid.position + dir * (_status.MoveSpeed * _status.MoveSpeedDecrease) * Time.deltaTime);
+                _playerMoveVelocity = dir * (_status.MoveSpeed * _status.MoveSpeedDecrease) * Time.deltaTime;
+                //transform.parent.Translate(dir * (_status.MoveSpeed * _status.MoveSpeedDecrease) * Time.deltaTime);// 0410 23:44 이희웅 포톤 동기화 문제로 인해 해당기능 주석처리 
+            }
+            else {
+                if (_photonview.IsMine)//0405 09:41분 캐릭터간에 동기화를 위한 포톤 이동 분리 로직 추가
+            {
+                    Vector3 dir = new Vector3(moveX, 0f, moveZ);
+                    //_rigid.MovePosition(_rigid.position + dir * (_status.MoveSpeed * _status.MoveSpeedDecrease) * Time.deltaTime);
+                    transform.parent.Translate(dir * (_status.MoveSpeed * _status.MoveSpeedDecrease) * Time.deltaTime);// 0410 23:44 이희웅 포톤 동기화 문제로 인해 해당기능 주석처리 
+                }
             }
         }
 

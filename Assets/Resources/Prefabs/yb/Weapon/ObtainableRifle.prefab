@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3924954257916774512}
   - component: {fileID: 4419666342777934028}
   - component: {fileID: 6178121965904842447}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: ObtainableRifle
   m_TagString: ObtainableObject
   m_Icon: {fileID: 0}
@@ -98,6 +98,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 4719066739541684975}
     m_Modifications:
+    - target: {fileID: -8626751840527039810, guid: ae28c140271a1264a92aaf85e1e67c96, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: ae28c140271a1264a92aaf85e1e67c96, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -154,9 +158,37 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -4214470490016819149, guid: ae28c140271a1264a92aaf85e1e67c96, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: -3810608947437633175, guid: ae28c140271a1264a92aaf85e1e67c96, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: -927199367670048503, guid: ae28c140271a1264a92aaf85e1e67c96, type: 3}
       propertyPath: m_Name
       value: Blaster2
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: ae28c140271a1264a92aaf85e1e67c96, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 247389109081847061, guid: ae28c140271a1264a92aaf85e1e67c96, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5839367272129055497, guid: ae28c140271a1264a92aaf85e1e67c96, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 9101430577481724397, guid: ae28c140271a1264a92aaf85e1e67c96, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 9198531897541347679, guid: ae28c140271a1264a92aaf85e1e67c96, type: 3}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
