@@ -83,7 +83,6 @@ public class ProjectileMoveScript : MonoBehaviourPunCallbacks
         if(IsTestMode.Instance.CurrentUser == Define.User.Hw) {
             if (GetComponent<PhotonView>().IsMine) //0409 17:30 이희웅 총알 소유권 추가
         {
-                Debug.Log($"co는 {co.gameObject.name}");
                 if (co.gameObject == _creator)
                     return;
 
