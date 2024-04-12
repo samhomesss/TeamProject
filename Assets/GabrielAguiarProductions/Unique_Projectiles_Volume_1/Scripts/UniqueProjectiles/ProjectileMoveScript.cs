@@ -83,21 +83,30 @@ public class ProjectileMoveScript : MonoBehaviourPunCallbacks
         if(IsTestMode.Instance.CurrentUser == Define.User.Hw) {
             if (GetComponent<PhotonView>().IsMine) //0409 17:30 이희웅 총알 소유권 추가
         {
+                Debug.Log($"co는 {co.gameObject.name}");
                 if (co.gameObject == _creator)
                     return;
 
                 if (co.collider.CompareTag("Bullet"))
                     return;
 
-                if (co.collider.CompareTag("Guard")) {
-                    if (co.collider.transform.parent.gameObject == co.gameObject)
+                if (co.collider.CompareTag("Player"))
+                {
+                    if (co.collider.gameObject == _creator)
+                    {
+                        Debug.Log("내 가드와 충돌함");
                         return;
-
-                    Debug.Log("투사체가 가드에 막힘");
-                    Crash(co);
+                    }
                 }
 
                 if (!collided) {
+                    if (co.collider.CompareTag("Guard"))
+                    {
+                        Crash(co);
+                        Debug.Log("투사체가 가드에 막힘");
+                        return;
+                    }
+
                     if (co.collider.CompareTag("Obstacle")) {
                         Crash(co);
                         return;
@@ -105,12 +114,7 @@ public class ProjectileMoveScript : MonoBehaviourPunCallbacks
 
                     if (co.collider.CompareTag("Player") || co.collider.CompareTag("DestructibleObject")
                         || co.collider.CompareTag("Shield")) {
-                        if (IsTestMode.Instance.CurrentUser == Define.User.Hw)//0410 17:00 이희웅 테스트 추가
-                        {
                             co.collider.GetComponent<ITakeDamagePhoton>().IphotonView.RPC("TakeDamagePhoton", RpcTarget.All, _damage, gameObject.GetComponent<PhotonView>().ViewID);
-                        } else {
-                            co.collider.GetComponent<ITakeDamage>().TakeDamage(_damage, gameObject);
-                        }
                         Crash(co);
 
                         if (co.collider.CompareTag("Shield"))

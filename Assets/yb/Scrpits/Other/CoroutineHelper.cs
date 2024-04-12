@@ -14,6 +14,11 @@ public class CoroutineHelper : MonoBehaviour
 
         StartCoroutine(CoProjectileCreate(index, call));
     }
+    
+    public void ProjectileCreate(int index,int number, UnityAction call) {
+
+        StartCoroutine(CoProjectileCreate(index, call));
+    }
 
     private IEnumerator CoProjectileCreate(int index, UnityAction call) {
         float time = index * .1f;

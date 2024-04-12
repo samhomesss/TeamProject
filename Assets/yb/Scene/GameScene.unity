@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -861,6 +861,10 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 9
       objectReference: {fileID: 0}
+    - target: {fileID: 826384198159218616, guid: 567a0c86a8edadb4392cba3466227742, type: 3}
+      propertyPath: sceneViewId
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 863084308242696104, guid: 567a0c86a8edadb4392cba3466227742, type: 3}
       propertyPath: m_Layer
       value: 9
@@ -1008,6 +1012,10 @@ PrefabInstance:
     - target: {fileID: 3393488023087610103, guid: 567a0c86a8edadb4392cba3466227742, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 21.282
+      objectReference: {fileID: 0}
+    - target: {fileID: 3573068495415023296, guid: 567a0c86a8edadb4392cba3466227742, type: 3}
+      propertyPath: sceneViewId
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 3688744910794410681, guid: 567a0c86a8edadb4392cba3466227742, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1414,6 +1422,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9021091255256467603, guid: 23dbacc84e93bd249914ac32b62e9b81, type: 3}
+      propertyPath: sceneViewId
+      value: 9
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1466,6 +1478,10 @@ PrefabInstance:
     - target: {fileID: 1528796071613128953, guid: 0eb1ddbcc935b1049877c20e2aba2398, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1703856163346039065, guid: 0eb1ddbcc935b1049877c20e2aba2398, type: 3}
+      propertyPath: sceneViewId
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7048750501595912883, guid: 0eb1ddbcc935b1049877c20e2aba2398, type: 3}
       propertyPath: m_Name
@@ -1528,6 +1544,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4093948259618567588, guid: 4dbc34731bc8faf4f81aea910658835d, type: 3}
+      propertyPath: sceneViewId
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 4978876344405371245, guid: 4dbc34731bc8faf4f81aea910658835d, type: 3}
       propertyPath: m_Name
       value: BonusResurrectionTimeRelic
@@ -1549,6 +1569,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -5160447562598512388, guid: 7b75dcc6cc12cec49ace341e56e8f9ec, type: 3}
+      propertyPath: sceneViewId
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 619464070874084198, guid: 7b75dcc6cc12cec49ace341e56e8f9ec, type: 3}
       propertyPath: sceneViewId
       value: 8
@@ -1621,6 +1645,10 @@ PrefabInstance:
     - target: {fileID: 2525015345630340216, guid: 1762f01012d0df740bb1813c06ff688b, type: 3}
       propertyPath: m_Layer
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 2899978061459363795, guid: 1762f01012d0df740bb1813c06ff688b, type: 3}
+      propertyPath: sceneViewId
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 4540807490734009705, guid: 1762f01012d0df740bb1813c06ff688b, type: 3}
       propertyPath: m_LocalPosition.x
