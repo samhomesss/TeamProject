@@ -1,9 +1,11 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace yb {
-    public class PlayerShieldController : MonoBehaviour, ITakeDamage {
+    public class PlayerShieldController : MonoBehaviour, ITakeDamage, ITakeDamagePhoton
+    {
         private const float ShieldDefaultAlpha = 0.5f;
         private const float ColorR = 0.3f;
         private const float ColorG = 0.7f;
@@ -16,12 +18,18 @@ namespace yb {
         private float _hpBuffer;
         private bool _isTakeDamage;
         private float _shieldTimer;
+
+        private PhotonView _photonView;
+
+        public PhotonView IphotonView => _photonView;
+
         private void Start() {
             _player = GetComponentInParent<PlayerController>();
             _status = GetComponent<ShieldStatus>();
             _mesh = GetComponent<MeshRenderer>();
             _collider = GetComponent<SphereCollider>();
             _color = new Color(ColorR, ColorG, ColorB, 0.5f);
+            _photonView = GetComponent<PhotonView>();
         }
 
         private void Update() {
@@ -65,6 +73,20 @@ namespace yb {
             _isTakeDamage = true;
             _shieldTimer = 0;
             if (hp <= 0) {
+                _collider.enabled = false;
+            }
+        }
+
+        public void TakeDamagePhoton(int amout, int attackerViewNum)
+        {
+            int hp = _status.SetHp(-amout);
+            Debug.Log($"실드가 데미지를{amout}만큼 입음");
+            Debug.Log($"실드 남은 체력 {hp}");
+            SetMaterial();
+            _isTakeDamage = true;
+            _shieldTimer = 0;
+            if (hp <= 0)
+            {
                 _collider.enabled = false;
             }
         }
