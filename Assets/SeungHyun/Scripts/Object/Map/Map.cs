@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using yb;
 using static UnityEditor.Progress;
@@ -9,6 +10,7 @@ using Color = UnityEngine.Color;
 public class Map : Obj
 {
     #region Property
+    public static GameObject MapObject => map;
     public enum PlayerName
     {
         Player1, Player2, Player3, Player4, Player5, Player6, Player7, Player8
@@ -18,14 +20,12 @@ public class Map : Obj
         White,
     }
     public static Node[,] Node => node;
-   // public static int ColorCount => _colorcount; // 안쓰고 있음
-    public static GameObject Player => player;
+    public PlayerController Player => _player;
     #endregion
 
-    static GameObject player; // 플레이어 프리팹
     static Node[,] node = new Node[64, 64];
-    //static int _colorcount = 0;
-
+    static GameObject map;
+    PlayerController _player;
     Texture2D texture;
     MeshRenderer meshRenderer;
 
@@ -35,11 +35,9 @@ public class Map : Obj
 
     static Dictionary<string, Color> playerColors = new Dictionary<string, Color>();
 
-    // public static event Action<GameObject> OnChangePercent; // 미니맵 옆 퍼센테이지 바꾸는거
-    // public static event Action OnColorPercent;
-
     private void Awake()
     {
+        map = this.gameObject;
         var path = $"Prefabs/sh/Texture/White";
 
         playerColors.Add("Player1", Color.red); // 문자열로 비교 안하기 위해서 Dictionary로 만들어서 색 저장
@@ -54,8 +52,7 @@ public class Map : Obj
         texture = Managers.Resources.Load<Texture2D>(path);
 
         // 플레이어를 생성하면서 넣어줌
-        player = Managers.SceneObj.ShowSceneObject<PlayerTestSh>().gameObject;
-        player.name = ("Player1");
+        _player = GameObject.Find("Player1").GetComponentInChildren<PlayerController>();
 
         for (int i = 0; i < 64; i++)
         {
@@ -88,11 +85,13 @@ public class Map : Obj
             }
         }
         meshRenderer.material.mainTexture = texture;
-        
-        PlayerTestSh.OnNodeChanged -= UpdateColor;
-        PlayerTestSh.OnNodeChanged += UpdateColor;
-       // PlayerTestSh.OnPlayerColorChecked -= PlayerColorCount;
-       // PlayerTestSh.OnPlayerColorChecked += PlayerColorCount;
+        SetPlayer(_player);
+        #region 주석처리
+        //PlayerTestSh.OnNodeChanged -= UpdateColor;
+        //PlayerTestSh.OnNodeChanged += UpdateColor;
+        // PlayerTestSh.OnPlayerColorChecked -= PlayerColorCount;
+        // PlayerTestSh.OnPlayerColorChecked += PlayerColorCount;
+        #endregion
     }
     #region 주석처리
     //private void Update()
@@ -110,27 +109,24 @@ public class Map : Obj
         {
             for (int jx = 0; jx < length; ++jx)
             {
-                colors[jx + ix * length] = PlayerColor(player);
+                colors[jx + ix * length] = PlayerColor(_player.transform.parent.gameObject);
             }
         }
 
         foreach (var item in node)
         {
-            if (item.nodePos.x - 0.75f <= player.transform.position.x && item.nodePos.x + 0.75f >= player.transform.position.x
-                && item.nodePos.z + 0.75f >= player.transform.position.z && item.nodePos.z - 0.75f <= player.transform.position.z)
+            if (item.nodePos.x - 0.75f <= _player.transform.position.x && item.nodePos.x + 0.75f >= _player.transform.position.x
+                && item.nodePos.z + 0.75f >= _player.transform.position.z && item.nodePos.z - 0.75f <= _player.transform.position.z)
             {
                 xPos = (int)(item.nodePos.x + 0.5f);
                 yPos = (int)(item.nodePos.z + 0.5f);
 
                 texture.SetPixels(texture.width - xPos * 4, texture.height - yPos * 4, length, length, colors);
-                //item.color = PlayerColor(player);
-                item.SetColor(PlayerColor(player));
+                item.SetColor(PlayerColor(_player.transform.parent.gameObject));
             }
         }
 
         texture.Apply();
-        // 반복문 밖에서 새로 정보를 받아서 new를 만든 다음에 SetPixels는 모든 정보에 대한 갱신으로 하는 느낌이고
-        // 반복문 안에서 할거면 SetPixel로 하는게 맞다.
 
     }
     #region 현재 사용하지 않는 코드
@@ -158,7 +154,6 @@ public class Map : Obj
         {
             return value;
         }
-
         return Color.white;
         #region 주석처리
         //Color color = Color.white;
@@ -194,7 +189,6 @@ public class Map : Obj
     // 윤범이형 Action 추가 
     public void SetPlayer(PlayerController player)
     {
-        player.MapEvent -= UpdateColor;
         player.MapEvent += UpdateColor;
     }
 

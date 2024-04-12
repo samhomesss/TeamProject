@@ -17,22 +17,28 @@ public class UI_PlayerColorPercent : UI_Scene
     int player7Count;
     int player8Count;
 
-    GameObject[] _playerSlider = new GameObject[8];
+    float resetTimer;
 
+    GameObject[] _playerSlider = new GameObject[8];
+   // Map map; // 플레이어를  가지고 오기 위한 map
+    
     private void Start()
     {
-        ActionInit();
+      //  map = Map.MapObject.GetComponent<Map>();
         for (int i = 0; i < _playerSlider.Length; i++)
         {
             _playerSlider[i] = Util.FindChild(gameObject, $"Player{i + 1}", true);
         }
     }
 
-    void ActionInit()
+    private void Update()
     {
-        
-        PlayerTestSh.OnPlayerColorChecked -= ColorPercent;
-        PlayerTestSh.OnPlayerColorChecked += ColorPercent;
+        resetTimer += Time.deltaTime;
+        if (resetTimer>= 2f)
+        {
+            ColorPercent();
+            resetTimer = 0;
+        }
     }
 
     void ColorPercent()
@@ -45,11 +51,11 @@ public class UI_PlayerColorPercent : UI_Scene
         player6Count = 0;
         player7Count = 0;
         player8Count = 0;
-
-
+        
         foreach (var item in Map.Node)
         {
-            if (item.nodeColor == NodeColor.Red) // 색상값을 4개 비교하는걸 1개 비교로 변경
+            
+            if (item.nodeColor == NodeColor.Red) 
             {
                 player1Count++;
                 _playerSlider[0].GetComponent<Slider>().value = player1Count;
@@ -96,10 +102,10 @@ public class UI_PlayerColorPercent : UI_Scene
 
     }
 
-    // Todo: 윤범이형 액션 연결
-    void SetPlayer(PlayerController player)
-    {
-        player.ColorPercentEvent -= ColorPercent;
-        player.ColorPercentEvent += ColorPercent;
-    }
+    // Todo: 윤범이형 액션 연결 따로 연결
+
+    //void SetPlayer(PlayerController player)
+    //{
+    //  //  player.ColorPercentEvent += ColorPercent;
+    //}
 }

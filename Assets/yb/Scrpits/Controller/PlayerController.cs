@@ -6,6 +6,7 @@ using UnityEditor;
 using Photon.Pun;
 using System;
 using UnityEditor.Experimental.GraphView;
+using UnityEngine.Events;
 
 namespace yb
 {
@@ -52,13 +53,13 @@ namespace yb
         /// 플레이어 무기 변경시 호출
         /// <define.weaponType>
         /// </summary>
-        public Action<int> WeaponEvent;
+        public Action<string> WeaponEvent;
 
         /// <summary>
-        /// 렐릭 습득 및 제거시 호출
+        /// 렐릭 습득시 호출
         /// <define.relicType>
         /// </summary>
-        public Action<int> RelicEvent;
+        public Action<string, UnityAction , UnityAction> SetRelicEvent;
 
         /// <summary>
         /// 아이템 습득 시 호출
@@ -74,10 +75,15 @@ namespace yb
 
         #region 승현 추가 04.11
         /// <summary>
+        /// 렐릭 제거시 호출
+        /// </summary>
+        public Action<string, UnityAction , UnityAction> DestroyRelicEvent;
+
+        /// <summary>
         /// 현재 맵에 색상이 얼마나 띄워져 있는지 판단
         /// 매 프레임이 아닌 움직였는데 2초가 지나 있다면으로 변경
         /// </summary>
-        public Action ColorPercentEvent;
+        public Action ColorPercentEvent;// 현재 사용 안함
 
         /// <summary>
         /// 아이템이 근처에 있을때 판정
@@ -168,13 +174,15 @@ namespace yb
         {
             if (moveX == 0 && moveZ == 0)
                 return false;
+
             #region 승현 추가 04.11
             MapEvent?.Invoke();
             ClosedItemEvent?.Invoke();
-            if (resetTimer >= 1) // 매순간 호출 될 친구가 아니기에 
-            {
-                ColorPercentEvent?.Invoke();
-            }
+            //if (resetTimer >= 1) 
+            //{
+            //    ColorPercentEvent?.Invoke();
+            //    resetTimer = 0;
+            //}
             #endregion
             return true;
         }

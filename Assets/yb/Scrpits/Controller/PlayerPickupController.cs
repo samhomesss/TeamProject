@@ -14,9 +14,8 @@ namespace yb
     {
         private PlayerController _player;
         private Data _data;
-        private IObtainableObject _collideItem;
+        private IObtainableObject _collideItem;  //플레이어와 충돌중인 아이템 저장
         private IObtainableObjectPhoton _collideItemPhoton;//플레이어와 충돌중인 아이템 저장
-
 
         private bool[] _haveRelic = new bool[(int)Define.RelicType.Count];  //플레이어가 보유한 모든 렐릭
 
@@ -34,8 +33,8 @@ namespace yb
         private void Update()
         {
             OnPickupUpdate();
-        }
 
+        }
         /// <summary>
         /// 플레이어가 아이템과 충돌중일 때, 특정 키 입력시 아이템 습득
         /// </summary>
@@ -68,6 +67,7 @@ namespace yb
             {
                 if (Input.GetKeyDown(KeyCode.G))
                 {
+
                     Debug.Log("누름");
                     if(_collideItem is IRelic) {
                         if (_player.HaveRelicNumber >= PlayerController.MaxRelicNumber) {
@@ -82,6 +82,7 @@ namespace yb
                     _player.StateController.ChangeState(new PlayerState_Pickup(_player));
                     _collideItem.Pickup(_player);
                     _player.ItemEvent?.Invoke(_collideItem.Name);
+                    _collideItem.HideName();
                 }
             }
         }
@@ -90,11 +91,12 @@ namespace yb
         /// 플레이어가 렐릭을 습득 시 렐릭 할당. 각 렐릭 클래스에서 호출
         /// </summary>
         /// <param name="relic"></param>
-        public void SetRelic(IRelic relic)
-        {
+
+        public void SetRelic(IRelic relic) {
+
             _haveRelic[(int)relic.RelicType] = true;
             _player.WeaponController.SetRelic(relic);
-            _player.RelicEvent?.Invoke((int)relic.RelicType);
+            //_player.SetRelicEvent?.Invoke(RelicType.ToString());
             Debug.Log($"{relic.RelicType.ToString()}렐릭을 습득");
             switch (relic.RelicType)
             {
@@ -108,6 +110,7 @@ namespace yb
                     _player.SetShield(true);
                     break;
             }
+
         }
 
         /// <summary>
@@ -118,7 +121,6 @@ namespace yb
         {
             _haveRelic[(int)relic.RelicType] = true;
             _player.WeaponController.SetRelic(relic);
-            _player.RelicEvent?.Invoke((int)relic.RelicType);
 
             switch (relic.RelicType)
             {
@@ -135,7 +137,7 @@ namespace yb
         }
 
 
-
+        // 아이템 이름 띄우는 함수를 Interface로 구현 해서 넣어주는게 좋아보인다.
         private void OnTriggerEnter(Collider c)
         {
             if (c.CompareTag("ObtainableObject"))
@@ -147,15 +149,16 @@ namespace yb
                 }
                 else
                 {
-                    _collideItem = c.GetComponent<IObtainableObject>();
-                    c.GetComponent<IObtainableObject>().ShowName();
-                    Debug.Log(_collideItem.ToString());
-                    return;
-                }
+                    if (c.CompareTag("ObtainableObject"))
+                    {
+                        _collideItem = c.GetComponent<IObtainableObject>();
+                        c.GetComponent<IObtainableObject>().ShowName(_player);
+                        return;
+                    }
 
+                }
             }
         }
-
         private void OnTriggerExit(Collider c)
         {
             if (c.CompareTag("ObtainableObject"))
@@ -175,5 +178,5 @@ namespace yb
 
                 }
         }
+        }
     }
-}

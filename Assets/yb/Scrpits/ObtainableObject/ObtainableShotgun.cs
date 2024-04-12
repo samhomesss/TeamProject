@@ -24,7 +24,6 @@ namespace yb
             }
             else
             {
-                player.WeaponEvent?.Invoke(52);
                 Managers.Resources.Destroy(gameObject);
             }
         }
@@ -40,9 +39,14 @@ namespace yb
 
         }
 
-        public override void ShowName()
+        public override void ShowName(PlayerController player)
         {
-            base.ShowName();
+            base.ShowName(player);
+        }
+
+        public override void HideName()
+        {
+            base.HideName();
         }
     }
 }

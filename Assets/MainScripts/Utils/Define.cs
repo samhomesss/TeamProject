@@ -41,6 +41,7 @@ public class Define
         Yb,
         Sh,
     }
+
     public enum RelicType {
         BonusAttackSpeedRelic,
         BonusProjectileRelic,

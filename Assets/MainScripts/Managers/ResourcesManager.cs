@@ -43,7 +43,6 @@ public class ResourcesManager
 
 
     public void Destroy(GameObject go, float time = 0)
-
     {
         if (go == null)
         {

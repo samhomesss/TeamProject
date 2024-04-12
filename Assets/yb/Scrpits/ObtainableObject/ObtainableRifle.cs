@@ -23,7 +23,6 @@ namespace yb
             }
             else
             {
-                player.WeaponEvent?.Invoke(51);
                 Managers.Resources.Destroy(gameObject);
             }
         }
@@ -37,9 +36,14 @@ namespace yb
                 PhotonNetwork.Destroy(gameObject);
         }
 
-        public override void ShowName()
+        public override void ShowName(PlayerController player)
         {
-            base.ShowName();
+            base.ShowName(player);
+        }
+
+        public override void HideName()
+        {
+            base.HideName();
         }
     }
 }

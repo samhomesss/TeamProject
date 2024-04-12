@@ -21,15 +21,16 @@ namespace yb {
         /// <param name="player"></param>
 
         private void Start() => _photonView = GetComponent<PhotonView>();
+
         public override void Pickup(PlayerController player) {
             player.WeaponController.ChangeRangedWeapon(new RangedWeapon_Pistol(player.WeaponController.RangedWeaponsParent, player));
+
             if(IsTestMode.Instance.CurrentUser == Define.User.Hw)
             {
                PhotonNetwork.Destroy(gameObject);
             }
             else
             {
-                player.WeaponEvent?.Invoke(50);
                 Managers.Resources.Destroy(gameObject);
             }
         }
@@ -45,9 +46,14 @@ namespace yb {
        
         }
 
-        public override void ShowName()
+        public override void ShowName(PlayerController player)
         {
-            base.ShowName();
+            base.ShowName(player);
+        }
+
+        public override void HideName()
+        {
+            base.HideName();
         }
     }
 }

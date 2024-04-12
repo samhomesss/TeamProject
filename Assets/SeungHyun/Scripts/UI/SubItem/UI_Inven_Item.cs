@@ -25,7 +25,7 @@ public class UI_Inven_Item : UI_Base
         set { _isEmpty = value;  }
     }
 
-    public int SlotItemID
+    public string SlotItemID
     { 
         get { return _slotItemID; } 
         set { _slotItemID = value; }
@@ -41,12 +41,14 @@ public class UI_Inven_Item : UI_Base
     bool _isEmpty = true; // 아이템 유무 확인 
     GameObject _icon; // 아이템의 아이콘
     //static GameObject go = null; // 해당 아이템을 가져오고
-    int _slotItemID; // 현재 이 창이 들고 있는 ItemID 
+    string _slotItemID; // 현재 이 창이 들고 있는 ItemID 
 
-    static public event Action<int> OnItemInfoChanged; // 올렸을때 아이템 인포를 조정
+    //GameObject ui_invenItem;
+    //public event Action<string> OnItemInfoChanged; // 올렸을때 아이템 인포를 조정
 
     void Start()
     {
+       // ui_invenItem = gameObject;
         Init();
     }
 
@@ -70,8 +72,8 @@ public class UI_Inven_Item : UI_Base
         Debug.Log($"아이템 클릭! {_name}");
         Debug.Log(_icon.name);
         _isEmpty = true;
-        _icon.GetComponent<Image>().sprite = Managers.ItemDataBase.GetItemData(0).itemImage;
-        _slotItemID = 0;
+        _icon.GetComponent<Image>().sprite = default;
+        _slotItemID = default;
         UI_ItemInfo.ItemInfo.SetActive(false);
     }
 
@@ -89,7 +91,7 @@ public class UI_Inven_Item : UI_Base
         UI_ItemInfo.ItemInfo.SetActive(true);
         InfoImage.GetComponent<Image>().sprite = Managers.ItemDataBase.GetItemData(_slotItemID).itemImage; // 한번 초기화 해주면 되는 이유
         InfoText.GetComponent<Text>().text = Managers.ItemDataBase.GetItemData(_slotItemID).itemName; // 한번 초기화 
-        OnItemInfoChanged?.Invoke(_slotItemID); // 여기 슬롯의 아이템의 정보를 전달 해줌
+        //OnItemInfoChanged?.Invoke(_slotItemID); // 여기 슬롯의 아이템의 정보를 전달 해줌
         Info.transform.position = gameObject.transform.position + new Vector3(-80, 100, 0);
         #region 위에로 따로 처리
         //UI_ItemInfo.ItemInfo.transform.GetChild(0).GetChild(0).GetChild(0).GetComponent<Image>().sprite = Managers.ItemDataBase.GetItemData(_slotItemID).itemImage; // 한번 초기화 해주면 되는 이유
