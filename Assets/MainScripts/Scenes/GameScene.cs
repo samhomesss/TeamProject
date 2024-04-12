@@ -23,7 +23,7 @@ public class GameScene : BaseScene
         if (IsTestMode.Instance.CurrentUser == Define.User.Hw)
         {
             GameObject go = PhotonNetwork.Instantiate("Prefabs/hw/PlayerPrefabs/Player", Vector3.zero, Quaternion.identity);
-            go.gameObject.name = $"Player{PhotonNetwork.LocalPlayer.ActorNumber}";
+            
 
 
             go.GetComponentInChildren<PlayerController>().SetRelicEvent += OnSetRelic; //
@@ -41,6 +41,7 @@ public class GameScene : BaseScene
             {
                 Util.FindChild(go, "Camera", true).active = true;
                 Util.FindChild(go, "Camera", true).GetComponent<AudioListener>().enabled = true;
+                go.name = $"Player{PhotonNetwork.LocalPlayer.ActorNumber}";
             }
             
         }
