@@ -14,10 +14,12 @@ namespace yb {
 
         public void DeleteRelic(PlayerController player) {
             player.PickupController.DeleteRelic(this);
+            player.HaveRelicNumber--;
         }
 
         public override void Pickup(PlayerController player) {
             SetRelic(player);
+            player.HaveRelicNumber++;
         }
         [PunRPC]
         public override void PickupPhoton(int playerViewId)

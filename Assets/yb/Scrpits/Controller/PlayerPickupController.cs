@@ -69,6 +69,16 @@ namespace yb
                 if (Input.GetKeyDown(KeyCode.G))
                 {
                     Debug.Log("누름");
+                    if(_collideItem is IRelic) {
+                        if (_player.HaveRelicNumber >= PlayerController.MaxRelicNumber) {
+                            Debug.Log("렐릭 창이 가득 찼습니다.");
+                            return;
+                        }
+                    }
+
+                    //todo
+                    //소비아이템 추가되면 추가해야함
+                    
                     _player.StateController.ChangeState(new PlayerState_Pickup(_player));
                     _collideItem.Pickup(_player);
                     _player.ItemEvent?.Invoke(_collideItem.Name);

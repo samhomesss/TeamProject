@@ -19,10 +19,12 @@ namespace yb {
 
         public void DeleteRelic(PlayerController player) {
             player.PickupController.DeleteRelic(this);  //렐릭 삭제
+            player.HaveRelicNumber--;
         }
 
         public override void Pickup(PlayerController player) {
             SetRelic(player);  //이 아이템을 주으면 렐릭 할당
+            player.HaveRelicNumber++;
         }
 
         [PunRPC]
