@@ -53,7 +53,7 @@ public class DrapDropItem : MonoBehaviour, IPointerDownHandler, IBeginDragHandle
             eventData.pointerDrag.GetComponentInParent<UI_RelicInven_Item>().IsEmpty = true;
             eventData.pointerDrag.GetComponentInParent<UI_RelicInven_Item>().SlotItemID = default;
             // Todo: 플레이어 위치를 받아와야 하는데 이걸 플레이어 를 따로 받아와야 할듯?
-            go.transform.position = map.Player.transform.parent.transform.position;
+            go.transform.position = map.Player.transform.position;//parent.transform.position;
         }
     }
 

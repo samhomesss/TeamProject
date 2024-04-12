@@ -17,19 +17,30 @@ public class UI_PlayerColorPercent : UI_Scene
     int player7Count;
     int player8Count;
 
+    float resetTimer;
+
     GameObject[] _playerSlider = new GameObject[8];
-    Map map; // 플레이어를  가지고 오기 위한 map
+   // Map map; // 플레이어를  가지고 오기 위한 map
     
     private void Start()
     {
-        map = Map.MapObject.GetComponent<Map>();
-        SetPlayer(map.Player);
+      //  map = Map.MapObject.GetComponent<Map>();
         for (int i = 0; i < _playerSlider.Length; i++)
         {
             _playerSlider[i] = Util.FindChild(gameObject, $"Player{i + 1}", true);
         }
     }
-    
+
+    private void Update()
+    {
+        resetTimer += Time.deltaTime;
+        if (resetTimer>= 2f)
+        {
+            ColorPercent();
+            resetTimer = 0;
+        }
+    }
+
     void ColorPercent()
     {
         player1Count = 0;
@@ -40,10 +51,10 @@ public class UI_PlayerColorPercent : UI_Scene
         player6Count = 0;
         player7Count = 0;
         player8Count = 0;
-
-
+        
         foreach (var item in Map.Node)
         {
+            
             if (item.nodeColor == NodeColor.Red) 
             {
                 player1Count++;
@@ -91,9 +102,10 @@ public class UI_PlayerColorPercent : UI_Scene
 
     }
 
-    // Todo: 윤범이형 액션 연결
-    void SetPlayer(PlayerController player)
-    {
-        player.ColorPercentEvent += ColorPercent;
-    }
+    // Todo: 윤범이형 액션 연결 따로 연결
+
+    //void SetPlayer(PlayerController player)
+    //{
+    //  //  player.ColorPercentEvent += ColorPercent;
+    //}
 }

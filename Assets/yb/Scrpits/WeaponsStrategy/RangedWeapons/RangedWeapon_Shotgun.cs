@@ -11,7 +11,7 @@ namespace yb {
             _weaponGameObject = Util.FindChild(parent.gameObject, "Shotgun", false);
             _firePos = Util.FindChild(_weaponGameObject, "FirePos", false).transform;
             _player = player;
-         //   _player.PlayerEvent.Item3?.Invoke((int)WeaponType);
+            _player.WeaponEvent?.Invoke(WeaponType.ToString());
 
             _realodTime = _data.DefaultWeaponRealodTime((int)WeaponType);
             _defaultDamage = _data.DefaultWeaponDamage((int)WeaponType);

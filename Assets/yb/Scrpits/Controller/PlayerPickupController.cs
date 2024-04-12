@@ -33,7 +33,7 @@ namespace yb
         private void Update()
         {
             OnPickupUpdate();
-           
+
         }
         /// <summary>
         /// 플레이어가 아이템과 충돌중일 때, 특정 키 입력시 아이템 습득
@@ -79,26 +79,26 @@ namespace yb
         /// 플레이어가 렐릭을 습득 시 렐릭 할당. 각 렐릭 클래스에서 호출
         /// </summary>
         /// <param name="relic"></param>
-       
-         public void SetRelic(IRelic relic) {
-           
-             _haveRelic[(int)relic.RelicType] = true;
-              _player.WeaponController.SetRelic(relic);
-             //_player.SetRelicEvent?.Invoke(RelicType.ToString());
-             Debug.Log($"{relic.RelicType.ToString()}렐릭을 습득");
-             switch (relic.RelicType)
-             {
+
+        public void SetRelic(IRelic relic) {
+
+            _haveRelic[(int)relic.RelicType] = true;
+            _player.WeaponController.SetRelic(relic);
+            //_player.SetRelicEvent?.Invoke(RelicType.ToString());
+            Debug.Log($"{relic.RelicType.ToString()}렐릭을 습득");
+            switch (relic.RelicType)
+            {
                 case Define.RelicType.BonusResurrectionTimeRelic:
-                  _player.Status.SetResurrectionTime(_data.BonusResurrectionTime);
-                  break;
+                    _player.Status.SetResurrectionTime(_data.BonusResurrectionTime);
+                    break;
                 case Define.RelicType.GuardRelic:
-                  _player.SetGuard(true);
-                  break;
+                    _player.SetGuard(true);
+                    break;
                 case Define.RelicType.ShieldRelic:
-                  _player.SetShield(true);
-                  break;
-             }
-            
+                    _player.SetShield(true);
+                    break;
+            }
+
         }
 
         /// <summary>
@@ -124,7 +124,7 @@ namespace yb
                     break;
             }
         }
-        
+
 
         // 아이템 이름 띄우는 함수를 Interface로 구현 해서 넣어주는게 좋아보인다.
         private void OnTriggerEnter(Collider c)
@@ -138,15 +138,16 @@ namespace yb
                 }
                 else
                 {
-                    if (c.CompareTag("ObtainableObject")) {
-                    _collideItem = c.GetComponent<IObtainableObject>();
-                     c.GetComponent<IObtainableObject>().ShowName(_player);
-                     return;
-                }
+                    if (c.CompareTag("ObtainableObject"))
+                    {
+                        _collideItem = c.GetComponent<IObtainableObject>();
+                        c.GetComponent<IObtainableObject>().ShowName(_player);
+                        return;
+                    }
 
+                }
             }
         }
-
         private void OnTriggerExit(Collider c)
         {
             if (c.CompareTag("ObtainableObject"))
@@ -166,5 +167,5 @@ namespace yb
 
                 }
         }
+        }
     }
-}

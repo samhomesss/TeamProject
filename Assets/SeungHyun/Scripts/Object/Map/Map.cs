@@ -20,13 +20,10 @@ public class Map : Obj
         White,
     }
     public static Node[,] Node => node;
-   // public static int ColorCount => _colorcount; // 안쓰고 있음
     public PlayerController Player => _player;
     #endregion
 
-    // static GameObject player; // 플레이어 프리팹
     static Node[,] node = new Node[64, 64];
-    //static int _colorcount = 0;
     static GameObject map;
     PlayerController _player;
     Texture2D texture;
@@ -37,9 +34,6 @@ public class Map : Obj
     Color[] defaultColors;
 
     static Dictionary<string, Color> playerColors = new Dictionary<string, Color>();
-
-    // public static event Action<GameObject> OnChangePercent; // 미니맵 옆 퍼센테이지 바꾸는거
-    // public static event Action OnColorPercent;
 
     private void Awake()
     {
@@ -59,8 +53,6 @@ public class Map : Obj
 
         // 플레이어를 생성하면서 넣어줌
         _player = GameObject.Find("Player1").GetComponentInChildren<PlayerController>();
-       //player = Managers.Resources.Instantiate("hw/PlayerPrefabs/Player").gameObject;
-       // player.name = ("Player1");
 
         for (int i = 0; i < 64; i++)
         {
@@ -123,21 +115,18 @@ public class Map : Obj
 
         foreach (var item in node)
         {
-            if (item.nodePos.x - 0.75f <= _player.transform.parent.position.x && item.nodePos.x + 0.75f >= _player.transform.parent.position.x
-                && item.nodePos.z + 0.75f >= _player.transform.parent.position.z && item.nodePos.z - 0.75f <= _player.transform.parent.position.z)
+            if (item.nodePos.x - 0.75f <= _player.transform.position.x && item.nodePos.x + 0.75f >= _player.transform.position.x
+                && item.nodePos.z + 0.75f >= _player.transform.position.z && item.nodePos.z - 0.75f <= _player.transform.position.z)
             {
                 xPos = (int)(item.nodePos.x + 0.5f);
                 yPos = (int)(item.nodePos.z + 0.5f);
 
                 texture.SetPixels(texture.width - xPos * 4, texture.height - yPos * 4, length, length, colors);
-                //item.color = PlayerColor(player);
                 item.SetColor(PlayerColor(_player.transform.parent.gameObject));
             }
         }
 
         texture.Apply();
-        // 반복문 밖에서 새로 정보를 받아서 new를 만든 다음에 SetPixels는 모든 정보에 대한 갱신으로 하는 느낌이고
-        // 반복문 안에서 할거면 SetPixel로 하는게 맞다.
 
     }
     #region 현재 사용하지 않는 코드
@@ -200,7 +189,6 @@ public class Map : Obj
     // 윤범이형 Action 추가 
     public void SetPlayer(PlayerController player)
     {
-        //player.MapEvent = null;
         player.MapEvent += UpdateColor;
     }
 

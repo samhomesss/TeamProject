@@ -153,7 +153,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 0}
   m_FillRect: {fileID: 1306077884209043600}
   m_HandleRect: {fileID: 0}
@@ -405,6 +405,10 @@ PrefabInstance:
     - target: {fileID: 2645791520367744158, guid: ae9a4fdb576f61c4da60ac83d8ea7c39, type: 3}
       propertyPath: m_Name
       value: HP_Text
+      objectReference: {fileID: 0}
+    - target: {fileID: 4355794706095572108, guid: ae9a4fdb576f61c4da60ac83d8ea7c39, type: 3}
+      propertyPath: m_RaycastTarget
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4355794706095572108, guid: ae9a4fdb576f61c4da60ac83d8ea7c39, type: 3}
       propertyPath: m_FontData.m_MinSize

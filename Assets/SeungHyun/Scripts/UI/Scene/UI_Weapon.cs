@@ -22,7 +22,7 @@ public class UI_Weapon : UI_Scene
     int _maxBullet = 15;
     int _bulletCount = 60;
 
-    string slotItemID = Define.WeaponType.Pistol.ToString(); // 처음은 피스톨로 설정 해주고
+    string slotItemID = "Obtainable"+Define.WeaponType.Pistol.ToString(); // 처음은 피스톨로 설정 해주고
     private void Start()
     {
         Debug.Log(slotItemID + "입니다");
@@ -45,12 +45,12 @@ public class UI_Weapon : UI_Scene
     void ChangeWeapon(string itemID)
     {
         string beforeItemID = slotItemID; // 일단 바꿔 주기 전에 아이템 번호 저장하고 
-        mainWeapon.transform.GetChild(0).GetComponentInChildren<Image>().sprite = Managers.ItemDataBase.GetItemData(itemID).itemImage;
+        mainWeapon.transform.GetChild(0).GetComponentInChildren<Image>().sprite = Managers.ItemDataBase.GetItemData("Obtainable"+itemID).itemImage;
         _mainWeaponImage = mainWeapon.GetComponentInChildren<Image>(); // 단순 업데이트 
         GameObject go = Managers.Resources.Instantiate($"sh/Weapon/{Managers.ItemDataBase.GetItemData(beforeItemID).itemName}"); // 아이템 생성
         go.transform.position = map.Player.transform.position;
         Debug.Log(go.name);
-        slotItemID = itemID;
+        slotItemID = "Obtainable"+itemID;
     }
 
     // 총알 나가는거
