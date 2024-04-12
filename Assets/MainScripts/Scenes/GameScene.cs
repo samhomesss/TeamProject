@@ -16,6 +16,7 @@ public class GameScene : BaseScene
         destroyRelicAction?.Invoke();
     }
 
+
     public override void Init()
     {
         base.Init();
@@ -24,8 +25,6 @@ public class GameScene : BaseScene
         {
             GameObject go = PhotonNetwork.Instantiate("Prefabs/hw/PlayerPrefabs/Player", Vector3.zero, Quaternion.identity);
             
-
-
             go.GetComponentInChildren<PlayerController>().SetRelicEvent += OnSetRelic; //
 
             if (PhotonNetwork.IsMasterClient)
@@ -37,11 +36,13 @@ public class GameScene : BaseScene
                 GameObject BonusResurrectionTimeRelic = PhotonNetwork.Instantiate("Prefabs/yb/Relic/BonusResurrectionTimeRelic", new Vector3(1, 1, 6), Quaternion.identity);
             }
             _photonView = Util.FindChild(go, "Model").GetComponent<PhotonView>();
+
             if (_photonView.IsMine)
             {
                 Util.FindChild(go, "Camera", true).active = true;
                 Util.FindChild(go, "Camera", true).GetComponent<AudioListener>().enabled = true;
-                go.name = $"Player{PhotonNetwork.LocalPlayer.ActorNumber}";
+
+                _photonView.RPC("RenamePlayer", RpcTarget.All, _photonView.ViewID);
             }
             
         }
@@ -65,4 +66,6 @@ public class GameScene : BaseScene
         Managers.SceneObj.ShowSceneObject<Map>();
         Managers.SceneObj.ShowSceneObject<MiniMapCam>();
     }
+
+
 }
