@@ -10,7 +10,7 @@ public class GameScene : BaseScene
     {
     }
 
-    void OnSetRelic(string itemID, UnityAction setRelicAction, UnityAction destroyRelicAction)
+    void OnSetRelic(string itemID, UnityAction setRelicAction, UnityAction destroyRelicAction) //이희웅 0412 18:00 추가 아이템을 줏은뒤 이벤트를 처리
     {
         setRelicAction?.Invoke();
         destroyRelicAction?.Invoke();
@@ -23,7 +23,10 @@ public class GameScene : BaseScene
         if (IsTestMode.Instance.CurrentUser == Define.User.Hw)
         {
             GameObject go = PhotonNetwork.Instantiate("Prefabs/hw/PlayerPrefabs/Player", Vector3.zero, Quaternion.identity);
-            go.GetComponentInChildren<PlayerController>().SetRelicEvent += OnSetRelic;
+            go.gameObject.name = $"Player{PhotonNetwork.LocalPlayer.ActorNumber}";
+
+
+            go.GetComponentInChildren<PlayerController>().SetRelicEvent += OnSetRelic; //
 
             if (PhotonNetwork.IsMasterClient)
             {
@@ -33,8 +36,6 @@ public class GameScene : BaseScene
                 GameObject BonusProjectileRelic = PhotonNetwork.Instantiate("Prefabs/yb/Relic/BonusProjectileRelic", new Vector3(1, 1, 4), Quaternion.identity);
                 GameObject BonusResurrectionTimeRelic = PhotonNetwork.Instantiate("Prefabs/yb/Relic/BonusResurrectionTimeRelic", new Vector3(1, 1, 6), Quaternion.identity);
             }
-
-            go.name = "Player";
             _photonView = Util.FindChild(go, "Model").GetComponent<PhotonView>();
             if (_photonView.IsMine)
             {

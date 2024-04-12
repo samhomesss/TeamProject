@@ -85,7 +85,7 @@ public class Map : Obj
             }
         }
         meshRenderer.material.mainTexture = texture;
-        SetPlayer(_player);
+        SetPlayer(_player); 
         #region 주석처리
         //PlayerTestSh.OnNodeChanged -= UpdateColor;
         //PlayerTestSh.OnNodeChanged += UpdateColor;
