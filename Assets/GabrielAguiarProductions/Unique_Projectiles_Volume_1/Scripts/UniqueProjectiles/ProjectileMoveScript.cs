@@ -68,6 +68,8 @@ public class ProjectileMoveScript : MonoBehaviourPunCallbacks
         transform.localRotation = rotate;
         _damage = damage;
         _creator = creator;
+        Debug.Log($"크리에이터는{_creator} ");
+
     }
 
     void FixedUpdate()
@@ -119,6 +121,7 @@ public class ProjectileMoveScript : MonoBehaviourPunCallbacks
             }
         }
         else {
+            Debug.Log($"co는 {co.gameObject.name}");
             if (co.gameObject == _creator)
                 return;
 
@@ -126,7 +129,8 @@ public class ProjectileMoveScript : MonoBehaviourPunCallbacks
                 return;
 
             if (co.collider.CompareTag("Guard")) {
-                if (co.collider.transform.parent.gameObject == co.gameObject) {
+                if (co.collider.transform.parent.gameObject == _creator.transform.parent.gameObject) {
+                    Debug.Log("내 가드와 충돌함");
                     return;
                 }
             }
