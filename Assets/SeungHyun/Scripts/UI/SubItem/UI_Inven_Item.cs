@@ -19,7 +19,6 @@ public class UI_Inven_Item : UI_Base
     }
     public GameObject Icon => _icon; // 아이템 아이콘
 
-    //public GameObject UI_InvenItem => ui_invenItem;
     public bool IsEmpty
     {
         get { return _isEmpty; }

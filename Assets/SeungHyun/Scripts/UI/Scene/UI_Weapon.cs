@@ -14,15 +14,11 @@ public class UI_Weapon : UI_Scene
         BulletText,
     }
 
-    //public static Image MainWeaponImage => _mainWeaponImage; // 메인 총 이미지
-    //ItemInfoName itemInfoName;
     Map map;
     GameObject mainWeapon;
-    // 나중에 이미지 바꿀때 사용
     Image _mainWeaponImage;
     Text _bulletText;
     bool isReload = false; // 장전중인지 아닌지
-    // 총알도 설정 해놓은 수치가 따로 있는지 확인하고 설정 해야 할 듯?
     int _maxBullet = 15;
     int _bulletCount = 60;
 
@@ -31,7 +27,6 @@ public class UI_Weapon : UI_Scene
     {
         Debug.Log(slotItemID + "입니다");
         map = Map.MapObject.GetComponent<Map>();
-        //itemInfoName = ItemInfoName.ItemNameObject.GetComponent<ItemInfoName>();
         Init();
     }
     public override void Init()
@@ -40,11 +35,7 @@ public class UI_Weapon : UI_Scene
         Bind<GameObject>(typeof(GameObjects));
         mainWeapon = GetObject((int)GameObjects.MainWeapon);
         GameObject BulletText = GetObject((int)GameObjects.BulletText);
-        // 총알 나가는 거 구독 해주고
-        // Todo : 윤범이형 총알 나가는거 여기다가 해주면 되고
         SetPlayer(map.Player);
-        //Managers.Input.BulletReduce -= BulletCount;
-        //Managers.Input.BulletReduce += BulletCount;
         mainWeapon.transform.GetChild(0).GetComponentInChildren<Image>().sprite = Managers.ItemDataBase.GetItemData(slotItemID).itemImage;
         _mainWeaponImage = mainWeapon.GetComponentInChildren<Image>();
         _bulletText = BulletText.GetComponent<Text>();
@@ -79,22 +70,19 @@ public class UI_Weapon : UI_Scene
 
 
     }
-    // 장전 모션
-    IEnumerator ReloadBullet()
-    {
-        isReload = true;
-        _bulletCount = 50;
-        yield return new WaitForSeconds(2f);
-        isReload = false;
-    }
-
+    //// 장전 모션
+    //IEnumerator ReloadBullet()
+    //{
+    //    isReload = true;
+    //    _bulletCount = 50;
+    //    yield return new WaitForSeconds(2f);
+    //    isReload = false;
+    //}
     void SetPlayer(PlayerController player)
     {
         player.BulletEvent += BulletCount;
         player.WeaponEvent += ChangeWeapon;
     }
-
-
 }
 
 

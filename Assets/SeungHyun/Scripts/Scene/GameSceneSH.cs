@@ -11,7 +11,6 @@ public class GameSceneSH : BaseScene
     public override void Init()
     {
         base.Init();
-
         // UI 
         Managers.UI.ShowSceneUI<UI_Timer>();
         Managers.UI.ShowSceneUI<UI_Weapon>();

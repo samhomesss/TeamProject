@@ -12,7 +12,7 @@ public class UI_RelicInven_Item : UI_Base
         ItemIcon,
         ItemNameText,
     }
-    //public static int BeforeItemID => _beforeChagnedItemID;
+    
     public string SlotItemID
     {
         get { return _slotItemID; }
@@ -166,6 +166,7 @@ public class UI_RelicInven_Item : UI_Base
     {
         if (_icon.GetComponent<Image>().sprite == null) // 아이템이 없으면 Null 반환
             return;
+        
         GameObject Info = Util.FindChild(UI_ItemInfo.ItemInfo, "ItemInfoBackGround", true);
         GameObject InfoImage = Util.FindChild(UI_ItemInfo.ItemInfo, "ItemImage", true);
         GameObject InfoText = Util.FindChild(UI_ItemInfo.ItemInfo, "ItemInfoText", true);

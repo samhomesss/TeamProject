@@ -23,20 +23,13 @@ public class UI_PlayerColorPercent : UI_Scene
     private void Start()
     {
         map = Map.MapObject.GetComponent<Map>();
-        ActionInit();
+        SetPlayer(map.Player);
         for (int i = 0; i < _playerSlider.Length; i++)
         {
             _playerSlider[i] = Util.FindChild(gameObject, $"Player{i + 1}", true);
         }
     }
-
-    void ActionInit()
-    {
-        SetPlayer(map.Player);
-        //PlayerTestSh.OnPlayerColorChecked -= ColorPercent;
-        //PlayerTestSh.OnPlayerColorChecked += ColorPercent;
-    }
-
+    
     void ColorPercent()
     {
         player1Count = 0;
@@ -51,7 +44,7 @@ public class UI_PlayerColorPercent : UI_Scene
 
         foreach (var item in Map.Node)
         {
-            if (item.nodeColor == NodeColor.Red) // 색상값을 4개 비교하는걸 1개 비교로 변경
+            if (item.nodeColor == NodeColor.Red) 
             {
                 player1Count++;
                 _playerSlider[0].GetComponent<Slider>().value = player1Count;
@@ -101,7 +94,6 @@ public class UI_PlayerColorPercent : UI_Scene
     // Todo: 윤범이형 액션 연결
     void SetPlayer(PlayerController player)
     {
-        //player.ColorPercentEvent -= ColorPercent;
         player.ColorPercentEvent += ColorPercent;
     }
 }

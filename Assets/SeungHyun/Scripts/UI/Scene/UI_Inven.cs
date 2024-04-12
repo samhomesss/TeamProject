@@ -7,7 +7,6 @@ using static UnityEditor.Progress;
 
 public class UI_Inven : UI_Scene
 {
-    //ItemInfoName iteminfoname;
     Map map;
     List<UI_Inven_Item> ui_Inven_Items = new List<UI_Inven_Item>();
     UI_Inven_Item invenItem;
@@ -20,14 +19,8 @@ public class UI_Inven : UI_Scene
     void Start()
     {
         map = Map.MapObject.GetComponent<Map>();
-        //iteminfoname = ItemInfoName.ItemNameObject.GetComponent<ItemInfoName>();
         Init();
         SetPlayer(map.Player);
-        // 구독해주고
-        //UI_ItemCreateButton.OnItemCreateClicked += ChangeImage;
-        
-        //ItemInfoName.OnRelicGet -= ChangeImage;
-        //ItemInfoName.OnRelicGet += ChangeImage;
      }
 
     void SetPlayer(PlayerController player)
@@ -44,12 +37,10 @@ public class UI_Inven : UI_Scene
         foreach (Transform child in gridPanel.transform)
             Managers.Resources.Destroy(child.gameObject);
 
-        // 실제 인벤토리 정보를 참고해서
         for (int i = 0; i < 4; i++)
         {
             GameObject item = Managers.UI.MakeSubItem<UI_Inven_Item>(gridPanel.transform).gameObject;
             invenItem = item.GetOrAddComponent<UI_Inven_Item>();
-            // 리스트에 추가
             ui_Inven_Items.Add(invenItem);
             invenItem.SetInfo($"아이템{i}번");
         }
@@ -68,16 +59,11 @@ public class UI_Inven : UI_Scene
             {
                 continue;
             }
-        // Item 적용 부분
 
-        //if (itemID / 500 == 0) // 이거 조건 없어도 될듯? 아이템을 먹을때 해당 판정을 먼저함
-        //{
-            
             ui_Inven_Items[i].IsEmpty = false;
-            // 아랫부분 추후에 수정하고
+            // 아랫부분 코드가 좀 더러운거 같아서 추후에 수정하고
             ui_Inven_Items[i].transform.GetChild(0).GetComponentInChildren<Image>().sprite = Managers.ItemDataBase.GetItemData(ItemID).itemImage;
-            ui_Inven_Items[i].SlotItemID = Managers.ItemDataBase.GetItemData(ItemID).itemName; // 데이터 넘겨주는 형식
-       // }
+            ui_Inven_Items[i].SlotItemID = Managers.ItemDataBase.GetItemData(ItemID).itemName; 
             break;
         }
     }

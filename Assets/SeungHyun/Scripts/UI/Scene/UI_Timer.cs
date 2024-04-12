@@ -6,8 +6,8 @@ using UnityEngine.UI;
 public class UI_Timer : UI_Scene
 {
     float Timer = 300;
-    float minute; // 분 단위
-    float second; // 초 단위
+    float minute; 
+    float second; 
 
     GameObject TimerText;
 
