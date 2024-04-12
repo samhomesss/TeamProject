@@ -42,10 +42,13 @@ public class RotateToMouseScript : MonoBehaviour {
 				var mousePos = Input.mousePosition;
 				rayMouse = cam.ScreenPointToRay (mousePos);
 				if (Physics.Raycast (rayMouse.origin, rayMouse.direction, out hit, maximumLenght)) {
-					RotateToMouse (gameObject, hit.point);
+					Vector3 rot = new Vector3(hit.point.x, 0f, hit.point.z);
+					RotateToMouse (gameObject, rot);
 				} else {	
 					var pos = rayMouse.GetPoint (maximumLenght);
-					RotateToMouse (gameObject, pos);
+                    Vector3 rot = new Vector3(pos.x, 0f, pos.z);
+
+                    RotateToMouse(gameObject, rot);
 				}
 			}
 			yield return updateTime;

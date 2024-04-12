@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7207077263534558791}
   - component: {fileID: 5191222631322979859}
   - component: {fileID: 6397631159961053516}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: BonusAttackSpeedRelic
   m_TagString: ObtainableObject
   m_Icon: {fileID: 0}

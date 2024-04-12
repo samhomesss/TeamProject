@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2386542373636152203}
   - component: {fileID: 3846172581421448309}
   - component: {fileID: 7507495964387928320}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: BonusProjectileRelic
   m_TagString: ObtainableObject
   m_Icon: {fileID: 0}

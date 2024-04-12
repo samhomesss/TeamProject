@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1490627146303906895}
   - component: {fileID: 9039633826178910334}
   - component: {fileID: 5661418021094850032}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: GuardRelic
   m_TagString: ObtainableObject
   m_Icon: {fileID: 0}
