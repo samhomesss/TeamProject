@@ -1,3 +1,5 @@
+using Photon.Pun;
+using System;
 using UnityEngine;
 
 namespace yb {

@@ -42,10 +42,13 @@ public class RotateToMouseScript : MonoBehaviour {
 				var mousePos = Input.mousePosition;
 				rayMouse = cam.ScreenPointToRay (mousePos);
 				if (Physics.Raycast (rayMouse.origin, rayMouse.direction, out hit, maximumLenght)) {
-					RotateToMouse (gameObject, hit.point);
+					Vector3 rot = new Vector3(hit.point.x, 0f, hit.point.z);
+					RotateToMouse (gameObject, rot);
 				} else {	
 					var pos = rayMouse.GetPoint (maximumLenght);
-					RotateToMouse (gameObject, pos);
+                    Vector3 rot = new Vector3(pos.x, 0f, pos.z);
+
+                    RotateToMouse(gameObject, rot);
 				}
 			}
 			yield return updateTime;
@@ -60,8 +63,17 @@ public class RotateToMouseScript : MonoBehaviour {
     }
     public void RotateToMouse (GameObject obj, Vector3 destination ) {
 		//todo
-		//if (_photonView.IsMine)//0408 11:30 이희웅 개별동작을 위한 조건부 추가
-        {
+		if(IsTestMode.Instance.CurrentUser == Define.User.Hw)
+		{
+            if (_photonView.IsMine)//0408 11:30 이희웅 개별동작을 위한 조건부 추가
+            {
+                direction = destination - obj.transform.position;
+                Vector3 dir = new Vector3(direction.x, 0f, direction.z);
+                rotation = Quaternion.LookRotation(dir);
+                obj.transform.localRotation = Quaternion.Lerp(obj.transform.rotation, rotation, 1);
+            }
+        }
+		else {
             direction = destination - obj.transform.position;
             Vector3 dir = new Vector3(direction.x, 0f, direction.z);
             rotation = Quaternion.LookRotation(dir);

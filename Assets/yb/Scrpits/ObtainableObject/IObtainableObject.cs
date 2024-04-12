@@ -1,3 +1,4 @@
+using Photon.Pun;
 using UnityEngine;
 
 namespace yb {
@@ -9,5 +10,6 @@ namespace yb {
         void Pickup(PlayerController player);  //픽업 함수
         void ShowName(PlayerController player);
         void HideName();
+
     }
 }

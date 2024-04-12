@@ -1,9 +1,10 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class Util : MonoBehaviour
+public class Util : MonoBehaviourPunCallbacks
 {
 
     //public struct MyRect
@@ -16,6 +17,7 @@ public class Util : MonoBehaviour
 
     //    private float m_Height;
     //}
+    
 
     public static IEnumerator CoActive(bool trigger, GameObject go, float time)
     {

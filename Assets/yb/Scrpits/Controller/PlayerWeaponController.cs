@@ -17,11 +17,14 @@ namespace yb
         private Transform _rangedWeaponsParent;  //하이어라키 상에서 플레이어의 무기 오브젝트들의 부모 오브젝트
         public Transform RangedWeaponsParent => _rangedWeaponsParent;
 
+        private PhotonView _photonview;//0409 08:06 이희웅 코드 수정 총알 동기화를 위한 포톤뷰 생성
+
         private void Awake() => _player = GetComponent<PlayerController>();
 
         
         private void Start()
         {
+            _photonview = GetComponent<PhotonView>();//0409 08:06 이희웅 코드 수정 총알 동기화를 위한 코드
             _rangedWeaponsParent = Util.FindChild(gameObject, "RangedWeapons", true).transform;
             
             foreach (Transform t in _rangedWeaponsParent)
@@ -32,8 +35,18 @@ namespace yb
 
         private void Update() => _rangeWeapon.OnUpdate();  //장착중인 무기에 맞는 Update함수 호출
 
-        public void OnShotUpdate() => _rangeWeapon.Shot(Vector3.zero, _player);  //장착중인 무기에 맞는 Shot함수 호출
-        public void OnReloadUpdate() => _rangeWeapon.Reload(_player);  //장착중인 무기에 맞는 Reload함수 호출
+        public void OnShotUpdate()
+        {
+            if (IsTestMode.Instance.CurrentUser == Define.User.Hw)
+            {
+                if (_photonview.IsMine) //0409 08:06 이희웅 코드 수정 총알 동기화를 위한 코드
+                    _rangeWeapon.Shot(Vector3.zero, _player);//장착중인 무기에 맞는 Shot함수 호출
+            }
+            else {
+                _rangeWeapon.Shot(Vector3.zero, _player);//장착중인 무기에 맞는 Shot함수 호출
+            }
+        }
+        public void OnReloadUpdate() => _rangeWeapon.Reload(_player);//장착중인 무기에 맞는 Reload함수 호출
 
         public void SetRelic(IRelic relic) => _rangeWeapon.OnUpdateRelic(_player);  //렐릭 습득시 무기에 렐릭효과 부여.
 

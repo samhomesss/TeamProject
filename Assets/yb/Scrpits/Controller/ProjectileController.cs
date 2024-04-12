@@ -11,6 +11,8 @@ namespace yb {
         private int _damage;  //발사체의 데미지
         private float _speed;  //발사체의 이동속도 
         private PlayerController _creator;
+
+
         public void Init(int damage, float speed, Vector3 targetPos, Vector3 createPos, PlayerController creator) {
             _rigid = GetComponent<Rigidbody>();
             transform.position = new Vector3(createPos.x, 1f, createPos.z);

@@ -46,6 +46,7 @@ public class ItemDataBase
         itemDatas.Add(new ItemData((int)Define.RelicType.BonusResurrectionTimeRelic, "BonusResurrectionTimeRelic", Managers.Resources.Load<Sprite>("Prefabs/sh/UI/Texture/BonusResurrectionTimeRelic")));
         itemDatas.Add(new ItemData((int)Define.RelicType.GuardRelic, "GuardRelic", Managers.Resources.Load<Sprite>("Prefabs/sh/UI/Texture/GuardRelic")));
 
+
         #region 주석처리
         //itemDataLength = itemDataName.Length;
         //for (int i = 0; i < itemDatas.Count; i++)

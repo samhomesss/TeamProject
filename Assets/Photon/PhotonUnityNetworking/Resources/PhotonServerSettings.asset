@@ -42,6 +42,9 @@ MonoBehaviour:
   - RpcAddChat
   - RPCCustomType
   - Create
+  - TakeDamage
+  - TakeDamagePhoton
+  - PickupPhoton
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

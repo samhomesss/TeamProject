@@ -20,9 +20,9 @@ TagManager:
   - Ground
   - Obstacle
   - Bullet
-  - 
-  - 
-  - 
+  - Player
+  - Item
+  - Guard
   - 
   - 
   - 

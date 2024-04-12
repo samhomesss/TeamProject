@@ -1,6 +1,8 @@
+using ExitGames.Client.Photon;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -12,7 +14,7 @@ public class GameManager : MonoBehaviour
 
     GameManager _instance;
     private Define.GameState _state;
-
+    
     public Define.GameState state//게임 정보를 부르거나 셋팅할 프로퍼티
     {
         get => _state;
@@ -25,6 +27,7 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
+        
         if (_instance == null)
             _instance = this;
         else
@@ -35,7 +38,10 @@ public class GameManager : MonoBehaviour
     public void Update()
     {
         //todo
-        //ProgramWorkFlow();
+        if(IsTestMode.Instance.CurrentUser == User.Hw)
+        {
+            ProgramWorkFlow();
+        }
     }
 
     public void ProgramWorkFlow()

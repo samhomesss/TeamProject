@@ -1,3 +1,4 @@
+using Photon.Pun;
 using UnityEditor;
 using UnityEngine;
 using yb;
@@ -12,6 +13,7 @@ namespace yb {
         public string Name => gameObject.name;
 
         public Define.RelicType RelicType { get; } = Define.RelicType.BonusAttackSpeedRelic;
+
 
         public void DeleteRelic(PlayerController player) {
             player.PickupController.DeleteRelic(this);  //∑º∏Ø ªË¡¶
