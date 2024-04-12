@@ -9,8 +9,8 @@ using UnityEditor.Experimental.GraphView;
 
 namespace yb
 {
-   
-    
+
+
     public class PlayerController : MonoBehaviour, ITakeDamage, ITakeDamagePhoton
     {
         private readonly float _animationFadeTime = .3f;  //애니메이션 페이드 시간
@@ -143,7 +143,8 @@ namespace yb
         /// 가드 렐릭 습득or 제거시 활성화
         /// </summary>
         /// <param name="trigger"></param>
-        public void SetGuard(bool trigger) {
+        public void SetGuard(bool trigger)
+        {
             _guardController.gameObject.SetActive(trigger);
         }
 
@@ -151,7 +152,8 @@ namespace yb
         /// 실드 렐릭 습득or 제거시 활성화
         /// </summary>
         /// <param name="trigger"></param>
-        public void SetShield(bool trigger) {
+        public void SetShield(bool trigger)
+        {
             _shieldController.gameObject.SetActive(trigger);
         }
 
@@ -198,8 +200,8 @@ namespace yb
         /// <param name="state"></param>
         public void ChangeIntigerAnimation(Define.PlayerState state)//0408 16:38분 이희웅 업데이트 추가
         {
-                if(_photonview.IsMine)
-                    _animator.SetInteger("State", (int)state);
+            if (_photonview.IsMine)
+                _animator.SetInteger("State", (int)state);
         }
 
         /// <summary>
@@ -208,29 +210,25 @@ namespace yb
         /// <param name="state"></param>
         public void ChangeTriggerAnimation(Define.PlayerState state)//0408 16:38분 이희웅 업데이트 추가
         {
-              if (_photonview.IsMine)
-                 _animator.SetTrigger(state.ToString());
+            if (_photonview.IsMine)
+                _animator.SetTrigger(state.ToString());
         }
 
         /// <summary>
         /// 플레이어 이동 로직
         /// </summary>
-        public void OnMoveUpdate() {
-            if (IsTestMode.Instance.CurrentUser == Define.User.Yb) {
+        public void OnMoveUpdate()
+        {
+            if (IsTestMode.Instance.CurrentUser == Define.User.Hw)
+            {
+                if (_photonview.IsMine)//0405 09:41분 캐릭터간에 동기화를 위한 포톤 이동 분리 로직 추가
+                {
                 Vector3 dir = new Vector3(moveX, 0f, moveZ);
                 //_rigid.MovePosition(_rigid.position + dir * (_status.MoveSpeed * _status.MoveSpeedDecrease) * Time.deltaTime);
                 transform.parent.Translate(dir * (_status.MoveSpeed * _status.MoveSpeedDecrease) * Time.deltaTime); //0410 23:44 이희웅 포톤 동기화 문제로 인해 해당기능 주석처리 
 
                 _rigid.MovePosition(_rigid.position + dir * (_status.MoveSpeed * _status.MoveSpeedDecrease) * Time.deltaTime);
                 _playerMoveVelocity = dir * (_status.MoveSpeed * _status.MoveSpeedDecrease) * Time.deltaTime;
-                //transform.parent.Translate(dir * (_status.MoveSpeed * _status.MoveSpeedDecrease) * Time.deltaTime);// 0410 23:44 이희웅 포톤 동기화 문제로 인해 해당기능 주석처리 
-            }
-            else {
-                if (_photonview.IsMine)//0405 09:41분 캐릭터간에 동기화를 위한 포톤 이동 분리 로직 추가
-            {
-                    Vector3 dir = new Vector3(moveX, 0f, moveZ);
-                    //_rigid.MovePosition(_rigid.position + dir * (_status.MoveSpeed * _status.MoveSpeedDecrease) * Time.deltaTime);
-                    transform.parent.Translate(dir * (_status.MoveSpeed * _status.MoveSpeedDecrease) * Time.deltaTime);// 0410 23:44 이희웅 포톤 동기화 문제로 인해 해당기능 주석처리 
                 }
             }
         }
