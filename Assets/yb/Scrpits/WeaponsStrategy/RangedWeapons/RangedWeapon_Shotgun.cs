@@ -49,6 +49,7 @@ namespace yb {
 
         public bool CanShot() {
             if (_currentDelay >= _maxDelay + _bonusAttackDelay && !_player.Animator.GetCurrentAnimatorStateInfo(0).IsName("Shot")) {
+                _currentDelay = 0;
                 return true;
             }
             return false;
@@ -73,12 +74,10 @@ namespace yb {
             _currentBullet--;
          //   _player.PlayerEvent.Item2.Invoke(_currentBullet, _maxBullet);
 
-            int projectileNumber = Random.Range(0, 1f) > _data.BonusProjectileChance((int)WeaponType) ? 1 : Mathf.Max(_data.DefaultShotgunProjectile + _bonusProjectile, 1);
+            int projectileNumber = Random.Range(0, 1f) > _data.BonusProjectileChance((int)WeaponType) ? _data.DefaultShotgunProjectile : Mathf.Max(_data.DefaultShotgunProjectile + _bonusProjectile, 1);
 
-            for(int i = 0; i< projectileNumber; i++) {
-                _projectileCreator.Create(_defaultDamage, _projectileVelocity, targetPos, _firePos.position, player);
-            }
-            _currentDelay = 0f;
+            for(int i = 0; i< projectileNumber; i++) 
+                CoroutineHelper.Instance.ProjectileCreate(i, () => _projectileCreator.Create(_defaultDamage, _projectileVelocity, targetPos, _firePos.position, player));
 
             player.MyCamera.transform.DOShakeRotation(0.2f, 1f);
 

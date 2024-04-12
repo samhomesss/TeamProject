@@ -14,10 +14,12 @@ namespace yb {
         public void DeleteRelic(PlayerController player) {
             player.PickupController.DeleteRelic(this);
             player.DestroyRelicEvent?.Invoke(RelicType.ToString());
+            player.HaveRelicNumber--;
         }
 
         public override void Pickup(PlayerController player) {
             SetRelic(player);
+            player.HaveRelicNumber++;
         }
 
         public void SetRelic(PlayerController player) {
