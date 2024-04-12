@@ -22,7 +22,12 @@ namespace yb {
             else
             {
                 vfx = Managers.Resources.Instantiate("yb/Projectile/Default", null).GetComponent<ProjectileMoveScript>();
-                vfx.Init(player.RotateToMouseScript.GetRotation(), defaultDamage, createPos, player.gameObject);
+                Quaternion original = player.RotateToMouseScript.GetRotation();
+                float angle = Random.Range(-20f, 20f);
+
+                Quaternion deltaRotation = Quaternion.AngleAxis(angle, Vector3.up); // 델타 회전 생성
+                Quaternion modifiedRotation = original * deltaRotation; // 델타 회전 적용
+                vfx.Init(modifiedRotation, defaultDamage, createPos, player.gameObject);
             }
             
             
