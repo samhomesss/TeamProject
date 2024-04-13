@@ -24,7 +24,7 @@ public class GameScene : BaseScene
         //todo
         if (IsTestMode.Instance.CurrentUser == Define.User.Hw)
         {
-            GameObject go = PhotonNetwork.Instantiate("Prefabs/hw/PlayerPrefabs/Player", new Vector3(Random.Range(0,10),1, Random.Range(0,10)), Quaternion.identity);
+            GameObject go = PhotonNetwork.Instantiate("Prefabs/hw/PlayerPrefabs/Player",Vector3.zero, Quaternion.identity);
             go.GetComponentInChildren<PlayerController>().SetRelicEvent += OnSetRelic; //
             if (PhotonNetwork.IsMasterClient)
             {
