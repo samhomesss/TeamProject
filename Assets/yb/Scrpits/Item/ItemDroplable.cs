@@ -35,7 +35,6 @@ namespace yb {
                 if ((-count / 2 < x) && (x <= count / 2) && (-count / 2 < z) && (z <= count / 2)) {
                     string path = $"yb/Weapon/{_itemsList[i]}"; //0411 00:13ºÐ ÀÌÈñ¿õ  yb/item/{_itemsList[i]} -> yb/Weapon/{_itemsList[i]} À¸·Î ¼öÁ¤
                     GameObject go;
-                    GameObject dropObject= null;
                     if (IsTestMode.Instance.CurrentUser == Define.User.Hw) //0411 12:42 ÀÌÈñ¿õ Æ÷Åæ Å×½ºÆ®¿ë Á¶°Ç¹®»ðÀÔ
                     {
                         _photonView = Map.MapObject.GetComponent<Map>().Player[PhotonNetwork.LocalPlayer.ActorNumber-1].GetComponent<PhotonView>();
@@ -43,7 +42,7 @@ namespace yb {
                         {
                             return;
                         }
-                        dropObject =  PhotonNetwork.Instantiate($"Prefabs/{path}", new Vector3(pos.x + x, 1f, pos.z + z), Quaternion.identity);
+                        GameObject dropObject =  PhotonNetwork.Instantiate($"Prefabs/{path}", new Vector3(pos.x + x, 1f, pos.z + z), Quaternion.identity);
                         int index = dropObject.name.IndexOf("(Clone)");
                         if (index > 0)
                             dropObject.name = dropObject.name.Substring(0, index);
