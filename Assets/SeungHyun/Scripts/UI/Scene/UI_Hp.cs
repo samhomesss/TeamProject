@@ -1,3 +1,4 @@
+using Photon.Pun;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -38,13 +39,13 @@ public class UI_Hp : UI_Scene
         _hpslider = hp_slider.GetComponent<Slider>();
         _hptext = hp_text.GetComponent<Text>();
 
-        SetPlayer(map.Player[0]);
+        SetPlayer(map.Player[PhotonNetwork.LocalPlayer.ActorNumber-1]);
         _hptext.text = ($"{_hpslider.value} / {_hpslider.maxValue}").ToString();
     }
 
     public override void PlayerEvent(PlayerController player)
     {
-       player = map.Player[0];
+       player = map.Player[PhotonNetwork.LocalPlayer.ActorNumber - 1];
     }
 
     void SetPlayer(PlayerController player)

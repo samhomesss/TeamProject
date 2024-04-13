@@ -1,4 +1,5 @@
 using ExitGames.Client.Photon;
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -35,8 +36,7 @@ public class UI_Weapon : UI_Scene
         Bind<GameObject>(typeof(GameObjects));
         mainWeapon = GetObject((int)GameObjects.MainWeapon);
         GameObject BulletText = GetObject((int)GameObjects.BulletText);
-        Debug.Log(map.Player[0].name);
-        SetPlayer(map.Player[0]);
+        SetPlayer(map.Player[PhotonNetwork.LocalPlayer.ActorNumber-1]);
         mainWeapon.transform.GetChild(0).GetComponentInChildren<Image>().sprite = Managers.ItemDataBase.GetItemData(slotItemID).itemImage;
         _mainWeaponImage = mainWeapon.GetComponentInChildren<Image>();
         _bulletText = BulletText.GetComponent<Text>();
@@ -49,7 +49,7 @@ public class UI_Weapon : UI_Scene
         mainWeapon.transform.GetChild(0).GetComponentInChildren<Image>().sprite = Managers.ItemDataBase.GetItemData("Obtainable"+itemID).itemImage;
         _mainWeaponImage = mainWeapon.GetComponentInChildren<Image>(); // 단순 업데이트 
         GameObject go = Managers.Resources.Instantiate($"sh/Weapon/{Managers.ItemDataBase.GetItemData(beforeItemID).itemName}"); // 아이템 생성
-        go.transform.position = map.Player[0].transform.position;
+        go.transform.position = map.Player[PhotonNetwork.LocalPlayer.ActorNumber-1].transform.position;
         Debug.Log(go.name);
         slotItemID = "Obtainable"+itemID;
     }
