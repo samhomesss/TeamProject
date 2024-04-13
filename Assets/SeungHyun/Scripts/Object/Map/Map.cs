@@ -123,7 +123,6 @@ public class Map : Obj
         {
             for (int jx = 0; jx < length; ++jx)
             {
-
                 for (int i = 0; i < PhotonNetwork.CountOfPlayers; i++)
                 {
                     colors[jx + ix * length] = PlayerColor(_player[i].transform.parent.gameObject);
@@ -133,46 +132,21 @@ public class Map : Obj
 
         foreach (var item in node)
         {
-
-            //for(int i = 0; i < PhotonNetwork.CountOfPlayers; i++)
-            //{
-            //    if (item.nodePos.x - 0.75f <= _player[i].transform.position.x && item.nodePos.x + 0.75f >= _player[i].transform.position.x
-            //   && item.nodePos.z + 0.75f >= _player[i].transform.position.z && item.nodePos.z - 0.75f <= _player[i].transform.position.z)
-            //    {
-            //        xPos = (int)(item.nodePos.x + 0.5f);
-            //        yPos = (int)(item.nodePos.z + 0.5f);
-
-            //        texture.SetPixels(texture.width - xPos * 4, texture.height - yPos * 4, length, length, colors);
-            //        item.SetColor(PlayerColor(_player[i].transform.parent.gameObject));
-            //    }
-            //}
-            if (_player[0] != null)
-            if (item.nodePos.x - 0.75f <= _player[0].transform.position.x && item.nodePos.x + 0.75f >= _player[0].transform.position.x
-           && item.nodePos.z + 0.75f >= _player[0].transform.position.z && item.nodePos.z - 0.75f <= _player[0].transform.position.z)
+            for (int i = 0; i < PhotonNetwork.CountOfPlayers; i++)
             {
-                xPos = (int)(item.nodePos.x + 0.5f);
-                yPos = (int)(item.nodePos.z + 0.5f);
+                if (item.nodePos.x - 0.75f <= _player[i].transform.position.x && item.nodePos.x + 0.75f >= _player[i].transform.position.x
+               && item.nodePos.z + 0.75f >= _player[i].transform.position.z && item.nodePos.z - 0.75f <= _player[i].transform.position.z)
+                {
+                    xPos = (int)(item.nodePos.x + 0.5f);
+                    yPos = (int)(item.nodePos.z + 0.5f);
 
-                texture.SetPixels(texture.width - xPos * 4, texture.height - yPos * 4, length, length, colors);
-                item.SetColor(PlayerColor(_player[0].transform.parent.gameObject));
+                    texture.SetPixels(texture.width - xPos * 4, texture.height - yPos * 4, length, length, colors);
+                    item.SetColor(PlayerColor(_player[i].transform.parent.gameObject));
+                    Debug.Log($"플레이어{i}가 움직였습니다.");
+                }
             }
-
-            if (_player[1] != null)
-                if (item.nodePos.x - 0.75f <= _player[1].transform.position.x && item.nodePos.x + 0.75f >= _player[1].transform.position.x
-            && item.nodePos.z + 0.75f >= _player[1].transform.position.z && item.nodePos.z - 0.75f <= _player[1].transform.position.z)
-            {
-                xPos = (int)(item.nodePos.x + 0.5f);
-                yPos = (int)(item.nodePos.z + 0.5f);
-
-                texture.SetPixels(texture.width - xPos * 4, texture.height - yPos * 4, length, length, colors);
-                item.SetColor(PlayerColor(_player[1].transform.parent.gameObject));
-            }
-
-
         }
-
         texture.Apply();
-
     }
     #region 현재 사용하지 않는 코드
     //void PlayerColorCount(GameObject player)
@@ -231,7 +205,7 @@ public class Map : Obj
         #endregion
     }
 
-    // 윤범이형 Action 추가 
+    //윤범이형 Action 추가
     public void SetPlayer(PlayerController[] player)
     {
         for (int i = 0; i < PhotonNetwork.CountOfPlayers; i++)
@@ -239,6 +213,7 @@ public class Map : Obj
             player[i].MapEvent += UpdateColor;
         }
     }
+
 
 }
 

@@ -61,7 +61,7 @@ namespace yb
         /// 렐릭 습득시 호출
         /// <define.relicType>
         /// </summary>
-        public Action<string, UnityAction , UnityAction> SetRelicEvent;
+        public Action<string, UnityAction, UnityAction> SetRelicEvent;
 
         /// <summary>
         /// 아이템 습득 시 호출
@@ -79,7 +79,7 @@ namespace yb
         /// <summary>
         /// 렐릭 제거시 호출
         /// </summary>
-        public Action<string, UnityAction , UnityAction> DestroyRelicEvent;
+        public Action<string, UnityAction, UnityAction> DestroyRelicEvent;
 
         /// <summary>
         /// 현재 맵에 색상이 얼마나 띄워져 있는지 판단
@@ -236,12 +236,12 @@ namespace yb
             {
                 if (_photonview.IsMine)//0405 09:41분 캐릭터간에 동기화를 위한 포톤 이동 분리 로직 추가
                 {
-                Vector3 dir = new Vector3(moveX, 0f, moveZ);
-                //_rigid.MovePosition(_rigid.position + dir * (_status.MoveSpeed * _status.MoveSpeedDecrease) * Time.deltaTime);
-                //transform.parent.Translate(dir * (_status.MoveSpeed * _status.MoveSpeedDecrease) * Time.deltaTime); //0410 23:44 이희웅 포톤 동기화 문제로 인해 해당기능 주석처리 
+                    Vector3 dir = new Vector3(moveX, 0f, moveZ);
+                    //_rigid.MovePosition(_rigid.position + dir * (_status.MoveSpeed * _status.MoveSpeedDecrease) * Time.deltaTime);
+                    //transform.parent.Translate(dir * (_status.MoveSpeed * _status.MoveSpeedDecrease) * Time.deltaTime); //0410 23:44 이희웅 포톤 동기화 문제로 인해 해당기능 주석처리 
 
-                _rigid.MovePosition(_rigid.position + dir * (_status.MoveSpeed * _status.MoveSpeedDecrease) * Time.deltaTime);
-                _playerMoveVelocity = dir * (_status.MoveSpeed * _status.MoveSpeedDecrease) * Time.deltaTime;
+                    _rigid.MovePosition(_rigid.position + dir * (_status.MoveSpeed * _status.MoveSpeedDecrease) * Time.deltaTime);
+                    _playerMoveVelocity = dir * (_status.MoveSpeed * _status.MoveSpeedDecrease) * Time.deltaTime;
                 }
             }
         }
