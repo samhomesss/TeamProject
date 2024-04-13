@@ -39,21 +39,13 @@ public class UI_Hp : UI_Scene
         _hpslider = hp_slider.GetComponent<Slider>();
         _hptext = hp_text.GetComponent<Text>();
 
-<<<<<<< Updated upstream
-        SetPlayer(map.Player[0]);
-=======
         SetPlayer(map.Player[PhotonNetwork.LocalPlayer.ActorNumber-1]);
->>>>>>> Stashed changes
         _hptext.text = ($"{_hpslider.value} / {_hpslider.maxValue}").ToString();
     }
 
     public override void PlayerEvent(PlayerController player)
     {
-<<<<<<< Updated upstream
-       player = map.Player[0];
-=======
        player = map.Player[PhotonNetwork.LocalPlayer.ActorNumber - 1];
->>>>>>> Stashed changes
     }
 
     void SetPlayer(PlayerController player)

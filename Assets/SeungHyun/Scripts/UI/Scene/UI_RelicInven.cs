@@ -22,11 +22,7 @@ public class UI_RelicInven : UI_Scene
     {
         map = Map.MapObject.GetComponent<Map>();
         Init();
-<<<<<<< Updated upstream
-        SetPlayer(map.Player[0]);
-=======
         SetPlayer(map.Player[PhotonNetwork.LocalPlayer.ActorNumber - 1]);
->>>>>>> Stashed changes
 
     }
     void SetPlayer(PlayerController player)
