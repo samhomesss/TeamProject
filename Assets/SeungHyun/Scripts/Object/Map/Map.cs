@@ -41,6 +41,8 @@ public class Map : Obj
 
     private void Awake()
     {
+        _photonview = GetComponent<PhotonView>();
+
         map = this.gameObject;
         var path = $"Prefabs/sh/Texture/White";
 
