@@ -12,15 +12,15 @@ public class Map : Obj
     #region Property
     public static GameObject MapObject => map;
 
-    private PhotonView _photonview; //0413 04:15 추가 
-                                    // public enum PlayerName
-                                    // {
-                                    //     Player1, Player2, Player3, Player4, Player5, Player6, Player7, Player8
-                                    // }
-                                    //public enum Texture
-                                    //{
-                                    //    White,
-                                    //}
+    //0413 04:15 추가 
+    // public enum PlayerName
+    // {
+    //     Player1, Player2, Player3, Player4, Player5, Player6, Player7, Player8
+    // }
+    //public enum Texture
+    //{
+    //    White,
+    //}
     public static Node[,] Node => node; // 이거는 텍스쳐를 나눈거에요 
     public PlayerController[] Player => _player;
     #endregion
@@ -39,7 +39,7 @@ public class Map : Obj
 
     private void Awake()
     {
-        _photonview = GetComponent<PhotonView>();
+        StartCoroutine(WaitCreatePlayer());
 
 
         map = this.gameObject;
@@ -55,8 +55,6 @@ public class Map : Obj
         playerColors.Add("Player8", Color.black);
 
         texture = Managers.Resources.Load<Texture2D>(path);
-
-        StartCoroutine(WaitcreatePlayer());
 
         #region 04.13  수정 
         // Todo: 04.13 수정
@@ -118,14 +116,30 @@ public class Map : Obj
     //}
     #endregion
 
-    IEnumerator WaitcreatePlayer()
+    IEnumerator WaitCreatePlayer()
     {
-        yield return new WaitUntil(() => GameObject.Find($"Player{PhotonNetwork.CountOfPlayers}").GetComponentsInChildren<PhotonView>() != null);
+        // 모든 플레이어의 PhotonView가 준비될 때까지 기다립니다.
+        yield return new WaitUntil(() => AreAllPhotonViewsReady());
+
+        // PhotonView가 준비된 후, 각 플레이어에 대해 PlayerController 컴포넌트를 찾아 배열에 저장합니다.
         for (int i = 0; i < PhotonNetwork.CountOfPlayers; i++)
         {
             _player[i] = GameObject.Find($"Player{i + 1}").GetComponentInChildren<PlayerController>();
-
         }
+    }
+
+    // 모든 플레이어의 PhotonView가 준비되었는지 확인합니다.
+    bool AreAllPhotonViewsReady()
+    {
+        for (int i = 1; i <= PhotonNetwork.CountOfPlayers; i++)
+        {
+            GameObject playerObject = GameObject.Find($"Player{i}");
+            if (playerObject == null || playerObject.GetComponentsInChildren<PhotonView>().Length == 0)
+            {
+                return false;
+            }
+        }
+        return true;
     }
 
     void UpdateColor()
