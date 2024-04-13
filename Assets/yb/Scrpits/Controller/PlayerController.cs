@@ -8,6 +8,7 @@ using System;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine.Events;
 using Photon.Realtime;
+using System.Reflection;
 
 namespace yb
 {
@@ -280,6 +281,16 @@ namespace yb
                 _droplable.Drop(transform.position);
                 _stateController.ChangeState(new PlayerState_Die(this, attacker));
             }
+        }
+
+        [PunRPC]
+        public void SetDropItemName(int dropObjectViewId)
+        {
+            PhotonView _photonView = PhotonNetwork.GetPhotonView(dropObjectViewId);
+
+            int index = _photonView.transform.gameObject.name.IndexOf("(Clone)");
+            if (index > 0)
+                _photonView.transform.gameObject.name = _photonView.transform.gameObject.name.Substring(0, index);
         }
 
         [PunRPC]//0413 03:46 이희웅 포톤용 메서드 추가 플레이어 이름지정

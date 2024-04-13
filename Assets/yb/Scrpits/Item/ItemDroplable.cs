@@ -37,16 +37,15 @@ namespace yb {
                     GameObject go;
                     if (IsTestMode.Instance.CurrentUser == Define.User.Hw) //0411 12:42 ÀÌÈñ¿õ Æ÷Åæ Å×½ºÆ®¿ë Á¶°Ç¹®»ðÀÔ
                     {
-                        _photonView = Map.MapObject.GetComponent<Map>().Player[PhotonNetwork.LocalPlayer.ActorNumber-1].GetComponent<PhotonView>();
-                        if (!_photonView.IsMine) //
+                        if (!PhotonNetwork.IsMasterClient) //
                         {
                             return;
                         }
+
                         GameObject dropObject =  PhotonNetwork.Instantiate($"Prefabs/{path}", new Vector3(pos.x + x, 1f, pos.z + z), Quaternion.identity);
-                        int index = dropObject.name.IndexOf("(Clone)");
-                        if (index > 0)
-                            dropObject.name = dropObject.name.Substring(0, index);
-                        //dropObject.name.Replace("(Clone)", "");
+                        _photonView = Map.MapObject.GetComponent<Map>().Player[PhotonNetwork.LocalPlayer.ActorNumber - 1].GetComponent<PhotonView>();
+                        _photonView.RPC("SetDropItemName",RpcTarget.All, dropObject.GetComponent<PhotonView>().ViewID);
+
                     }
                     else
                     {
