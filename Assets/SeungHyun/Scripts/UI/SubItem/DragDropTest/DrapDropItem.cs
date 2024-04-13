@@ -54,8 +54,8 @@ public class DrapDropItem : MonoBehaviour, IPointerDownHandler, IBeginDragHandle
             
             eventData.pointerDrag.GetComponentInParent<UI_RelicInven_Item>().IsEmpty = true;
             eventData.pointerDrag.GetComponentInParent<UI_RelicInven_Item>().SlotItemID = default;
-            go.MyTransform.position = map.Player.transform.position; 
-            go.DeleteRelic(map.Player);
+            go.MyTransform.position = map.Player[0].transform.position; 
+            go.DeleteRelic(map.Player[0]);
         }
     }
 

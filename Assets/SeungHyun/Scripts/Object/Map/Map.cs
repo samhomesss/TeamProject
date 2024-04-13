@@ -1,3 +1,4 @@
+using Photon.Pun;
 using System;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -5,12 +6,16 @@ using UnityEngine;
 using yb;
 using static UnityEditor.Progress;
 using Color = UnityEngine.Color;
-
-
 public class Map : Obj
 {
+    #region 0413 14:13 이희웅 최대인원 데이터 상수 추가
+    private const int MAX_PLAYER = 8;
+    #endregion
+
     #region Property
     public static GameObject MapObject => map;
+
+    private PhotonView _photonview; //0413 04:15 추가 
     public enum PlayerName
     {
         Player1, Player2, Player3, Player4, Player5, Player6, Player7, Player8
@@ -20,12 +25,13 @@ public class Map : Obj
         White,
     }
     public static Node[,] Node => node;
-    public PlayerController Player => _player;
+    public PlayerController[] Player => _photonPlayer;
     #endregion
 
     static Node[,] node = new Node[64, 64];
     static GameObject map;
-    PlayerController _player;
+    PlayerController[] _player = new PlayerController[MAX_PLAYER];
+    PlayerController[] _photonPlayer = new PlayerController[MAX_PLAYER];
     Texture2D texture;
     MeshRenderer meshRenderer;
 
@@ -48,11 +54,25 @@ public class Map : Obj
         playerColors.Add("Player6", Color.blue);
         playerColors.Add("Player7", Color.gray);
         playerColors.Add("Player8", Color.black);
-        
+
         texture = Managers.Resources.Load<Texture2D>(path);
 
         // 플레이어를 생성하면서 넣어줌
-        _player = GameObject.Find("Player1").GetComponentInChildren<PlayerController>();
+        #region 04.13  수정 
+        // Todo: 04.13 수정
+
+
+        for (int i = 0; i < PhotonNetwork.CountOfPlayers; i++)
+        {
+            _player[i] = GameObject.Find($"Player{i + 1}").GetComponentInChildren<PlayerController>();
+            _photonview = _player[i].GetComponent<PhotonView>();
+            if (_photonview.IsMine)
+            {
+                _photonPlayer[i] = _player[i];
+            }
+        }
+
+        #endregion
 
         for (int i = 0; i < 64; i++)
         {
@@ -85,7 +105,7 @@ public class Map : Obj
             }
         }
         meshRenderer.material.mainTexture = texture;
-        SetPlayer(_player); 
+        SetPlayer(_photonPlayer);
         #region 주석처리
         //PlayerTestSh.OnNodeChanged -= UpdateColor;
         //PlayerTestSh.OnNodeChanged += UpdateColor;
@@ -109,21 +129,32 @@ public class Map : Obj
         {
             for (int jx = 0; jx < length; ++jx)
             {
-                colors[jx + ix * length] = PlayerColor(_player.transform.parent.gameObject);
+                #region 04. 13 수정사항 
+                for (int i = 0; i < PhotonNetwork.CountOfPlayers; i++)
+                {
+                    colors[jx + ix * length] = PlayerColor(_photonPlayer[i].transform.parent.gameObject);
+                }
+                #endregion
             }
         }
 
         foreach (var item in node)
         {
-            if (item.nodePos.x - 0.75f <= _player.transform.position.x && item.nodePos.x + 0.75f >= _player.transform.position.x
-                && item.nodePos.z + 0.75f >= _player.transform.position.z && item.nodePos.z - 0.75f <= _player.transform.position.z)
+            #region 04.13 수정사항
+            for (int i = 0; i < PhotonNetwork.CountOfPlayers; i++)
             {
-                xPos = (int)(item.nodePos.x + 0.5f);
-                yPos = (int)(item.nodePos.z + 0.5f);
+                if (item.nodePos.x - 0.75f <= _photonPlayer[i].transform.position.x && item.nodePos.x + 0.75f >= _photonPlayer[i].transform.position.x
+                && item.nodePos.z + 0.75f >= _photonPlayer[i].transform.position.z && item.nodePos.z - 0.75f <= _photonPlayer[i].transform.position.z)
+                {
+                    xPos = (int)(item.nodePos.x + 0.5f);
+                    yPos = (int)(item.nodePos.z + 0.5f);
 
-                texture.SetPixels(texture.width - xPos * 4, texture.height - yPos * 4, length, length, colors);
-                item.SetColor(PlayerColor(_player.transform.parent.gameObject));
+                    texture.SetPixels(texture.width - xPos * 4, texture.height - yPos * 4, length, length, colors);
+                    item.SetColor(PlayerColor(_photonPlayer[i].transform.parent.gameObject));
+                }
             }
+
+            #endregion
         }
 
         texture.Apply();
@@ -187,9 +218,14 @@ public class Map : Obj
     }
 
     // 윤범이형 Action 추가 
-    public void SetPlayer(PlayerController player)
+    public void SetPlayer(PlayerController[] player)
     {
-        player.MapEvent += UpdateColor;
+        if (PhotonNetwork.IsMasterClient)
+            for (int i = 0; i < PhotonNetwork.CountOfPlayers; i++)
+            {
+                player[i].MapEvent += UpdateColor;
+            }
+
     }
 
 }

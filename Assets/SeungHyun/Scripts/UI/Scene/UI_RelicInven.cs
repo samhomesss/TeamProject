@@ -21,7 +21,7 @@ public class UI_RelicInven : UI_Scene
     {
         map = Map.MapObject.GetComponent<Map>();
         Init();
-        SetPlayer(map.Player);
+        SetPlayer(map.Player[0]);
 
     }
     void SetPlayer(PlayerController player)

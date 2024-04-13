@@ -38,13 +38,13 @@ public class UI_Hp : UI_Scene
         _hpslider = hp_slider.GetComponent<Slider>();
         _hptext = hp_text.GetComponent<Text>();
 
-        SetPlayer(map.Player);
+        SetPlayer(map.Player[0]);
         _hptext.text = ($"{_hpslider.value} / {_hpslider.maxValue}").ToString();
     }
 
     public override void PlayerEvent(PlayerController player)
     {
-       player = map.Player;
+       player = map.Player[0];
     }
 
     void SetPlayer(PlayerController player)
