@@ -6,6 +6,7 @@ namespace yb
     /// <summary>
     /// 획득 가능한 Rifle아이템
     /// </summary>
+    /// 
     public class ObtainableRifle : ObtainableObject
     {//0411 07:56 이희웅 MonoBehaviour -> MonoBehaviourPunCallbacks 으로 수정
         //0411 08:55 이희웅 동기화를 위한 포톤뷰 추가

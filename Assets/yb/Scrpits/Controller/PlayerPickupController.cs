@@ -34,7 +34,6 @@ namespace yb
         private void Update()
         {
             OnPickupUpdate();
-
         }
         /// <summary>
         /// 플레이어가 아이템과 충돌중일 때, 특정 키 입력시 아이템 습득
@@ -150,12 +149,10 @@ namespace yb
                 }
                 else
                 {
-                    if (c.CompareTag("ObtainableObject"))
-                    {
-                        _collideItem = c.GetComponent<IObtainableObject>();
-                        c.GetComponent<IObtainableObject>().ShowName(_player);
-                        return;
-                    }
+                    
+                    _collideItem = c.GetComponent<IObtainableObject>();
+                     c.GetComponent<IObtainableObject>().ShowName(_player);
+                     return;
 
                 }
             }

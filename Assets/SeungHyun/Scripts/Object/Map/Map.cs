@@ -27,7 +27,7 @@ public class Map : Obj
 
     static Node[,] node = new Node[64, 64]; // 가로 세로 64 * 64 의 노드로 나눈것처럼 
     static GameObject map; // 맵으로 띄워진 오브젝트 가져오는거 
-    PlayerController[] _player = new PlayerController[PhotonNetwork.CountOfPlayers]; // 플레이어들
+    PlayerController[] _player; // 플레이어들
     Texture2D texture; // 내가 가져오는 Texture
     MeshRenderer meshRenderer; // Mesh
 
@@ -39,7 +39,7 @@ public class Map : Obj
 
     private void Awake()
     {
-
+        _player = new PlayerController[PhotonNetwork.CountOfPlayers];
         map = this.gameObject;
         var path = $"Prefabs/sh/Texture/White";
 

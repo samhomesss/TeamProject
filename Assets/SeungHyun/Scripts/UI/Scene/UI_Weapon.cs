@@ -29,7 +29,6 @@ public class UI_Weapon : UI_Scene
     private void Start()
     {
         Debug.Log(slotItemID + "¿‘¥œ¥Ÿ");
-        map = Map.MapObject.GetComponent<Map>();
         Init();
     }
     public override void Init()
@@ -38,6 +37,7 @@ public class UI_Weapon : UI_Scene
         Bind<GameObject>(typeof(GameObjects));
         mainWeapon = GetObject((int)GameObjects.MainWeapon);
         GameObject BulletText = GetObject((int)GameObjects.BulletText);
+        map = Map.MapObject.GetComponent<Map>();
         _photonView = GameObject.Find($"Player{PhotonNetwork.LocalPlayer.ActorNumber}").GetComponentInChildren<PhotonView>();
 
         if(_photonView.IsMine)
