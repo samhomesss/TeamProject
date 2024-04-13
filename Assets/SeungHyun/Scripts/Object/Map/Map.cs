@@ -25,13 +25,13 @@ public class Map : Obj
         White,
     }
     public static Node[,] Node => node;
-    public PlayerController[] Player => _photonPlayer;
+    public PlayerController[] Player => _player;
     #endregion
 
     static Node[,] node = new Node[64, 64];
     static GameObject map;
     PlayerController[] _player = new PlayerController[MAX_PLAYER];
-    PlayerController[] _photonPlayer = new PlayerController[MAX_PLAYER];
+    //PlayerController[] _photonPlayer = new PlayerController[MAX_PLAYER];
     Texture2D texture;
     MeshRenderer meshRenderer;
 
@@ -61,19 +61,10 @@ public class Map : Obj
         #region 04.13  수정 
         // Todo: 04.13 수정
 
-
-        for (int i = 0; i < PhotonNetwork.CountOfPlayers; i++)
-        {
-            _player[i] = GameObject.Find($"Player{i + 1}").GetComponentInChildren<PlayerController>();
-            _photonview = _player[i].GetComponent<PhotonView>();
-            if (_photonview.IsMine)
-            {
-                _photonPlayer[i] = _player[i];
-            }
-        }
-
+            _player[PhotonNetwork.LocalPlayer.ActorNumber-1] = GameObject.Find($"Player{PhotonNetwork.LocalPlayer.ActorNumber}").GetComponentInChildren<PlayerController>();
+            _photonview = _player[PhotonNetwork.LocalPlayer.ActorNumber-1].GetComponent<PhotonView>();
         #endregion
-
+       
         for (int i = 0; i < 64; i++)
         {
             for (int j = 0; j < 64; j++)
@@ -105,7 +96,7 @@ public class Map : Obj
             }
         }
         meshRenderer.material.mainTexture = texture;
-        SetPlayer(_photonPlayer);
+        SetPlayer(_player);
         #region 주석처리
         //PlayerTestSh.OnNodeChanged -= UpdateColor;
         //PlayerTestSh.OnNodeChanged += UpdateColor;
@@ -132,7 +123,7 @@ public class Map : Obj
                 #region 04. 13 수정사항 
                 for (int i = 0; i < PhotonNetwork.CountOfPlayers; i++)
                 {
-                    colors[jx + ix * length] = PlayerColor(_photonPlayer[i].transform.parent.gameObject);
+                    colors[jx + ix * length] = PlayerColor(_player[i].transform.parent.gameObject);
                 }
                 #endregion
             }
@@ -143,14 +134,14 @@ public class Map : Obj
             #region 04.13 수정사항
             for (int i = 0; i < PhotonNetwork.CountOfPlayers; i++)
             {
-                if (item.nodePos.x - 0.75f <= _photonPlayer[i].transform.position.x && item.nodePos.x + 0.75f >= _photonPlayer[i].transform.position.x
-                && item.nodePos.z + 0.75f >= _photonPlayer[i].transform.position.z && item.nodePos.z - 0.75f <= _photonPlayer[i].transform.position.z)
+                if (item.nodePos.x - 0.75f <= _player[i].transform.position.x && item.nodePos.x + 0.75f >= _player[i].transform.position.x
+                && item.nodePos.z + 0.75f >= _player[i].transform.position.z && item.nodePos.z - 0.75f <= _player[i].transform.position.z)
                 {
                     xPos = (int)(item.nodePos.x + 0.5f);
                     yPos = (int)(item.nodePos.z + 0.5f);
 
                     texture.SetPixels(texture.width - xPos * 4, texture.height - yPos * 4, length, length, colors);
-                    item.SetColor(PlayerColor(_photonPlayer[i].transform.parent.gameObject));
+                    item.SetColor(PlayerColor(_player[i].transform.parent.gameObject));
                 }
             }
 
