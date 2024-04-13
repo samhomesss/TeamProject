@@ -39,8 +39,6 @@ public class Map : Obj
 
     private void Awake()
     {
-        StartCoroutine(WaitCreatePlayer());
-
 
         map = this.gameObject;
         var path = $"Prefabs/sh/Texture/White";
@@ -115,32 +113,6 @@ public class Map : Obj
     //    // Debug.Log(_colorcount);
     //}
     #endregion
-
-    IEnumerator WaitCreatePlayer()
-    {
-        // 모든 플레이어의 PhotonView가 준비될 때까지 기다립니다.
-        yield return new WaitUntil(() => AreAllPhotonViewsReady());
-
-        // PhotonView가 준비된 후, 각 플레이어에 대해 PlayerController 컴포넌트를 찾아 배열에 저장합니다.
-        for (int i = 0; i < PhotonNetwork.CountOfPlayers; i++)
-        {
-            _player[i] = GameObject.Find($"Player{i + 1}").GetComponentInChildren<PlayerController>();
-        }
-    }
-
-    // 모든 플레이어의 PhotonView가 준비되었는지 확인합니다.
-    bool AreAllPhotonViewsReady()
-    {
-        for (int i = 1; i <= PhotonNetwork.CountOfPlayers; i++)
-        {
-            GameObject playerObject = GameObject.Find($"Player{i}");
-            if (playerObject == null || playerObject.GetComponentsInChildren<PhotonView>().Length == 0)
-            {
-                return false;
-            }
-        }
-        return true;
-    }
 
     void UpdateColor()
     {

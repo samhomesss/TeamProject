@@ -7,6 +7,8 @@ using yb;
 public class GameScene : BaseScene
 {
     private PhotonView _photonView;
+
+    [SerializeField] private PlayerController[] _playerControllers;
     public override void Clear()
     {
     }
@@ -38,7 +40,7 @@ public class GameScene : BaseScene
                 bonusAttackSpeedRelic.name = "BonusAttackSpeedRelic";
                 bonusProjectileRelic.name = "BonusProjectileRelic";
                 bonusResurrectionTimeRelic.name = "BonusResurrectionTimeRelic";
-
+                _playerControllers = new PlayerController[PhotonNetwork.CountOfPlayers];
             }
             _photonView = Util.FindChild(go, "Model").GetComponent<PhotonView>();
             if (_photonView.IsMine)
@@ -46,6 +48,14 @@ public class GameScene : BaseScene
                 Util.FindChild(go, "Camera", true).active = true;
                 Util.FindChild(go, "Camera", true).GetComponent<AudioListener>().enabled = true;
                 _photonView.RPC("RenamePlayer", RpcTarget.All, _photonView.ViewID);
+
+                for (int i = 0; i < PhotonNetwork.CountOfPlayers; i++)
+                {
+                    _playerControllers[i] = GameObject.Find($"Player{i + 1}").GetComponentInChildren<PlayerController>();
+
+                    Debug.Log($"{i}번 플레이어의 컨트롤러를 삽입");
+                }
+
             }
             
         }
