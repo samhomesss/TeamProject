@@ -37,8 +37,11 @@ namespace yb {
                         if (!PhotonNetwork.IsMasterClient)
                             return;
 
-                         PhotonNetwork.Instantiate($"Prefabs/{path}", new Vector3(pos.x + x, 1f, pos.z + z), Quaternion.identity);
-
+                        GameObject dropObject =  PhotonNetwork.Instantiate($"Prefabs/{path}", new Vector3(pos.x + x, 1f, pos.z + z), Quaternion.identity);
+                        //dropObject.name.Replace("(Clone)", "");
+                        int index = dropObject.name.IndexOf("(Clone)");
+                        if (index > 0)
+                            dropObject.name = dropObject.name.Substring(0, index);
                     }
                     else
                     {
