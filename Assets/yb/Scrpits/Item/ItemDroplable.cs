@@ -14,6 +14,9 @@ namespace yb {
              _itemsList.Add(item);
         }
 
+
+        private PhotonView _photonView;
+
         /// <summary>
         /// 아이템을 곂치지 않게 나선형으로 드랍
         /// </summary>
@@ -35,20 +38,22 @@ namespace yb {
                     GameObject dropObject= null;
                     if (IsTestMode.Instance.CurrentUser == Define.User.Hw) //0411 12:42 이희웅 포톤 테스트용 조건문삽입
                     {
-                        if (!PhotonNetwork.IsMasterClient)
+                        _photonView = Map.MapObject.GetComponent<Map>().Player[PhotonNetwork.LocalPlayer.ActorNumber-1].GetComponent<PhotonView>();
+                        if (!_photonView.IsMine) //
+                        {
                             return;
+                        }
                         dropObject =  PhotonNetwork.Instantiate($"Prefabs/{path}", new Vector3(pos.x + x, 1f, pos.z + z), Quaternion.identity);
+                        int index = dropObject.name.IndexOf("(Clone)");
+                        if (index > 0)
+                            dropObject.name = dropObject.name.Substring(0, index);
                         //dropObject.name.Replace("(Clone)", "");
-                       
                     }
                     else
                     {
                         go = Managers.Resources.Instantiate(path, null);
                         go.transform.position = new Vector3(pos.x + x, 1f, pos.z + z);
                     }
-                    int index = dropObject.name.IndexOf("(Clone)");
-                    if (index > 0)
-                        dropObject.name = dropObject.name.Substring(0, index);
                 }
 
                 if ((x == z) || ((x < 0) && (x == -z)) || ((x > 0) && (x == 1 - z))) {
