@@ -8,7 +8,6 @@ using static UnityEditor.Progress;
 using Color = UnityEngine.Color;
 public class Map : Obj
 {
-    const int MAX_PLAYER = 8;
     #region Property
     public static GameObject MapObject => map;
 
@@ -27,7 +26,7 @@ public class Map : Obj
 
     static Node[,] node = new Node[64, 64]; // 가로 세로 64 * 64 의 노드로 나눈것처럼 
     static GameObject map; // 맵으로 띄워진 오브젝트 가져오는거 
-    PlayerController[] _player = new PlayerController[MAX_PLAYER]; // 플레이어들
+    PlayerController[] _player = new PlayerController[PhotonNetwork.CountOfPlayers]; // 플레이어들
     Texture2D texture; // 내가 가져오는 Texture
     MeshRenderer meshRenderer; // Mesh
 
@@ -40,6 +39,7 @@ public class Map : Obj
     private void Awake()
     {
         _photonview = GetComponent<PhotonView>();
+
 
         map = this.gameObject;
         var path = $"Prefabs/sh/Texture/White";
@@ -54,6 +54,15 @@ public class Map : Obj
         playerColors.Add("Player8", Color.black);
 
         texture = Managers.Resources.Load<Texture2D>(path);
+
+
+
+        for (int i = 0; i < PhotonNetwork.CountOfPlayers; i++)
+        {
+            _player[i] = GameObject.Find($"Player{i+1}").GetComponentInChildren<PlayerController>();
+
+        }
+
 
         #region 04.13  수정 
         // Todo: 04.13 수정
@@ -142,7 +151,6 @@ public class Map : Obj
 
                     texture.SetPixels(texture.width - xPos * 4, texture.height - yPos * 4, length, length, colors);
                     item.SetColor(PlayerColor(_player[i].transform.parent.gameObject));
-                    Debug.Log($"플레이어{i}가 움직였습니다.");
                 }
             }
         }
