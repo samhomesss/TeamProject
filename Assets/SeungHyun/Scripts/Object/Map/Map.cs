@@ -59,7 +59,7 @@ public class Map : Obj
         // Todo: 04.13 ¼öÁ¤
         for (int i = 0; i < PhotonNetwork.CountOfPlayers; i++)
         {
-            _player[i] = GameObject.Find($"Player{PhotonNetwork.LocalPlayer.ActorNumber}").GetComponentInChildren<PlayerController>();
+            _player[i] = GameObject.Find($"Player{i+1}").GetComponentInChildren<PlayerController>();
         }
 
 
@@ -135,7 +135,7 @@ public class Map : Obj
             for (int i = 0; i < PhotonNetwork.CountOfPlayers; i++)
             {
                 if (item.nodePos.x - 0.75f <= _player[i].transform.position.x && item.nodePos.x + 0.75f >= _player[i].transform.position.x
-               && item.nodePos.z + 0.75f >= _player[i].transform.position.z && item.nodePos.z - 0.75f <= _player[i].transform.position.z)
+               && item.nodePos.z + 0.75f >= _player[i].transform.position.z && item.nodePos.z - 0.75f <= _player[i].transform.position.z) //
                 {
                     xPos = (int)(item.nodePos.x + 0.5f);
                     yPos = (int)(item.nodePos.z + 0.5f);
