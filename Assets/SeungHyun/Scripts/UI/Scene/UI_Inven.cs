@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using Photon.Pun;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,6 +12,8 @@ public class UI_Inven : UI_Scene
     List<UI_Inven_Item> ui_Inven_Items = new List<UI_Inven_Item>();
     UI_Inven_Item invenItem;
 
+    private PhotonView _photonView;
+
     enum GameObjects
     {
         GridPanel
@@ -20,7 +23,15 @@ public class UI_Inven : UI_Scene
     {
         map = Map.MapObject.GetComponent<Map>();
         Init();
+<<<<<<< Updated upstream
         SetPlayer(map.Player[0]);
+=======
+
+        // Set플레이어를 넣을때 자기 플레이어만 넣어야 하니까 
+        // 자기 플레이어를 다른 클래스에서 찾는 방법을 고안해야된다
+
+        SetPlayer(map.Player[PhotonNetwork.LocalPlayer.ActorNumber - 1]);
+>>>>>>> Stashed changes
      }
 
     void SetPlayer(PlayerController player)
