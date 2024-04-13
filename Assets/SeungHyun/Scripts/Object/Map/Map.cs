@@ -1,5 +1,6 @@
 using Photon.Pun;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -55,14 +56,7 @@ public class Map : Obj
 
         texture = Managers.Resources.Load<Texture2D>(path);
 
-
-
-        for (int i = 0; i < PhotonNetwork.CountOfPlayers; i++)
-        {
-            _player[i] = GameObject.Find($"Player{i+1}").GetComponentInChildren<PlayerController>();
-
-        }
-
+        StartCoroutine(WaitcreatePlayer());
 
         #region 04.13  수정 
         // Todo: 04.13 수정
@@ -123,6 +117,16 @@ public class Map : Obj
     //    // Debug.Log(_colorcount);
     //}
     #endregion
+
+    IEnumerator WaitcreatePlayer()
+    {
+        yield return new WaitUntil(() => GameObject.Find($"Player{PhotonNetwork.CountOfPlayers}").GetComponentsInChildren<PhotonView>() != null);
+        for (int i = 0; i < PhotonNetwork.CountOfPlayers; i++)
+        {
+            _player[i] = GameObject.Find($"Player{i + 1}").GetComponentInChildren<PlayerController>();
+
+        }
+    }
 
     void UpdateColor()
     {
