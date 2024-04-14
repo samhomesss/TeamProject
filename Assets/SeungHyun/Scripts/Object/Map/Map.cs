@@ -141,7 +141,7 @@ public class Map : Obj
             }
         }
 
-        foreach (var item in node)
+        foreach (var item in node)//0414 ÀÌÈñ¿õ ¼öÁ¤ 
         {
             for (int i = 0; i < PhotonNetwork.CurrentRoom.PlayerCount; i++)
             {
