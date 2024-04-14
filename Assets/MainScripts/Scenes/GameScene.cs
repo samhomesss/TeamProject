@@ -51,7 +51,7 @@ public class GameScene : BaseScene
             }
         }
 
-        Debug.Log(PhotonNetwork.CountOfPlayers);
+        Debug.Log(PhotonNetwork.CurrentRoom.PlayerCount);
         Managers.UI.ShowSceneUI<UI_Timer>();
         Managers.UI.ShowSceneUI<UI_Weapon>();
         Managers.UI.ShowSceneUI<UI_Inven>();

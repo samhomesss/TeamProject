@@ -100,7 +100,7 @@ public class Map : Obj
         while (!allPlayersReady)
         {
             allPlayersReady = true;
-            for (int i = 0; i < PhotonNetwork.CountOfPlayers; i++)
+            for (int i = 0; i < PhotonNetwork.CurrentRoom.PlayerCount; i++)
             {
                 GameObject playerObject = GameObject.Find($"Player{i + 1}");
                 if (playerObject == null || playerObject.GetComponentInChildren<PlayerController>() == null)
@@ -113,7 +113,7 @@ public class Map : Obj
         }
 
         // 모든 플레이어가 준비되었을 때 실행할 코드
-        for (int i = 0; i < PhotonNetwork.CountOfPlayers; i++)
+        for (int i = 0; i < PhotonNetwork.CurrentRoom.PlayerCount; i++)
         {
             _player[i] = GameObject.Find($"Player{i + 1}").GetComponent<PlayerController>();
         }
@@ -155,7 +155,7 @@ public class Map : Obj
         {
             for (int jx = 0; jx < length; ++jx)
             {
-                for (int i = 0; i < PhotonNetwork.CountOfPlayers; i++)
+                for (int i = 0; i < PhotonNetwork.CurrentRoom.PlayerCount; i++)
                 {
                     colors[jx + ix * length] = PlayerColor(_player[i].transform.parent.gameObject);
                 }
@@ -164,7 +164,7 @@ public class Map : Obj
 
         foreach (var item in node)
         {
-            for (int i = 0; i < PhotonNetwork.CountOfPlayers; i++)
+            for (int i = 0; i < PhotonNetwork.CurrentRoom.PlayerCount; i++)
             {
                 if (item.nodePos.x - 0.75f <= _player[i].transform.position.x && item.nodePos.x + 0.75f >= _player[i].transform.position.x
                && item.nodePos.z + 0.75f >= _player[i].transform.position.z && item.nodePos.z - 0.75f <= _player[i].transform.position.z) //
@@ -239,7 +239,7 @@ public class Map : Obj
     //윤범이형 Action 추가
     public void SetPlayer(PlayerController[] player)
     {
-        for (int i = 0; i < PhotonNetwork.CountOfPlayers; i++)
+        for (int i = 0; i < PhotonNetwork.CurrentRoom.PlayerCount; i++)
         {
             player[i].MapEvent += UpdateColor;
         }
