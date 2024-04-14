@@ -40,7 +40,7 @@ public class Map : Obj
 
     private void Awake()
     {
-        _player = new PlayerController[PhotonNetwork.CurrentRoom.PlayerCount];
+        
         map = this.gameObject;
         var path = $"Prefabs/sh/Texture/White";
 
@@ -57,9 +57,29 @@ public class Map : Obj
 
         #region 04.13  수정 
         // Todo: 04.13 수정
+      
+        #region 주석처리
+        //PlayerTestSh.OnNodeChanged -= UpdateColor;
+        //PlayerTestSh.OnNodeChanged += UpdateColor;
+        // PlayerTestSh.OnPlayerColorChecked -= PlayerColorCount;
+        // PlayerTestSh.OnPlayerColorChecked += PlayerColorCount;
+        #endregion
+    }
+    #region 주석처리
+    //private void Update()
+    //{
+    //    // 총 노드의 갯수는 1024개 
+    //    // Debug.Log(_colorcount);
+    //}
+    #endregion
+
+
+    private void Start()
+    {
+        _player = new PlayerController[PhotonNetwork.CurrentRoom.PlayerCount];
         for (int i = 0; i < PhotonNetwork.CountOfPlayers; i++)
         {
-            _player[i] = GameObject.Find($"Player{i+1}").GetComponentInChildren<PlayerController>();
+            _player[i] = GameObject.Find($"Player{i + 1}").GetComponentInChildren<PlayerController>();
         }
 
 
@@ -105,23 +125,7 @@ public class Map : Obj
         }
         meshRenderer.material.mainTexture = texture;
         SetPlayer(_player);
-        #region 주석처리
-        //PlayerTestSh.OnNodeChanged -= UpdateColor;
-        //PlayerTestSh.OnNodeChanged += UpdateColor;
-        // PlayerTestSh.OnPlayerColorChecked -= PlayerColorCount;
-        // PlayerTestSh.OnPlayerColorChecked += PlayerColorCount;
-        #endregion
     }
-    #region 주석처리
-    //private void Update()
-    //{
-    //    // 총 노드의 갯수는 1024개 
-    //    // Debug.Log(_colorcount);
-    //}
-    #endregion
-
-
-
     void UpdateColor()
     {
         int xPos;

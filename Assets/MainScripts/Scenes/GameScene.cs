@@ -53,7 +53,16 @@ public class GameScene : BaseScene
             }
         }
 
-        Debug.Log(PhotonNetwork.CurrentRoom.PlayerCount);
+
+    }
+    void ShowUI()
+    {
+
+        //GameObject
+        Managers.SceneObj.ShowSceneObject<Map>();
+        Managers.SceneObj.ShowSceneObject<MiniMapCam>();
+
+
         Managers.UI.ShowSceneUI<UI_Timer>();
         Managers.UI.ShowSceneUI<UI_Weapon>();
         Managers.UI.ShowSceneUI<UI_Inven>();
@@ -68,13 +77,7 @@ public class GameScene : BaseScene
 
         // 플레이어들에게 보여야 하는 UI
         Managers.UI.ShowSceneUI<UI_PlayerName>();
-
-        //GameObject
-        Managers.SceneObj.ShowSceneObject<Map>();
-        Managers.SceneObj.ShowSceneObject<MiniMapCam>();
-
     }
-
 
     IEnumerator WaitPlayerLoded()
     {
@@ -96,6 +99,7 @@ public class GameScene : BaseScene
 
             yield return new WaitForSeconds(0.1f); 
         }
+        ShowUI();
     }
 
 }
