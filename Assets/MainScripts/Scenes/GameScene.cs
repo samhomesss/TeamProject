@@ -78,17 +78,24 @@ public class GameScene : BaseScene
 
     IEnumerator WaitPlayerLoded()
     {
-        int _playercount = 0;
-        while (_playercount != PhotonNetwork.CurrentRoom.PlayerCount)
+        // 플레이어의 로딩을 기다립니다.
+        bool allPlayersLoaded = false;
+        while (!allPlayersLoaded)
         {
-            _playercount = 0;
-            for (int i = 0; i<PhotonNetwork.CurrentRoom.PlayerCount; i++)
+            int loadedPlayerCount = 0;
+            for (int i = 0; i < PhotonNetwork.CurrentRoom.PlayerCount; i++)
             {
-                if(GameObject.Find($"Player{i}").GetComponentInChildren<PlayerController>() != null)
-                _playercount++;
+                if (GameObject.Find($"Player{i + 1}")?.GetComponentInChildren<PlayerController>() != null)
+                {
+                    loadedPlayerCount++;
+                }
             }
+
+            // 모든 플레이어가 로드되었는지 확인
+            allPlayersLoaded = loadedPlayerCount == PhotonNetwork.CurrentRoom.PlayerCount;
+
+            yield return new WaitForSeconds(0.1f); 
         }
-        yield return null;
     }
 
 }
