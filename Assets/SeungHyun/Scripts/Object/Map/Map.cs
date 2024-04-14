@@ -95,7 +95,7 @@ public class Map : Obj
 
     IEnumerator WaitForPlayers()
     {
-        // 모든 플레이어의 PlayerController가 준비될 때까지 기다립니다.
+        // 모든 플레이어의 PlayerController가 준비될 때까지 기다림
         bool allPlayersReady = false;
         while (!allPlayersReady)
         {
@@ -109,20 +109,19 @@ public class Map : Obj
                     break;
                 }
             }
-            yield return new WaitForSeconds(0.5f); // 조금 기다린 후 다시 체크
+            yield return new WaitForSeconds(0.1f); // 조금 기다린 후 다시 체크
         }
 
         // 모든 플레이어가 준비되었을 때 실행할 코드
         for (int i = 0; i < PhotonNetwork.CountOfPlayers; i++)
         {
-            _player[i] = GameObject.Find($"Player{i + 1}").GetComponentInChildren<PlayerController>();
+            _player[i] = GameObject.Find($"Player{i + 1}").GetComponent<PlayerController>();
         }
-
-        Debug.Log("모든 플레이어의 PlayerController가 준비되었습니다.");
     }
     private void Start()
     {
         StartCoroutine(WaitForPlayers());
+
         texture = (Texture2D)Instantiate(meshRenderer.material.mainTexture);
         defaultColors = new Color[texture.width * texture.width];
         for (int ix = 0; ix < texture.width; ++ix)
