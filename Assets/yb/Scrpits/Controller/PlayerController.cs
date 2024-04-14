@@ -178,13 +178,9 @@ namespace yb
                 return false;
 
             #region ½ÂÇö Ãß°¡ 04.11
-            for(int i = 0; i<PhotonNetwork.CurrentRoom.PlayerCount; i++)
-            {
-                GameObject.Find($"Player{i + 1}").GetComponentInChildren<PlayerController>().MapEvent?.Invoke();
-            }
+          
 
-
-            //MapEvent?.Invoke();
+            MapEvent?.Invoke();
             ClosedItemEvent?.Invoke();
             //if (resetTimer >= 1) 
             //{
