@@ -12,6 +12,7 @@ public class Map : Obj
     #region Property
     public static GameObject MapObject => map;
 
+
     //0413 04:15 추가 
     // public enum PlayerName
     // {
@@ -39,7 +40,7 @@ public class Map : Obj
 
     private void Awake()
     {
-        _player = new PlayerController[PhotonNetwork.CountOfPlayers];
+        _player = new PlayerController[PhotonNetwork.CurrentRoom.PlayerCount];
         map = this.gameObject;
         var path = $"Prefabs/sh/Texture/White";
 
@@ -77,50 +78,10 @@ public class Map : Obj
             meshRenderer = GetComponent<MeshRenderer>();
         }
 
-       
-        #region 주석처리
-        //PlayerTestSh.OnNodeChanged -= UpdateColor;
-        //PlayerTestSh.OnNodeChanged += UpdateColor;
-        // PlayerTestSh.OnPlayerColorChecked -= PlayerColorCount;
-        // PlayerTestSh.OnPlayerColorChecked += PlayerColorCount;
-        #endregion
-    }
-    #region 주석처리
-    //private void Update()
-    //{
-    //    // 총 노드의 갯수는 1024개 
-    //    // Debug.Log(_colorcount);
-    //}
-    #endregion
-
-    IEnumerator WaitForPlayers()
-    {
-        // 모든 플레이어의 PlayerController가 준비될 때까지 기다림
-        bool allPlayersReady = false;
-        while (!allPlayersReady)
-        {
-            allPlayersReady = true;
-            for (int i = 0; i < PhotonNetwork.CurrentRoom.PlayerCount; i++)
-            {
-                GameObject playerObject = GameObject.Find($"Player{i + 1}");
-                if (playerObject == null || playerObject.GetComponentInChildren<PlayerController>() == null)
-                {
-                    allPlayersReady = false;
-                    break;
-                }
-            }
-            yield return new WaitForSeconds(0.1f); // 조금 기다린 후 다시 체크
-        }
-
-        // 모든 플레이어가 준비되었을 때 실행할 코드
         for (int i = 0; i < PhotonNetwork.CurrentRoom.PlayerCount; i++)
         {
-            _player[i] = GameObject.Find($"Player{i + 1}").GetComponent<PlayerController>();
+            _player[i] = GameObject.Find($"Player{i + 1}").GetComponentInChildren<PlayerController>();
         }
-    }
-    private void Start()
-    {
-        StartCoroutine(WaitForPlayers());
 
         texture = (Texture2D)Instantiate(meshRenderer.material.mainTexture);
         defaultColors = new Color[texture.width * texture.width];
@@ -144,7 +105,21 @@ public class Map : Obj
         }
         meshRenderer.material.mainTexture = texture;
         SetPlayer(_player);
+        #region 주석처리
+        //PlayerTestSh.OnNodeChanged -= UpdateColor;
+        //PlayerTestSh.OnNodeChanged += UpdateColor;
+        // PlayerTestSh.OnPlayerColorChecked -= PlayerColorCount;
+        // PlayerTestSh.OnPlayerColorChecked += PlayerColorCount;
+        #endregion
     }
+    #region 주석처리
+    //private void Update()
+    //{
+    //    // 총 노드의 갯수는 1024개 
+    //    // Debug.Log(_colorcount);
+    //}
+    #endregion
+
 
 
     void UpdateColor()

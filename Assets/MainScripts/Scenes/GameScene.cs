@@ -1,4 +1,5 @@
 using Photon.Pun;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Assertions.Must;
 using UnityEngine.Events;
@@ -8,7 +9,6 @@ public class GameScene : BaseScene
 {
     private PhotonView _photonView;
 
-    [SerializeField] private PlayerController[] _playerControllers;
     public override void Clear()
     {
     }
@@ -27,6 +27,9 @@ public class GameScene : BaseScene
         if (IsTestMode.Instance.CurrentUser == Define.User.Hw)
         {
             GameObject go = PhotonNetwork.Instantiate("Prefabs/hw/PlayerPrefabs/Player",Vector3.zero, Quaternion.identity);
+
+            StartCoroutine(WaitPlayerLoded());
+
             go.GetComponentInChildren<PlayerController>().SetRelicEvent += OnSetRelic; //
             if (PhotonNetwork.IsMasterClient)
             {
@@ -40,7 +43,6 @@ public class GameScene : BaseScene
                 bonusAttackSpeedRelic.name = "BonusAttackSpeedRelic";
                 bonusProjectileRelic.name = "BonusProjectileRelic";
                 bonusResurrectionTimeRelic.name = "BonusResurrectionTimeRelic";
-                _playerControllers = new PlayerController[PhotonNetwork.CountOfPlayers];
             }
             _photonView = Util.FindChild(go, "Model").GetComponent<PhotonView>();
             if (_photonView.IsMine)
@@ -73,5 +75,20 @@ public class GameScene : BaseScene
 
     }
 
+
+    IEnumerator WaitPlayerLoded()
+    {
+        int _playercount = 0;
+        while (_playercount != PhotonNetwork.CurrentRoom.PlayerCount)
+        {
+            _playercount = 0;
+            for (int i = 0; i<PhotonNetwork.CurrentRoom.PlayerCount; i++)
+            {
+                if(GameObject.Find($"Player{i}").GetComponentInChildren<PlayerController>() != null)
+                _playercount++;
+            }
+        }
+        yield return null;
+    }
 
 }
