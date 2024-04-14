@@ -146,17 +146,26 @@ public class Map : Obj
             for (int i = 0; i < PhotonNetwork.CurrentRoom.PlayerCount; i++)
             {
                 if (item.nodePos.x - 0.75f <= _player[i].transform.position.x && item.nodePos.x + 0.75f >= _player[i].transform.position.x
-               && item.nodePos.z + 0.75f >= _player[i].transform.position.z && item.nodePos.z - 0.75f <= _player[i].transform.position.z) //
+                   && item.nodePos.z + 0.75f >= _player[i].transform.position.z && item.nodePos.z - 0.75f <= _player[i].transform.position.z)
                 {
                     xPos = (int)(item.nodePos.x + 0.5f);
                     yPos = (int)(item.nodePos.z + 0.5f);
 
+                    colors = new Color[length * length];
+                    for (int ix = 0; ix < length; ++ix)
+                    {
+                        for (int jx = 0; jx < length; ++jx)
+                        {
+                            colors[jx + ix * length] = PlayerColor(_player[i].transform.parent.gameObject);
+                        }
+                    }
+
                     texture.SetPixels(texture.width - xPos * 4, texture.height - yPos * 4, length, length, colors);
+                    texture.Apply();
                     item.SetColor(PlayerColor(_player[i].transform.parent.gameObject));
                 }
             }
         }
-        texture.Apply();
     }
     #region 현재 사용하지 않는 코드
     //void PlayerColorCount(GameObject player)
