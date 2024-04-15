@@ -44,10 +44,12 @@ public class GameScene : BaseScene
                 bonusProjectileRelic.name = "BonusProjectileRelic";
                 bonusResurrectionTimeRelic.name = "BonusResurrectionTimeRelic";
             }
-            _photonView = Util.FindChild(go, "Model").GetComponent<PhotonView>();
+
+                _photonView = Util.FindChild(go,"Model").GetComponent<PhotonView>();
+      
             if (_photonView.IsMine)
             {
-                Util.FindChild(go, "Camera", true).active = true;
+                Util.FindChild(go, "Camera", true).SetActive(true);
                 Util.FindChild(go, "Camera", true).GetComponent<AudioListener>().enabled = true;
                 _photonView.RPC("RenamePlayer", RpcTarget.All, _photonView.ViewID);
             }

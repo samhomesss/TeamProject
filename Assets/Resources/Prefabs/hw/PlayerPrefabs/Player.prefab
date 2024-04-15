@@ -228,6 +228,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ec5d82808df21f4eaaebfd505df68ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _currentHp: 0
 --- !u!114 &3573068495415023296
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -247,7 +248,7 @@ MonoBehaviour:
   OwnershipTransfer: 0
   observableSearch: 2
   ObservedComponents: []
-  sceneViewId: 7
+  sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
 --- !u!1 &863084308242696104
@@ -835,7 +836,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4777983912998907621
 Transform:
   m_ObjectHideFlags: 0
@@ -922,7 +923,7 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2881695747894699527}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!1 &2965611802986451658
 GameObject:
   m_ObjectHideFlags: 0
@@ -1518,6 +1519,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2fb1f92f29bfe1f48bca714de399fc19, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _currentHp: 0
+  _moveSpeed: 0
+  _resurrectionTime: 0
 --- !u!114 &1359621887326191384
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1569,7 +1573,7 @@ MonoBehaviour:
   - {fileID: 1547793894201161286}
   - {fileID: 3566697583604899592}
   - {fileID: 7434439735758569826}
-  sceneViewId: 1
+  sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
 --- !u!114 &1547793894201161286
