@@ -27,28 +27,28 @@ public class GameScene : BaseScene
         if (IsTestMode.Instance.CurrentUser == Define.User.Hw)
         {
             GameObject go = PhotonNetwork.Instantiate("Prefabs/hw/PlayerPrefabs/Player", Vector3.zero, Quaternion.identity);
-
             StartCoroutine(WaitPlayerLoded());
-
-            go.GetComponentInChildren<PlayerController>().SetRelicEvent += OnSetRelic; //
-            if (PhotonNetwork.IsMasterClient)
+            go.GetComponentInChildren<PlayerController>().SetRelicEvent += OnSetRelic;
+            if (!PhotonNetwork.IsMasterClient)
             {
-                items[0] = PhotonNetwork.Instantiate("Prefabs/yb/Relic/GuardRelic", new Vector3(2, 1, 10), Quaternion.identity);
-                items[1] = PhotonNetwork.Instantiate("Prefabs/yb/Relic/ShieldRelic", new Vector3(10, 1, 2), Quaternion.identity);
-                items[2] = PhotonNetwork.Instantiate("Prefabs/yb/Relic/BonusAttackSpeedRelic", new Vector3(1, 1, 2), Quaternion.identity);
-                items[3] = PhotonNetwork.Instantiate("Prefabs/yb/Relic/BonusProjectileRelic", new Vector3(1, 1, 4), Quaternion.identity);
-                items[4] = PhotonNetwork.Instantiate("Prefabs/yb/Relic/BonusResurrectionTimeRelic", new Vector3(1, 1, 6), Quaternion.identity);
-                items[5] = PhotonNetwork.Instantiate("Prefabs/yb/Weapon/Shotgun", new Vector3(0, 1, 0), Quaternion.identity);
-
-                for(int i = 0; i < items.Length; i++)
-                {
-                    _photonView.RPC("SetDropItemName", RpcTarget.All, items[i].GetComponent<PhotonView>().ViewID);
-                }
-
+                return;
             }
 
-            _photonView = Util.FindChild(go,"Model").GetComponent<PhotonView>();
-      
+            items[0] = PhotonNetwork.Instantiate("Prefabs/yb/Relic/GuardRelic", new Vector3(2, 1, 10), Quaternion.identity);
+            items[1] = PhotonNetwork.Instantiate("Prefabs/yb/Relic/ShieldRelic", new Vector3(10, 1, 2), Quaternion.identity);
+            items[2] = PhotonNetwork.Instantiate("Prefabs/yb/Relic/BonusAttackSpeedRelic", new Vector3(1, 1, 2), Quaternion.identity);
+            items[3] = PhotonNetwork.Instantiate("Prefabs/yb/Relic/BonusProjectileRelic", new Vector3(1, 1, 4), Quaternion.identity);
+            items[4] = PhotonNetwork.Instantiate("Prefabs/yb/Relic/BonusResurrectionTimeRelic", new Vector3(1, 1, 6), Quaternion.identity);
+            items[5] = PhotonNetwork.Instantiate("Prefabs/yb/Weapon/Shotgun", new Vector3(0, 1, 0), Quaternion.identity);
+
+            for (int i = 0; i < items.Length; i++)
+            {
+                _photonView.RPC("SetDropItemName", RpcTarget.All, items[i].GetComponent<PhotonView>().ViewID);
+            }
+
+
+            _photonView = Util.FindChild(go, "Model").GetComponent<PhotonView>();
+
             if (_photonView.IsMine)
             {
                 Util.FindChild(go, "Camera", true).SetActive(true);
@@ -66,7 +66,7 @@ public class GameScene : BaseScene
             Managers.UI.ShowSceneUI<UI_RelicInven>();
             Managers.UI.ShowSceneUI<UI_PlayerColorPercent>();
         }
-      
+
     }
     void ShowUI()
     {
