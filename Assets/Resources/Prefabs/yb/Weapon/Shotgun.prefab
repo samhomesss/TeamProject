@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8618787788710129132}
   - component: {fileID: -7929608505014981327}
   m_Layer: 10
-  m_Name: ObtainableShotgun
+  m_Name: Shotgun
   m_TagString: ObtainableObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

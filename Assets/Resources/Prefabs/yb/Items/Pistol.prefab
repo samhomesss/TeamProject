@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4519008604695608104}
   - component: {fileID: 6776426229564873519}
   m_Layer: 0
-  m_Name: ObtainablePistol
+  m_Name: Pistol
   m_TagString: ObtainableObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
