@@ -8,7 +8,7 @@ using yb;
 public class GameScene : BaseScene
 {
     private PhotonView _photonView;
-
+    private GameObject[] items = new GameObject[10];//0415 18:33 이희웅 테스트용 배열 추가 
     public override void Clear()
     {
     }
@@ -33,19 +33,23 @@ public class GameScene : BaseScene
             go.GetComponentInChildren<PlayerController>().SetRelicEvent += OnSetRelic; //
             if (PhotonNetwork.IsMasterClient)
             {
-                GameObject guardRelic = PhotonNetwork.Instantiate("Prefabs/yb/Relic/GuardRelic", new Vector3(2, 1, 10), Quaternion.identity);
-                GameObject shieldRelic = PhotonNetwork.Instantiate("Prefabs/yb/Relic/ShieldRelic", new Vector3(10, 1, 2), Quaternion.identity);
-                GameObject bonusAttackSpeedRelic = PhotonNetwork.Instantiate("Prefabs/yb/Relic/BonusAttackSpeedRelic", new Vector3(1, 1, 2), Quaternion.identity);
-                GameObject bonusProjectileRelic = PhotonNetwork.Instantiate("Prefabs/yb/Relic/BonusProjectileRelic", new Vector3(1, 1, 4), Quaternion.identity);
-                GameObject bonusResurrectionTimeRelic = PhotonNetwork.Instantiate("Prefabs/yb/Relic/BonusResurrectionTimeRelic", new Vector3(1, 1, 6), Quaternion.identity);
-                guardRelic.name = "GuardRelic";
-                shieldRelic.name = "ShieldRelic";
-                bonusAttackSpeedRelic.name = "BonusAttackSpeedRelic";
-                bonusProjectileRelic.name = "BonusProjectileRelic";
-                bonusResurrectionTimeRelic.name = "BonusResurrectionTimeRelic";
+                items[0] = PhotonNetwork.Instantiate("Prefabs/yb/Relic/GuardRelic", new Vector3(2, 1, 10), Quaternion.identity);
+                items[1] = PhotonNetwork.Instantiate("Prefabs/yb/Relic/ShieldRelic", new Vector3(10, 1, 2), Quaternion.identity);
+                items[2] = PhotonNetwork.Instantiate("Prefabs/yb/Relic/BonusAttackSpeedRelic", new Vector3(1, 1, 2), Quaternion.identity);
+                items[3] = PhotonNetwork.Instantiate("Prefabs/yb/Relic/BonusProjectileRelic", new Vector3(1, 1, 4), Quaternion.identity);
+                items[4] = PhotonNetwork.Instantiate("Prefabs/yb/Relic/BonusResurrectionTimeRelic", new Vector3(1, 1, 6), Quaternion.identity);
+                items[5] = PhotonNetwork.Instantiate("Prefabs/yb/Weapon/Shotgun", new Vector3(0, 1, 0), Quaternion.identity);
 
             }
-                _photonView = Util.FindChild(go,"Model").GetComponent<PhotonView>();
+            items[0].name = "GuardRelic";
+            items[1].name = "ShieldRelic";
+            items[2].name = "BonusAttackSpeedRelic";
+            items[3].name = "BonusProjectileRelic";
+            items[4].name = "BonusResurrectionTimeRelic";
+            items[5].name = "ShotGun";
+
+
+            _photonView = Util.FindChild(go,"Model").GetComponent<PhotonView>();
       
             if (_photonView.IsMine)
             {
