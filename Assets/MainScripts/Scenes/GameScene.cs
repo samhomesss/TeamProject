@@ -26,7 +26,7 @@ public class GameScene : BaseScene
         //todo
         if (IsTestMode.Instance.CurrentUser == Define.User.Hw)
         {
-            GameObject go = PhotonNetwork.Instantiate("Prefabs/hw/PlayerPrefabs/Player",Vector3.zero, Quaternion.identity);
+            GameObject go = PhotonNetwork.Instantiate("Prefabs/hw/PlayerPrefabs/Player", Vector3.zero, Quaternion.identity);
 
             StartCoroutine(WaitPlayerLoded());
 
@@ -52,8 +52,19 @@ public class GameScene : BaseScene
                 _photonView.RPC("RenamePlayer", RpcTarget.All, _photonView.ViewID);
             }
         }
+        else if (IsTestMode.Instance.CurrentUser == Define.User.Sh)
+        {
+            Managers.UI.ShowSceneUI<UI_Timer>();
+            Managers.UI.ShowSceneUI<UI_Weapon>();
+            Managers.UI.ShowSceneUI<UI_Inven>();
+            Managers.UI.ShowSceneUI<UI_Hp>();
+            Managers.UI.ShowSceneUI<UI_MiniMap>();
+            Managers.UI.ShowSceneUI<UI_RelicInven>();
+            Managers.UI.ShowSceneUI<UI_PlayerColorPercent>();
 
 
+        }
+      
     }
     void ShowUI()
     {
@@ -70,15 +81,18 @@ public class GameScene : BaseScene
         Managers.UI.ShowSceneUI<UI_MiniMap>();
         Managers.UI.ShowSceneUI<UI_RelicInven>();
         Managers.UI.ShowSceneUI<UI_PlayerColorPercent>();
-
         // UIInfo
         UI_ItemInfo.ItemInfo = Managers.UI.ShowSceneUIInfo<UI_ItemInfo>().gameObject;
         UI_ItemInfo.ItemInfo.SetActive(false);
 
+
         // 플레이어들에게 보여야 하는 UI
         Managers.UI.ShowSceneUI<UI_PlayerName>();
-    }
 
+        //GameObject
+        Managers.SceneObj.ShowSceneObject<Map>();
+        Managers.SceneObj.ShowSceneObject<MiniMapCam>();
+    }
     IEnumerator WaitPlayerLoded()
     {
         // 플레이어의 로딩을 기다립니다.
@@ -97,7 +111,7 @@ public class GameScene : BaseScene
             // 모든 플레이어가 로드되었는지 확인
             allPlayersLoaded = loadedPlayerCount == PhotonNetwork.CurrentRoom.PlayerCount;
 
-            yield return new WaitForSeconds(0.1f); 
+            yield return new WaitForSeconds(0.1f);
         }
         ShowUI();
     }

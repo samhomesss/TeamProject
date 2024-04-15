@@ -8,7 +8,7 @@ namespace yb {
     /// </summary>
     public class BaseStatus : MonoBehaviour {
         protected Data _data;
-        protected int _currentHp;
+        [SerializeField]protected int _currentHp;
         protected int _maxHp;
 
         public int MaxHp => _maxHp;

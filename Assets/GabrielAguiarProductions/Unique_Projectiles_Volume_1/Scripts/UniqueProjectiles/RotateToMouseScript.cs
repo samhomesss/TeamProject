@@ -16,7 +16,6 @@ public class RotateToMouseScript : MonoBehaviour {
 
 	private bool use2D;
 	private Ray rayMouse;
-	private Vector3 pos;
 	private Vector3 direction;
 	private Quaternion rotation;
 	private Camera cam;
@@ -27,7 +26,10 @@ public class RotateToMouseScript : MonoBehaviour {
 		StartCoroutine (UpdateRay());
 	}
 
-
+	public void PlayerDead() {
+		maximumLenght = 0f;
+		StopAllCoroutines();
+	}
 
 	IEnumerator UpdateRay (){
 		if (cam != null) {

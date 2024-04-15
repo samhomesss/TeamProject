@@ -247,7 +247,7 @@ MonoBehaviour:
   OwnershipTransfer: 0
   observableSearch: 2
   ObservedComponents: []
-  sceneViewId: 0
+  sceneViewId: 7
   InstantiationId: 0
   isRuntimeInstantiated: 0
 --- !u!1 &863084308242696104
@@ -835,7 +835,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &4777983912998907621
 Transform:
   m_ObjectHideFlags: 0
@@ -922,7 +922,7 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2881695747894699527}
-  m_Enabled: 0
+  m_Enabled: 1
 --- !u!1 &2965611802986451658
 GameObject:
   m_ObjectHideFlags: 0
@@ -1569,7 +1569,7 @@ MonoBehaviour:
   - {fileID: 1547793894201161286}
   - {fileID: 3566697583604899592}
   - {fileID: 7434439735758569826}
-  sceneViewId: 0
+  sceneViewId: 1
   InstantiationId: 0
   isRuntimeInstantiated: 0
 --- !u!114 &1547793894201161286
@@ -2140,7 +2140,7 @@ GameObject:
   - component: {fileID: 7638496131379773041}
   - component: {fileID: 8943934994576974438}
   - component: {fileID: 8398189013664076095}
-  m_Layer: 11
+  m_Layer: 0
   m_Name: Guard
   m_TagString: Guard
   m_Icon: {fileID: 0}

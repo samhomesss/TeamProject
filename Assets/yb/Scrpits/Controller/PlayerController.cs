@@ -18,6 +18,7 @@ namespace yb
     {
         private readonly float _animationFadeTime = .3f;  //애니메이션 페이드 시간
         public const int MaxRelicNumber = 2;
+        private int _playerHandle;  //플레이어 고유 번호
         private Vector3 _playerMoveVelocity;
         private Rigidbody _rigid;
         private Data _data;  //기본 데이터
@@ -126,7 +127,6 @@ namespace yb
             _shieldController.gameObject.SetActive(false);
         }
 
-
         private void Start()
         {
             _data = Managers.Data;
@@ -225,8 +225,13 @@ namespace yb
         /// <param name="state"></param>
         public void ChangeTriggerAnimation(Define.PlayerState state)//0408 16:38분 이희웅 업데이트 추가
         {
-            if (_photonview.IsMine)
+            if(IsTestMode.Instance.CurrentUser == Define.User.Hw) {
+                if (_photonview.IsMine)
+                    _animator.SetTrigger(state.ToString());
+            }
+            else
                 _animator.SetTrigger(state.ToString());
+
         }
 
         /// <summary>
@@ -246,6 +251,12 @@ namespace yb
                     _playerMoveVelocity = dir * (_status.MoveSpeed * _status.MoveSpeedDecrease) * Time.deltaTime;
                 }
             }
+            else {
+                Vector3 dir = new Vector3(moveX, 0f, moveZ);
+                _rigid.MovePosition(_rigid.position + dir * (_status.MoveSpeed * _status.MoveSpeedDecrease) * Time.deltaTime);
+                _playerMoveVelocity = dir * (_status.MoveSpeed * _status.MoveSpeedDecrease) * Time.deltaTime;
+
+            }
         }
 
         /// <summary>
@@ -263,7 +274,14 @@ namespace yb
         /// <summary>
         /// 플레이어 사망 이벤트(애니메이션에서 이벤트로 호출)
         /// </summary>
-        public void OnDieEvent() => Managers.Resources.Destroy(gameObject);
+        public void OnDieEvent() {
+            RespawnManager.Instance.Respawn(_playerHandle, _status.ResurrectionTime);
+            Managers.Resources.Destroy(transform.root.gameObject, _status.ResurrectionTime);
+            GameObject go = MyCamera.gameObject;
+            go.transform.parent = null;
+            Managers.Resources.Destroy(go, _status.ResurrectionTime);
+            _rotateToMouseScript.PlayerDead();
+        }
 
         /// <summary>
         /// 플레이어 피격 판정(피격 데미지, 공격자)
