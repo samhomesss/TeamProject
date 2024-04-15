@@ -314,10 +314,27 @@ namespace yb
 
 
         [PunRPC]
-        public void CallSetColorRPC(int xPos, int yPos, int nodeXIndex, int nodeYIndex)
+        public void SetColorRPC(int xPos, int yPos, int nodeXIndex, int nodeYIndex, int colorEnumIndex)
         {
-            Color PlayerColor = Map.PlayerColor(gameObject.transform.parent.gameObject);
-            Map.MapObject.GetComponent<Map>().SetColor(xPos, yPos, nodeXIndex, nodeYIndex, PlayerColor);
+            //Color PlayerColor = Map.PlayerColor(gameObject.transform.parent.gameObject);
+            Map.MapObject.GetComponent<Map>().MapSetColor(xPos, yPos, nodeXIndex, nodeYIndex, GetColorFromNodeColor((NodeColor)colorEnumIndex));
+            //Debug.Log("<color=red>SetColorRPC</color>");
+        }
+
+        Color GetColorFromNodeColor(NodeColor nodeColor)
+        {
+            switch (nodeColor)
+            {
+                case NodeColor.Red: return Color.red;
+                case NodeColor.Yellow: return Color.yellow;
+                case NodeColor.Blue: return Color.blue;
+                case NodeColor.Magenta: return Color.magenta;
+                case NodeColor.Cyan: return Color.cyan;
+                case NodeColor.Gray: return Color.grey;
+                case NodeColor.Green: return Color.green;
+                case NodeColor.Black: return Color.black;
+                default: return Color.white;
+            }
         }
 
         [PunRPC]

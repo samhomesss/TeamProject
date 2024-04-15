@@ -4,6 +4,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using Unity.VisualScripting;
 using UnityEngine;
 using yb;
 using static UnityEditor.Progress;
@@ -150,18 +151,12 @@ public class Map : Obj
         Node item = node[xIndex, yIndex];
         xPos = (int)(item.nodePos.x + 0.5f);
         yPos = (int)(item.nodePos.z + 0.5f);
+        
+        //Color playerColor = PlayerColor(_player.transform.parent.gameObject);
+        //item.SetColor(playerColor);
 
-        colors = new Color[length * length];
-        for (int jx = 0; jx < length; ++jx)
-        {
-            for (int kx = 0; kx < length; ++kx)
-            {
-                colors[jx + kx * length] = PlayerColor(_player.transform.parent.gameObject);
-            }
-        }
-
-        SetColor(xPos, yPos, xIndex, yIndex, PlayerColor(_player.transform.parent.gameObject));
-        _photonView.RPC("CallSetColorRPC", RpcTarget.Others, xPos, yPos, xIndex, yIndex);
+        //MapSetColor(xPos, yPos, xIndex, yIndex, PlayerColor(_player.transform.parent.gameObject));
+        _photonView.RPC("SetColorRPC", RpcTarget.All, xPos, yPos, xIndex, yIndex, (int)GetNodeColorFromColor(PlayerColor(_player.transform.parent.gameObject)));
         #region 기존 코드 백업 (최적화 전 코드)
         //int xPos;
         //int yPos;
@@ -204,11 +199,43 @@ public class Map : Obj
         #endregion
     }
 
-    //public void CallSetColorRPC(int xPos, int yPos, int xIndex, int yIndex)
-    //{
-    //    _photonview.RPC("SetColor", RpcTarget.Others, xPos, yPos, xIndex, yIndex);
-    //}
+    NodeColor GetNodeColorFromColor(Color color)
+    {
+        if (color == Color.red)
+        {
+            return NodeColor.Red;
+        }
+        else if (color == Color.yellow)
+        {
+            return NodeColor.Yellow;
+        }
+        else if (color == Color.magenta)
+        {
+            return NodeColor.Magenta;
+        }
+        else if (color == Color.cyan)
+        {
+            return NodeColor.Cyan;
+        }
+        else if (color == Color.green)
+        {
+            return NodeColor.Green;
+        }
+        else if (color == Color.blue)
+        {
+            return NodeColor.Blue;
+        }
+        else if (color == Color.gray)
+        {
+            return NodeColor.Gray;
+        }
+        else if (color == Color.black)
+        {
+            return NodeColor.Black;
+        }
 
+        return NodeColor.None;
+    }
 
     #region 현재 사용하지 않는 코드
     //void PlayerColorCount(GameObject player)
@@ -273,11 +300,21 @@ public class Map : Obj
         player.MapEvent += UpdateColor;
     }
 
-    public void SetColor(int xPos, int yPos, int nodeXIndex, int nodeYIndex, Color nodeColor)
+    public void MapSetColor(int xPos, int yPos, int nodeXIndex, int nodeYIndex, Color nodeColor)
     {
-        Node item = node[nodeXIndex, nodeYIndex];
+        colors = new Color[length * length];
+        for (int jx = 0; jx < length; ++jx)
+        {
+            for (int kx = 0; kx < length; ++kx)
+            {
+                colors[jx + kx * length] = nodeColor;
+            }
+        }
+
         texture.SetPixels(texture.width - xPos * 4, texture.height - yPos * 4, length, length, colors);
         texture.Apply();
+
+        Node item = node[nodeXIndex, nodeYIndex];
         //item.SetColor(PlayerColor(_player.transform.parent.gameObject));
         item.SetColor(nodeColor);
     }
