@@ -26,6 +26,7 @@ namespace yb {
         [PunRPC]
         public override void PickupPhoton(int playerViewId)
         {
+            Debug.Log("∞°µÂ∑º∏Ø ∏‘¿Ω");
             PlayerController player;
             player = PhotonNetwork.GetPhotonView(playerViewId).GetComponent<PlayerController>();
             SetRelic(player);

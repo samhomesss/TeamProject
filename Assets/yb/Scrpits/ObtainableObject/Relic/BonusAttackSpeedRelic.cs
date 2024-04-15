@@ -36,6 +36,7 @@ namespace yb {
             PlayerController player;
             player = PhotonNetwork.GetPhotonView(playerViewId).GetComponent<PlayerController>();
             SetRelic(player);
+            player.HaveRelicNumber++;
         }
 
         public void SetRelic(PlayerController player) {

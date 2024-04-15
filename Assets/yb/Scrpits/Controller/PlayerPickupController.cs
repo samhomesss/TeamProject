@@ -68,7 +68,6 @@ namespace yb
             {
                 if (Input.GetKeyDown(KeyCode.G))
                 {
-
                     Debug.Log("´©¸§");
                     if(_collideItem is IRelic) {
                         if (_player.HaveRelicNumber >= PlayerController.MaxRelicNumber) {
