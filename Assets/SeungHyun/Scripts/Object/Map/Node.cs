@@ -52,6 +52,11 @@ public class Node
             nodeColor = NodeColor.Black;
         }
     }
+
+    public override string ToString()
+    {
+        return nodePos.ToString();
+    }
 }
 
 

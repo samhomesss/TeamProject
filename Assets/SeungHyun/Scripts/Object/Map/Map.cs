@@ -2,7 +2,7 @@ using Photon.Pun;
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using yb;
 using static UnityEditor.Progress;
@@ -28,6 +28,8 @@ public class Map : Obj
 
     static Node[,] node = new Node[64, 64]; // 가로 세로 64 * 64 의 노드로 나눈것처럼 
     static GameObject map; // 맵으로 띄워진 오브젝트 가져오는거 
+    float[] xMap = new float[64];
+    float[] yMap = new float[64];
     PlayerController[] _player; // 플레이어들
     Texture2D texture; // 내가 가져오는 Texture
     MeshRenderer meshRenderer; // Mesh
@@ -40,7 +42,6 @@ public class Map : Obj
 
     private void Awake()
     {
-        
         map = this.gameObject;
         var path = $"Prefabs/sh/Texture/White";
 
@@ -57,7 +58,7 @@ public class Map : Obj
 
         #region 04.13  수정 
         // Todo: 04.13 수정
-      
+
         #region 주석처리
         //PlayerTestSh.OnNodeChanged -= UpdateColor;
         //PlayerTestSh.OnNodeChanged += UpdateColor;
@@ -87,6 +88,8 @@ public class Map : Obj
 
         for (int i = 0; i < 64; i++)
         {
+            xMap[i] = i + 0.5f;
+            yMap[i] = i + 0.5f;
             for (int j = 0; j < 64; j++)
             {
                 node[i, j] = new Node(new Vector3((i + 0.5f), 0, (j + 0.5f)));
@@ -126,6 +129,7 @@ public class Map : Obj
         meshRenderer.material.mainTexture = texture;
         SetPlayer(_player);
     }
+
     void UpdateColor()
     {
         int xPos;
@@ -140,32 +144,77 @@ public class Map : Obj
                 }
             }
         }
-
-        foreach (var item in node)//0414 이희웅 수정 
+        
+        // 플레이어 별로 루프 처리.
+        for (int ix = 0; ix < PhotonNetwork.CurrentRoom.PlayerCount; ++ix)
         {
-            for (int i = 0; i < PhotonNetwork.CurrentRoom.PlayerCount; i++)
+            var xIndex = Array.FindIndex(xMap, xPosition => xPosition - 0.75f <= _player[ix].transform.position.x && xPosition + 0.75f >= _player[ix].transform.position.x);
+            var yIndex = Array.FindIndex(yMap, yPosition => yPosition + 0.75f >= _player[ix].transform.position.z && yPosition - 0.75f <= _player[ix].transform.position.z);
+
+            if (xIndex < 0 || yIndex < 0)
             {
-                if (item.nodePos.x - 0.75f <= _player[i].transform.position.x && item.nodePos.x + 0.75f >= _player[i].transform.position.x
-                   && item.nodePos.z + 0.75f >= _player[i].transform.position.z && item.nodePos.z - 0.75f <= _player[i].transform.position.z)
+                Debug.Log("Failed to search indices.");
+                break;
+            }
+
+            var item = node[xIndex, yIndex];
+            xPos = (int)(item.nodePos.x + 0.5f);
+            yPos = (int)(item.nodePos.z + 0.5f);
+
+            colors = new Color[length * length];
+            for (int jx = 0; jx < length; ++jx)
+            {
+                for (int kx = 0; kx < length; ++kx)
                 {
-                    xPos = (int)(item.nodePos.x + 0.5f);
-                    yPos = (int)(item.nodePos.z + 0.5f);
-
-                    colors = new Color[length * length];
-                    for (int ix = 0; ix < length; ++ix)
-                    {
-                        for (int jx = 0; jx < length; ++jx)
-                        {
-                            colors[jx + ix * length] = PlayerColor(_player[i].transform.parent.gameObject);
-                        }
-                    }
-
-                    texture.SetPixels(texture.width - xPos * 4, texture.height - yPos * 4, length, length, colors);
-                    texture.Apply();
-                    item.SetColor(PlayerColor(_player[i].transform.parent.gameObject));
+                    colors[jx + kx * length] = PlayerColor(_player[ix].transform.parent.gameObject);
                 }
             }
+
+            texture.SetPixels(texture.width - xPos * 4, texture.height - yPos * 4, length, length, colors);
+            texture.Apply();
+            item.SetColor(PlayerColor(_player[ix].transform.parent.gameObject));
         }
+
+        //int xPos;
+        //int yPos;
+        //for (int ix = 0; ix < length; ++ix)
+        //{
+        //    for (int jx = 0; jx < length; ++jx)
+        //    {
+        //        for (int i = 0; i < PhotonNetwork.CurrentRoom.PlayerCount; i++)
+        //        {
+        //            colors[jx + ix * length] = PlayerColor(_player[i].transform.parent.gameObject);
+        //        }
+        //    }
+        //}
+
+        // 작성자: 장세윤(2024.04.15).
+        // 최적화 테스트를 위한 코드 백업.
+        //foreach (var item in node)//0414 이희웅 수정 
+        //{
+        //    for (int i = 0; i < PhotonNetwork.CurrentRoom.PlayerCount; i++)
+        //    {
+        //        if (item.nodePos.x - 0.75f <= _player[i].transform.position.x && item.nodePos.x + 0.75f >= _player[i].transform.position.x
+        //           && item.nodePos.z + 0.75f >= _player[i].transform.position.z && item.nodePos.z - 0.75f <= _player[i].transform.position.z)
+        //        {
+        //            xPos = (int)(item.nodePos.x + 0.5f);
+        //            yPos = (int)(item.nodePos.z + 0.5f);
+
+        //            colors = new Color[length * length];
+        //            for (int ix = 0; ix < length; ++ix)
+        //            {
+        //                for (int jx = 0; jx < length; ++jx)
+        //                {
+        //                    colors[jx + ix * length] = PlayerColor(_player[i].transform.parent.gameObject);
+        //                }
+        //            }
+
+        //            texture.SetPixels(texture.width - xPos * 4, texture.height - yPos * 4, length, length, colors);
+        //            texture.Apply();
+        //            item.SetColor(PlayerColor(_player[i].transform.parent.gameObject));
+        //        }
+        //    }
+        //}
     }
     #region 현재 사용하지 않는 코드
     //void PlayerColorCount(GameObject player)
