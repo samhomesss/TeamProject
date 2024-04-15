@@ -20,7 +20,7 @@ public class Node
     {
         color = newColor;
         if (newColor == Color.red)
-        {
+        {   
             nodeColor = NodeColor.Red;
         }
         else if (newColor == Color.yellow)

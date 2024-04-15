@@ -61,8 +61,6 @@ public class GameScene : BaseScene
             Managers.UI.ShowSceneUI<UI_MiniMap>();
             Managers.UI.ShowSceneUI<UI_RelicInven>();
             Managers.UI.ShowSceneUI<UI_PlayerColorPercent>();
-
-
         }
       
     }
@@ -88,10 +86,6 @@ public class GameScene : BaseScene
 
         // 플레이어들에게 보여야 하는 UI
         Managers.UI.ShowSceneUI<UI_PlayerName>();
-
-        //GameObject
-        Managers.SceneObj.ShowSceneObject<Map>();
-        Managers.SceneObj.ShowSceneObject<MiniMapCam>();
     }
     IEnumerator WaitPlayerLoded()
     {

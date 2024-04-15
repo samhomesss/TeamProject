@@ -1,4 +1,5 @@
 using Photon.Pun;
+using Photon.Realtime;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -28,8 +29,6 @@ public class Map : Obj
 
     static Node[,] node = new Node[64, 64]; // 가로 세로 64 * 64 의 노드로 나눈것처럼 
     static GameObject map; // 맵으로 띄워진 오브젝트 가져오는거 
-    float[] xMap = new float[64];
-    float[] yMap = new float[64];
     PlayerController[] _player; // 플레이어들
     Texture2D texture; // 내가 가져오는 Texture
     MeshRenderer meshRenderer; // Mesh
@@ -88,8 +87,6 @@ public class Map : Obj
 
         for (int i = 0; i < 64; i++)
         {
-            xMap[i] = i + 0.5f;
-            yMap[i] = i + 0.5f;
             for (int j = 0; j < 64; j++)
             {
                 node[i, j] = new Node(new Vector3((i + 0.5f), 0, (j + 0.5f)));
@@ -130,6 +127,9 @@ public class Map : Obj
         SetPlayer(_player);
     }
 
+    // 작성자: 장세윤(2024.04.15).
+    // Todo: 플레이어가 이동할 때마다 이 함수가 중복되어 여러 번 호출되는 것으로 보임.
+    // 호출 횟수를 줄이면서 정확하게 동작하도록 최적화가 필요해 보임.
     void UpdateColor()
     {
         int xPos;
@@ -148,18 +148,32 @@ public class Map : Obj
         // 플레이어 별로 루프 처리.
         for (int ix = 0; ix < PhotonNetwork.CurrentRoom.PlayerCount; ++ix)
         {
-            var xIndex = Array.FindIndex(xMap, xPosition => xPosition - 0.75f <= _player[ix].transform.position.x && xPosition + 0.75f >= _player[ix].transform.position.x);
-            var yIndex = Array.FindIndex(yMap, yPosition => yPosition + 0.75f >= _player[ix].transform.position.z && yPosition - 0.75f <= _player[ix].transform.position.z);
-
-            if (xIndex < 0 || yIndex < 0)
-            {
-                Debug.Log("Failed to search indices.");
-                break;
-            }
-
+            // 작성자: 장세윤 (2024.04.15).
+            // 검색 알고리즘 업데이트.
+            // 플레이어의 위치를 기준으로 타일맵 위치 검색.
+            // 플레이어의 위치가 곧 타일맵의 인덱스.
+            var xIndex = Mathf.Clamp(Mathf.Max(0, (int)_player[ix].transform.position.x), 0, 63);
+            var yIndex = Mathf.Clamp(Mathf.Max(0, (int)_player[ix].transform.position.z), 0, 63);
+             
+            // Todo: 작성자: 장세윤.
+            // 더 정확하게 위치를 찾고 싶은 경우에 시도할 방법. (
+            // 위에서 바로 찾은 인덱스를 기준으로 타일맵의 위치를 플레이어의 범위로 다시 확인.
+            // 확인한 결과가 맞다면 그대로 타일맵 인덱스를 사용하고,
+            // 아니라면, 그 주변의 나머지 8개(9개인데, 앞서 구한 인덱스는 아니기 때문.)에 대해서 x 범위와 z 범위를 다시 검색.
+            // 이때 주변 타일맵의 인덱스를 구할 때는 배열 인덱스 범위가 벗어나지 않도록 주의.
+                
             var item = node[xIndex, yIndex];
             xPos = (int)(item.nodePos.x + 0.5f);
             yPos = (int)(item.nodePos.z + 0.5f);
+
+            // 앞서 구한 인덱스의 타일이 이미 내 플레이어가 점령한 위치라면, 색칠을 또 할 필요 없음.
+            if (item.color == PlayerColor(_player[ix].transform.parent.gameObject))
+            {
+                Debug.Log("<color=red>여기 걸림</color>");
+                continue;
+            }
+
+            Debug.Log("<color=green>여긴 밖</color>");
 
             colors = new Color[length * length];
             for (int jx = 0; jx < length; ++jx)
@@ -175,6 +189,7 @@ public class Map : Obj
             item.SetColor(PlayerColor(_player[ix].transform.parent.gameObject));
         }
 
+        #region 기존 코드 백업 (최적화 전 코드)
         //int xPos;
         //int yPos;
         //for (int ix = 0; ix < length; ++ix)
@@ -188,8 +203,6 @@ public class Map : Obj
         //    }
         //}
 
-        // 작성자: 장세윤(2024.04.15).
-        // 최적화 테스트를 위한 코드 백업.
         //foreach (var item in node)//0414 이희웅 수정 
         //{
         //    for (int i = 0; i < PhotonNetwork.CurrentRoom.PlayerCount; i++)
@@ -215,6 +228,7 @@ public class Map : Obj
         //        }
         //    }
         //}
+        #endregion
     }
     #region 현재 사용하지 않는 코드
     //void PlayerColorCount(GameObject player)
