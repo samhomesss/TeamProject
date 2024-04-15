@@ -285,12 +285,16 @@ namespace yb
 
             if(IsTestMode.Instance.CurrentUser == Define.User.Hw)
             {
-                StartCoroutine(CoroutineHelper.Instance.CoDelayPhotonObjectSpawn(_status.ResurrectionTime));
-                StartCoroutine(CoroutineHelper.Instance.CoDelayPhotonObjectDelete(transform.root.gameObject, _status.ResurrectionTime));
-                GameObject go = MyCamera.gameObject;
-                go.transform.parent = null;
-                StartCoroutine(CoroutineHelper.Instance.CoDelayPhotonObjectDelete(go, _status.ResurrectionTime));
-                _rotateToMouseScript.PlayerDead();
+                if (_photonview.IsMine)
+                {
+                    StartCoroutine(CoroutineHelper.Instance.CoDelayPhotonObjectSpawn(_status.ResurrectionTime));
+                    StartCoroutine(CoroutineHelper.Instance.CoDelayPhotonObjectDelete(transform.root.gameObject, _status.ResurrectionTime));
+                    GameObject go = MyCamera.gameObject;
+                    go.transform.parent = null;
+                    StartCoroutine(CoroutineHelper.Instance.CoDelayPhotonObjectDelete(go, _status.ResurrectionTime));
+
+                    _rotateToMouseScript.PlayerDead();
+                }
             }
             else
             {
