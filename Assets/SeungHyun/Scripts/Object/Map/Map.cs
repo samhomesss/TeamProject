@@ -160,8 +160,10 @@ public class Map : Obj
             }
         }
 
-        SetColor(xPos, yPos, xIndex, yIndex);
-        _photonView.RPC("SetColor", RpcTarget.Others, xPos, yPos, xIndex, yIndex);
+        SetColor(xPos, yPos, xIndex, yIndex, PlayerColor(_player.transform.parent.gameObject));
+        //_player.CallSetColorRPC(xPos, yPos, xIndex, yIndex, PlayerColor(_player.transform.parent.gameObject));
+        _photonView.RPC("CallSetColorRPC", RpcTarget.Others, xPos, yPos, xIndex, yIndex, PlayerColor(_player.transform.parent.gameObject));
+
         #region 기존 코드 백업 (최적화 전 코드)
         //int xPos;
         //int yPos;
@@ -272,14 +274,14 @@ public class Map : Obj
     {
         player.MapEvent += UpdateColor;
     }
-
-    [PunRPC]
-    void SetColor(int xPos, int yPos, int nodeXIndex, int nodeYIndex)
+    
+    public void SetColor(int xPos, int yPos, int nodeXIndex, int nodeYIndex, Color nodeColor)
     {
         Node item = node[nodeXIndex, nodeYIndex];
         texture.SetPixels(texture.width - xPos * 4, texture.height - yPos * 4, length, length, colors);
         texture.Apply();
-        item.SetColor(PlayerColor(_player.transform.parent.gameObject));
+        //item.SetColor(PlayerColor(_player.transform.parent.gameObject));
+        item.SetColor(nodeColor);
     }
 }
 

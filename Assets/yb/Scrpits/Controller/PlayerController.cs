@@ -313,6 +313,12 @@ namespace yb
         }
 
         [PunRPC]
+        public void CallSetColorRPC(int xPos, int yPos, int nodeXIndex, int nodeYIndex, Color nodeColor)
+        {
+            Map.MapObject.GetComponent<Map>().SetColor(xPos, yPos, nodeXIndex, nodeYIndex, nodeColor);
+        }
+
+        [PunRPC]
         public void SetDropItemName(int dropObjectViewId)
         {
             PhotonView _photonView = PhotonNetwork.GetPhotonView(dropObjectViewId);
