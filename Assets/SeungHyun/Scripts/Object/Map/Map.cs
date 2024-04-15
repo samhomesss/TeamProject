@@ -13,7 +13,7 @@ public class Map : Obj
     #region Property
     public static GameObject MapObject => map;
 
-    private PhotonView _photonView;
+    [SerializeField]private PhotonView _photonView;
     //0413 04:15 Ãß°¡ 
     // public enum PlayerName
     // {
@@ -77,7 +77,7 @@ public class Map : Obj
     private void Start()
     {
         _player = GameObject.Find($"Player{PhotonNetwork.LocalPlayer.ActorNumber}").GetComponentInChildren<PlayerController>();
-        _photonView = _player.GetComponentInChildren<PhotonView>();
+        _photonView = _player.GetComponent<PhotonView>();
         #endregion
 
         for (int i = 0; i < 64; i++)
