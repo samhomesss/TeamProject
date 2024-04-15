@@ -21,7 +21,6 @@ namespace yb
     {
         private readonly float _animationFadeTime = .3f;  //애니메이션 페이드 시간
         public const int MaxRelicNumber = 2;
-        private int _playerHandle;  //플레이어 고유 번호
         private Vector3 _playerMoveVelocity;
         private Rigidbody _rigid;
         private Data _data;  //기본 데이터
@@ -114,8 +113,7 @@ namespace yb
 
         public PhotonView IphotonView { get => _photonview; }//0410 18:42 이희웅 포톤뷰 인터페이스 추가
 
-        
-
+        public int PlayerHandle { get; set; }
         private void Awake()
         {
             _rigid = GetComponent<Rigidbody>();
@@ -284,12 +282,25 @@ namespace yb
         /// 플레이어 사망 이벤트(애니메이션에서 이벤트로 호출)
         /// </summary>
         public void OnDieEvent() {
-            RespawnManager.Instance.Respawn(_playerHandle, _status.ResurrectionTime);
-            Managers.Resources.Destroy(transform.root.gameObject, _status.ResurrectionTime);
-            GameObject go = MyCamera.gameObject;
-            go.transform.parent = null;
-            Managers.Resources.Destroy(go, _status.ResurrectionTime);
-            _rotateToMouseScript.PlayerDead();
+
+            if(IsTestMode.Instance.CurrentUser == Define.User.Hw)
+            {
+                RespawnManager.Instance.Respawn(PlayerHandle, _status.ResurrectionTime);
+                Managers.Resources.Destroy(transform.root.gameObject, _status.ResurrectionTime);
+                GameObject go = MyCamera.gameObject;
+                go.transform.parent = null;
+                Managers.Resources.Destroy(go, _status.ResurrectionTime);
+                _rotateToMouseScript.PlayerDead();
+            }
+            else
+            {
+                RespawnManager.Instance.Respawn(PlayerHandle, _status.ResurrectionTime);
+                Managers.Resources.Destroy(transform.root.gameObject, _status.ResurrectionTime);
+                GameObject go = MyCamera.gameObject;
+                go.transform.parent = null;
+                Managers.Resources.Destroy(go, _status.ResurrectionTime);
+                _rotateToMouseScript.PlayerDead();
+            }
         }
 
         /// <summary>
