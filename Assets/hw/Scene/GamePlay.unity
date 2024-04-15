@@ -766,10 +766,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27bb7828f3556ef48b12f1e34c6d19e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DropItemList:
-  - ObtainablePistol
-  - ObtainableRifle
-  - ObtainableShotgun
 --- !u!4 &1506214307
 Transform:
   m_ObjectHideFlags: 0
