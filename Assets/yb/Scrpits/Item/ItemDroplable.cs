@@ -33,7 +33,7 @@ namespace yb {
             int count = _itemsList.Count;
             for (int i = 0; i < count; i++) {
                 if ((-count / 2 < x) && (x <= count / 2) && (-count / 2 < z) && (z <= count / 2)) {
-                    string path = $"yb/Weapon/{_itemsList[i]}"; //0411 00:13ºÐ ÀÌÈñ¿õ  yb/item/{_itemsList[i]} -> yb/Weapon/{_itemsList[i]} À¸·Î ¼öÁ¤
+                    string path = $"yb/Items/{_itemsList[i]}"; //0411 00:13ºÐ ÀÌÈñ¿õ  yb/item/{_itemsList[i]} -> yb/Weapon/{_itemsList[i]} À¸·Î ¼öÁ¤
                     GameObject go;
                     if (IsTestMode.Instance.CurrentUser == Define.User.Hw) //0411 12:42 ÀÌÈñ¿õ Æ÷Åæ Å×½ºÆ®¿ë Á¶°Ç¹®»ðÀÔ
                     {
