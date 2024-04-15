@@ -268,7 +268,6 @@ public class Map : Obj
         player.MapEvent += UpdateColor;
     }
 
-    [PunRPC]
     void SetColor(int xPos, int yPos, int nodeXIndex, int nodeYIndex)
     {
         Node item = node[nodeXIndex, nodeYIndex];

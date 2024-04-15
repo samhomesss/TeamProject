@@ -200,11 +200,6 @@ namespace yb
             return true;
         }
 
-        public void CallSetColorRPC(int xPos, int yPos, int xIndex, int yIndex)
-        {
-            _photonview.RPC("SetColor", RpcTarget.Others, xPos, yPos, xIndex, yIndex);
-        }
-
         /// <summary>
         /// Bool파라미터로 애니메이션 체인지
         /// </summary>
@@ -317,6 +312,13 @@ namespace yb
             }
         }
 
+
+
+        [PunRPC]
+        public void CallSetColorRPC(int xPos, int yPos, int xIndex, int yIndex)
+        {
+            _photonview.RPC("SetColor", RpcTarget.Others, xPos, yPos, xIndex, yIndex);
+        }
 
         [PunRPC]
         public void SetDropItemName(int dropObjectViewId)
