@@ -32,9 +32,14 @@ public class CoroutineHelper : MonoBehaviour
     public IEnumerator CoDelayPhotonObjectSpawn(float time)
     {
         yield return new WaitForSeconds(time);
-        GameObject go = PhotonNetwork.Instantiate("Prefabs/hw/PlayerPrefabs/Player", Vector3.zero, Quaternion.identity);
-        _photonView = go.GetComponent<PhotonView>();
-        _photonView.RPC("RenamePlayer",RpcTarget.All, _photonView.ViewID);
+        GameObject go = PhotonNetwork.Instantiate("Prefabs/hw/PlayerPrefabs/Player", Vector3.zero, Quaternion.identity); 
+        _photonView = Util.FindChild(go, "Model").GetComponent<PhotonView>();
+        _photonView.RPC("RenamePlayer", RpcTarget.All, _photonView.ViewID);
+        if (_photonView.IsMine)
+        {
+            Util.FindChild(go, "Camera", true).SetActive(true);
+            Util.FindChild(go, "Camera", true).GetComponent<AudioListener>().enabled = true;
+        }
     }
     public IEnumerator CoDelayPhotonObjectDelete(GameObject go, float time)
     {
