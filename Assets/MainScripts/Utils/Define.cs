@@ -21,6 +21,15 @@ public class Define
         Count,
     }
 
+    public enum ItemType {
+        HpPotion,
+        DamageUpPotion,
+        MoveSpeedUpPotion,
+        HidePotion,
+        Bullet,
+        Grenade,
+        Count,
+    }
 
     public enum PlayerState {
         Shot,
