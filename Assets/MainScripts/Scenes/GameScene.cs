@@ -8,7 +8,7 @@ using yb;
 public class GameScene : BaseScene
 {
     private PhotonView _photonView;
-    private GameObject[] items = new GameObject[10];//0415 18:33 이희웅 테스트용 배열 추가 
+    private GameObject[] items = new GameObject[6];//0415 18:33 이희웅 테스트용 배열 추가 
     public override void Clear()
     {
     }
@@ -40,14 +40,12 @@ public class GameScene : BaseScene
                 items[4] = PhotonNetwork.Instantiate("Prefabs/yb/Relic/BonusResurrectionTimeRelic", new Vector3(1, 1, 6), Quaternion.identity);
                 items[5] = PhotonNetwork.Instantiate("Prefabs/yb/Weapon/Shotgun", new Vector3(0, 1, 0), Quaternion.identity);
 
-            }
-            items[0].name = "GuardRelic";
-            items[1].name = "ShieldRelic";
-            items[2].name = "BonusAttackSpeedRelic";
-            items[3].name = "BonusProjectileRelic";
-            items[4].name = "BonusResurrectionTimeRelic";
-            items[5].name = "ShotGun";
+                for(int i = 0; i < items.Length; i++)
+                {
+                    _photonView.RPC("SetDropItemName", RpcTarget.All, items[i].GetComponent<PhotonView>().ViewID);
+                }
 
+            }
 
             _photonView = Util.FindChild(go,"Model").GetComponent<PhotonView>();
       
