@@ -45,6 +45,12 @@ MonoBehaviour:
   - TakeDamage
   - TakeDamagePhoton
   - PickupPhoton
+<<<<<<< Updated upstream
+=======
+  - RenamePlayer
+  - SetDropItemName
+  - SetColorRPC
+>>>>>>> Stashed changes
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1
