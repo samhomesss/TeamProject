@@ -312,6 +312,7 @@ namespace yb
             }
         }
 
+
         [PunRPC]
         public void CallSetColorRPC(int xPos, int yPos, int nodeXIndex, int nodeYIndex, int nodeColorEnum)
         {
