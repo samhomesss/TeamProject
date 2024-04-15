@@ -33,19 +33,39 @@ public class RespawnManager : MonoBehaviourPunCallbacks {
             foreach (Transform t in _respawnPoints.transform) {
                 foreach (PlayerController p in units) {
                     if (Vector3.Distance(t.position, p.transform.position) > SpawnAllowRange) {
-                        GameObject unit = Managers.Resources.Instantiate($"yb/Player/Player", null);
-                        Debug.Log($"{unit.name}积己凳");
-                        unit.transform.position = t.position;
-                        break;
+                        if(IsTestMode.Instance.CurrentUser == Define.User.Hw) //0415 16:22 捞锐旷
+                        {
+                            GameObject unit = PhotonNetwork.Instantiate("Prefabs/hw/PlayerPrefabs/Player",Vector3.zero,Quaternion.identity);
+                            Debug.Log($"{unit.name}积己凳");
+                            unit.transform.position = t.position;
+                            break;
+                        }
+                        else
+                        {
+                            GameObject unit = Managers.Resources.Instantiate($"yb/Player/Player", null);
+                            Debug.Log($"{unit.name}积己凳");
+                            unit.transform.position = t.position;
+                            break;
+                        }
                     }
                 }
                 return;
             }
         }
         else {
-            GameObject unit = Managers.Resources.Instantiate($"yb/Player/Player", null);
-            Debug.Log($"{unit.name}积己凳");
-            unit.transform.position = _respawnPoints.GetChild(0).transform.position;
+
+            if(IsTestMode.Instance.CurrentUser == Define.User.Hw)
+            {
+                GameObject unit = PhotonNetwork.Instantiate("Prefabs/hw/PlayerPrefabs/Player", Vector3.zero, Quaternion.identity);
+                Debug.Log($"{unit.name}积己凳");
+                unit.transform.position = _respawnPoints.GetChild(0).transform.position;
+            }
+            else
+            {
+                GameObject unit = Managers.Resources.Instantiate($"yb/Player/Player", null);
+                Debug.Log($"{unit.name}积己凳");
+                unit.transform.position = _respawnPoints.GetChild(0).transform.position;
+            }
         }
         
     }

@@ -136,7 +136,7 @@ namespace yb
         private void Start()
         {
             _data = Managers.Data;
-
+            PlayerHandle = PhotonNetwork.LocalPlayer.ActorNumber;
             //사망시 set해둔 아이템 드랍
             _droplable.Set("ObtainableRifle");
             _droplable.Set("ObtainablePistol");
@@ -286,10 +286,10 @@ namespace yb
             if(IsTestMode.Instance.CurrentUser == Define.User.Hw)
             {
                 RespawnManager.Instance.Respawn(PlayerHandle, _status.ResurrectionTime);
-                Managers.Resources.Destroy(transform.root.gameObject, _status.ResurrectionTime);
+                StartCoroutine(DestroyObject(transform.root.gameObject, _status.ResurrectionTime));
                 GameObject go = MyCamera.gameObject;
                 go.transform.parent = null;
-                Managers.Resources.Destroy(go, _status.ResurrectionTime);
+                StartCoroutine(DestroyObject(go, _status.ResurrectionTime));
                 _rotateToMouseScript.PlayerDead();
             }
             else
@@ -301,6 +301,12 @@ namespace yb
                 Managers.Resources.Destroy(go, _status.ResurrectionTime);
                 _rotateToMouseScript.PlayerDead();
             }
+        }
+
+        IEnumerator DestroyObject(GameObject gameobject, float ResurrectionTime) //0415 16:11 이희웅 오브젝트 삭제 코루틴 추가
+        {
+            PhotonNetwork.Destroy(gameobject);
+            yield return new WaitForSeconds(ResurrectionTime);
         }
 
         /// <summary>
