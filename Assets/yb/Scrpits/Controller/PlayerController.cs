@@ -44,7 +44,6 @@ namespace yb
         private GameObject _attacker;
         private Texture2D _texture; //0415 12:04 ÀÌÈñ¿õ Ãß°¡
         public int HaveItemNumber { get; set; }
-        private Texture2D _texture; //0415 12:04 ÀÌÈñ¿õ Ãß°¡
 
         private Dictionary<int, Item> _itemList = new Dictionary<int, Item>();
 
