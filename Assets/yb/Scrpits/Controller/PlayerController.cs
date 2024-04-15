@@ -21,6 +21,9 @@ namespace yb
     {
         private readonly float _animationFadeTime = .3f;  //애니메이션 페이드 시간
         public const int MaxRelicNumber = 2;
+        private int _playerHandle;  //플레이어 고유 번호
+        public const int MaxItemNumber = 9;
+        public const int MaxItemSlot = 4;
         private Vector3 _playerMoveVelocity;
         private Rigidbody _rigid;
         private Data _data;  //기본 데이터
@@ -41,8 +44,21 @@ namespace yb
         private GameObject _attacker;
         private Texture2D _texture; //0415 12:04 이희웅 추가
         public int HaveItemNumber { get; set; }
+        private Texture2D _texture; //0415 12:04 이희웅 추가
+
+        private Dictionary<int, Item> _itemList = new Dictionary<int, Item>();
+
+        public Dictionary<int, Item> ItemList => _itemList;
         public int HaveRelicNumber { get; set; }
 
+        public class Item {
+            public Item(Define.ItemType type, int number) {
+                ItemType = type;
+                ItemNumber = number;
+            }
+            public Define.ItemType ItemType;
+            public int ItemNumber;
+        }
         /// <summary>
         /// 플레이어 hp변경시 호출
         /// <현재 hp, 최대 hp>
