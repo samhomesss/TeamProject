@@ -303,11 +303,10 @@ namespace yb
                 if (_photonview.IsMine)
                 {
                     StartCoroutine(CoroutineHelper.Instance.CoDelayPhotonObjectSpawn(_status.ResurrectionTime));
+                    StartCoroutine(CoroutineHelper.Instance.CoDelayPhotonObjectDelete(transform.root.gameObject, _status.ResurrectionTime));
                     GameObject go = MyCamera.gameObject;
                     go.transform.parent = null;
                     StartCoroutine(CoroutineHelper.Instance.CoDelayPhotonObjectDelete(go, _status.ResurrectionTime));
-                    StartCoroutine(CoroutineHelper.Instance.CoDelayPhotonObjectDelete(transform.root.gameObject, _status.ResurrectionTime));
-
                     _rotateToMouseScript.PlayerDead();
                 }
             }
@@ -369,7 +368,7 @@ namespace yb
         }
 
         [PunRPC]
-        public void SetDropItemName(int dropObjectViewId)
+        public void SetDropItemName(int dropObjectViewId)//0414 이희웅 포톤 드랍아이템 이름재지정
         {
             PhotonView _photonView = PhotonNetwork.GetPhotonView(dropObjectViewId);
 
@@ -381,7 +380,6 @@ namespace yb
         [PunRPC]//0413 03:46 이희웅 포톤용 메서드 추가 플레이어 이름지정
         public void RenamePlayer(int PlayerViewId)
         {
-            Debug.Log($"{PhotonNetwork.GetPhotonView(PlayerViewId)}플레이어가 들어왔습니다{PhotonNetwork.LocalPlayer.ActorNumber}");
             PhotonNetwork.GetPhotonView(PlayerViewId).transform.parent.name = $"Player{PhotonNetwork.GetPhotonView(PlayerViewId).Owner.ActorNumber}";
         }
 

@@ -7,6 +7,7 @@ using UnityEngine.Events;
 public class CoroutineHelper : MonoBehaviour
 {
     public static CoroutineHelper Instance;
+    public PhotonView _photonView;
 
     private void Awake() {
         Instance = this;
@@ -31,8 +32,9 @@ public class CoroutineHelper : MonoBehaviour
     public IEnumerator CoDelayPhotonObjectSpawn(float time)
     {
         yield return new WaitForSeconds(time);
-        PhotonNetwork.Instantiate("Prefabs/hw/PlayerPrefabs/Player", Vector3.zero, Quaternion.identity);
-
+        GameObject go = PhotonNetwork.Instantiate("Prefabs/hw/PlayerPrefabs/Player", Vector3.zero, Quaternion.identity);
+        _photonView = go.GetComponent<PhotonView>();
+        _photonView.RPC("RenamePlayer",RpcTarget.All, _photonView.ViewID);
     }
     public IEnumerator CoDelayPhotonObjectDelete(GameObject go, float time)
     {
