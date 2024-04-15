@@ -43,8 +43,8 @@ public class GameScene : BaseScene
                 bonusAttackSpeedRelic.name = "BonusAttackSpeedRelic";
                 bonusProjectileRelic.name = "BonusProjectileRelic";
                 bonusResurrectionTimeRelic.name = "BonusResurrectionTimeRelic";
-            }
 
+            }
                 _photonView = Util.FindChild(go,"Model").GetComponent<PhotonView>();
       
             if (_photonView.IsMine)
