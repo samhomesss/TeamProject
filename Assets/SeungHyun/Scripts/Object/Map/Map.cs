@@ -13,7 +13,7 @@ public class Map : Obj
     #region Property
     public static GameObject MapObject => map;
 
-
+    private PhotonView _photonView;
     //0413 04:15 추가 
     // public enum PlayerName
     // {
@@ -77,7 +77,7 @@ public class Map : Obj
     private void Start()
     {
         _player = GameObject.Find($"Player{PhotonNetwork.LocalPlayer.ActorNumber}").GetComponentInChildren<PlayerController>();
-
+        _photonView = _player.GetComponentInChildren<PhotonView>();
         #endregion
 
         for (int i = 0; i < 64; i++)
@@ -161,7 +161,7 @@ public class Map : Obj
         }
 
         SetColor(xPos, yPos, xIndex, yIndex);
-        _player.CallSetColorRPC(xPos, yPos, xIndex, yIndex);
+        _photonView.RPC("SetColor", RpcTarget.Others, xPos, yPos, xIndex, yIndex);
         #region 기존 코드 백업 (최적화 전 코드)
         //int xPos;
         //int yPos;
@@ -203,6 +203,11 @@ public class Map : Obj
         //}
         #endregion
     }
+
+    //public void CallSetColorRPC(int xPos, int yPos, int xIndex, int yIndex)
+    //{
+    //    _photonview.RPC("SetColor", RpcTarget.Others, xPos, yPos, xIndex, yIndex);
+    //}
 
 
     #region 현재 사용하지 않는 코드
@@ -268,6 +273,7 @@ public class Map : Obj
         player.MapEvent += UpdateColor;
     }
 
+    [PunRPC]
     void SetColor(int xPos, int yPos, int nodeXIndex, int nodeYIndex)
     {
         Node item = node[nodeXIndex, nodeYIndex];
@@ -275,6 +281,5 @@ public class Map : Obj
         texture.Apply();
         item.SetColor(PlayerColor(_player.transform.parent.gameObject));
     }
-
 }
 

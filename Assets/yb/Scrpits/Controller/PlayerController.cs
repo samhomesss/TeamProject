@@ -312,14 +312,6 @@ namespace yb
             }
         }
 
-
-
-        [PunRPC]
-        public void CallSetColorRPC(int xPos, int yPos, int xIndex, int yIndex)
-        {
-            _photonview.RPC("SetColor", RpcTarget.Others, xPos, yPos, xIndex, yIndex);
-        }
-
         [PunRPC]
         public void SetDropItemName(int dropObjectViewId)
         {
@@ -336,6 +328,7 @@ namespace yb
             Debug.Log($"{PhotonNetwork.GetPhotonView(PlayerViewId)}플레이어가 들어왔습니다{PhotonNetwork.LocalPlayer.ActorNumber}");
             PhotonNetwork.GetPhotonView(PlayerViewId).transform.parent.name = $"Player{PhotonNetwork.GetPhotonView(PlayerViewId).Owner.ActorNumber}";
         }
+
         [PunRPC]
         public void TakeDamagePhoton(int amout, int attackerViewNum)//0410 19:24 이희웅 포톤용 메서드 추가  
         {
