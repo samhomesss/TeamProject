@@ -161,7 +161,7 @@ public class Map : Obj
         }
 
         SetColor(xPos, yPos, xIndex, yIndex, PlayerColor(_player.transform.parent.gameObject));
-        _photonView.RPC("CallSetColorRPC", RpcTarget.Others, xPos, yPos, xIndex, yIndex, (int)item.nodeColor);
+        _photonView.RPC("CallSetColorRPC", RpcTarget.Others, xPos, yPos, xIndex, yIndex);
         #region 기존 코드 백업 (최적화 전 코드)
         //int xPos;
         //int yPos;
