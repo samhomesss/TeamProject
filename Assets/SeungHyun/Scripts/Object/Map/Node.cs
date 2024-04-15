@@ -8,6 +8,7 @@ public enum NodeColor : int
 }
 
 public class Node
+
 {
     public Node(Vector3 Pos)
     {

@@ -24,12 +24,12 @@ public class Map : Obj
     //    White,
     //}
     public static Node[,] Node => node; // 이거는 텍스쳐를 나눈거에요 
-    public PlayerController[] Player => _player;
+    public PlayerController Player => _player;
     #endregion
 
     static Node[,] node = new Node[64, 64]; // 가로 세로 64 * 64 의 노드로 나눈것처럼 
     static GameObject map; // 맵으로 띄워진 오브젝트 가져오는거 
-    PlayerController[] _player; // 플레이어들
+    PlayerController _player; // 플레이어들
     Texture2D texture; // 내가 가져오는 Texture
     MeshRenderer meshRenderer; // Mesh
 
@@ -76,12 +76,7 @@ public class Map : Obj
 
     private void Start()
     {
-        _player = new PlayerController[PhotonNetwork.CurrentRoom.PlayerCount];
-        for (int i = 0; i < PhotonNetwork.CountOfPlayers; i++)
-        {
-            _player[i] = GameObject.Find($"Player{i + 1}").GetComponentInChildren<PlayerController>();
-        }
-
+        _player = GameObject.Find($"Player{PhotonNetwork.LocalPlayer.ActorNumber}").GetComponentInChildren<PlayerController>();
 
         #endregion
 
@@ -96,11 +91,6 @@ public class Map : Obj
         if (meshRenderer == null)
         {
             meshRenderer = GetComponent<MeshRenderer>();
-        }
-
-        for (int i = 0; i < PhotonNetwork.CurrentRoom.PlayerCount; i++)
-        {
-            _player[i] = GameObject.Find($"Player{i + 1}").GetComponentInChildren<PlayerController>();
         }
 
         texture = (Texture2D)Instantiate(meshRenderer.material.mainTexture);
@@ -138,57 +128,40 @@ public class Map : Obj
         {
             for (int jx = 0; jx < length; ++jx)
             {
-                for (int i = 0; i < PhotonNetwork.CurrentRoom.PlayerCount; i++)
-                {
-                    colors[jx + ix * length] = PlayerColor(_player[i].transform.parent.gameObject);
-                }
+                colors[jx + ix * length] = PlayerColor(_player.transform.parent.gameObject);
             }
         }
-        
+
         // 플레이어 별로 루프 처리.
-        for (int ix = 0; ix < PhotonNetwork.CurrentRoom.PlayerCount; ++ix)
+        // 작성자: 장세윤 (2024.04.15).
+        // 검색 알고리즘 업데이트.
+        // 플레이어의 위치를 기준으로 타일맵 위치 검색.
+        // 플레이어의 위치가 곧 타일맵의 인덱스.
+        var xIndex = Mathf.Clamp(Mathf.Max(0, (int)_player.transform.position.x), 0, 63);
+        var yIndex = Mathf.Clamp(Mathf.Max(0, (int)_player.transform.position.z), 0, 63);
+
+        // Todo: 작성자: 장세윤.
+        // 더 정확하게 위치를 찾고 싶은 경우에 시도할 방법. (
+        // 위에서 바로 찾은 인덱스를 기준으로 타일맵의 위치를 플레이어의 범위로 다시 확인.
+        // 확인한 결과가 맞다면 그대로 타일맵 인덱스를 사용하고,
+        // 아니라면, 그 주변의 나머지 8개(9개인데, 앞서 구한 인덱스는 아니기 때문.)에 대해서 x 범위와 z 범위를 다시 검색.
+        // 이때 주변 타일맵의 인덱스를 구할 때는 배열 인덱스 범위가 벗어나지 않도록 주의.
+
+        Node item = node[xIndex, yIndex];
+        xPos = (int)(item.nodePos.x + 0.5f);
+        yPos = (int)(item.nodePos.z + 0.5f);
+
+        colors = new Color[length * length];
+        for (int jx = 0; jx < length; ++jx)
         {
-            // 작성자: 장세윤 (2024.04.15).
-            // 검색 알고리즘 업데이트.
-            // 플레이어의 위치를 기준으로 타일맵 위치 검색.
-            // 플레이어의 위치가 곧 타일맵의 인덱스.
-            var xIndex = Mathf.Clamp(Mathf.Max(0, (int)_player[ix].transform.position.x), 0, 63);
-            var yIndex = Mathf.Clamp(Mathf.Max(0, (int)_player[ix].transform.position.z), 0, 63);
-             
-            // Todo: 작성자: 장세윤.
-            // 더 정확하게 위치를 찾고 싶은 경우에 시도할 방법. (
-            // 위에서 바로 찾은 인덱스를 기준으로 타일맵의 위치를 플레이어의 범위로 다시 확인.
-            // 확인한 결과가 맞다면 그대로 타일맵 인덱스를 사용하고,
-            // 아니라면, 그 주변의 나머지 8개(9개인데, 앞서 구한 인덱스는 아니기 때문.)에 대해서 x 범위와 z 범위를 다시 검색.
-            // 이때 주변 타일맵의 인덱스를 구할 때는 배열 인덱스 범위가 벗어나지 않도록 주의.
-                
-            var item = node[xIndex, yIndex];
-            xPos = (int)(item.nodePos.x + 0.5f);
-            yPos = (int)(item.nodePos.z + 0.5f);
-
-            // 앞서 구한 인덱스의 타일이 이미 내 플레이어가 점령한 위치라면, 색칠을 또 할 필요 없음.
-            if (item.color == PlayerColor(_player[ix].transform.parent.gameObject))
+            for (int kx = 0; kx < length; ++kx)
             {
-                Debug.Log("<color=red>여기 걸림</color>");
-                continue;
+                colors[jx + kx * length] = PlayerColor(_player.transform.parent.gameObject);
             }
-
-            Debug.Log("<color=green>여긴 밖</color>");
-
-            colors = new Color[length * length];
-            for (int jx = 0; jx < length; ++jx)
-            {
-                for (int kx = 0; kx < length; ++kx)
-                {
-                    colors[jx + kx * length] = PlayerColor(_player[ix].transform.parent.gameObject);
-                }
-            }
-
-            texture.SetPixels(texture.width - xPos * 4, texture.height - yPos * 4, length, length, colors);
-            texture.Apply();
-            item.SetColor(PlayerColor(_player[ix].transform.parent.gameObject));
         }
 
+        SetColor(xPos, yPos, xIndex, yIndex);
+        _player.CallSetColorRPC(xPos, yPos, xIndex, yIndex);
         #region 기존 코드 백업 (최적화 전 코드)
         //int xPos;
         //int yPos;
@@ -230,6 +203,8 @@ public class Map : Obj
         //}
         #endregion
     }
+
+
     #region 현재 사용하지 않는 코드
     //void PlayerColorCount(GameObject player)
     //{
@@ -288,14 +263,19 @@ public class Map : Obj
     }
 
     //윤범이형 Action 추가
-    public void SetPlayer(PlayerController[] player)
+    public void SetPlayer(PlayerController player)
     {
-        for (int i = 0; i < PhotonNetwork.CurrentRoom.PlayerCount; i++)
-        {
-            player[i].MapEvent += UpdateColor;
-        }
+        player.MapEvent += UpdateColor;
     }
 
+    [PunRPC]
+    void SetColor(int xPos, int yPos, int nodeXIndex, int nodeYIndex)
+    {
+        Node item = node[nodeXIndex, nodeYIndex];
+        texture.SetPixels(texture.width - xPos * 4, texture.height - yPos * 4, length, length, colors);
+        texture.Apply();
+        item.SetColor(PlayerColor(_player.transform.parent.gameObject));
+    }
 
 }
 

@@ -24,7 +24,7 @@ public class UI_Inven : UI_Scene
         map = Map.MapObject.GetComponent<Map>();
         Init();
 
-        SetPlayer(map.Player[PhotonNetwork.LocalPlayer.ActorNumber - 1]);
+        SetPlayer(map.Player);
      }
 
     void SetPlayer(PlayerController player)

@@ -9,6 +9,9 @@ using UnityEditor.Experimental.GraphView;
 using UnityEngine.Events;
 using Photon.Realtime;
 using System.Reflection;
+using static UnityEditor.Experimental.GraphView.GraphView;
+using static UnityEditor.Progress;
+using UnityEngine.UIElements;
 
 namespace yb
 {
@@ -37,6 +40,7 @@ namespace yb
         private PlayerGuardController _guardController;
         private PlayerShieldController _shieldController;
         private GameObject _attacker;
+        private Texture2D _texture; //0415 12:04 ¿Ã»Òøı √ﬂ∞°
         public int HaveItemNumber { get; set; }
         public int HaveRelicNumber { get; set; }
 
@@ -110,6 +114,8 @@ namespace yb
 
         public PhotonView IphotonView { get => _photonview; }//0410 18:42 ¿Ã»Òøı ∆˜≈Ê∫‰ ¿Œ≈Õ∆‰¿ÃΩ∫ √ﬂ∞°
 
+        
+
         private void Awake()
         {
             _rigid = GetComponent<Rigidbody>();
@@ -125,6 +131,8 @@ namespace yb
             _shieldController = transform.parent.GetComponentInChildren<PlayerShieldController>();
             _guardController.gameObject.SetActive(false);
             _shieldController.gameObject.SetActive(false);
+            //_texture = Map.MapObject.GetComponent<Texture2D>();
+
         }
 
         private void Start()
@@ -181,7 +189,8 @@ namespace yb
           
             
             MapEvent?.Invoke();
-            ClosedItemEvent?.Invoke();
+            ClosedItemEvent?.Invoke();            
+
             //if (resetTimer >= 1) 
             //{
             //    ColorPercentEvent?.Invoke();
@@ -189,6 +198,11 @@ namespace yb
             //}
             #endregion
             return true;
+        }
+
+        public void CallSetColorRPC(int xPos, int yPos, int xIndex, int yIndex)
+        {
+            _photonview.RPC("SetColor", RpcTarget.Others, xPos, yPos, xIndex, yIndex);
         }
 
         /// <summary>
@@ -302,6 +316,7 @@ namespace yb
                 _stateController.ChangeState(new PlayerState_Die(this, attacker));
             }
         }
+
 
         [PunRPC]
         public void SetDropItemName(int dropObjectViewId)

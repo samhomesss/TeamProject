@@ -41,7 +41,7 @@ public class UI_Weapon : UI_Scene
         _photonView = GameObject.Find($"Player{PhotonNetwork.LocalPlayer.ActorNumber}").GetComponentInChildren<PhotonView>();
 
         if(_photonView.IsMine)
-        SetPlayer(map.Player[PhotonNetwork.LocalPlayer.ActorNumber-1]);
+        SetPlayer(map.Player);
 
         mainWeapon.transform.GetChild(0).GetComponentInChildren<Image>().sprite = Managers.ItemDataBase.GetItemData(slotItemID).itemImage;
         _mainWeaponImage = mainWeapon.GetComponentInChildren<Image>();
@@ -57,7 +57,7 @@ public class UI_Weapon : UI_Scene
         GameObject go = Managers.Resources.Instantiate($"sh/Weapon/{Managers.ItemDataBase.GetItemData(beforeItemID).itemName}"); // 아이템 생성
 
         if (_photonView.IsMine)
-        go.transform.position = map.Player[PhotonNetwork.LocalPlayer.ActorNumber-1].transform.position;
+        go.transform.position = map.Player.transform.position;
 
         Debug.Log(go.name);
         slotItemID = "Obtainable"+itemID;
