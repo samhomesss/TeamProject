@@ -18,7 +18,9 @@ public class Define
         Pistol,
         Rifle,
         Shotgun,
+        Count,
     }
+
 
     public enum PlayerState {
         Shot,

@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 516640211007908474}
   - component: {fileID: 1343581924361522477}
   - component: {fileID: 2058034643557940875}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: DestructibleObject
   m_TagString: DestructibleObject
   m_Icon: {fileID: 0}
@@ -74,6 +74,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ce0b395990e60142a583d62851e3547, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _currentHp: 1
 --- !u!33 &516640211007908474
 MeshFilter:
   m_ObjectHideFlags: 0
