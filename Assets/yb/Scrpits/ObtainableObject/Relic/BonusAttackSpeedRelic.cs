@@ -70,7 +70,6 @@ namespace yb {
 
             if (player.PhotonView.IsMine)
                 player.ChangeRelicIMGEvent.Invoke(RelicType.ToString(), () => { }, () => { });
-
                 PhotonNetwork.Destroy(gameObject);
         }
     }
