@@ -76,8 +76,10 @@ namespace yb {
 
             int projectileNumber = Random.Range(0, 1f) > _data.BonusProjectileChance((int)WeaponType) ? _data.DefaultShotgunProjectile : Mathf.Max(_data.DefaultShotgunProjectile + _bonusProjectile, 1);
 
-            for(int i = 0; i< projectileNumber; i++) 
-                CoroutineHelper.Instance.ProjectileCreate(i, () => _projectileCreator.Create(_defaultDamage, _projectileVelocity, targetPos, _firePos.position, player));
+            for(int i = 0; i< projectileNumber; i++)
+            {
+                _projectileCreator.Create(_defaultDamage, _projectileVelocity, targetPos, _firePos.position, player);
+            }
 
             player.MyCamera.transform.DOShakeRotation(0.2f, 1f);
 

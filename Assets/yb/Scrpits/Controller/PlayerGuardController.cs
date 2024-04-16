@@ -14,7 +14,7 @@ namespace yb {
             _speed = Managers.Data.DefaultGuardSpeed;
             _radius = Managers.Data.DefaultGuardSpeed;
             _defaultYPos = transform.position.y;
-            transform.position = _player.transform.position;
+            //transform.position = _player.transform.position;
         }
 
         void Update() {
@@ -24,7 +24,7 @@ namespace yb {
             float z = Mathf.Sin(_defaultAngle) * _radius;
 
             Vector3 pos = new Vector3(x, _defaultYPos, z);
-            pos = pos + _player.transform.position + _player.PlayerMoveVelocity;
+            pos = pos + _player.transform.position/* + _player.PlayerMoveVelocity*/;
             transform.localPosition = pos;
         }
     }

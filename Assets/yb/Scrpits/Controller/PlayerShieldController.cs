@@ -1,9 +1,11 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace yb {
-    public class PlayerShieldController : MonoBehaviour, ITakeDamage {
+    public class PlayerShieldController : MonoBehaviour, ITakeDamage, ITakeDamagePhoton//0412 09:30 ÀÌÈñ¿õ Æ÷Åæ¿ë ÀÎÅÍÆäÀÌ½º Ãß°¡
+    {
         private const float ShieldDefaultAlpha = 0.5f;
         private const float ColorR = 0.3f;
         private const float ColorG = 0.7f;
@@ -16,12 +18,18 @@ namespace yb {
         private float _hpBuffer;
         private bool _isTakeDamage;
         private float _shieldTimer;
+
+        private PhotonView _photonView; //0412 09:30 ÀÌÈñ¿õ Æ÷Åæ ºä Ãß°¡
+
+        public PhotonView IphotonView => _photonView;//0412 09:30 ÀÌÈñ¿õ Æ÷Åæ ºä Ãß°¡
+
         private void Start() {
             _player = GetComponentInParent<PlayerController>();
             _status = GetComponent<ShieldStatus>();
             _mesh = GetComponent<MeshRenderer>();
             _collider = GetComponent<SphereCollider>();
             _color = new Color(ColorR, ColorG, ColorB, 0.5f);
+            _photonView = GetComponent<PhotonView>();
         }
 
         private void Update() {
@@ -65,6 +73,21 @@ namespace yb {
             _isTakeDamage = true;
             _shieldTimer = 0;
             if (hp <= 0) {
+                _collider.enabled = false;
+            }
+        }
+
+        [PunRPC]
+        public void TakeDamagePhoton(int amout, int attackerViewNum)
+        {
+            int hp = _status.SetHp(-amout);
+            Debug.Log($"½Çµå°¡ µ¥¹ÌÁö¸¦{amout}¸¸Å­ ÀÔÀ½");
+            Debug.Log($"½Çµå ³²Àº Ã¼·Â {hp}");
+            SetMaterial();
+            _isTakeDamage = true;
+            _shieldTimer = 0;
+            if (hp <= 0)
+            {
                 _collider.enabled = false;
             }
         }

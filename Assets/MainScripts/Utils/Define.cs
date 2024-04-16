@@ -18,6 +18,17 @@ public class Define
         Pistol,
         Rifle,
         Shotgun,
+        Count,
+    }
+
+    public enum ItemType {
+        HpPotion,
+        DamageUpPotion,
+        MoveSpeedUpPotion,
+        HidePotion,
+        Bullet,
+        Grenade,
+        Count,
     }
 
     public enum PlayerState {

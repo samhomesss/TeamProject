@@ -7,15 +7,23 @@ using Photon.Pun;
 using System;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine.Events;
+using Photon.Realtime;
+using System.Reflection;
+using static UnityEditor.Experimental.GraphView.GraphView;
+using static UnityEditor.Progress;
+using UnityEngine.UIElements;
 
 namespace yb
 {
-   
-    
+
+
     public class PlayerController : MonoBehaviour, ITakeDamage, ITakeDamagePhoton
     {
         private readonly float _animationFadeTime = .3f;  //애니메이션 페이드 시간
         public const int MaxRelicNumber = 2;
+        private int _playerHandle;  //플레이어 고유 번호
+        public const int MaxItemNumber = 9;
+        public const int MaxItemSlot = 4;
         private Vector3 _playerMoveVelocity;
         private Rigidbody _rigid;
         private Data _data;  //기본 데이터
@@ -34,9 +42,22 @@ namespace yb
         private PlayerGuardController _guardController;
         private PlayerShieldController _shieldController;
         private GameObject _attacker;
+        private Texture2D _texture; //0415 12:04 이희웅 추가
         public int HaveItemNumber { get; set; }
+
+        private Dictionary<int, Item> _itemList = new Dictionary<int, Item>();
+
+        public Dictionary<int, Item> ItemList => _itemList;
         public int HaveRelicNumber { get; set; }
 
+        public class Item {
+            public Item(Define.ItemType type, int number) {
+                ItemType = type;
+                ItemNumber = number;
+            }
+            public Define.ItemType ItemType;
+            public int ItemNumber;
+        }
         /// <summary>
         /// 플레이어 hp변경시 호출
         /// <현재 hp, 최대 hp>
@@ -59,7 +80,7 @@ namespace yb
         /// 렐릭 습득시 호출
         /// <define.relicType>
         /// </summary>
-        public Action<string, UnityAction , UnityAction> SetRelicEvent;
+        public Action<string, UnityAction, UnityAction> SetRelicEvent;
 
         /// <summary>
         /// 아이템 습득 시 호출
@@ -77,7 +98,7 @@ namespace yb
         /// <summary>
         /// 렐릭 제거시 호출
         /// </summary>
-        public Action<string, UnityAction , UnityAction> DestroyRelicEvent;
+        public Action<string, UnityAction, UnityAction> DestroyRelicEvent;
 
         /// <summary>
         /// 현재 맵에 색상이 얼마나 띄워져 있는지 판단
@@ -107,6 +128,7 @@ namespace yb
 
         public PhotonView IphotonView { get => _photonview; }//0410 18:42 이희웅 포톤뷰 인터페이스 추가
 
+        public int PlayerHandle { get; set; }
         private void Awake()
         {
             _rigid = GetComponent<Rigidbody>();
@@ -122,17 +144,18 @@ namespace yb
             _shieldController = transform.parent.GetComponentInChildren<PlayerShieldController>();
             _guardController.gameObject.SetActive(false);
             _shieldController.gameObject.SetActive(false);
-        }
+            //_texture = Map.MapObject.GetComponent<Texture2D>();
 
+        }
 
         private void Start()
         {
             _data = Managers.Data;
-
+            PlayerHandle = PhotonNetwork.LocalPlayer.ActorNumber;
             //사망시 set해둔 아이템 드랍
-            _droplable.Set("ObtainableRifle");
-            _droplable.Set("ObtainablePistol");
-            _droplable.Set("ObtainableShotgun");
+            _droplable.Set("Rifle");
+            _droplable.Set("Pistol");
+            _droplable.Set("Shotgun");
 
         }
 
@@ -152,7 +175,8 @@ namespace yb
         /// 가드 렐릭 습득or 제거시 활성화
         /// </summary>
         /// <param name="trigger"></param>
-        public void SetGuard(bool trigger) {
+        public void SetGuard(bool trigger)
+        {
             _guardController.gameObject.SetActive(trigger);
         }
 
@@ -160,7 +184,8 @@ namespace yb
         /// 실드 렐릭 습득or 제거시 활성화
         /// </summary>
         /// <param name="trigger"></param>
-        public void SetShield(bool trigger) {
+        public void SetShield(bool trigger)
+        {
             _shieldController.gameObject.SetActive(trigger);
         }
 
@@ -174,8 +199,11 @@ namespace yb
                 return false;
 
             #region 승현 추가 04.11
+          
+            
             MapEvent?.Invoke();
-            ClosedItemEvent?.Invoke();
+            ClosedItemEvent?.Invoke();            
+
             //if (resetTimer >= 1) 
             //{
             //    ColorPercentEvent?.Invoke();
@@ -209,8 +237,8 @@ namespace yb
         /// <param name="state"></param>
         public void ChangeIntigerAnimation(Define.PlayerState state)//0408 16:38분 이희웅 업데이트 추가
         {
-                if(_photonview.IsMine)
-                    _animator.SetInteger("State", (int)state);
+            if (_photonview.IsMine)
+                _animator.SetInteger("State", (int)state);
         }
 
         /// <summary>
@@ -219,27 +247,37 @@ namespace yb
         /// <param name="state"></param>
         public void ChangeTriggerAnimation(Define.PlayerState state)//0408 16:38분 이희웅 업데이트 추가
         {
-              if (_photonview.IsMine)
-                 _animator.SetTrigger(state.ToString());
+            if(IsTestMode.Instance.CurrentUser == Define.User.Hw) {
+                if (_photonview.IsMine)
+                    _animator.SetTrigger(state.ToString());
+            }
+            else
+                _animator.SetTrigger(state.ToString());
+
         }
 
         /// <summary>
         /// 플레이어 이동 로직
         /// </summary>
-        public void OnMoveUpdate() {
-            if (IsTestMode.Instance.CurrentUser == Define.User.Yb) {
+        public void OnMoveUpdate()
+        {
+            if (IsTestMode.Instance.CurrentUser == Define.User.Hw)
+            {
+                if (_photonview.IsMine)//0405 09:41분 캐릭터간에 동기화를 위한 포톤 이동 분리 로직 추가
+                {
+                    Vector3 dir = new Vector3(moveX, 0f, moveZ);
+                    //_rigid.MovePosition(_rigid.position + dir * (_status.MoveSpeed * _status.MoveSpeedDecrease) * Time.deltaTime);
+                    //transform.parent.Translate(dir * (_status.MoveSpeed * _status.MoveSpeedDecrease) * Time.deltaTime); //0410 23:44 이희웅 포톤 동기화 문제로 인해 해당기능 주석처리 
+
+                    _rigid.MovePosition(_rigid.position + dir * (_status.MoveSpeed * _status.MoveSpeedDecrease) * Time.deltaTime);
+                    _playerMoveVelocity = dir * (_status.MoveSpeed * _status.MoveSpeedDecrease) * Time.deltaTime;
+                }
+            }
+            else {
                 Vector3 dir = new Vector3(moveX, 0f, moveZ);
                 _rigid.MovePosition(_rigid.position + dir * (_status.MoveSpeed * _status.MoveSpeedDecrease) * Time.deltaTime);
                 _playerMoveVelocity = dir * (_status.MoveSpeed * _status.MoveSpeedDecrease) * Time.deltaTime;
-                //transform.parent.Translate(dir * (_status.MoveSpeed * _status.MoveSpeedDecrease) * Time.deltaTime);// 0410 23:44 이희웅 포톤 동기화 문제로 인해 해당기능 주석처리 
-            }
-            else {
-                if (_photonview.IsMine)//0405 09:41분 캐릭터간에 동기화를 위한 포톤 이동 분리 로직 추가
-            {
-                    Vector3 dir = new Vector3(moveX, 0f, moveZ);
-                    //_rigid.MovePosition(_rigid.position + dir * (_status.MoveSpeed * _status.MoveSpeedDecrease) * Time.deltaTime);
-                    transform.parent.Translate(dir * (_status.MoveSpeed * _status.MoveSpeedDecrease) * Time.deltaTime);// 0410 23:44 이희웅 포톤 동기화 문제로 인해 해당기능 주석처리 
-                }
+
             }
         }
 
@@ -258,7 +296,32 @@ namespace yb
         /// <summary>
         /// 플레이어 사망 이벤트(애니메이션에서 이벤트로 호출)
         /// </summary>
-        public void OnDieEvent() => Managers.Resources.Destroy(gameObject);
+        public void OnDieEvent() {
+
+            if(IsTestMode.Instance.CurrentUser == Define.User.Hw)
+            {
+                if (_photonview.IsMine)
+                {
+                    StartCoroutine(CoroutineHelper.Instance.CoDelayPhotonObjectSpawn(_status.ResurrectionTime));
+                    GameObject go = MyCamera.gameObject;
+                    go.transform.parent = null;
+                    StartCoroutine(CoroutineHelper.Instance.CoDelayPhotonObjectDelete(go, _status.ResurrectionTime));
+                    StartCoroutine(CoroutineHelper.Instance.CoDelayPhotonObjectDelete(transform.root.gameObject, _status.ResurrectionTime));
+
+                    _rotateToMouseScript.PlayerDead();
+                }
+            }
+            else
+            {
+                RespawnManager.Instance.Respawn(PlayerHandle, _status.ResurrectionTime);
+                Managers.Resources.Destroy(transform.root.gameObject, _status.ResurrectionTime);
+                GameObject go = MyCamera.gameObject;
+                go.transform.parent = null;
+                Managers.Resources.Destroy(go, _status.ResurrectionTime);
+                _rotateToMouseScript.PlayerDead();
+            }
+        }
+
 
         /// <summary>
         /// 플레이어 피격 판정(피격 데미지, 공격자)
@@ -278,6 +341,48 @@ namespace yb
                 _droplable.Drop(transform.position);
                 _stateController.ChangeState(new PlayerState_Die(this, attacker));
             }
+        }
+
+
+        [PunRPC]
+        public void SetColorRPC(int xPos, int yPos, int nodeXIndex, int nodeYIndex, int colorEnumIndex)
+        {
+            //Color PlayerColor = Map.PlayerColor(gameObject.transform.parent.gameObject);
+            Map.MapObject.GetComponent<Map>().MapSetColor(xPos, yPos, nodeXIndex, nodeYIndex, GetColorFromNodeColor((NodeColor)colorEnumIndex));
+            //Debug.Log("<color=red>SetColorRPC</color>");
+        }
+
+        Color GetColorFromNodeColor(NodeColor nodeColor)
+        {
+            switch (nodeColor)
+            {
+                case NodeColor.Red: return Color.red;
+                case NodeColor.Yellow: return Color.yellow;
+                case NodeColor.Blue: return Color.blue;
+                case NodeColor.Magenta: return Color.magenta;
+                case NodeColor.Cyan: return Color.cyan;
+                case NodeColor.Gray: return Color.grey;
+                case NodeColor.Green: return Color.green;
+                case NodeColor.Black: return Color.black;
+                default: return Color.white;
+            }
+        }
+
+        [PunRPC]
+        public void SetDropItemName(int dropObjectViewId)
+        {
+            PhotonView _photonView = PhotonNetwork.GetPhotonView(dropObjectViewId);
+
+            int index = _photonView.transform.gameObject.name.IndexOf("(Clone)");
+            if (index > 0)
+                _photonView.transform.gameObject.name = _photonView.transform.gameObject.name.Substring(0, index);
+        }
+
+        [PunRPC]//0413 03:46 이희웅 포톤용 메서드 추가 플레이어 이름지정
+        public void RenamePlayer(int PlayerViewId)
+        {
+            Debug.Log($"{PhotonNetwork.GetPhotonView(PlayerViewId)}플레이어가 들어왔습니다{PhotonNetwork.LocalPlayer.ActorNumber}");
+            PhotonNetwork.GetPhotonView(PlayerViewId).transform.parent.name = $"Player{PhotonNetwork.GetPhotonView(PlayerViewId).Owner.ActorNumber}";
         }
 
         [PunRPC]

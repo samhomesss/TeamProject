@@ -45,6 +45,9 @@ MonoBehaviour:
   - TakeDamage
   - TakeDamagePhoton
   - PickupPhoton
+  - RenamePlayer
+  - SetDropItemName
+  - SetColorRPC
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

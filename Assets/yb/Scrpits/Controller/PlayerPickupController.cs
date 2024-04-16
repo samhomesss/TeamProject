@@ -1,5 +1,6 @@
 using ExitGames.Client.Photon.StructWrapping;
 using Photon.Pun;
+using Photon.Realtime;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,6 +13,7 @@ namespace yb
 {
     public class PlayerPickupController : MonoBehaviour
     {
+
         private PlayerController _player;
         private Data _data;
         private IObtainableObject _collideItem;  //플레이어와 충돌중인 아이템 저장
@@ -33,7 +35,6 @@ namespace yb
         private void Update()
         {
             OnPickupUpdate();
-
         }
         /// <summary>
         /// 플레이어가 아이템과 충돌중일 때, 특정 키 입력시 아이템 습득
@@ -76,9 +77,7 @@ namespace yb
                         }
                     }
 
-                    //todo
-                    //소비아이템 추가되면 추가해야함
-                    
+                  
                     _player.StateController.ChangeState(new PlayerState_Pickup(_player));
                     _collideItem.Pickup(_player);
                     _player.ItemEvent?.Invoke(_collideItem.Name);
@@ -87,6 +86,18 @@ namespace yb
             }
         }
 
+        public void SetItem(int slot, Define.ItemType type) {
+            if(_player.ItemList.ContainsKey(slot)) {
+                _player.ItemList[slot].ItemType = type;
+                _player.ItemList[slot].ItemNumber++;
+            }
+            else {
+                _player.ItemList.Add(slot, new PlayerController.Item(type, 1));
+            }
+            
+            Debug.Log($"{type}아이템을 획득했습니다");
+            Debug.Log($"{_player.ItemList[slot]}에 {type}을 {_player.ItemList[slot].ItemNumber}개 보유중");
+        }
         /// <summary>
         /// 플레이어가 렐릭을 습득 시 렐릭 할당. 각 렐릭 클래스에서 호출
         /// </summary>
@@ -149,12 +160,10 @@ namespace yb
                 }
                 else
                 {
-                    if (c.CompareTag("ObtainableObject"))
-                    {
-                        _collideItem = c.GetComponent<IObtainableObject>();
-                        c.GetComponent<IObtainableObject>().ShowName(_player);
-                        return;
-                    }
+                    
+                    _collideItem = c.GetComponent<IObtainableObject>();
+                     c.GetComponent<IObtainableObject>().ShowName(_player);
+                     return;
 
                 }
             }

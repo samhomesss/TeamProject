@@ -14,6 +14,9 @@ namespace yb {
              _itemsList.Add(item);
         }
 
+
+        private PhotonView _photonView;
+
         /// <summary>
         /// 아이템을 곂치지 않게 나선형으로 드랍
         /// </summary>
@@ -30,14 +33,18 @@ namespace yb {
             int count = _itemsList.Count;
             for (int i = 0; i < count; i++) {
                 if ((-count / 2 < x) && (x <= count / 2) && (-count / 2 < z) && (z <= count / 2)) {
-                    string path = $"yb/Weapon/{_itemsList[i]}"; //0411 00:13분 이희웅  yb/item/{_itemsList[i]} -> yb/Weapon/{_itemsList[i]} 으로 수정
+                    string path = $"yb/Items/{_itemsList[i]}"; //0411 00:13분 이희웅  yb/item/{_itemsList[i]} -> yb/Weapon/{_itemsList[i]} 으로 수정
                     GameObject go;
                     if (IsTestMode.Instance.CurrentUser == Define.User.Hw) //0411 12:42 이희웅 포톤 테스트용 조건문삽입
                     {
-                        if (!PhotonNetwork.IsMasterClient)
+                        if (!PhotonNetwork.IsMasterClient) //
+                        {
                             return;
+                        }
 
-                         PhotonNetwork.Instantiate($"Prefabs/{path}", new Vector3(pos.x + x, 1f, pos.z + z), Quaternion.identity);
+                        GameObject dropObject =  PhotonNetwork.Instantiate($"Prefabs/{path}", new Vector3(pos.x + x, 1f, pos.z + z), Quaternion.identity);
+                        _photonView = Map.MapObject.GetComponent<Map>().Player.GetComponent<PhotonView>();
+                        _photonView.RPC("SetDropItemName",RpcTarget.All, dropObject.GetComponent<PhotonView>().ViewID);
 
                     }
                     else

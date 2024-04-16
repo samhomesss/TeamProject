@@ -8,17 +8,18 @@ namespace yb {
     /// 플레이어 능력치 
     /// </summary>
     public class PlayerStatus : BaseStatus {
-        private float _moveSpeed;
-
+        [SerializeField]private float _moveSpeed;
 
         //부활 시간
-        private float _resurrectionTime;
+        [SerializeField]private float _resurrectionTime;
 
         //총 발사 시 이동속도 감소 수치
         private float _moveSpeedDecrease = 1f;
         public float MoveSpeed => _moveSpeed;
 
         public float MoveSpeedDecrease => _moveSpeedDecrease;
+
+        public float ResurrectionTime => _resurrectionTime;
 
         protected override void Init() {
             base.Init();

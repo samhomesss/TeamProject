@@ -104,12 +104,7 @@ public class ProjectileMoveScript : MonoBehaviourPunCallbacks
 
                     if (co.collider.CompareTag("Player") || co.collider.CompareTag("DestructibleObject")
                         || co.collider.CompareTag("Shield")) {
-                        if (IsTestMode.Instance.CurrentUser == Define.User.Hw)//0410 17:00 이희웅 테스트 추가
-                        {
                             co.collider.GetComponent<ITakeDamagePhoton>().IphotonView.RPC("TakeDamagePhoton", RpcTarget.All, _damage, gameObject.GetComponent<PhotonView>().ViewID);
-                        } else {
-                            co.collider.GetComponent<ITakeDamage>().TakeDamage(_damage, gameObject);
-                        }
                         Crash(co);
 
                         if (co.collider.CompareTag("Shield"))

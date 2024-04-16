@@ -8,6 +8,7 @@ public enum NodeColor : int
 }
 
 public class Node
+
 {
     public Node(Vector3 Pos)
     {
@@ -20,7 +21,7 @@ public class Node
     {
         color = newColor;
         if (newColor == Color.red)
-        {
+        {   
             nodeColor = NodeColor.Red;
         }
         else if (newColor == Color.yellow)
@@ -51,6 +52,11 @@ public class Node
         {
             nodeColor = NodeColor.Black;
         }
+    }
+
+    public override string ToString()
+    {
+        return nodePos.ToString();
     }
 }
 

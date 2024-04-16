@@ -1,7 +1,5 @@
+using ExitGames.Client.Photon.StructWrapping;
 using Photon.Pun;
-using System;
-using Unity.VisualScripting;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 
@@ -18,20 +16,20 @@ namespace yb
         private PhotonView _photonView; //0410 16:18 이희웅 포톤뷰 추가
         public PhotonView IphotonView { get => _photonView; }//0410 18:40 이희웅 인터페이스의 포톤뷰 프로퍼티 추가
 
-        [SerializeField] string[] DropItemList;  //드랍할 아이템을 string형식으로 저장
-
-
+        public IItemDroplable DropTable => _droplable;
         private void Start()
         {
             _status = GetComponent<DestructibleObjectStatus>();
             _photonView = GetComponent<PhotonView>();//0410 16:25 이희웅 포톤뷰 추가 
-            foreach (var item in DropItemList)
-            {
-                _droplable.Set(item);  //드랍할 아이템을 테이블에 저장
-            }
-
         }
 
+        public void Init(Vector3 pos) {
+            transform.position = pos;
+            Define.WeaponType weaponRan = (Define.WeaponType)Random.Range(0, (int)Define.WeaponType.Count);
+            Define.RelicType relicRan = (Define.RelicType)Random.Range(0, (int)Define.RelicType.Count);
+            _droplable.Set(weaponRan.ToString());
+            _droplable.Set(relicRan.ToString());
+        }
      
         public void TakeDamage(int amout, GameObject attacker)
         {

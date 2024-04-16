@@ -1,33 +1,38 @@
+using Photon.Pun;
+using Photon.Realtime;
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
 using yb;
 using static UnityEditor.Progress;
 using Color = UnityEngine.Color;
-
-
 public class Map : Obj
 {
     #region Property
     public static GameObject MapObject => map;
-    public enum PlayerName
-    {
-        Player1, Player2, Player3, Player4, Player5, Player6, Player7, Player8
-    }
-    public enum Texture
-    {
-        White,
-    }
-    public static Node[,] Node => node;
+
+    [SerializeField]private PhotonView _photonView;
+    //0413 04:15 추가 
+    // public enum PlayerName
+    // {
+    //     Player1, Player2, Player3, Player4, Player5, Player6, Player7, Player8
+    // }
+    //public enum Texture
+    //{
+    //    White,
+    //}
+    public static Node[,] Node => node; // 이거는 텍스쳐를 나눈거에요 
     public PlayerController Player => _player;
     #endregion
 
-    static Node[,] node = new Node[64, 64];
-    static GameObject map;
-    PlayerController _player;
-    Texture2D texture;
-    MeshRenderer meshRenderer;
+    static Node[,] node = new Node[64, 64]; // 가로 세로 64 * 64 의 노드로 나눈것처럼 
+    static GameObject map; // 맵으로 띄워진 오브젝트 가져오는거 
+    PlayerController _player; // 플레이어들
+    Texture2D texture; // 내가 가져오는 Texture
+    MeshRenderer meshRenderer; // Mesh
 
     const int length = 4;
     Color[] colors;
@@ -48,44 +53,12 @@ public class Map : Obj
         playerColors.Add("Player6", Color.blue);
         playerColors.Add("Player7", Color.gray);
         playerColors.Add("Player8", Color.black);
-        
+
         texture = Managers.Resources.Load<Texture2D>(path);
 
-        // 플레이어를 생성하면서 넣어줌
-        _player = GameObject.Find("Player1").GetComponentInChildren<PlayerController>();
+        #region 04.13  수정 
+        // Todo: 04.13 수정
 
-        for (int i = 0; i < 64; i++)
-        {
-            for (int j = 0; j < 64; j++)
-            {
-                node[i, j] = new Node(new Vector3((i + 0.5f), 0, (j + 0.5f)));
-            }
-        }
-        if (meshRenderer == null)
-        {
-            meshRenderer = GetComponent<MeshRenderer>();
-        }
-        texture = (Texture2D)Instantiate(meshRenderer.material.mainTexture);
-        defaultColors = new Color[texture.width * texture.width];
-        for (int ix = 0; ix < texture.width; ++ix)
-        {
-            for (int jx = 0; jx < texture.width; ++jx)
-            {
-                defaultColors[jx + ix * texture.width] = Color.white;
-            }
-        }
-        texture.SetPixels(defaultColors);
-        texture.Apply();
-        colors = new Color[length * length];
-        for (int ix = 0; ix < length; ++ix)
-        {
-            for (int jx = 0; jx < length; ++jx)
-            {
-                colors[jx + ix * length] = Color.yellow;
-            }
-        }
-        meshRenderer.material.mainTexture = texture;
-        SetPlayer(_player);
         #region 주석처리
         //PlayerTestSh.OnNodeChanged -= UpdateColor;
         //PlayerTestSh.OnNodeChanged += UpdateColor;
@@ -101,6 +74,53 @@ public class Map : Obj
     //}
     #endregion
 
+
+    private void Start()
+    {
+        _player = GameObject.Find($"Player{PhotonNetwork.LocalPlayer.ActorNumber}").GetComponentInChildren<PlayerController>();
+        _photonView = _player.GetComponent<PhotonView>();
+        #endregion
+
+        for (int i = 0; i < 64; i++)
+        {
+            for (int j = 0; j < 64; j++)
+            {
+                node[i, j] = new Node(new Vector3((i + 0.5f), 0, (j + 0.5f)));
+            }
+        }
+
+        if (meshRenderer == null)
+        {
+            meshRenderer = GetComponent<MeshRenderer>();
+        }
+
+        texture = (Texture2D)Instantiate(meshRenderer.material.mainTexture);
+        defaultColors = new Color[texture.width * texture.width];
+        for (int ix = 0; ix < texture.width; ++ix)
+        {
+            for (int jx = 0; jx < texture.width; ++jx)
+            {
+                defaultColors[jx + ix * texture.width] = Color.white;
+            }
+        }
+        texture.SetPixels(defaultColors);
+        texture.Apply();
+
+        colors = new Color[length * length];
+        for (int ix = 0; ix < length; ++ix)
+        {
+            for (int jx = 0; jx < length; ++jx)
+            {
+                colors[jx + ix * length] = Color.yellow;
+            }
+        }
+        meshRenderer.material.mainTexture = texture;
+        SetPlayer(_player);
+    }
+
+    // 작성자: 장세윤(2024.04.15).
+    // Todo: 플레이어가 이동할 때마다 이 함수가 중복되어 여러 번 호출되는 것으로 보임.
+    // 호출 횟수를 줄이면서 정확하게 동작하도록 최적화가 필요해 보임.
     void UpdateColor()
     {
         int xPos;
@@ -113,22 +133,110 @@ public class Map : Obj
             }
         }
 
-        foreach (var item in node)
-        {
-            if (item.nodePos.x - 0.75f <= _player.transform.position.x && item.nodePos.x + 0.75f >= _player.transform.position.x
-                && item.nodePos.z + 0.75f >= _player.transform.position.z && item.nodePos.z - 0.75f <= _player.transform.position.z)
-            {
-                xPos = (int)(item.nodePos.x + 0.5f);
-                yPos = (int)(item.nodePos.z + 0.5f);
+        // 플레이어 별로 루프 처리.
+        // 작성자: 장세윤 (2024.04.15).
+        // 검색 알고리즘 업데이트.
+        // 플레이어의 위치를 기준으로 타일맵 위치 검색.
+        // 플레이어의 위치가 곧 타일맵의 인덱스.
+        var xIndex = Mathf.Clamp(Mathf.Max(0, (int)_player.transform.position.x), 0, 63);
+        var yIndex = Mathf.Clamp(Mathf.Max(0, (int)_player.transform.position.z), 0, 63);
 
-                texture.SetPixels(texture.width - xPos * 4, texture.height - yPos * 4, length, length, colors);
-                item.SetColor(PlayerColor(_player.transform.parent.gameObject));
-            }
+        // Todo: 작성자: 장세윤.
+        // 더 정확하게 위치를 찾고 싶은 경우에 시도할 방법. (
+        // 위에서 바로 찾은 인덱스를 기준으로 타일맵의 위치를 플레이어의 범위로 다시 확인.
+        // 확인한 결과가 맞다면 그대로 타일맵 인덱스를 사용하고,
+        // 아니라면, 그 주변의 나머지 8개(9개인데, 앞서 구한 인덱스는 아니기 때문.)에 대해서 x 범위와 z 범위를 다시 검색.
+        // 이때 주변 타일맵의 인덱스를 구할 때는 배열 인덱스 범위가 벗어나지 않도록 주의.
+
+        Node item = node[xIndex, yIndex];
+        xPos = (int)(item.nodePos.x + 0.5f);
+        yPos = (int)(item.nodePos.z + 0.5f);
+        
+        //Color playerColor = PlayerColor(_player.transform.parent.gameObject);
+        //item.SetColor(playerColor);
+
+        //MapSetColor(xPos, yPos, xIndex, yIndex, PlayerColor(_player.transform.parent.gameObject));
+        _photonView.RPC("SetColorRPC", RpcTarget.All, xPos, yPos, xIndex, yIndex, (int)GetNodeColorFromColor(PlayerColor(_player.transform.parent.gameObject)));
+        #region 기존 코드 백업 (최적화 전 코드)
+        //int xPos;
+        //int yPos;
+        //for (int ix = 0; ix < length; ++ix)
+        //{
+        //    for (int jx = 0; jx < length; ++jx)
+        //    {
+        //        for (int i = 0; i < PhotonNetwork.CurrentRoom.PlayerCount; i++)
+        //        {
+        //            colors[jx + ix * length] = PlayerColor(_player[i].transform.parent.gameObject);
+        //        }
+        //    }
+        //}
+
+        //foreach (var item in node)//0414 이희웅 수정 
+        //{
+        //    for (int i = 0; i < PhotonNetwork.CurrentRoom.PlayerCount; i++)
+        //    {
+        //        if (item.nodePos.x - 0.75f <= _player[i].transform.position.x && item.nodePos.x + 0.75f >= _player[i].transform.position.x
+        //           && item.nodePos.z + 0.75f >= _player[i].transform.position.z && item.nodePos.z - 0.75f <= _player[i].transform.position.z)
+        //        {
+        //            xPos = (int)(item.nodePos.x + 0.5f);
+        //            yPos = (int)(item.nodePos.z + 0.5f);
+
+        //            colors = new Color[length * length];
+        //            for (int ix = 0; ix < length; ++ix)
+        //            {
+        //                for (int jx = 0; jx < length; ++jx)
+        //                {
+        //                    colors[jx + ix * length] = PlayerColor(_player[i].transform.parent.gameObject);
+        //                }
+        //            }
+
+        //            texture.SetPixels(texture.width - xPos * 4, texture.height - yPos * 4, length, length, colors);
+        //            texture.Apply();
+        //            item.SetColor(PlayerColor(_player[i].transform.parent.gameObject));
+        //        }
+        //    }
+        //}
+        #endregion
+    }
+
+    NodeColor GetNodeColorFromColor(Color color)
+    {
+        if (color == Color.red)
+        {
+            return NodeColor.Red;
+        }
+        else if (color == Color.yellow)
+        {
+            return NodeColor.Yellow;
+        }
+        else if (color == Color.magenta)
+        {
+            return NodeColor.Magenta;
+        }
+        else if (color == Color.cyan)
+        {
+            return NodeColor.Cyan;
+        }
+        else if (color == Color.green)
+        {
+            return NodeColor.Green;
+        }
+        else if (color == Color.blue)
+        {
+            return NodeColor.Blue;
+        }
+        else if (color == Color.gray)
+        {
+            return NodeColor.Gray;
+        }
+        else if (color == Color.black)
+        {
+            return NodeColor.Black;
         }
 
-        texture.Apply();
-
+        return NodeColor.None;
     }
+
     #region 현재 사용하지 않는 코드
     //void PlayerColorCount(GameObject player)
     //{
@@ -186,11 +294,30 @@ public class Map : Obj
         #endregion
     }
 
-    // 윤범이형 Action 추가 
+    //윤범이형 Action 추가
     public void SetPlayer(PlayerController player)
     {
         player.MapEvent += UpdateColor;
     }
 
+    public void MapSetColor(int xPos, int yPos, int nodeXIndex, int nodeYIndex, Color nodeColor)
+    {
+        colors = new Color[length * length];
+        for (int jx = 0; jx < length; ++jx)
+        {
+            for (int kx = 0; kx < length; ++kx)
+            {
+                colors[jx + kx * length] = nodeColor;
+            }
+        }
+
+        texture.SetPixels(texture.width - xPos * 4, texture.height - yPos * 4, length, length, colors);
+        texture.Apply();
+
+        Node item = node[nodeXIndex, nodeYIndex];
+        //item.SetColor(PlayerColor(_player.transform.parent.gameObject));
+        item.SetColor(nodeColor);
+    }
+  
 }
 

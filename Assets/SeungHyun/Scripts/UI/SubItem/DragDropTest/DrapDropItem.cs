@@ -1,3 +1,4 @@
+using Photon.Pun;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -54,7 +55,7 @@ public class DrapDropItem : MonoBehaviour, IPointerDownHandler, IBeginDragHandle
             
             eventData.pointerDrag.GetComponentInParent<UI_RelicInven_Item>().IsEmpty = true;
             eventData.pointerDrag.GetComponentInParent<UI_RelicInven_Item>().SlotItemID = default;
-            go.MyTransform.position = map.Player.transform.position; 
+            go.MyTransform.position = map.Player.transform.position;
             go.DeleteRelic(map.Player);
         }
     }
