@@ -2,6 +2,7 @@ using Photon.Pun;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
@@ -14,7 +15,7 @@ public class DrapDropItem : MonoBehaviour, IPointerDownHandler, IBeginDragHandle
     RectTransform _rectTransform;
     CanvasGroup _canvasGroup;
     Map map;
-
+    private PhotonView _photonview;
     private void Start()
     {
         map = Map.MapObject.GetComponent<Map>();
@@ -52,13 +53,18 @@ public class DrapDropItem : MonoBehaviour, IPointerDownHandler, IBeginDragHandle
 
             if (IsTestMode.Instance.CurrentUser == Define.User.Hw)
             {
-                IRelic go = PhotonNetwork.Instantiate($"sh/Relic/{Managers.ItemDataBase.GetItemData(eventData.pointerDrag.GetComponent<Image>().sprite.name).itemName}", Vector3.zero, Quaternion.identity).GetComponent<IRelic>();
-                go.MyTransform.position = map.Player.transform.position;
+                GameObject relicObj = PhotonNetwork.Instantiate($"Prefabs/sh/Relic/{Managers.ItemDataBase.GetItemData(eventData.pointerDrag.GetComponent<Image>().sprite.name).itemName}", Vector3.zero, Quaternion.identity);
+                IRelic go = relicObj.GetComponent<IRelic>();
+                go.MyTransform.position = map.Player.transform.position + Vector3.up;
                 go.DeleteRelic(map.Player);
+                _photonview = relicObj.GetComponent<PhotonView>();
+                _photonview.RPC("SetDropItemName", RpcTarget.All, _photonview.ViewID);
             }
             else
             {
                 IRelic go = Managers.Resources.Instantiate($"sh/Relic/{Managers.ItemDataBase.GetItemData(eventData.pointerDrag.GetComponent<Image>().sprite.name).itemName}").GetComponent<IRelic>(); // 아이템 생성
+                go.MyTransform.position = map.Player.transform.position;
+                go.DeleteRelic(map.Player);
             }
 
             eventData.pointerDrag.GetComponent<Image>().sprite = default;

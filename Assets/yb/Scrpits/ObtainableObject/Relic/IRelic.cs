@@ -1,3 +1,4 @@
+using Photon.Pun;
 using UnityEngine;
 
 namespace yb {
@@ -9,5 +10,7 @@ namespace yb {
         void SetRelic(PlayerController player);
 
         void DeleteRelic(PlayerController player);
+
+        PhotonView PhotonView { get; } // 0416
     }
 }

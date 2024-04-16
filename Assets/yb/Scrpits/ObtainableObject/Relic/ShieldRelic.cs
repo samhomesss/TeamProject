@@ -15,7 +15,7 @@ namespace yb
         public Define.RelicType RelicType { get; } = Define.RelicType.ShieldRelic;
 
         public Transform MyTransform => transform;
-
+        public PhotonView PhotonView => _photonView;
         public void DeleteRelic(PlayerController player)
         {
             player.PickupController.DeleteRelic(this);
@@ -77,6 +77,16 @@ namespace yb
         public override void HideName()
         {
             base.HideName();
+        }
+
+        [PunRPC]
+        public void SetDropItemName(int dropObjectViewId)//0414 ÀÌÈñ¿õ Æ÷Åæ µå¶ø¾ÆÀÌÅÛ ÀÌ¸§ÀçÁöÁ¤
+        {
+            PhotonView _photonView = PhotonNetwork.GetPhotonView(dropObjectViewId);
+
+            int index = _photonView.transform.gameObject.name.IndexOf("(Clone)");
+            if (index > 0)
+                _photonView.transform.gameObject.name = _photonView.transform.gameObject.name.Substring(0, index);
         }
     }
 }

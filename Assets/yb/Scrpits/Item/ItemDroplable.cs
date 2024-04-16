@@ -41,7 +41,6 @@ namespace yb {
                         {
                             return;
                         }
-
                         GameObject dropObject =  PhotonNetwork.Instantiate($"Prefabs/{path}", new Vector3(pos.x + x, 1f, pos.z + z), Quaternion.identity);
                         _photonView = Map.MapObject.GetComponent<Map>().Player.GetComponent<PhotonView>();
                         _photonView.RPC("SetDropItemName",RpcTarget.All, dropObject.GetComponent<PhotonView>().ViewID);
