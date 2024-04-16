@@ -53,7 +53,7 @@ public class UI_Inven : UI_Scene
     public void ChangeImage(string ItemID)
     {
         if (ItemID == "ShieldRelic" || ItemID == "BonusAttackSpeedRelic" || ItemID == "BonusProjectileRelic"
-             || ItemID == "BonusResurrectionTimeRelic" || ItemID == "GuardRelic" || ItemID == "ObtainablePistol" || ItemID == "ObtainableShotgun" || ItemID == "ObtainableRifle")
+             || ItemID == "BonusResurrectionTimeRelic" || ItemID == "GuardRelic" || ItemID == "Pistol" || ItemID == "Shotgun" || ItemID == "Rifle")
         { return; }
 
             for (int i = 0; i < ui_Inven_Items.Count; i++)
