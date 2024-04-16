@@ -16,6 +16,7 @@ public class DrapDropItem : MonoBehaviour, IPointerDownHandler, IBeginDragHandle
     CanvasGroup _canvasGroup;
     Map map;
     private PhotonView _photonview;
+    private PhotonView _photonview_character;
     private void Start()
     {
         map = Map.MapObject.GetComponent<Map>();
@@ -54,7 +55,8 @@ public class DrapDropItem : MonoBehaviour, IPointerDownHandler, IBeginDragHandle
             {
                 GameObject relicObj = PhotonNetwork.Instantiate($"Prefabs/sh/Relic/{eventData.pointerDrag.GetComponent<Image>().sprite.name}", Vector3.zero, Quaternion.identity);
                 _photonview = relicObj.GetComponent<PhotonView>();
-                _photonview.RPC("DropItem", RpcTarget.All, _photonview.ViewID);
+                _photonview_character = map.Player.PhotonView;
+                _photonview.RPC("DropItem", RpcTarget.All, _photonview.ViewID, _photonview_character.ViewID);
                 _photonview.RPC("SetDropItemName", RpcTarget.All, _photonview.ViewID);
             }
             else
