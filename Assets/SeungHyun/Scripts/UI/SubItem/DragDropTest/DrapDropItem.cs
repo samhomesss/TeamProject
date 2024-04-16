@@ -44,17 +44,17 @@ public class DrapDropItem : MonoBehaviour, IPointerDownHandler, IBeginDragHandle
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        String name = eventData.pointerDrag.GetComponent<Image>().sprite.name;
         Debug.Log("OnEndDrag");
         _canvasGroup.alpha = 1f;
         _canvasGroup.blocksRaycasts = true;
         // Player를 연동 해야됨 DeleteRelic에 추가 
         if (eventData.pointerDrag.GetComponent<RectTransform>().anchoredPosition != Vector2.zero) // 만약 마우스 포인터가 칸 위치가 아니라면? 밖을 향한다면
         {
-
             if (IsTestMode.Instance.CurrentUser == Define.User.Hw)
             {
-                _photonview.RPC("DropItem", RpcTarget.All, _photonview.ViewID,name);
+                GameObject relicObj = PhotonNetwork.Instantiate($"Prefabs/sh/Relic/{eventData.pointerDrag.GetComponent<Image>().sprite.name}", Vector3.zero, Quaternion.identity);
+                _photonview = relicObj.GetComponent<PhotonView>();
+                _photonview.RPC("DropItem", RpcTarget.All, _photonview.ViewID);
                 _photonview.RPC("SetDropItemName", RpcTarget.All, _photonview.ViewID);
             }
             else
