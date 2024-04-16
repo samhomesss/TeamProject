@@ -81,7 +81,6 @@ public class ObtainableObject : MonoBehaviourPunCallbacks, IObtainableObject, IO
         _photonView.gameObject.transform.position = playerPhoton.transform.position + Vector3.up;
         GameObject relicObj = _photonView.gameObject;
         IRelic go = relicObj.GetComponent<IRelic>();
-        if(PhotonNetwork.IsMasterClient)
         go.DeleteRelic(playerPhoton.GetComponent<PlayerController>());
     }
 }
