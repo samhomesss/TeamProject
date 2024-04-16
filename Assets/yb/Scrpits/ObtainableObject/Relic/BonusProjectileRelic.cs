@@ -29,15 +29,20 @@ namespace yb {
         {
             PlayerController player;
             player = PhotonNetwork.GetPhotonView(playerViewId).GetComponent<PlayerController>();
-            if (player.GetComponent<PhotonView>().IsMine)
-                SetRelic(player);
+            SetRelic(player);
             player.HaveRelicNumber++; 
         }
         public void SetRelic(PlayerController player)
         {
             if (IsTestMode.Instance.CurrentUser == Define.User.Hw)
             {
-                player.SetRelicEvent?.Invoke(RelicType.ToString(), () => player.PickupController.SetRelic(this), () => PhotonNetwork.Destroy(gameObject));
+                player.SetRelicEvent?.Invoke(RelicType.ToString(), () => player.PickupController.SetRelic(this), () =>
+                {
+                    if (PhotonNetwork.IsMasterClient)
+                    {
+                        PhotonNetwork.Destroy(gameObject);
+                    }
+                });
             }
             else
             {
