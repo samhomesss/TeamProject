@@ -44,6 +44,7 @@ public class DrapDropItem : MonoBehaviour, IPointerDownHandler, IBeginDragHandle
 
     public void OnEndDrag(PointerEventData eventData)
     {
+        String name = eventData.pointerDrag.GetComponent<Image>().sprite.name;
         Debug.Log("OnEndDrag");
         _canvasGroup.alpha = 1f;
         _canvasGroup.blocksRaycasts = true;
@@ -53,11 +54,7 @@ public class DrapDropItem : MonoBehaviour, IPointerDownHandler, IBeginDragHandle
 
             if (IsTestMode.Instance.CurrentUser == Define.User.Hw)
             {
-                GameObject relicObj = PhotonNetwork.Instantiate($"Prefabs/sh/Relic/{Managers.ItemDataBase.GetItemData(eventData.pointerDrag.GetComponent<Image>().sprite.name).itemName}", Vector3.zero, Quaternion.identity);
-                IRelic go = relicObj.GetComponent<IRelic>();
-                go.MyTransform.position = map.Player.transform.position + Vector3.up;
-                go.DeleteRelic(map.Player);
-                _photonview = relicObj.GetComponent<PhotonView>();
+                _photonview.RPC("DropItem", RpcTarget.All, _photonview.ViewID,name);
                 _photonview.RPC("SetDropItemName", RpcTarget.All, _photonview.ViewID);
             }
             else
@@ -78,6 +75,8 @@ public class DrapDropItem : MonoBehaviour, IPointerDownHandler, IBeginDragHandle
     {
         Debug.Log("OnPointerDown");
     }
+
+
 
 
     

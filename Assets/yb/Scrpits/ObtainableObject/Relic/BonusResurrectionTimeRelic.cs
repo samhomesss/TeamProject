@@ -76,11 +76,22 @@ namespace yb {
         [PunRPC]
         public void SetDropItemName(int dropObjectViewId)//0414 ÀÌÈñ¿õ Æ÷Åæ µå¶ø¾ÆÀÌÅÛ ÀÌ¸§ÀçÁöÁ¤
         {
-            PhotonView _photonView = PhotonNetwork.GetPhotonView(dropObjectViewId);
+            _photonView = PhotonNetwork.GetPhotonView(dropObjectViewId);
 
             int index = _photonView.transform.gameObject.name.IndexOf("(Clone)");
             if (index > 0)
                 _photonView.transform.gameObject.name = _photonView.transform.gameObject.name.Substring(0, index);
         }
+        [PunRPC]
+        public void DropItem(int PhotonViewID, string ItemName)
+        {
+            GameObject relicObj = PhotonNetwork.Instantiate($"Prefabs/sh/Relic/{Managers.ItemDataBase.GetItemData(ItemName).itemName}", Vector3.zero, Quaternion.identity);
+            relicObj.transform.position = map.Player.transform.position + Vector3.up;
+            _photonView = PhotonNetwork.GetPhotonView(PhotonViewID);
+            _photonView = relicObj.GetComponent<PhotonView>();
+            IRelic go = relicObj.GetComponent<IRelic>();
+            go.DeleteRelic(map.Player);
+        }
+
     }
 }

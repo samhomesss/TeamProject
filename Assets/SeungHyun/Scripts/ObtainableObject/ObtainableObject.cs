@@ -4,10 +4,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using yb;
+using static Define;
 
 // 새로 추가 승현 부모 클래스로 만듬
 public class ObtainableObject : MonoBehaviourPunCallbacks, IObtainableObject, IObtainableObjectPhoton
 {
+    public Define.RelicType RelicType { get; } = Define.RelicType.BonusResurrectionTimeRelic;
+    protected Map map => Map.MapObject.GetComponent<Map>();
 
     [SerializeField] GameObject itemNameObject;
     Text itemInfoTextUI;
@@ -57,6 +60,6 @@ public class ObtainableObject : MonoBehaviourPunCallbacks, IObtainableObject, IO
 
     public virtual void PickupPhoton(int playerViewId)
     {
-      
+
     }
 }
