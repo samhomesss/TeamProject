@@ -27,7 +27,9 @@ public class UI_RelicInven : UI_Scene
     }
     void SetPlayer(PlayerController player)
     {
-        player.SetRelicEvent += ChangeImage;
+        //player.SetRelicEvent += ChangeImage;
+        // 이미지 가져오는 이벤트 처리 안되서 이벤트 따로 만들어서 연결
+        player.ChangeRelicIMGEvent += ChangeImage;
     }
 
     public override void Init()//UI 렐릭인벤 생성될때 칸까지 생성해주는 초기화 함수

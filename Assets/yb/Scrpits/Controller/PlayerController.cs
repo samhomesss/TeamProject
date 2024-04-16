@@ -83,6 +83,11 @@ namespace yb
         public Action<string, UnityAction, UnityAction> SetRelicEvent;
 
         /// <summary>
+        /// 렐릭 습득시 이미지 변경
+        /// </summary>
+        public Action<string, UnityAction, UnityAction> ChangeRelicIMGEvent;
+
+        /// <summary>
         /// 아이템 습득 시 호출
         /// <아이템의 이름을 문자열로 저장>
         /// </summary>
