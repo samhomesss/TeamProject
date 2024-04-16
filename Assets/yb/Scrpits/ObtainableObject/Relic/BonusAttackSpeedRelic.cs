@@ -45,7 +45,10 @@ namespace yb {
             {
                 player.SetRelicEvent?.Invoke(RelicType.ToString(), () => player.PickupController.SetRelic(this), () =>
                 {
+                    if (player.PhotonView.IsMine)
+                    {
                         PhotonNetwork.Destroy(gameObject);
+                    }
                 });
             }
             else
