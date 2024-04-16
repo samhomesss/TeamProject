@@ -34,7 +34,8 @@ namespace yb
             Debug.Log("ΩØµÂ∑º∏Ø ∏‘¿Ω");
             PlayerController player;
             player = PhotonNetwork.GetPhotonView(playerViewId).GetComponent<PlayerController>();
-            SetRelic(player);
+            if (player.GetComponent<PhotonView>().IsMine)
+                SetRelic(player);
             player.HaveRelicNumber++;
         }
 
@@ -42,13 +43,7 @@ namespace yb
         {
             if (IsTestMode.Instance.CurrentUser == Define.User.Hw)
             {
-                player.SetRelicEvent?.Invoke(RelicType.ToString(), () => player.PickupController.SetRelic(this), () =>
-                {
-                    if (PhotonNetwork.IsMasterClient)
-                    {
-                        PhotonNetwork.Destroy(gameObject);
-                    }
-                });
+                player.SetRelicEvent?.Invoke(RelicType.ToString(), () => player.PickupController.SetRelic(this), () => PhotonNetwork.Destroy(gameObject));
             }
             else
             {
