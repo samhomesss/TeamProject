@@ -31,7 +31,6 @@ public class GameScene : BaseScene
             go.GetComponentInChildren<PlayerController>().SetRelicEvent += OnSetRelic;
             _photonView = Util.FindChild(go, "Model").GetComponent<PhotonView>();
 
-            for(int i=0; i<PhotonNetwork.LocalPlayer.)
 
 
             if (PhotonNetwork.IsMasterClient)

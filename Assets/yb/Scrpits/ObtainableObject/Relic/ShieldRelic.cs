@@ -34,7 +34,6 @@ namespace yb
             Debug.Log("ΩØµÂ∑º∏Ø ∏‘¿Ω");
             PlayerController player;
             player = PhotonNetwork.GetPhotonView(playerViewId).GetComponent<PlayerController>();
-            //SetRelic(player);
             player.PickupController.SetRelic(this);
             player.HaveRelicNumber++;
             if (PhotonNetwork.IsMasterClient)
@@ -43,6 +42,7 @@ namespace yb
 
         public void SetRelic(PlayerController player)
         {
+            #region «ˆ¿Á ªÁøÎ æ»«‘
             //if (IsTestMode.Instance.CurrentUser == Define.User.Hw)
             //{
             //    Debug.Log("IsTestMode.Instance.CurrentUser == Define.User.Hw");
@@ -55,9 +55,12 @@ namespace yb
             //}
             //else
             //{
-            //Debug.Log("else");
-            player.SetRelicEvent?.Invoke(RelicType.ToString(), () => player.PickupController.SetRelic(this), () => Managers.Resources.Destroy(gameObject));
+            //   Debug.Log("else");
+            //   player.SetRelicEvent?.Invoke(RelicType.ToString(), () => player.PickupController.SetRelic(this), () => Managers.Resources.Destroy(gameObject));
             //}
+            #endregion
+            player.SetRelicEvent?.Invoke(RelicType.ToString(), () => player.PickupController.SetRelic(this), () => Managers.Resources.Destroy(gameObject));
+
         }
 
         public override void ShowName(PlayerController player)

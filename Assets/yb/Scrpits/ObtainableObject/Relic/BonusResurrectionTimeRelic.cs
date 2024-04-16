@@ -36,6 +36,7 @@ namespace yb {
 
         public void SetRelic(PlayerController player)
         {
+            #region 현재 사용 안함
             //if (IsTestMode.Instance.CurrentUser == Define.User.Hw)
             //{
             //    Debug.Log("IsTestMode.Instance.CurrentUser == Define.User.Hw");
@@ -48,9 +49,12 @@ namespace yb {
             //}
             //else
             //{
-            //Debug.Log("else");
-            player.SetRelicEvent?.Invoke(RelicType.ToString(), () => player.PickupController.SetRelic(this), () => Managers.Resources.Destroy(gameObject));
+            //   Debug.Log("else");
+            //   player.SetRelicEvent?.Invoke(RelicType.ToString(), () => player.PickupController.SetRelic(this), () => Managers.Resources.Destroy(gameObject));
             //}
+            #endregion
+            player.SetRelicEvent?.Invoke(RelicType.ToString(), () => player.PickupController.SetRelic(this), () => Managers.Resources.Destroy(gameObject));
+
         }
 
         public override void ShowName(PlayerController player)
