@@ -44,6 +44,7 @@ namespace yb
         private PlayerShieldController _shieldController;
         private GameObject _attacker;
         private Texture2D _texture; //0415 12:04 ÀÌÈñ¿õ Ãß°¡
+        private Map _map; //0416 21:51 ÀÌÈñ¿õ Ãß°¡
         public int HaveItemNumber { get; set; }
 
         private Dictionary<int, Item> _itemList = new Dictionary<int, Item>();
@@ -162,7 +163,6 @@ namespace yb
             _droplable.Set("Rifle");
             _droplable.Set("Pistol");
             _droplable.Set("Shotgun");
-
         }
 
         private void Update()
@@ -331,6 +331,8 @@ namespace yb
         public void SetUI()// 0416 ÀÌÈñ¿õ ÇÃ·¹ÀÌ¾î ¸®½ºÆù µÉ¶§ UI ÃÊ±âÈ­
         {
             GameObject.Find("@UI_Root").GetComponentInChildren<UI_Hp>().HpSlider = PALYER_MAX_HP;
+            _map = Map.MapObject.GetComponent<Map>();
+            _map.SetPlayer(GameObject.Find($"Player{PhotonNetwork.LocalPlayer.ActorNumber}").GetComponent<PlayerController>());
         }
 
         /// <summary>
