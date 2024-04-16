@@ -58,8 +58,18 @@ namespace yb
             {
                 if (Input.GetKeyDown(KeyCode.G))
                 {
-                    if (_player.PhotonView.IsMine)
+                    if (_player.PhotonView.IsMine)//«√∑π¿ÃæÓ∞° ¡ﬁ¿∏∏È ∏µÁ «√∑π¿ÃæÓ∞° ¡ﬁ¿ª ºˆ ¿÷±‚ ∂ßπÆø° 
                     {
+                        if (_collideItemPhoton is IRelic)
+                        {
+                            if (_player.HaveRelicNumber >= PlayerController.MaxRelicNumber)
+                            {
+                                Debug.Log("∑º∏Ø √¢¿Ã ∞°µÊ √°Ω¿¥œ¥Ÿ.");
+                                return;
+                            }
+                        }
+
+
                         _player.StateController.ChangeState(new PlayerState_Pickup(_player));
                         _player.ItemEvent?.Invoke(_collideItemPhoton.NamePhoton);
                         _collideItemPhoton.IObtainableObjectPhotonView.RPC("PickupPhoton", RpcTarget.All, _player.IphotonView.ViewID);
@@ -118,9 +128,11 @@ namespace yb
                     _player.Status.SetResurrectionTime(_data.BonusResurrectionTime);
                     break;
                 case Define.RelicType.GuardRelic:
+                    Debug.Log("∞°µÂ∑º∏Ø Ω¿µÊ");
                     _player.SetGuard(true);
                     break;
                 case Define.RelicType.ShieldRelic:
+                    Debug.Log("ΩØµÂ∑º∏Ø Ω¿µÊ");
                     _player.SetShield(true);
                     break;
             }

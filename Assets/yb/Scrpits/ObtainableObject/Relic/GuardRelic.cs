@@ -28,10 +28,11 @@ namespace yb {
         {
             PlayerController player;
             player = PhotonNetwork.GetPhotonView(playerViewId).GetComponent<PlayerController>();
+            Debug.Log("∞°µÂ∑º∏Ø Ω¿µÊ");
             SetRelic(player);
             player.HaveRelicNumber++;
             if (PhotonNetwork.IsMasterClient)
-                PhotonNetwork.Destroy(gameObject);
+                PhotonNetwork.Destroy(gameObject);//∂•ø° ∂≥æÓ¡¯ ø¿∫Í¡ß∆Æ ªË¡¶
         }
 
         public void SetRelic(PlayerController player)
