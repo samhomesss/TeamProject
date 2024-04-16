@@ -49,7 +49,7 @@ public class DrapDropItem : MonoBehaviour, IPointerDownHandler, IBeginDragHandle
         if (eventData.pointerDrag.GetComponent<RectTransform>().anchoredPosition != Vector2.zero) // 만약 마우스 포인터가 칸 위치가 아니라면? 밖을 향한다면
         {
             IRelic go = Managers.Resources.Instantiate($"sh/Relic/{Managers.ItemDataBase.GetItemData(eventData.pointerDrag.GetComponent<Image>().sprite.name).itemName}").GetComponent<IRelic>(); // 아이템 생성
-            eventData.pointerDrag.GetComponent<Image>().sprite = default;
+            eventData.pointerDrag.GetComponent<Image>().sprite = default;// Managers.Resources.Load<Sprite>("Prefabs/sh/UI/Texture/DefaultItemImage");
             eventData.pointerDrag.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
             
             eventData.pointerDrag.GetComponentInParent<UI_RelicInven_Item>().IsEmpty = true;
