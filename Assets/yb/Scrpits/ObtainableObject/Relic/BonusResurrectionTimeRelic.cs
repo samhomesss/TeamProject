@@ -24,21 +24,7 @@ namespace yb {
             SetRelic(player);
             player.HaveRelicNumber++;
         }
-        [PunRPC]
-        public override void PickupPhoton(int playerViewId)
-        {
-            PlayerController player;
-            player = PhotonNetwork.GetPhotonView(playerViewId).GetComponent<PlayerController>();
-            player.PickupController.SetRelic(this);
-            player.HaveRelicNumber++;
-            if (player.PhotonView.IsMine)
-                player.ChangeRelicIMGEvent.Invoke(RelicType.ToString(), () => { }, () => { });
-            if (PhotonNetwork.IsMasterClient)
-                PhotonNetwork.Destroy(gameObject);
 
-
-
-        }
 
         public void SetRelic(PlayerController player)
         {
@@ -73,5 +59,17 @@ namespace yb {
             base.HideName();
         }
 
+        [PunRPC]
+        public override void PickupPhoton(int playerViewId)
+        {
+            PlayerController player;
+            player = PhotonNetwork.GetPhotonView(playerViewId).GetComponent<PlayerController>();
+            player.PickupController.SetRelic(this);
+            player.HaveRelicNumber++;
+            if (player.PhotonView.IsMine)
+                player.ChangeRelicIMGEvent.Invoke(RelicType.ToString(), () => { }, () => { });
+            if (PhotonNetwork.IsMasterClient)
+                PhotonNetwork.Destroy(gameObject);
+        }
     }
 }
