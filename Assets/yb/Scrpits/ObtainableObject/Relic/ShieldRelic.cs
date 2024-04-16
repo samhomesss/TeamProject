@@ -35,7 +35,7 @@ namespace yb
             Debug.Log("ΩØµÂ∑º∏Ø ∏‘¿Ω");
             PlayerController player;
             player = PhotonNetwork.GetPhotonView(playerViewId).GetComponent<PlayerController>();
-            //player.PickupController.SetRelic(this);
+            player.PickupController.SetRelic(this);
             player.HaveRelicNumber++;
 
 
@@ -45,12 +45,6 @@ namespace yb
             player.SetRelicEvent?.Invoke(RelicType.ToString(), () => { }, () => { });
         }
 
-        public void ChangeImagePhoton(int playerViewId)
-        {
-            PlayerController player;
-            player = PhotonNetwork.GetPhotonView(playerViewId).GetComponent<PlayerController>();
-            player.ChangeRelicIMGEvent.Invoke(RelicType.ToString(), () => { }, () => { });
-        }
 
         public void SetRelic(PlayerController player)
         {
