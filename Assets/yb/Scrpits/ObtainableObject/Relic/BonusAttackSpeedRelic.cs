@@ -32,22 +32,6 @@ namespace yb {
             player.HaveRelicNumber++;
         }
 
-        [PunRPC]
-        public override void PickupPhoton(int playerViewId)
-        {
-            PlayerController player;
-            player = PhotonNetwork.GetPhotonView(playerViewId).GetComponent<PlayerController>();
-            player.PickupController.SetRelic(this);
-            player.HaveRelicNumber++;
-            
-            if(player.PhotonView.IsMine)
-                player.ChangeRelicIMGEvent.Invoke(RelicType.ToString(), () => { }, () => { });
-
-            if (PhotonNetwork.IsMasterClient)
-                PhotonNetwork.Destroy(gameObject);
-
-        }
-
         public void SetRelic(PlayerController player)
         {
             #region 현재 사용 안함
@@ -81,25 +65,20 @@ namespace yb {
             base.HideName();
         }
 
-
         [PunRPC]
-        public void SetDropItemName(int dropObjectViewId)//0416 이희웅 포톤 드랍아이템 이름재지정
+        public override void PickupPhoton(int playerViewId)
         {
-            _photonView = PhotonNetwork.GetPhotonView(dropObjectViewId);
+            PlayerController player;
+            player = PhotonNetwork.GetPhotonView(playerViewId).GetComponent<PlayerController>();
+            player.PickupController.SetRelic(this);
+            player.HaveRelicNumber++;
 
-            int index = _photonView.transform.gameObject.name.IndexOf("(Clone)");
-            if (index > 0)
-                _photonView.transform.gameObject.name = _photonView.transform.gameObject.name.Substring(0, index);
-        }
-        [PunRPC]
-        public void DropItem(int PhotonViewID,int PlayerPhotonViewID)
-        {
-            _photonView = PhotonNetwork.GetPhotonView(PhotonViewID);
-            PhotonView playerPhoton = PhotonNetwork.GetPhotonView(PlayerPhotonViewID);
-            _photonView.gameObject.transform.position = playerPhoton.transform.position + Vector3.up;
-            GameObject relicObj = _photonView.gameObject;
-            IRelic go = relicObj.GetComponent<IRelic>();
-            go.DeleteRelic(playerPhoton.GetComponent<PlayerController>());
+            if (player.PhotonView.IsMine)
+                player.ChangeRelicIMGEvent.Invoke(RelicType.ToString(), () => { }, () => { });
+
+            if (PhotonNetwork.IsMasterClient)
+                PhotonNetwork.Destroy(gameObject);
+
         }
     }
 }

@@ -78,24 +78,6 @@ namespace yb
         {
             base.HideName();
         }
-        [PunRPC]
-        public void SetDropItemName(int dropObjectViewId)//0414 ÀÌÈñ¿õ Æ÷Åæ µå¶ø¾ÆÀÌÅÛ ÀÌ¸§ÀçÁöÁ¤
-        {
-            _photonView = PhotonNetwork.GetPhotonView(dropObjectViewId);
 
-            int index = _photonView.transform.gameObject.name.IndexOf("(Clone)");
-            if (index > 0)
-                _photonView.transform.gameObject.name = _photonView.transform.gameObject.name.Substring(0, index);
-        }
-        [PunRPC]
-        public void DropItem(int PhotonViewID, int PlayerPhotonViewID)
-        {
-            _photonView = PhotonNetwork.GetPhotonView(PhotonViewID);
-            PhotonView playerPhoton = PhotonNetwork.GetPhotonView(PlayerPhotonViewID);
-            _photonView.gameObject.transform.position = playerPhoton.transform.position + Vector3.up;
-            GameObject relicObj = _photonView.gameObject;
-            IRelic go = relicObj.GetComponent<IRelic>();
-            go.DeleteRelic(playerPhoton.GetComponent<PlayerController>());
-        }
     }
 }
