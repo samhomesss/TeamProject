@@ -31,10 +31,11 @@ namespace yb {
             player = PhotonNetwork.GetPhotonView(playerViewId).GetComponent<PlayerController>();
             player.PickupController.SetRelic(this);
             player.HaveRelicNumber++;
+            player.ChangeRelicIMGEvent.Invoke(RelicType.ToString(), () => { }, () => { });
             if (PhotonNetwork.IsMasterClient)
                 PhotonNetwork.Destroy(gameObject);
 
-            player.SetRelicEvent?.Invoke(RelicType.ToString(), () => { }, () => { });
+           
         }
         public void SetRelic(PlayerController player)
         {

@@ -52,24 +52,19 @@ public class DrapDropItem : MonoBehaviour, IPointerDownHandler, IBeginDragHandle
 
             if (IsTestMode.Instance.CurrentUser == Define.User.Hw)
             {
-                IRelic go = PhotonNetwork.Instantiate($"sh/Relic/{Managers.ItemDataBase.GetItemData(eventData.pointerDrag.GetComponent<Image>().sprite.name).itemName}",Vector3.zero,Quaternion.identity).GetComponent<IRelic>();
+                IRelic go = PhotonNetwork.Instantiate($"sh/Relic/{Managers.ItemDataBase.GetItemData(eventData.pointerDrag.GetComponent<Image>().sprite.name).itemName}", Vector3.zero, Quaternion.identity).GetComponent<IRelic>();
                 go.MyTransform.position = map.Player.transform.position;
                 go.DeleteRelic(map.Player);
             }
             else
             {
                 IRelic go = Managers.Resources.Instantiate($"sh/Relic/{Managers.ItemDataBase.GetItemData(eventData.pointerDrag.GetComponent<Image>().sprite.name).itemName}").GetComponent<IRelic>(); // ¾ÆÀÌÅÛ »ý¼º
-                go.MyTransform.position = map.Player.transform.position;
-                go.DeleteRelic(map.Player);
             }
-
 
             eventData.pointerDrag.GetComponent<Image>().sprite = default;
             eventData.pointerDrag.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
             eventData.pointerDrag.GetComponentInParent<UI_RelicInven_Item>().IsEmpty = true;
             eventData.pointerDrag.GetComponentInParent<UI_RelicInven_Item>().SlotItemID = default;
-            //go.MyTransform.position = map.Player.transform.position; 0416 14:49 ÀÌÈñ¿õ ¼öÁ¤
-            //go.DeleteRelic(map.Player);
         }
     }
 

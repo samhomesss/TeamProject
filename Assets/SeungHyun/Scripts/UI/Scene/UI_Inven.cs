@@ -12,7 +12,6 @@ public class UI_Inven : UI_Scene
     List<UI_Inven_Item> ui_Inven_Items = new List<UI_Inven_Item>();
     UI_Inven_Item invenItem;
 
-    private PhotonView _photonView;
 
     enum GameObjects
     {

@@ -35,14 +35,13 @@ namespace yb
             Debug.Log("°¡µå·¼¸¯ ½Àµæ");
             player.PickupController.SetRelic(this);
             player.HaveRelicNumber++;
-            SetRelic(player);
-
+            player.ChangeRelicIMGEvent.Invoke(RelicType.ToString(), () => { }, () => { });
 
             if (PhotonNetwork.IsMasterClient)
                 PhotonNetwork.Destroy(gameObject);
 
 
-            player.SetRelicEvent?.Invoke(RelicType.ToString(), () => { }, () => { });
+            
         }
 
         public void SetRelic(PlayerController player)
