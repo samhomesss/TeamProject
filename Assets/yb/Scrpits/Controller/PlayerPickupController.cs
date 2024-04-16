@@ -58,7 +58,7 @@ namespace yb
             {
                 if (Input.GetKeyDown(KeyCode.G))
                 {
-                    if (_player.GetComponent<PhotonView>().IsMine)
+                    if (_player.PhotonView.IsMine)
                     {
                         _player.StateController.ChangeState(new PlayerState_Pickup(_player));
                         _collideItemPhoton.IObtainableObjectPhotonView.RPC("PickupPhoton", RpcTarget.All, _player.IphotonView.ViewID);
