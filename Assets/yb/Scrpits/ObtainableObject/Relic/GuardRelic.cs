@@ -26,7 +26,6 @@ namespace yb {
         [PunRPC]
         public override void PickupPhoton(int playerViewId)
         {
-            Debug.Log("∑º∏Ø ∏‘¿Ω");
             PlayerController player;
             player = PhotonNetwork.GetPhotonView(playerViewId).GetComponent<PlayerController>();
             SetRelic(player);
@@ -39,9 +38,7 @@ namespace yb {
         {
             if (IsTestMode.Instance.CurrentUser == Define.User.Hw)
             {
-                player.SetRelicEvent?.Invoke(RelicType.ToString(), () => player.PickupController.SetRelic(this), () =>
-                {
-                });
+                player.SetRelicEvent?.Invoke(RelicType.ToString(), () => player.PickupController.SetRelic(this), () => { });
             }
             else
             {
