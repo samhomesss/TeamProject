@@ -429,7 +429,7 @@ GameObject:
   - component: {fileID: 1916962590206727250}
   - component: {fileID: 7591874672889244552}
   m_Layer: 0
-  m_Name: ObtainableRifle
+  m_Name: Rifle
   m_TagString: ObtainableObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
