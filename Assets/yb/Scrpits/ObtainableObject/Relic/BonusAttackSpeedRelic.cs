@@ -37,7 +37,9 @@ namespace yb {
             player = PhotonNetwork.GetPhotonView(playerViewId).GetComponent<PlayerController>();
             player.PickupController.SetRelic(this);
             player.HaveRelicNumber++;
-            SetRelic(player);
+            
+            if(player.PhotonView.IsMine)
+                player.ChangeRelicIMGEvent.Invoke(RelicType.ToString(), () => { }, () => { });
 
             if (PhotonNetwork.IsMasterClient)
                 PhotonNetwork.Destroy(gameObject);
