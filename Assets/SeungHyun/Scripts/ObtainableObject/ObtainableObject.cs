@@ -76,10 +76,12 @@ public class ObtainableObject : MonoBehaviourPunCallbacks, IObtainableObject, IO
     public void DropItem(int PhotonViewID, int PlayerPhotonViewID)
     {
         _photonView = PhotonNetwork.GetPhotonView(PhotonViewID);
+        _photonView.TransferOwnership(PhotonNetwork.MasterClient.ActorNumber);
         PhotonView playerPhoton = PhotonNetwork.GetPhotonView(PlayerPhotonViewID);
         _photonView.gameObject.transform.position = playerPhoton.transform.position + Vector3.up;
         GameObject relicObj = _photonView.gameObject;
         IRelic go = relicObj.GetComponent<IRelic>();
+        if(PhotonNetwork.IsMasterClient)
         go.DeleteRelic(playerPhoton.GetComponent<PlayerController>());
     }
 }
