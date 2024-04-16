@@ -31,6 +31,8 @@ namespace yb {
             player = PhotonNetwork.GetPhotonView(playerViewId).GetComponent<PlayerController>();
             SetRelic(player);
             player.HaveRelicNumber++;
+            if (PhotonNetwork.IsMasterClient)
+                PhotonNetwork.Destroy(gameObject);
         }
 
         public void SetRelic(PlayerController player)
@@ -39,10 +41,6 @@ namespace yb {
             {
                 player.SetRelicEvent?.Invoke(RelicType.ToString(), () => player.PickupController.SetRelic(this), () =>
                 {
-                    if (player.PhotonView.IsMine)
-                    {
-                        PhotonNetwork.Destroy(gameObject);
-                    }
                 });
             }
             else
