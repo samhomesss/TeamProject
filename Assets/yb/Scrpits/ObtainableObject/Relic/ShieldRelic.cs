@@ -38,7 +38,7 @@ namespace yb
             player.HaveRelicNumber++;
 
 
-            player.ChangeRelicIMGEvent.Invoke(RelicType.ToString(), () => { }, () => { });
+            SetRelic(player);
 
 
             if (PhotonNetwork.IsMasterClient)
@@ -64,7 +64,7 @@ namespace yb
             //   player.SetRelicEvent?.Invoke(RelicType.ToString(), () => player.PickupController.SetRelic(this), () => Managers.Resources.Destroy(gameObject));
             //}
             #endregion
-            player.SetRelicEvent?.Invoke(RelicType.ToString(), () => player.PickupController.SetRelic(this), () => Managers.Resources.Destroy(gameObject));
+            player.ChangeRelicIMGEvent.Invoke(RelicType.ToString(), () => { }, () => { });
 
         }
 
