@@ -30,6 +30,10 @@ public class GameScene : BaseScene
             StartCoroutine(WaitPlayerLoded());
             go.GetComponentInChildren<PlayerController>().SetRelicEvent += OnSetRelic;
             _photonView = Util.FindChild(go, "Model").GetComponent<PhotonView>();
+
+            for(int i=0; i<PhotonNetwork.LocalPlayer.)
+
+
             if (PhotonNetwork.IsMasterClient)
             {
                 items[0] = PhotonNetwork.Instantiate("Prefabs/yb/Relic/GuardRelic", new Vector3(2, 1, 10), Quaternion.identity);

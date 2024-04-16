@@ -33,30 +33,30 @@ namespace yb
             PlayerController player;
             player = PhotonNetwork.GetPhotonView(playerViewId).GetComponent<PlayerController>();
             Debug.Log("°¡µå·¼¸¯ ½Àµæ");
-            SetRelic(player);
+            //SetRelic(player);
             player.PickupController.SetRelic(this);
             player.HaveRelicNumber++;
-            //if (PhotonNetwork.IsMasterClient)
-            //    PhotonNetwork.Destroy(gameObject);//¶¥¿¡ ¶³¾îÁø ¿ÀºêÁ§Æ® »èÁ¦
+            if (PhotonNetwork.IsMasterClient)
+                PhotonNetwork.Destroy(gameObject);//¶¥¿¡ ¶³¾îÁø ¿ÀºêÁ§Æ® »èÁ¦
         }
 
         public void SetRelic(PlayerController player)
         {
-            if (IsTestMode.Instance.CurrentUser == Define.User.Hw)
-            {
-                Debug.Log("IsTestMode.Instance.CurrentUser == Define.User.Hw");
-                //player.SetRelicEvent?.Invoke(RelicType.ToString(), () => player.PickupController.SetRelic(this), () => { });
-                player.SetRelicEvent?.Invoke(RelicType.ToString(), () => player.PickupController.SetRelic(this), () =>
-                {
-                    if (PhotonNetwork.IsMasterClient)
-                        PhotonNetwork.Destroy(gameObject);//¶¥¿¡ ¶³¾îÁø ¿ÀºêÁ§Æ® »èÁ¦
-                });
-            }
-            else
-            {
-                Debug.Log("else");
+            //if (IsTestMode.Instance.CurrentUser == Define.User.Hw)
+            //{
+            //    Debug.Log("IsTestMode.Instance.CurrentUser == Define.User.Hw");
+            //    //player.SetRelicEvent?.Invoke(RelicType.ToString(), () => player.PickupController.SetRelic(this), () => { });
+            //    player.SetRelicEvent?.Invoke(RelicType.ToString(), () => player.PickupController.SetRelic(this), () =>
+            //    {
+            //        if (PhotonNetwork.IsMasterClient)
+            //            PhotonNetwork.Destroy(gameObject);//¶¥¿¡ ¶³¾îÁø ¿ÀºêÁ§Æ® »èÁ¦
+            //    });
+            //}
+            //else
+            //{
+             //   Debug.Log("else");
                 player.SetRelicEvent?.Invoke(RelicType.ToString(), () => player.PickupController.SetRelic(this), () => Managers.Resources.Destroy(gameObject));
-            }
+            //}
         }
 
         public override void ShowName(PlayerController player)
