@@ -149,8 +149,8 @@ public class Map : Obj
         // 이때 주변 타일맵의 인덱스를 구할 때는 배열 인덱스 범위가 벗어나지 않도록 주의.
 
         Node item = node[xIndex, yIndex];
-        xPos = (int)(item.nodePos.x + 0.5f);
-        yPos = (int)(item.nodePos.z + 0.5f);
+        xPos = (int)(item.nodePos.x + 0.75f);
+        yPos = (int)(item.nodePos.z + 0.75f);
         
         //Color playerColor = PlayerColor(_player.transform.parent.gameObject);
         //item.SetColor(playerColor);

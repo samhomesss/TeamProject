@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4719066739541684975}
   - component: {fileID: 3924954257916774512}
-  - component: {fileID: 4419666342777934028}
   - component: {fileID: 6178121965904842447}
+  - component: {fileID: 7464161024273772399}
   m_Layer: 10
   m_Name: Rifle
   m_TagString: ObtainableObject
@@ -56,19 +56,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 5, y: 2, z: 1}
   m_Center: {x: 2.73, y: 0.33, z: -0.71}
---- !u!114 &4419666342777934028
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6575944134925060122}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62f0e3e2560b38b418a690554afe2bb0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemNameObject: {fileID: 0}
 --- !u!114 &6178121965904842447
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -91,6 +78,19 @@ MonoBehaviour:
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
+--- !u!114 &7464161024273772399
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6575944134925060122}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3db76f9b38af474dbd630a88370dd33, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  itemNameObject: {fileID: 0}
 --- !u!1001 &9113945485771943597
 PrefabInstance:
   m_ObjectHideFlags: 0

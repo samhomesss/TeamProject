@@ -30,6 +30,8 @@ namespace yb {
             player = PhotonNetwork.GetPhotonView(playerViewId).GetComponent<PlayerController>();
             SetRelic(player);
             player.HaveRelicNumber++;
+            if (PhotonNetwork.IsMasterClient)
+                PhotonNetwork.Destroy(gameObject);
         }
 
 

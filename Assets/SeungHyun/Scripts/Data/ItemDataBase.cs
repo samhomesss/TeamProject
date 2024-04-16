@@ -37,15 +37,14 @@ public class ItemDataBase
 
     public void Init()
     {
-        itemDatas.Add(new ItemData((int)Define.WeaponType.Pistol, "ObtainablePistol", Managers.Resources.Load<Sprite>("Prefabs/sh/UI/Texture/ObtainablePistol")));
-        itemDatas.Add(new ItemData((int)Define.WeaponType.Rifle, "ObtainableRifle", Managers.Resources.Load<Sprite>("Prefabs/sh/UI/Texture/ObtainableRifle")));
-        itemDatas.Add(new ItemData((int)Define.WeaponType.Shotgun, "ObtainableShotgun", Managers.Resources.Load<Sprite>("Prefabs/sh/UI/Texture/ObtainableShotgun")));
+        itemDatas.Add(new ItemData((int)Define.WeaponType.Pistol, "Pistol", Managers.Resources.Load<Sprite>("Prefabs/sh/UI/Texture/Pistol")));
+        itemDatas.Add(new ItemData((int)Define.WeaponType.Rifle, "Rifle", Managers.Resources.Load<Sprite>("Prefabs/sh/UI/Texture/Rifle")));
+        itemDatas.Add(new ItemData((int)Define.WeaponType.Shotgun, "Shotgun", Managers.Resources.Load<Sprite>("Prefabs/sh/UI/Texture/Shotgun")));
         itemDatas.Add(new ItemData((int)Define.RelicType.ShieldRelic, "ShieldRelic", Managers.Resources.Load<Sprite>("Prefabs/sh/UI/Texture/ShieldRelic")));
         itemDatas.Add(new ItemData((int)Define.RelicType.BonusAttackSpeedRelic, "BonusAttackSpeedRelic", Managers.Resources.Load<Sprite>("Prefabs/sh/UI/Texture/BonusAttackSpeedRelic")));
         itemDatas.Add(new ItemData((int)Define.RelicType.BonusProjectileRelic, "BonusProjectileRelic", Managers.Resources.Load<Sprite>("Prefabs/sh/UI/Texture/BonusProjectileRelic")));
         itemDatas.Add(new ItemData((int)Define.RelicType.BonusResurrectionTimeRelic, "BonusResurrectionTimeRelic", Managers.Resources.Load<Sprite>("Prefabs/sh/UI/Texture/BonusResurrectionTimeRelic")));
         itemDatas.Add(new ItemData((int)Define.RelicType.GuardRelic, "GuardRelic", Managers.Resources.Load<Sprite>("Prefabs/sh/UI/Texture/GuardRelic")));
-
 
         #region 주석처리
         //itemDataLength = itemDataName.Length;
