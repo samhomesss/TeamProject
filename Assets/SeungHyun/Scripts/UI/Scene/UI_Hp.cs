@@ -19,6 +19,12 @@ public class UI_Hp : UI_Scene
     Slider _hpslider;
     Text _hptext;
 
+    public float HpSlider {
+        get => _hpslider.value;
+        set => _hpslider.value = value; 
+    }
+
+
     private void Start()
     {
         map = Map.MapObject.GetComponent<Map>();
@@ -38,8 +44,14 @@ public class UI_Hp : UI_Scene
 
         _hpslider = hp_slider.GetComponent<Slider>();
         _hptext = hp_text.GetComponent<Text>();
-
-        SetPlayer(map.Player);
+        if(IsTestMode.Instance.CurrentUser == Define.User.Hw)
+        {
+            SetPlayer(GameObject.Find($"Player{PhotonNetwork.LocalPlayer.ActorNumber}").GetComponentInChildren<PlayerController>());
+        }
+        else
+        {
+            SetPlayer(map.Player);
+        }
         _hptext.text = ($"{_hpslider.value} / {_hpslider.maxValue}").ToString();
     }
 

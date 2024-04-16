@@ -8,7 +8,8 @@ using yb;
 public class GameScene : BaseScene
 {
     private PhotonView _photonView;
-    private GameObject[] items = new GameObject[6];//0415 18:33 이희웅 테스트용 배열 추가 
+    private GameObject[] items = new GameObject[6];//0415 18:33 이희웅 테스트용 배열 추가
+    
     public override void Clear()
     {
     }

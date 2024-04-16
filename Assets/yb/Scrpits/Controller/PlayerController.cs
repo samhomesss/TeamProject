@@ -21,6 +21,7 @@ namespace yb
     {
         private readonly float _animationFadeTime = .3f;  //애니메이션 페이드 시간
         public const int MaxRelicNumber = 2;
+        private const float PALYER_MAX_HP = 30;
         private int _playerHandle;  //플레이어 고유 번호
         public const int MaxItemNumber = 9;
         public const int MaxItemSlot = 4;
@@ -307,12 +308,14 @@ namespace yb
             {
                 if (_photonview.IsMine)
                 {
-                    StartCoroutine(CoroutineHelper.Instance.CoDelayPhotonObjectSpawn(_status.ResurrectionTime));
-                    StartCoroutine(CoroutineHelper.Instance.CoDelayPhotonObjectDelete(transform.root.gameObject, _status.ResurrectionTime));
                     GameObject go = MyCamera.gameObject;
                     go.transform.parent = null;
                     StartCoroutine(CoroutineHelper.Instance.CoDelayPhotonObjectDelete(go, _status.ResurrectionTime));
-                    _rotateToMouseScript.PlayerDead();
+                    StartCoroutine(CoroutineHelper.Instance.CoDelayPhotonObjectSpawn(_status.ResurrectionTime, SetUI));
+                    StartCoroutine(CoroutineHelper.Instance.CoDelayPhotonObjectDelete(transform.root.gameObject, _status.ResurrectionTime));
+                   
+
+                   _rotateToMouseScript.PlayerDead();
                 }
             }
             else
@@ -325,7 +328,10 @@ namespace yb
                 _rotateToMouseScript.PlayerDead();
             }
         }
-
+        public void SetUI()// 0416 이희웅 플레이어 리스폰 될때 UI 초기화
+        {
+            GameObject.Find("@UI_Root").GetComponentInChildren<UI_Hp>().HpSlider = PALYER_MAX_HP;
+        }
 
         /// <summary>
         /// 플레이어 피격 판정(피격 데미지, 공격자)

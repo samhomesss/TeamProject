@@ -1,4 +1,5 @@
 using Photon.Pun;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -29,7 +30,7 @@ public class CoroutineHelper : MonoBehaviour
         call.Invoke();
     }
 
-    public IEnumerator CoDelayPhotonObjectSpawn(float time)
+    public IEnumerator CoDelayPhotonObjectSpawn(float time, UnityAction call)
     {
         yield return new WaitForSeconds(time);
         GameObject go = PhotonNetwork.Instantiate("Prefabs/hw/PlayerPrefabs/Player", Vector3.zero, Quaternion.identity); 
@@ -40,10 +41,14 @@ public class CoroutineHelper : MonoBehaviour
             Util.FindChild(go, "Camera", true).SetActive(true);
             Util.FindChild(go, "Camera", true).GetComponent<AudioListener>().enabled = true;
         }
+
+        call.Invoke();
+
     }
     public IEnumerator CoDelayPhotonObjectDelete(GameObject go, float time)
     {
         yield return new WaitForSeconds(time);
         PhotonNetwork.Destroy(go);
     }
+
 }
