@@ -36,8 +36,14 @@ namespace yb
             //SetRelic(player);
             player.PickupController.SetRelic(this);
             player.HaveRelicNumber++;
+            SetRelic(player);
+
+
             if (PhotonNetwork.IsMasterClient)
-                PhotonNetwork.Destroy(gameObject);//땅에 떨어진 오브젝트 삭제
+                PhotonNetwork.Destroy(gameObject);
+
+
+            player.SetRelicEvent?.Invoke(RelicType.ToString(), () => { }, () => { });
         }
 
         public void SetRelic(PlayerController player)
@@ -59,7 +65,7 @@ namespace yb
             //   player.SetRelicEvent?.Invoke(RelicType.ToString(), () => player.PickupController.SetRelic(this), () => Managers.Resources.Destroy(gameObject));
             //}
             #endregion
-            player.SetRelicEvent?.Invoke(RelicType.ToString(), () => player.PickupController.SetRelic(this), () => Managers.Resources.Destroy(gameObject));
+            player.ChangeRelicIMGEvent.Invoke(RelicType.ToString(), () => { }, () => { });
 
         }
 

@@ -1,4 +1,5 @@
 using Photon.Pun;
+using Photon.Realtime;
 using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEditor;
 using UnityEngine;
@@ -34,15 +35,21 @@ namespace yb
             Debug.Log("ΩØµÂ∑º∏Ø ∏‘¿Ω");
             PlayerController player;
             player = PhotonNetwork.GetPhotonView(playerViewId).GetComponent<PlayerController>();
-            player.PickupController.SetRelic(this);
+            //player.PickupController.SetRelic(this);
             player.HaveRelicNumber++;
-
-
-            SetRelic(player);
 
 
             if (PhotonNetwork.IsMasterClient)
                 PhotonNetwork.Destroy(gameObject);
+
+            player.SetRelicEvent?.Invoke(RelicType.ToString(), () => { }, () => { });
+        }
+
+        public void ChangeImagePhoton(int playerViewId)
+        {
+            PlayerController player;
+            player = PhotonNetwork.GetPhotonView(playerViewId).GetComponent<PlayerController>();
+            player.ChangeRelicIMGEvent.Invoke(RelicType.ToString(), () => { }, () => { });
         }
 
         public void SetRelic(PlayerController player)
@@ -64,7 +71,7 @@ namespace yb
             //   player.SetRelicEvent?.Invoke(RelicType.ToString(), () => player.PickupController.SetRelic(this), () => Managers.Resources.Destroy(gameObject));
             //}
             #endregion
-            player.ChangeRelicIMGEvent.Invoke(RelicType.ToString(), () => { }, () => { });
+            player.SetRelicEvent?.Invoke(RelicType.ToString(), () => player.PickupController.SetRelic(this), () => Managers.Resources.Destroy(gameObject));
 
         }
 

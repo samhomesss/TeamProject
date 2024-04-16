@@ -5,6 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using yb;
+using static Define;
 
 /// <summary>
 /// 아이템 픽업관련 클래스
@@ -13,7 +14,6 @@ namespace yb
 {
     public class PlayerPickupController : MonoBehaviour
     {
-
         private PlayerController _player;
         private Data _data;
         private IObtainableObject _collideItem;  //플레이어와 충돌중인 아이템 저장
@@ -73,6 +73,7 @@ namespace yb
                         _player.StateController.ChangeState(new PlayerState_Pickup(_player));
                         _player.ItemEvent?.Invoke(_collideItemPhoton.NamePhoton);
                         _collideItemPhoton.IObtainableObjectPhotonView.RPC("PickupPhoton", RpcTarget.All, _player.IphotonView.ViewID);
+                        
                         _collideItemPhoton = null;
                     }
                     

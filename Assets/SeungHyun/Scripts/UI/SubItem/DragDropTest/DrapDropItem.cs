@@ -49,14 +49,27 @@ public class DrapDropItem : MonoBehaviour, IPointerDownHandler, IBeginDragHandle
         // Player를 연동 해야됨 DeleteRelic에 추가 
         if (eventData.pointerDrag.GetComponent<RectTransform>().anchoredPosition != Vector2.zero) // 만약 마우스 포인터가 칸 위치가 아니라면? 밖을 향한다면
         {
-            IRelic go = Managers.Resources.Instantiate($"sh/Relic/{Managers.ItemDataBase.GetItemData(eventData.pointerDrag.GetComponent<Image>().sprite.name).itemName}").GetComponent<IRelic>(); // 아이템 생성
+
+            if (IsTestMode.Instance.CurrentUser == Define.User.Hw)
+            {
+                IRelic go = PhotonNetwork.Instantiate($"sh/Relic/{Managers.ItemDataBase.GetItemData(eventData.pointerDrag.GetComponent<Image>().sprite.name).itemName}",Vector3.zero,Quaternion.identity).GetComponent<IRelic>();
+                go.MyTransform.position = map.Player.transform.position;
+                go.DeleteRelic(map.Player);
+            }
+            else
+            {
+                IRelic go = Managers.Resources.Instantiate($"sh/Relic/{Managers.ItemDataBase.GetItemData(eventData.pointerDrag.GetComponent<Image>().sprite.name).itemName}").GetComponent<IRelic>(); // 아이템 생성
+                go.MyTransform.position = map.Player.transform.position;
+                go.DeleteRelic(map.Player);
+            }
+
+
             eventData.pointerDrag.GetComponent<Image>().sprite = default;
             eventData.pointerDrag.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
-            
             eventData.pointerDrag.GetComponentInParent<UI_RelicInven_Item>().IsEmpty = true;
             eventData.pointerDrag.GetComponentInParent<UI_RelicInven_Item>().SlotItemID = default;
-            go.MyTransform.position = map.Player.transform.position;
-            go.DeleteRelic(map.Player);
+            //go.MyTransform.position = map.Player.transform.position; 0416 14:49 이희웅 수정
+            //go.DeleteRelic(map.Player);
         }
     }
 
