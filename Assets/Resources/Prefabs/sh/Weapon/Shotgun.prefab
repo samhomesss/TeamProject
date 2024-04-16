@@ -127,9 +127,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 966253891845727437}
-  - component: {fileID: 7067962183435040052}
   - component: {fileID: 3908929608684924674}
   - component: {fileID: 1800669287458993811}
+  - component: {fileID: 1315273113469674539}
   m_Layer: 0
   m_Name: Shotgun
   m_TagString: ObtainableObject
@@ -153,18 +153,6 @@ Transform:
   - {fileID: 3878559383361552011}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7067962183435040052
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6563283711973357718}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5c25a679888cafe4991738648a7d7488, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!65 &3908929608684924674
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -195,10 +183,32 @@ MonoBehaviour:
   m_GameObject: {fileID: 6563283711973357718}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1ea0d8e8bbc3822418330ceafa8d5ee0, type: 3}
+  m_Script: {fileID: 11500000, guid: 562eb6e75088237478dfec0497e7c163, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   itemNameObject: {fileID: 0}
+--- !u!114 &1315273113469674539
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6563283711973357718}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &7472734944833972785
 GameObject:
   m_ObjectHideFlags: 0

@@ -55,12 +55,20 @@ public class UI_Weapon : UI_Scene
         string beforeItemID = slotItemID; // 일단 바꿔 주기 전에 아이템 번호 저장하고 
         mainWeapon.transform.GetChild(0).GetComponentInChildren<Image>().sprite = Managers.ItemDataBase.GetItemData(itemID).itemImage;
         _mainWeaponImage = mainWeapon.GetComponentInChildren<Image>(); // 단순 업데이트 
-        GameObject go = Managers.Resources.Instantiate($"sh/Weapon/{Managers.ItemDataBase.GetItemData(beforeItemID).itemName}"); // 아이템 생성
 
-        if (_photonView.IsMine)
-        go.transform.position = map.Player.transform.position;
-
-        Debug.Log(go.name);
+        if (IsTestMode.Instance.CurrentUser == Define.User.Hw)
+        {
+            GameObject go = PhotonNetwork.Instantiate($"Prefabs/sh/Weapon/{Managers.ItemDataBase.GetItemData(beforeItemID).itemName}",Vector3.zero,Quaternion.identity);
+            map.Player.PhotonView.RPC("SetDropItemName",RpcTarget.All,go.GetComponent<PhotonView>().ViewID);//이름 바꾸기
+            if (_photonView.IsMine)
+                go.transform.position = map.Player.transform.position;
+        }
+        else
+        {
+            GameObject go = Managers.Resources.Instantiate($"sh/Weapon/{Managers.ItemDataBase.GetItemData(beforeItemID).itemName}"); // 아이템 생성
+            if (_photonView.IsMine)
+                go.transform.position = map.Player.transform.position;
+        }
         slotItemID = itemID;
     }
 
