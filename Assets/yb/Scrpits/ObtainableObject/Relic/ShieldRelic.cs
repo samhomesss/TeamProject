@@ -9,10 +9,7 @@ namespace yb
 {
     public class ShieldRelic : ObtainableObject, IRelic
     {
-
-        public string Name => gameObject.name;
         private void Start() => _photonView = GetComponent<PhotonView>();
-        public Define.RelicType RelicType { get; } = Define.RelicType.ShieldRelic;
 
         public Transform MyTransform => transform;
         public PhotonView PhotonView => _photonView;
@@ -75,7 +72,6 @@ namespace yb
             if (player.PhotonView.IsMine)
                 player.ChangeRelicIMGEvent.Invoke(RelicType.ToString(), () => { }, () => { });
 
-            if (PhotonNetwork.IsMasterClient)
                 PhotonNetwork.Destroy(gameObject);
         }
     }

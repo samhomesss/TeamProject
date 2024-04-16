@@ -20,8 +20,7 @@ namespace yb
         private PhotonView _photonview;//0409 08:06 이희웅 코드 수정 총알 동기화를 위한 포톤뷰 생성
 
         private void Awake() => _player = GetComponent<PlayerController>();
-
-        
+         
         private void Start()
         {
             _photonview = GetComponent<PhotonView>();//0409 08:06 이희웅 코드 수정 총알 동기화를 위한 코드

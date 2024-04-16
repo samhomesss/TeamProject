@@ -11,11 +11,6 @@ namespace yb {
     /// 추가 투사체 렐릭 클래스
     /// </summary>
     public class BonusAttackSpeedRelic : ObtainableObject, IRelic {
-        public string Name => gameObject.name;
-
-
-        public Define.RelicType RelicType { get; } = Define.RelicType.BonusAttackSpeedRelic;
-
         private void Start() => _photonView = GetComponent<PhotonView>();
         public Transform MyTransform => transform;
 

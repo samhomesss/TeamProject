@@ -5,10 +5,6 @@ using yb;
 
 namespace yb {
     public class BonusResurrectionTimeRelic : ObtainableObject, IRelic {
-        public string Name => gameObject.name;
-
-
-        public Define.RelicType RelicType { get; } = Define.RelicType.BonusResurrectionTimeRelic;
 
         private void Start() => _photonView = GetComponent<PhotonView>();
         public Transform MyTransform => transform;
@@ -68,7 +64,6 @@ namespace yb {
             player.HaveRelicNumber++;
             if (player.PhotonView.IsMine)
                 player.ChangeRelicIMGEvent.Invoke(RelicType.ToString(), () => { }, () => { });
-            if (PhotonNetwork.IsMasterClient)
                 PhotonNetwork.Destroy(gameObject);
         }
     }
