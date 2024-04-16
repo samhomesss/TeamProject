@@ -38,7 +38,7 @@ namespace yb {
         {
             if (IsTestMode.Instance.CurrentUser == Define.User.Hw)
             {
-                player.SetRelicEvent?.Invoke(RelicType.ToString(), () => player.PickupController.SetRelic(this), () => PhotonManager.Destroy(gameObject));
+                player.SetRelicEvent?.Invoke(RelicType.ToString(), () => player.PickupController.SetRelic(this), () => PhotonNetwork.Destroy(gameObject));
             }
             else
             {
