@@ -60,9 +60,9 @@ public class UI_Weapon : UI_Scene
         {
             if (_photonView.IsMine)
             {
-                GameObject go = PhotonNetwork.Instantiate($"Prefabs/sh/Weapon/{Managers.ItemDataBase.GetItemData(beforeItemID).itemName}", Vector3.zero, Quaternion.identity);
+                GameObject go = PhotonNetwork.Instantiate($"Prefabs/yb/Weapon/{Managers.ItemDataBase.GetItemData(beforeItemID).itemName}", Vector3.zero, Quaternion.identity);
                 map.Player.PhotonView.RPC("SetDropItemName", RpcTarget.All, go.GetComponent<PhotonView>().ViewID);//이름 바꾸기
-                go.transform.position = map.Player.transform.position;
+                go.transform.position = map.Player.transform.position+Vector3.up;
             }
                 
         }
