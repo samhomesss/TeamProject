@@ -4,8 +4,10 @@ using UnityEditor;
 using UnityEngine;
 using yb;
 
-namespace yb {
-    public class ShieldRelic : ObtainableObject, IRelic {
+namespace yb
+{
+    public class ShieldRelic : ObtainableObject, IRelic
+    {
 
         public string Name => gameObject.name;
         private void Start() => _photonView = GetComponent<PhotonView>();
@@ -13,13 +15,15 @@ namespace yb {
 
         public Transform MyTransform => transform;
 
-        public void DeleteRelic(PlayerController player) {
+        public void DeleteRelic(PlayerController player)
+        {
             player.PickupController.DeleteRelic(this);
             player.HaveRelicNumber--;
             //player.DestroyRelicEvent?.Invoke(RelicType.ToString(), () => player.PickupController.DeleteRelic(this), () => player.HaveRelicNumber--);
         }
 
-        public override void Pickup(PlayerController player) {
+        public override void Pickup(PlayerController player)
+        {
             SetRelic(player);
             player.HaveRelicNumber++;
         }
@@ -38,7 +42,13 @@ namespace yb {
         {
             if (IsTestMode.Instance.CurrentUser == Define.User.Hw)
             {
-                player.SetRelicEvent?.Invoke(RelicType.ToString(), () => player.PickupController.SetRelic(this), () => PhotonNetwork.Destroy(gameObject));
+                player.SetRelicEvent?.Invoke(RelicType.ToString(), () => player.PickupController.SetRelic(this), () =>
+                {
+                    if (PhotonNetwork.IsMasterClient)
+                    {
+                        PhotonNetwork.Destroy(gameObject);
+                    }
+                });
             }
             else
             {
