@@ -121,7 +121,7 @@ namespace yb
             _haveRelic[(int)relic.RelicType] = true;
             _player.WeaponController.SetRelic(relic);
             //_player.SetRelicEvent?.Invoke(RelicType.ToString());
-            Debug.Log($"{relic.RelicType.ToString()}·¼¸¯À» ½Àµæ");
+            Debug.Log($"<color=red>{relic.RelicType.ToString()}·¼¸¯À» ½Àµæ</color>");
             switch (relic.RelicType)
             {
                 case Define.RelicType.BonusResurrectionTimeRelic:
