@@ -81,7 +81,7 @@ public class UI_Inven_Item : UI_Base
     // 아이템 위에 손 올리면 
     public void CheckItemInfo(PointerEventData PointerEventData)
     {
-        if (_icon.GetComponent<Image>().sprite == null) // 아이템이 없으면 Null 반환
+        if (_icon.GetComponent<Image>().sprite == null)//Managers.Resources.Load<Sprite>("Prefabs/sh/UI/Texture/DefaultItemImage")) // 아이템이 없으면 Null 반환
             return;
 
         GameObject Info = Util.FindChild(UI_ItemInfo.ItemInfo, "ItemInfoBackGround", true);

@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class UI_Timer : UI_Scene
 {
-    float Timer = 300;
+    float Timer = 10;
     float minute; 
     float second; 
 
@@ -23,6 +23,10 @@ public class UI_Timer : UI_Scene
         second = Timer % 60;
         minute = Timer / 60;
 
+        if (Timer <= 0)
+        {
+            Timer = 0;
+        }
         if (second < 10)
             TimerText.GetComponent<Text>().text = "0" + (int)minute + ":0" + (int)second;
         else

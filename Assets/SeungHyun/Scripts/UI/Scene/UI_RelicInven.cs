@@ -49,7 +49,7 @@ public class UI_RelicInven : UI_Scene
             relicInvenItem = item.GetOrAddComponent<UI_RelicInven_Item>(); // 해당 컴포넌트 추가해서 
             // 리스트에 추가
             ui_RelicInven_Items.Add(relicInvenItem);
-            relicInvenItem.SetInfo($"유물{i}번");
+            relicInvenItem.SetInfo($" ");
         }
     }
 
