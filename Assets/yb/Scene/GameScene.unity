@@ -262,6 +262,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 774b1bdde774def4dbf12d1888886a42, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _photonView: {fileID: 0}
 --- !u!4 &203544618
 Transform:
   m_ObjectHideFlags: 0
@@ -810,9 +811,25 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1395436490973177230, guid: 567a0c86a8edadb4392cba3466227742, type: 3}
+      propertyPath: sceneViewId
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2881695747894699527, guid: 567a0c86a8edadb4392cba3466227742, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2965611802986451658, guid: 567a0c86a8edadb4392cba3466227742, type: 3}
       propertyPath: m_Name
       value: Player1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3302671380501169298, guid: 567a0c86a8edadb4392cba3466227742, type: 3}
+      propertyPath: sceneViewId
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3573068495415023296, guid: 567a0c86a8edadb4392cba3466227742, type: 3}
+      propertyPath: sceneViewId
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 3688744910794410681, guid: 567a0c86a8edadb4392cba3466227742, type: 3}
       propertyPath: m_LocalPosition.x
@@ -858,6 +875,10 @@ PrefabInstance:
       propertyPath: sceneViewId
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 9210982102620771246, guid: 567a0c86a8edadb4392cba3466227742, type: 3}
+      propertyPath: sceneViewId
+      value: 5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -871,47 +892,51 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 6461214651558837917, guid: fc0f050ee5644ab4699e014880173056, type: 3}
+    - target: {fileID: 1528796071613128953, guid: 0eb1ddbcc935b1049877c20e2aba2398, type: 3}
       propertyPath: m_LocalPosition.x
       value: -12.64
       objectReference: {fileID: 0}
-    - target: {fileID: 6461214651558837917, guid: fc0f050ee5644ab4699e014880173056, type: 3}
+    - target: {fileID: 1528796071613128953, guid: 0eb1ddbcc935b1049877c20e2aba2398, type: 3}
       propertyPath: m_LocalPosition.y
       value: 1.17
       objectReference: {fileID: 0}
-    - target: {fileID: 6461214651558837917, guid: fc0f050ee5644ab4699e014880173056, type: 3}
+    - target: {fileID: 1528796071613128953, guid: 0eb1ddbcc935b1049877c20e2aba2398, type: 3}
       propertyPath: m_LocalPosition.z
       value: 6.65
       objectReference: {fileID: 0}
-    - target: {fileID: 6461214651558837917, guid: fc0f050ee5644ab4699e014880173056, type: 3}
+    - target: {fileID: 1528796071613128953, guid: 0eb1ddbcc935b1049877c20e2aba2398, type: 3}
       propertyPath: m_LocalRotation.w
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 6461214651558837917, guid: fc0f050ee5644ab4699e014880173056, type: 3}
+    - target: {fileID: 1528796071613128953, guid: 0eb1ddbcc935b1049877c20e2aba2398, type: 3}
       propertyPath: m_LocalRotation.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6461214651558837917, guid: fc0f050ee5644ab4699e014880173056, type: 3}
+    - target: {fileID: 1528796071613128953, guid: 0eb1ddbcc935b1049877c20e2aba2398, type: 3}
       propertyPath: m_LocalRotation.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6461214651558837917, guid: fc0f050ee5644ab4699e014880173056, type: 3}
+    - target: {fileID: 1528796071613128953, guid: 0eb1ddbcc935b1049877c20e2aba2398, type: 3}
       propertyPath: m_LocalRotation.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6461214651558837917, guid: fc0f050ee5644ab4699e014880173056, type: 3}
+    - target: {fileID: 1528796071613128953, guid: 0eb1ddbcc935b1049877c20e2aba2398, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6461214651558837917, guid: fc0f050ee5644ab4699e014880173056, type: 3}
+    - target: {fileID: 1528796071613128953, guid: 0eb1ddbcc935b1049877c20e2aba2398, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6461214651558837917, guid: fc0f050ee5644ab4699e014880173056, type: 3}
+    - target: {fileID: 1528796071613128953, guid: 0eb1ddbcc935b1049877c20e2aba2398, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6989726206575466598, guid: fc0f050ee5644ab4699e014880173056, type: 3}
+    - target: {fileID: 1703856163346039065, guid: 0eb1ddbcc935b1049877c20e2aba2398, type: 3}
+      propertyPath: sceneViewId
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7048750501595912883, guid: 0eb1ddbcc935b1049877c20e2aba2398, type: 3}
       propertyPath: m_Name
       value: BonusAttackSpeedRelic
       objectReference: {fileID: 0}
@@ -919,7 +944,7 @@ PrefabInstance:
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: fc0f050ee5644ab4699e014880173056, type: 3}
+  m_SourcePrefab: {fileID: 100100000, guid: 0eb1ddbcc935b1049877c20e2aba2398, type: 3}
 --- !u!1001 &1459619313983554106
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1042,6 +1067,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1756829680266584279, guid: 376cf6cb848ef4347adfc26d48b0a10b, type: 3}
+      propertyPath: sceneViewId
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 4071196969525577797, guid: 376cf6cb848ef4347adfc26d48b0a10b, type: 3}
       propertyPath: m_LocalPosition.x
       value: -12.64
@@ -1099,6 +1128,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -8276856904931489916, guid: 6032be45e243ccf4cbdc52ffb4502bfd, type: 3}
+      propertyPath: sceneViewId
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 1463588815791228731, guid: 6032be45e243ccf4cbdc52ffb4502bfd, type: 3}
       propertyPath: m_Name
       value: BonusProjectileRelic
@@ -1156,6 +1189,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1845732828220266142, guid: 8bd61a944c6883d4b9856a7a3f366701, type: 3}
+      propertyPath: sceneViewId
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 4836462766106494574, guid: 8bd61a944c6883d4b9856a7a3f366701, type: 3}
       propertyPath: m_Name
       value: BonusResurrectionTimeRelic
@@ -1273,6 +1310,10 @@ PrefabInstance:
     - target: {fileID: 4267431748269749677, guid: 16af4c50dfee9964eabe9d81d227361a, type: 3}
       propertyPath: m_Name
       value: ShieldRelic
+      objectReference: {fileID: 0}
+    - target: {fileID: 6294138943467181043, guid: 16af4c50dfee9964eabe9d81d227361a, type: 3}
+      propertyPath: sceneViewId
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 6800833747280099065, guid: 16af4c50dfee9964eabe9d81d227361a, type: 3}
       propertyPath: m_LocalPosition.x
