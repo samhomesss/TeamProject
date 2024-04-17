@@ -13,10 +13,10 @@ namespace yb {
         public void Set(string item) {
              _itemsList.Add(item);
         }
-
+        
 
         private PhotonView _photonView;
-
+     
         /// <summary>
         /// 아이템을 곂치지 않게 나선형으로 드랍
         /// </summary>
@@ -44,7 +44,6 @@ namespace yb {
                         GameObject dropObject =  PhotonNetwork.Instantiate($"Prefabs/{path}", new Vector3(pos.x + x, 1f, pos.z + z), Quaternion.identity);
                         _photonView = Map.MapObject.GetComponent<Map>().Player.GetComponent<PhotonView>();
                         _photonView.RPC("SetDropItemName",RpcTarget.All, dropObject.GetComponent<PhotonView>().ViewID);
-
                     }
                     else
                     {
