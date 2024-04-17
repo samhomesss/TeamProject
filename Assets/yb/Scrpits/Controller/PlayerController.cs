@@ -211,14 +211,9 @@ namespace yb
 
             #region 승현 추가 04.11
             
-            MapEvent?.Invoke();
-            ClosedItemEvent?.Invoke();            
+            //MapEvent?.Invoke();
+            //ClosedItemEvent?.Invoke();            
 
-            //if (resetTimer >= 1) 
-            //{
-            //    ColorPercentEvent?.Invoke();
-            //    resetTimer = 0;
-            //}
             #endregion
             return true;
         }
@@ -265,12 +260,13 @@ namespace yb
                 _animator.SetTrigger(state.ToString());
 
         }
-
+        float _time;
         /// <summary>
         /// 플레이어 이동 로직
         /// </summary>
         public void OnMoveUpdate()
         {
+            _time += Time.deltaTime;
             if (IsTestMode.Instance.CurrentUser == Define.User.Hw)
             {
                 if (_photonview.IsMine)//0405 09:41분 캐릭터간에 동기화를 위한 포톤 이동 분리 로직 추가
@@ -288,6 +284,11 @@ namespace yb
                 _rigid.MovePosition(_rigid.position + dir * (_status.MoveSpeed * _status.MoveSpeedDecrease) * Time.deltaTime);
                 _playerMoveVelocity = dir * (_status.MoveSpeed * _status.MoveSpeedDecrease) * Time.deltaTime;
 
+            }
+            if (_time >= 0.1f)
+            {
+                MapEvent?.Invoke();
+                _time = 0;
             }
         }
 
