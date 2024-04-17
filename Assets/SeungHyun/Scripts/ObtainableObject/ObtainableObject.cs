@@ -83,4 +83,6 @@ public class ObtainableObject : MonoBehaviourPunCallbacks, IObtainableObject, IO
         IRelic go = relicObj.GetComponent<IRelic>();
         go.DeleteRelic(playerPhoton.GetComponent<PlayerController>());
     }
+
+
 }

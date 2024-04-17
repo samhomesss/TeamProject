@@ -27,7 +27,7 @@ namespace yb
             _rangedWeaponsParent = Util.FindChild(gameObject, "RangedWeapons", true).transform;
             
             foreach (Transform t in _rangedWeaponsParent)
-                t.localScale = Vector3.zero;  //모든 무기의 크기를 zero로 초기화
+                t.localScale = Vector3.zero;  //모든 무기의 크기를 zero로 초기화T
 
             _rangeWeapon = new RangedWeapon_Pistol(_rangedWeaponsParent, _player);  //기본 무기를 Pistol로 할당
         }

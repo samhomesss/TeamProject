@@ -68,8 +68,6 @@ namespace yb
                                 return;
                             }
                         }
-
-
                         _player.StateController.ChangeState(new PlayerState_Pickup(_player));
                         _player.ItemEvent?.Invoke(_collideItemPhoton.NamePhoton);
                         _collideItemPhoton.IObtainableObjectPhotonView.RPC("PickupPhoton", RpcTarget.All, _player.IphotonView.ViewID);
@@ -90,8 +88,6 @@ namespace yb
                             return;
                         }
                     }
-
-                  
                     _player.StateController.ChangeState(new PlayerState_Pickup(_player));
                     _collideItem.Pickup(_player);
                     _player.ItemEvent?.Invoke(_collideItem.Name);
