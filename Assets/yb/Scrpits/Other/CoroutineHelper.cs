@@ -48,7 +48,7 @@ public class CoroutineHelper : MonoBehaviour
     public IEnumerator CoDelayPhotonObjectDelete(GameObject go, float time, PhotonView photon)
     {
         yield return new WaitForSeconds(time);
-        if(photon.IsMine)
+        if(PhotonNetwork.IsMasterClient)
         PhotonNetwork.Destroy(go);
     }
 
