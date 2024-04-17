@@ -74,7 +74,7 @@ public class GameScene : BaseScene
 
         //GameObject
         Map map = Managers.SceneObj.ShowSceneObject<Map>();
-        if(map != null)
+        if (map != null)
         {
             map.onLoadMapUI += onLoadedUI;
         }
@@ -118,15 +118,18 @@ public class GameScene : BaseScene
 
     public void onLoadedUI() //로딩이 다 된다음에 호출
     {
-        for (int i = 1; i < 13; i++)
+        if (PhotonNetwork.IsMasterClient)
         {
-            itemBox.Add(GameObject.Find($"@Obj_Root/Map/ItemBox/DestructibleObject{i}").GetComponent<Transform>());
+            for (int i = 1; i < 13; i++)
+            {
+                itemBox.Add(GameObject.Find($"@Obj_Root/Map/ItemBox/DestructibleObject{i}").GetComponent<Transform>());
+            }
+            for (int i = 0; i < itemBox.Count; i++)
+            {
+                PhotonNetwork.Instantiate("Prefabs/yb/Object/DestructibleObject", itemBox[i].transform.position, Quaternion.identity);
+            }
         }
-        for (int i = 0; i < itemBox.Count; i++)
-        {
-            PhotonNetwork.Instantiate("Prefabs/yb/Object/DestructibleObject", itemBox[i].transform.position, Quaternion.identity);
-        }
+
     }
-    
 
 }
