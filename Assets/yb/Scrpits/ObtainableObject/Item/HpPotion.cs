@@ -23,9 +23,9 @@ namespace yb {
 
             }
             int count = 0;
-            while (count < PlayerController.MaxItemSlot)
+            if (_photonView.IsMine)
             {
-                if (_photonView.IsMine)
+                while (count < PlayerController.MaxItemSlot)
                 {
                     if (player.ItemList.ContainsKey(count))
                     {
