@@ -33,7 +33,7 @@ public class UI_RelicInven_Item : UI_Base
     //    set { _isChanged = value; }
     //}// _isChanged property
 
-    public GameObject Icon => _icon; // 아이템 아이콘
+    GameObject Icon => _icon; // 아이템 아이콘
 
     string _slotItemID; // 현재 이 창이 들고 있는 ItemID 
     string _name; // 이름 설정 할때 사용
@@ -175,7 +175,7 @@ public class UI_RelicInven_Item : UI_Base
         GameObject InfoText = Util.FindChild(UI_ItemInfo.ItemInfo, "ItemInfoText", true);
         UI_ItemInfo.ItemInfo.SetActive(true);
         InfoImage.GetComponent<Image>().sprite = Managers.ItemDataBase.GetItemData(_slotItemID).itemImage; // 한번 초기화 해주면 되는 이유
-        InfoText.GetComponent<Text>().text = Managers.ItemDataBase.GetItemData(_slotItemID).itemName; // 한번 초기화 
+        InfoText.GetComponent<Text>().text = Managers.ItemDataBase.GetItemData(_slotItemID).itemInfo; // 한번 초기화 
         //OnItemInfoChanged?.Invoke(_slotItemID); // 여기 슬롯의 아이템의 정보를 전달 해줌
         Info.transform.position = gameObject.transform.position + new Vector3(-80, 100, 0);
 

@@ -12,6 +12,7 @@ using System.Reflection;
 using static UnityEditor.Experimental.GraphView.GraphView;
 using static UnityEditor.Progress;
 using UnityEngine.UIElements;
+using System.Runtime.InteropServices;
 
 namespace yb
 {
@@ -20,6 +21,10 @@ namespace yb
     public class PlayerController : MonoBehaviour, ITakeDamage, ITakeDamagePhoton
     {
         private readonly float _animationFadeTime = .3f;  //애니메이션 페이드 시간
+        private const float LimitLeftPosX = 1f;
+        private const float LimitRightPosX = 62f;
+        private const float LimitUpPosZ = 62f;
+        private const float LimitDownPosZ = 1f;
         public const int MaxRelicNumber = 2;
         private const float PALYER_MAX_HP = 30;
         private int _playerHandle;  //플레이어 고유 번호
@@ -211,14 +216,9 @@ namespace yb
 
             #region 승현 추가 04.11
             
-            MapEvent?.Invoke();
-            ClosedItemEvent?.Invoke();            
+            //MapEvent?.Invoke();
+            //ClosedItemEvent?.Invoke();            
 
-            //if (resetTimer >= 1) 
-            //{
-            //    ColorPercentEvent?.Invoke();
-            //    resetTimer = 0;
-            //}
             #endregion
             return true;
         }
@@ -265,12 +265,13 @@ namespace yb
                 _animator.SetTrigger(state.ToString());
 
         }
-
+        float _time;
         /// <summary>
         /// 플레이어 이동 로직
         /// </summary>
         public void OnMoveUpdate()
         {
+            _time += Time.deltaTime;
             if (IsTestMode.Instance.CurrentUser == Define.User.Hw)
             {
                 if (_photonview.IsMine)//0405 09:41분 캐릭터간에 동기화를 위한 포톤 이동 분리 로직 추가
@@ -278,9 +279,17 @@ namespace yb
                     Vector3 dir = new Vector3(moveX, 0f, moveZ);
                     //_rigid.MovePosition(_rigid.position + dir * (_status.MoveSpeed * _status.MoveSpeedDecrease) * Time.deltaTime);
                     //transform.parent.Translate(dir * (_status.MoveSpeed * _status.MoveSpeedDecrease) * Time.deltaTime); //0410 23:44 이희웅 포톤 동기화 문제로 인해 해당기능 주석처리 
-
                     _rigid.MovePosition(_rigid.position + dir * (_status.MoveSpeed * _status.MoveSpeedDecrease) * Time.deltaTime);
                     _playerMoveVelocity = dir * (_status.MoveSpeed * _status.MoveSpeedDecrease) * Time.deltaTime;
+                    if (_rigid.position.x <= LimitLeftPosX)
+                        _rigid.position = new Vector3(LimitLeftPosX, _rigid.position.y, _rigid.position.z);
+                    if (_rigid.position.x >= LimitRightPosX)
+                        _rigid.position = new Vector3(LimitRightPosX, _rigid.position.y, _rigid.position.z);
+                    if (_rigid.position.z <= LimitDownPosZ)
+                        _rigid.position = new Vector3(_rigid.position.x, _rigid.position.y, LimitDownPosZ);
+                    if (_rigid.position.z >= LimitUpPosZ)
+                        _rigid.position = new Vector3(_rigid.position.x, _rigid.position.y, LimitUpPosZ);
+
                 }
             }
             else {
@@ -288,6 +297,19 @@ namespace yb
                 _rigid.MovePosition(_rigid.position + dir * (_status.MoveSpeed * _status.MoveSpeedDecrease) * Time.deltaTime);
                 _playerMoveVelocity = dir * (_status.MoveSpeed * _status.MoveSpeedDecrease) * Time.deltaTime;
 
+                if (_rigid.position.x <= LimitLeftPosX)
+                    _rigid.position = new Vector3(LimitLeftPosX, _rigid.position.y, _rigid.position.z);
+                if (_rigid.position.x >= LimitRightPosX)
+                    _rigid.position = new Vector3(LimitRightPosX, _rigid.position.y, _rigid.position.z);
+                if (_rigid.position.z <= LimitDownPosZ)
+                    _rigid.position = new Vector3(_rigid.position.x, _rigid.position.y, LimitDownPosZ);
+                if (_rigid.position.z >= LimitUpPosZ)
+                    _rigid.position = new Vector3(_rigid.position.x, _rigid.position.y, LimitUpPosZ);
+            }
+            if (_time >= 0.1f)
+            {
+                MapEvent?.Invoke();
+                _time = 0;
             }
         }
 

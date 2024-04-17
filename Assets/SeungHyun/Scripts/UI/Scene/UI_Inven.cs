@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using yb;
 using static UnityEditor.Progress;
+using static yb.PlayerController;
 
 public class UI_Inven : UI_Scene
 {
@@ -28,7 +29,7 @@ public class UI_Inven : UI_Scene
 
     void SetPlayer(PlayerController player)
     {
-        player.ItemEvent += ChangeImage;
+        player.SetItemEvent += ChangeImage;
     }
 
     public override void Init()
@@ -50,25 +51,29 @@ public class UI_Inven : UI_Scene
     }
 
     // 번호를 넘겨주는 아이템 번호로 사용
-    public void ChangeImage(string ItemID)
+    // int(슬롯) string(아이템 이름) int(아이템 갯수)
+    public void ChangeImage(int slotID, PlayerController.Item Item)
     {
-        if (ItemID == "ShieldRelic" || ItemID == "BonusAttackSpeedRelic" || ItemID == "BonusProjectileRelic"
-             || ItemID == "BonusResurrectionTimeRelic" || ItemID == "GuardRelic" || ItemID == "Pistol" || ItemID == "Shotgun" || ItemID == "Rifle")
-        { return; }
+        #region 삭제
+        //if (ItemID == "ShieldRelic" || ItemID == "BonusAttackSpeedRelic" || ItemID == "BonusProjectileRelic"
+        //     || ItemID == "BonusResurrectionTimeRelic" || ItemID == "GuardRelic" || ItemID == "Pistol" || ItemID == "Shotgun" || ItemID == "Rifle")
+        //{ return; }
 
-            for (int i = 0; i < ui_Inven_Items.Count; i++)
-            {
-            if (!ui_Inven_Items[i].IsEmpty)
-            {
-                continue;
-            }
-
-            ui_Inven_Items[i].IsEmpty = false;
-            // 아랫부분 코드가 좀 더러운거 같아서 추후에 수정하고
-            ui_Inven_Items[i].transform.GetChild(0).GetComponentInChildren<Image>().sprite = Managers.ItemDataBase.GetItemData(ItemID).itemImage;
-            ui_Inven_Items[i].SlotItemID = Managers.ItemDataBase.GetItemData(ItemID).itemName; 
-            break;
-        }
+        //for (int i = 0; i < ui_Inven_Items.Count; i++)
+        //{
+        //if (!ui_Inven_Items[i].IsEmpty)
+        //{
+        //    continue;
+        //}
+        // ui_Inven_Items[i].IsEmpty = false;
+        // 아랫부분 코드가 좀 더러운거 같아서 추후에 수정하고
+        //ui_Inven_Items[i].transform.GetChild(0).GetComponentInChildren<Image>().sprite = Managers.ItemDataBase.GetItemData(ItemID).itemImage;
+        //ui_Inven_Items[i].SlotItemID = Managers.ItemDataBase.GetItemData(ItemID).itemName; 
+        //break;
+        #endregion
+        ui_Inven_Items[slotID].transform.GetChild(0).GetComponentInChildren<Image>().sprite = Managers.Resources.Load<Sprite>($"Prefabs/sh/UI/Texture/{Item.ItemType.ToString()}");
+        ui_Inven_Items[slotID].SlotItemID = Item.ItemType.ToString();
+        ui_Inven_Items[slotID].transform.GetChild(2).GetComponentInChildren<Text>().text = Item.ItemNumber.ToString();
     }
 }
 
