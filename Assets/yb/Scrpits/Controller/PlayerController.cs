@@ -332,7 +332,7 @@ namespace yb
 
             if(IsTestMode.Instance.CurrentUser == Define.User.Hw)
             {
-                if (_photonview.IsMine)
+                if (PhotonNetwork.IsMasterClient)
                 {
                     GameObject go = MyCamera.gameObject;
                     go.transform.parent = null;
