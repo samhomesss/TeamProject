@@ -68,6 +68,8 @@ namespace yb
         /// </summary>
         public Action<int, Item> SetItemEvent;
 
+       
+
 
         /// <summary>
         /// 플레이어 hp변경시 호출
