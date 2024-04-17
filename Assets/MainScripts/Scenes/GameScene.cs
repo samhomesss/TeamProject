@@ -13,6 +13,8 @@ public class GameScene : BaseScene
     private GameObject[] items = new GameObject[6];//0415 18:33 이희웅 테스트용 배열 추가
     private List<Transform> itemBox = new List<Transform>();//파라미터는 박스의 갯수
     public UnityEvent OnLoaded;
+
+    private GameObject _itemBox;
     public override void Clear()
     {
     }
@@ -26,6 +28,7 @@ public class GameScene : BaseScene
 
     public override void Init()
     {
+        _itemBox = new GameObject("ItemBox");
         base.Init();
         //todo
         if (IsTestMode.Instance.CurrentUser == Define.User.Hw)
@@ -126,10 +129,10 @@ public class GameScene : BaseScene
             }
             for (int i = 0; i < itemBox.Count; i++)
             {
-                PhotonNetwork.Instantiate("Prefabs/yb/Object/DestructibleObject", itemBox[i].transform.position, Quaternion.identity);
+                GameObject itembox = PhotonNetwork.Instantiate("Prefabs/yb/Object/DestructibleObject", itemBox[i].transform.position, Quaternion.identity);
+                itembox.transform.SetParent(_itemBox.transform);
             }
         }
 
     }
-
 }
