@@ -312,11 +312,12 @@ namespace yb
             {
                 if (_photonview.IsMine)
                 {
+                    Util.LogRed("테스트용 로그");
                     GameObject go = MyCamera.gameObject;
                     go.transform.parent = null;
-                    StartCoroutine(CoroutineHelper.Instance.CoDelayPhotonObjectDelete(go, _status.ResurrectionTime,_photonview));
+                    StartCoroutine(CoroutineHelper.Instance.CoDelayPhotonObjectDelete(go, _status.ResurrectionTime));
                     StartCoroutine(CoroutineHelper.Instance.CoDelayPhotonObjectSpawn(_status.ResurrectionTime, SetUI));
-                    StartCoroutine(CoroutineHelper.Instance.CoDelayPhotonObjectDelete(transform.root.gameObject, _status.ResurrectionTime, _photonview));
+                    StartCoroutine(CoroutineHelper.Instance.CoDelayPhotonObjectDelete(transform.root.gameObject, _status.ResurrectionTime));
                    
                    _rotateToMouseScript.PlayerDead();
                 }
