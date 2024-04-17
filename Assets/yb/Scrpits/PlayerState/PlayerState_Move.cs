@@ -15,6 +15,7 @@ namespace yb {
                 player.StateController.ChangeState(new PlayerState_MovenShot(player));
                 return;
             }
+
             if (!player.isMoving()) {
                 //이동 종료시 Idle상태로 변경
                 player.StateController.ChangeState(new PlayerState_Idle(player));
