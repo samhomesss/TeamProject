@@ -21,10 +21,10 @@ namespace yb
     public class PlayerController : MonoBehaviour, ITakeDamage, ITakeDamagePhoton
     {
         private readonly float _animationFadeTime = .3f;  //애니메이션 페이드 시간
-        private const float LimitLeftPosX = 4f;
-        private const float LimitRightPosX = 60f;
-        private const float LimitUpPosZ = 60f;
-        private const float LimitDownPosZ = 5f;
+        private const float LimitLeftPosX = 1f;
+        private const float LimitRightPosX = 62f;
+        private const float LimitUpPosZ = 62f;
+        private const float LimitDownPosZ = 1f;
         public const int MaxRelicNumber = 2;
         private const float PALYER_MAX_HP = 30;
         private int _playerHandle;  //플레이어 고유 번호

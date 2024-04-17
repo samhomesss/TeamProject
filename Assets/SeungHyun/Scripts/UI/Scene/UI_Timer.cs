@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class UI_Timer : UI_Scene
 {
-    float Timer = 10;
+    float Timer = 300;
     float minute; 
     float second; 
 
