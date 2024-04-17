@@ -15,7 +15,7 @@ namespace yb {
 
         //총 발사 시 이동속도 감소 수치
         private float _moveSpeedDecrease = 1f;
-        public float MoveSpeed => _moveSpeed;
+        public float MoveSpeed { get { return _moveSpeed; }set { _moveSpeed = value; } }
 
         public float MoveSpeedDecrease => _moveSpeedDecrease;
 
