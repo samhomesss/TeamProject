@@ -48,11 +48,11 @@ public class CoroutineHelper : MonoBehaviour
     public IEnumerator CoDelayPhotonObjectDelete(GameObject go, float time,PhotonView die_player_photonview)
     {
         yield return new WaitForSeconds(time);
-        if (die_player_photonview.IsMine)
-        {
-            PhotonNetwork.Destroy(go);
-            Util.LogRed("죽었으니 부활함");
-        }
+        //if (die_player_photonview.IsMine)
+        //{
+        //    PhotonNetwork.Destroy(go);
+        //    Util.LogRed("죽었으니 부활함");
+        //}
             
     }
 

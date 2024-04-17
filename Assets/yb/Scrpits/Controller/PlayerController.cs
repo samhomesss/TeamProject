@@ -334,7 +334,6 @@ namespace yb
             {
                 if (_photonview.IsMine)
                 {
-                    Util.LogRed("테스트용 로그");
                     GameObject go = MyCamera.gameObject;
                     go.transform.parent = null;
                     StartCoroutine(CoroutineHelper.Instance.CoDelayPhotonObjectDelete(go, _status.ResurrectionTime,_photonview));
@@ -356,7 +355,7 @@ namespace yb
         }
         public void SetUI()// 0416 이희웅 플레이어 리스폰 될때 UI 초기화
         {
-            GameObject.Find("@UI_Root").GetComponentInChildren<UI_Hp>().HpSlider = PALYER_MAX_HP;
+            GameObject.Find("@UI_Root").GetComponentInChildren<UI_Hp>().Init();
             _map = Map.MapObject.GetComponent<Map>();
             _map.SetPlayer(GameObject.Find($"Player{PhotonNetwork.LocalPlayer.ActorNumber}").GetComponent<PlayerController>());
         }

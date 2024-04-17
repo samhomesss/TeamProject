@@ -83,6 +83,7 @@ public class GameScene : BaseScene
         }
 
         Managers.SceneObj.ShowSceneObject<MiniMapCam>();
+
         Managers.UI.ShowSceneUI<UI_Timer>();
         Managers.UI.ShowSceneUI<UI_Weapon>();
         Managers.UI.ShowSceneUI<UI_Inven>();
