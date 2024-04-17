@@ -332,8 +332,6 @@ namespace yb
 
             if(IsTestMode.Instance.CurrentUser == Define.User.Hw)
             {
-                if (PhotonNetwork.IsMasterClient)
-                {
                     GameObject go = MyCamera.gameObject;
                     go.transform.parent = null;
                     StartCoroutine(CoroutineHelper.Instance.CoDelayPhotonObjectDelete(go, _status.ResurrectionTime));
@@ -341,7 +339,6 @@ namespace yb
                     StartCoroutine(CoroutineHelper.Instance.CoDelayPhotonObjectDelete(transform.root.gameObject, _status.ResurrectionTime));
                    
                    _rotateToMouseScript.PlayerDead();
-                }
             }
             else
             {
