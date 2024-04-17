@@ -123,7 +123,6 @@ public class Map : Obj
     // 호출 횟수를 줄이면서 정확하게 동작하도록 최적화가 필요해 보임.
     void UpdateColor()
     {
-        Util.LogGreen("UpdateColor is called");
 
         int xPos;
         int yPos;
