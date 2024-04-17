@@ -37,18 +37,18 @@ public class ItemDataBase
 
     public void Init()
     {
-        itemDatas.Add(new ItemData((int)Define.WeaponType.Pistol, "Pistol", Managers.Resources.Load<Sprite>("Prefabs/sh/UI/Texture/Pistol")));
-        itemDatas.Add(new ItemData((int)Define.WeaponType.Rifle, "Rifle", Managers.Resources.Load<Sprite>("Prefabs/sh/UI/Texture/Rifle")));
-        itemDatas.Add(new ItemData((int)Define.WeaponType.Shotgun, "Shotgun", Managers.Resources.Load<Sprite>("Prefabs/sh/UI/Texture/Shotgun")));
-        itemDatas.Add(new ItemData((int)Define.RelicType.ShieldRelic, "ShieldRelic", Managers.Resources.Load<Sprite>("Prefabs/sh/UI/Texture/ShieldRelic")));
-        itemDatas.Add(new ItemData((int)Define.RelicType.BonusAttackSpeedRelic, "BonusAttackSpeedRelic", Managers.Resources.Load<Sprite>("Prefabs/sh/UI/Texture/BonusAttackSpeedRelic")));
-        itemDatas.Add(new ItemData((int)Define.RelicType.BonusProjectileRelic, "BonusProjectileRelic", Managers.Resources.Load<Sprite>("Prefabs/sh/UI/Texture/BonusProjectileRelic")));
-        itemDatas.Add(new ItemData((int)Define.RelicType.BonusResurrectionTimeRelic, "BonusResurrectionTimeRelic", Managers.Resources.Load<Sprite>("Prefabs/sh/UI/Texture/BonusResurrectionTimeRelic")));
-        itemDatas.Add(new ItemData((int)Define.RelicType.GuardRelic, "GuardRelic", Managers.Resources.Load<Sprite>("Prefabs/sh/UI/Texture/GuardRelic")));
-        itemDatas.Add(new ItemData((int)Define.ItemType.HpPotion, "HpPotion", Managers.Resources.Load<Sprite>("Prefabs/sh/UI/Texture/HpPotion")));
-        itemDatas.Add(new ItemData((int)Define.ItemType.MoveSpeedUpPotion, "MoveSpeedUpPotion", Managers.Resources.Load<Sprite>("Prefabs/sh/UI/Texture/MoveSpeedUpPotion")));
-        itemDatas.Add(new ItemData((int)Define.ItemType.AttackSpeedUpPotion, "AttackSpeedUpPotion", Managers.Resources.Load<Sprite>("Prefabs/sh/UI/Texture/AttackSpeedUpPotion")));
-        itemDatas.Add(new ItemData((int)Define.ItemType.DamageUpPotion, "DamageUpPotion", Managers.Resources.Load<Sprite>("Prefabs/sh/UI/Texture/DamageUpPotion")));
+        itemDatas.Add(new ItemData((int)Define.WeaponType.Pistol, "Pistol", Managers.Resources.Load<Sprite>("Prefabs/sh/UI/Texture/Pistol") , "기본 총"));
+        itemDatas.Add(new ItemData((int)Define.WeaponType.Rifle, "Rifle", Managers.Resources.Load<Sprite>("Prefabs/sh/UI/Texture/Rifle"), "빠르게 연사가 가능한 소총"));
+        itemDatas.Add(new ItemData((int)Define.WeaponType.Shotgun, "Shotgun", Managers.Resources.Load<Sprite>("Prefabs/sh/UI/Texture/Shotgun"), "연사는 느리지만 한발한발이 강한 샷건"));
+        itemDatas.Add(new ItemData((int)Define.RelicType.ShieldRelic, "ShieldRelic", Managers.Resources.Load<Sprite>("Prefabs/sh/UI/Texture/ShieldRelic") , "총알 피해를 막아주는 보호막 유물"));
+        itemDatas.Add(new ItemData((int)Define.RelicType.BonusAttackSpeedRelic, "BonusAttackSpeedRelic", Managers.Resources.Load<Sprite>("Prefabs/sh/UI/Texture/BonusAttackSpeedRelic"), "추가 공격속도 증가 유물"));
+        itemDatas.Add(new ItemData((int)Define.RelicType.BonusProjectileRelic, "BonusProjectileRelic", Managers.Resources.Load<Sprite>("Prefabs/sh/UI/Texture/BonusProjectileRelic"), "추가 투사체 증가 유물"));
+        itemDatas.Add(new ItemData((int)Define.RelicType.BonusResurrectionTimeRelic, "BonusResurrectionTimeRelic", Managers.Resources.Load<Sprite>("Prefabs/sh/UI/Texture/BonusResurrectionTimeRelic"), "부활 시간 감소 유물"));
+        itemDatas.Add(new ItemData((int)Define.RelicType.GuardRelic, "GuardRelic", Managers.Resources.Load<Sprite>("Prefabs/sh/UI/Texture/GuardRelic"), "총알을 막아주는 오브젝트 유물"));
+        itemDatas.Add(new ItemData((int)Define.ItemType.HpPotion, "HpPotion", Managers.Resources.Load<Sprite>("Prefabs/sh/UI/Texture/HpPotion"), "체력 물약"));
+        itemDatas.Add(new ItemData((int)Define.ItemType.MoveSpeedUpPotion, "MoveSpeedUpPotion", Managers.Resources.Load<Sprite>("Prefabs/sh/UI/Texture/MoveSpeedUpPotion"), "이동속도 증가 물약"));
+        itemDatas.Add(new ItemData((int)Define.ItemType.AttackSpeedUpPotion, "AttackSpeedUpPotion", Managers.Resources.Load<Sprite>("Prefabs/sh/UI/Texture/AttackSpeedUpPotion"), "공격속도 증가 물약"));
+        itemDatas.Add(new ItemData((int)Define.ItemType.DamageUpPotion, "DamageUpPotion", Managers.Resources.Load<Sprite>("Prefabs/sh/UI/Texture/DamageUpPotion"), "데미지 증가 물약"));
 
         #region 주석처리
         //itemDataLength = itemDataName.Length;

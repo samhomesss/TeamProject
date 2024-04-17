@@ -59,7 +59,7 @@ public class UI_Inven_Item : UI_Base
 
         // 아이콘을 가지고 사용하는거
         _icon = Get<GameObject>((int)GameObjects.ItemIcon);
-        _icon.BindEvent(UseItem);
+        //_icon.BindEvent(UseItem);
         _icon.BindEvent(CheckItemInfo, Define.UIEvent.Enter); // 들어올때 사용할 이벤트 Drag 하나 더 생성 해야 함
         _icon.BindEvent(DestroyItemInfo, Define.UIEvent.Exit);
     }
@@ -90,7 +90,7 @@ public class UI_Inven_Item : UI_Base
 
         UI_ItemInfo.ItemInfo.SetActive(true);
         InfoImage.GetComponent<Image>().sprite = Managers.ItemDataBase.GetItemData(_slotItemID).itemImage; // 한번 초기화 해주면 되는 이유
-        InfoText.GetComponent<Text>().text = Managers.ItemDataBase.GetItemData(_slotItemID).itemName; // 한번 초기화 
+        InfoText.GetComponent<Text>().text = Managers.ItemDataBase.GetItemData(_slotItemID).itemInfo; // 한번 초기화 
         //OnItemInfoChanged?.Invoke(_slotItemID); // 여기 슬롯의 아이템의 정보를 전달 해줌
         Info.transform.position = gameObject.transform.position + new Vector3(-80, 100, 0);
         #region 위에로 따로 처리

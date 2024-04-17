@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using yb;
 using static UnityEditor.Progress;
+using static yb.PlayerController;
 
 public class UI_Inven : UI_Scene
 {
@@ -71,6 +72,7 @@ public class UI_Inven : UI_Scene
         //break;
         #endregion
         ui_Inven_Items[slotID].transform.GetChild(0).GetComponentInChildren<Image>().sprite = Managers.Resources.Load<Sprite>($"Prefabs/sh/UI/Texture/{Item.ItemType.ToString()}");
+        ui_Inven_Items[slotID].SlotItemID = Item.ItemType.ToString();
         ui_Inven_Items[slotID].transform.GetChild(2).GetComponentInChildren<Text>().text = Item.ItemNumber.ToString();
     }
 }
