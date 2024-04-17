@@ -314,11 +314,10 @@ namespace yb
                 {
                     GameObject go = MyCamera.gameObject;
                     go.transform.parent = null;
-                    StartCoroutine(CoroutineHelper.Instance.CoDelayPhotonObjectDelete(go, _status.ResurrectionTime));
+                    StartCoroutine(CoroutineHelper.Instance.CoDelayPhotonObjectDelete(go, _status.ResurrectionTime,_photonview));
                     StartCoroutine(CoroutineHelper.Instance.CoDelayPhotonObjectSpawn(_status.ResurrectionTime, SetUI));
-                    StartCoroutine(CoroutineHelper.Instance.CoDelayPhotonObjectDelete(transform.root.gameObject, _status.ResurrectionTime));
+                    StartCoroutine(CoroutineHelper.Instance.CoDelayPhotonObjectDelete(transform.root.gameObject, _status.ResurrectionTime, _photonview));
                    
-
                    _rotateToMouseScript.PlayerDead();
                 }
             }
