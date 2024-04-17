@@ -11,13 +11,13 @@ namespace yb {
         
         protected Data _data;
         protected float _currentDelay;
-        protected float _maxDelay;
+        public float MaxDelay { get; set; }
         protected float _realodTime;
         protected float _projectileVelocity;
-        protected int _defaultDamage;
+        public int DefaultDamage { get; set; }
 
 
-
+        
 
         //ÇöÀç ÃÑ¾Ë ¼ö
         protected int _currentBullet;

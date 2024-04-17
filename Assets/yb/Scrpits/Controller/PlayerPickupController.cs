@@ -104,9 +104,11 @@ namespace yb
             else {
                 _player.ItemList.Add(slot, new PlayerController.Item(type, 1));
             }
+
+            _player.SetItemEvent(slot, _player.ItemList[slot]);
             
             Debug.Log($"{type}아이템을 획득했습니다");
-            Debug.Log($"{_player.ItemList[slot]}에 {type}을 {_player.ItemList[slot].ItemNumber}개 보유중");
+            Debug.Log($"{slot}번 슬롯에 {type}을 {_player.ItemList[slot].ItemNumber}개 추가");
         }
         /// <summary>
         /// 플레이어가 렐릭을 습득 시 렐릭 할당. 각 렐릭 클래스에서 호출

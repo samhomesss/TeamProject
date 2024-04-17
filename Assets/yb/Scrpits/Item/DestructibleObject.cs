@@ -17,18 +17,30 @@ namespace yb
         public PhotonView IphotonView { get => _photonView; }//0410 18:40 ÀÌÈñ¿õ ÀÎÅÍÆäÀÌ½ºÀÇ Æ÷Åæºä ÇÁ·ÎÆÛÆ¼ Ãß°¡
 
         public IItemDroplable DropTable => _droplable;
+
+        [SerializeField] private float _weaponDropChance;
+        [SerializeField] private float _relicDropChance;
+        [SerializeField] private float _itemDropChance;
         private void Start()
         {
             _status = GetComponent<DestructibleObjectStatus>();
             _photonView = GetComponent<PhotonView>();//0410 16:25 ÀÌÈñ¿õ Æ÷Åæºä Ãß°¡ 
+            Init();
         }
 
-        public void Init(Vector3 pos) {
-            transform.position = pos;
-            Define.WeaponType weaponRan = (Define.WeaponType)Random.Range(0, (int)Define.WeaponType.Count);
-            Define.RelicType relicRan = (Define.RelicType)Random.Range(0, (int)Define.RelicType.Count);
-            _droplable.Set(weaponRan.ToString());
-            _droplable.Set(relicRan.ToString());
+        public void Init() {
+            if(_weaponDropChance <= Random.Range(0, 100f)) {
+                Define.WeaponType weaponRan = (Define.WeaponType)Random.Range(0, (int)Define.WeaponType.Count);
+                _droplable.Set(weaponRan.ToString());
+            }
+            if (_relicDropChance <= Random.Range(0, 100f)) {
+                Define.RelicType relicRan = (Define.RelicType)Random.Range(0, (int)Define.RelicType.Count);
+                _droplable.Set(relicRan.ToString());
+            }
+            if (_itemDropChance <= Random.Range(0, 100f)) {
+                Define.ItemType itemRan = (Define.ItemType)Random.Range(0, (int)Define.ItemType.Count);
+                _droplable.Set(itemRan.ToString());
+            }
         }
      
         public void TakeDamage(int amout, GameObject attacker)

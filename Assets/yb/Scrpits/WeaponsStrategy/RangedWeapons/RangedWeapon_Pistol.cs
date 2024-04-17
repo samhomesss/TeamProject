@@ -23,11 +23,11 @@ namespace yb
 
             //각종 스탯을 기본 스탯애 맞게 할당
             _realodTime = _data.DefaultWeaponRealodTime((int)WeaponType);
-            _defaultDamage = _data.DefaultWeaponDamage((int)WeaponType);
+            DefaultDamage = _data.DefaultWeaponDamage((int)WeaponType);
             _projectileVelocity = _data.DefaultWeaponVelocity((int)WeaponType);
             _remainBullet = _data.DefaultWeaponRemainBullet((int)WeaponType);
             _maxBullet = _data.DefaultWeaponMaxBullet((int)WeaponType);
-            _maxDelay = _data.DefaultWeaponDelay((int)WeaponType);
+            MaxDelay = _data.DefaultWeaponDelay((int)WeaponType);
             _currentBullet = _remainBullet;
 
             OnUpdateRelic(player);  //보유중인 렐릭 효과 부여
@@ -61,7 +61,6 @@ namespace yb
             {
                 _currentBullet = _remainBullet;
                 _maxBullet -= 0;
-                return;
             }
 
             if (_remainBullet < _maxBullet)
@@ -69,6 +68,8 @@ namespace yb
                 _currentBullet = _remainBullet;
                 _maxBullet -= _remainBullet;
             }
+
+            Debug.Log($"남은 총알 수{_maxBullet}");
             _player.BulletEvent?.Invoke(_currentBullet, _maxBullet);
             player.StateController.ChangeState(new PlayerState_Idle(player));
         }
@@ -90,7 +91,7 @@ namespace yb
         /// <returns></returns>
         public bool CanShot()
         {
-            if (_currentDelay >= _maxDelay + _bonusAttackDelay && !_player.Animator.GetCurrentAnimatorStateInfo(0).IsName("Shot"))
+            if (_currentDelay >= MaxDelay + _bonusAttackDelay && !_player.Animator.GetCurrentAnimatorStateInfo(0).IsName("Shot"))
             {
                 _currentDelay = 0f;
                 return true;
@@ -118,7 +119,7 @@ namespace yb
             int projectileNumber = Random.Range(0, 1f) > _data.BonusProjectileChance((int)WeaponType) ? 1 : Mathf.Max(_bonusProjectile, 1);
 
             for (int i = 0; i < projectileNumber; i++)
-                CoroutineHelper.Instance.ProjectileCreate(i, () => _projectileCreator.Create(_defaultDamage, _projectileVelocity, targetPos, _firePos.position, player));
+                CoroutineHelper.Instance.ProjectileCreate(i, () => _projectileCreator.Create(DefaultDamage, _projectileVelocity, targetPos, _firePos.position, player));
 
             player.MyCamera.transform.DOShakeRotation(0.2f, 1f);
         }

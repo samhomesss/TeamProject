@@ -60,6 +60,15 @@ namespace yb
             public Define.ItemType ItemType;
             public int ItemNumber;
         }
+
+        /// <summary>
+        /// 소비 아이템 변경시 호출
+        /// int = 슬롯 번호(0,1,2,3)
+        /// Item = 아이템 정보(아이템 타입, 아이템 갯수)
+        /// </summary>
+        public Action<int, Item> SetItemEvent;
+
+
         /// <summary>
         /// 플레이어 hp변경시 호출
         /// <현재 hp, 최대 hp>
@@ -159,10 +168,6 @@ namespace yb
         {
             _data = Managers.Data;
             PlayerHandle = PhotonNetwork.LocalPlayer.ActorNumber;
-            //사망시 set해둔 아이템 드랍
-            _droplable.Set("Rifle");
-            _droplable.Set("Pistol");
-            _droplable.Set("Shotgun");
         }
 
         private void Update()
