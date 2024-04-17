@@ -33,7 +33,7 @@ public class UI_RelicInven_Item : UI_Base
     //    set { _isChanged = value; }
     //}// _isChanged property
 
-    public GameObject Icon => _icon; // 아이템 아이콘
+    GameObject Icon => _icon; // 아이템 아이콘
 
     string _slotItemID; // 현재 이 창이 들고 있는 ItemID 
     string _name; // 이름 설정 할때 사용

@@ -45,6 +45,10 @@ public class ItemDataBase
         itemDatas.Add(new ItemData((int)Define.RelicType.BonusProjectileRelic, "BonusProjectileRelic", Managers.Resources.Load<Sprite>("Prefabs/sh/UI/Texture/BonusProjectileRelic")));
         itemDatas.Add(new ItemData((int)Define.RelicType.BonusResurrectionTimeRelic, "BonusResurrectionTimeRelic", Managers.Resources.Load<Sprite>("Prefabs/sh/UI/Texture/BonusResurrectionTimeRelic")));
         itemDatas.Add(new ItemData((int)Define.RelicType.GuardRelic, "GuardRelic", Managers.Resources.Load<Sprite>("Prefabs/sh/UI/Texture/GuardRelic")));
+        itemDatas.Add(new ItemData((int)Define.ItemType.HpPotion, "HpPotion", Managers.Resources.Load<Sprite>("Prefabs/sh/UI/Texture/HpPotion")));
+        itemDatas.Add(new ItemData((int)Define.ItemType.MoveSpeedUpPotion, "MoveSpeedUpPotion", Managers.Resources.Load<Sprite>("Prefabs/sh/UI/Texture/MoveSpeedUpPotion")));
+        itemDatas.Add(new ItemData((int)Define.ItemType.AttackSpeedUpPotion, "AttackSpeedUpPotion", Managers.Resources.Load<Sprite>("Prefabs/sh/UI/Texture/AttackSpeedUpPotion")));
+        itemDatas.Add(new ItemData((int)Define.ItemType.DamageUpPotion, "DamageUpPotion", Managers.Resources.Load<Sprite>("Prefabs/sh/UI/Texture/DamageUpPotion")));
 
         #region 주석처리
         //itemDataLength = itemDataName.Length;
