@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4519008604695608104}
   - component: {fileID: 6776426229564873519}
   - component: {fileID: 643819367758435623}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Pistol
   m_TagString: ObtainableObject
   m_Icon: {fileID: 0}
@@ -99,6 +99,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 6920578011637594445}
     m_Modifications:
+    - target: {fileID: -4326761520034251805, guid: 9545cf8a0378b5545a96dcdefb2f420e, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 9545cf8a0378b5545a96dcdefb2f420e, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -158,6 +162,14 @@ PrefabInstance:
     - target: {fileID: -927199367670048503, guid: 9545cf8a0378b5545a96dcdefb2f420e, type: 3}
       propertyPath: m_Name
       value: Blaster6
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 9545cf8a0378b5545a96dcdefb2f420e, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4460770153449642512, guid: 9545cf8a0378b5545a96dcdefb2f420e, type: 3}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
