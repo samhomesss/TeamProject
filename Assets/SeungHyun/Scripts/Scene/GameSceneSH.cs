@@ -6,10 +6,14 @@ public class GameSceneSH : BaseScene
 {
     public override void Clear()
     {
+
     }
 
     public override void Init()
     {
+        if(IsTestMode.Instance.CurrentUser == Define.User.Yb) {
+            return;
+        }
         base.Init();
         // UI 
         Managers.UI.ShowSceneUI<UI_Timer>();

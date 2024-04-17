@@ -27,7 +27,6 @@ public class Define
         MoveSpeedUpPotion,
         HidePotion,
         Bullet,
-        Grenade,
         Count,
     }
 
