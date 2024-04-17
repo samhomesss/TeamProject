@@ -20,7 +20,7 @@ public class Define
         Shotgun,
         Count,
     }
-
+    
     public enum ItemType {
         HpPotion,
         DamageUpPotion,
@@ -51,6 +51,7 @@ public class Define
         Sh,
     }
 
+    // »¡ º¸ ÃÊ ÆÄ ³ë 
     public enum RelicType {
         BonusAttackSpeedRelic,
         BonusProjectileRelic,
