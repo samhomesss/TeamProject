@@ -5,6 +5,10 @@ using yb;
 
 namespace yb {
     public class BonusResurrectionTimeRelic : ObtainableObject, IRelic {
+        public string Name => gameObject.name;
+
+
+        public Define.RelicType RelicType { get; } = Define.RelicType.BonusResurrectionTimeRelic;
 
         private void Start() => _photonView = GetComponent<PhotonView>();
         public Transform MyTransform => transform;

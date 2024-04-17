@@ -9,7 +9,9 @@ namespace yb
 {
     public class ShieldRelic : ObtainableObject, IRelic
     {
+
         private void Start() => _photonView = GetComponent<PhotonView>();
+        public Define.RelicType RelicType { get; } = Define.RelicType.ShieldRelic;
 
         public Transform MyTransform => transform;
         public PhotonView PhotonView => _photonView;

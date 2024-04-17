@@ -5,6 +5,9 @@ using yb;
 
 namespace yb {
     public class BonusProjectileRelic : ObtainableObject, IRelic{
+        public string Name => gameObject.name;
+
+        public Define.RelicType RelicType { get; } = Define.RelicType.BonusProjectileRelic;
 
         private void Start() => _photonView = GetComponent<PhotonView>();
        

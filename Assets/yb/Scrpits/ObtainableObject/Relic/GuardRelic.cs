@@ -7,6 +7,10 @@ namespace yb
 {
     public class GuardRelic : ObtainableObject, IRelic
     {
+        public string Name => gameObject.name;
+
+        public Define.RelicType RelicType { get; } = Define.RelicType.GuardRelic;
+
         private void Start() => _photonView = GetComponent<PhotonView>();
         public Transform MyTransform => transform;
         public PhotonView PhotonView => _photonView;
