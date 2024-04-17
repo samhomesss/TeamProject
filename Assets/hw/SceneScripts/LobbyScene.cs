@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace Hw
-{
+
     public class LobbyScene : BaseScene
     {
         public override void Init()
@@ -21,5 +20,4 @@ namespace Hw
         {
         }
     }
-}
 
