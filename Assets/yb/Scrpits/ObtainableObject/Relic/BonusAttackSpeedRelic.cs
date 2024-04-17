@@ -49,6 +49,7 @@ namespace yb {
             //   Debug.Log("else");
             //   player.SetRelicEvent?.Invoke(RelicType.ToString(), () => player.PickupController.SetRelic(this), () => Managers.Resources.Destroy(gameObject));
             //}
+            
             #endregion
             player.ChangeRelicIMGEvent.Invoke(RelicType.ToString(), () => { }, () => { });
 
