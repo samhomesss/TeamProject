@@ -12,6 +12,7 @@ public class GameScene : BaseScene
     private PhotonView _photonView;
     private GameObject[] items = new GameObject[6];//0415 18:33 이희웅 테스트용 배열 추가
     private List<Transform> itemBox = new List<Transform>();//파라미터는 박스의 갯수
+    public UnityEvent OnLoaded;
     public override void Clear()
     {
     }
@@ -34,8 +35,6 @@ public class GameScene : BaseScene
             go.GetComponentInChildren<PlayerController>().SetRelicEvent += OnSetRelic;
             _photonView = Util.FindChild(go, "Model").GetComponent<PhotonView>();
 
-
-
             if (PhotonNetwork.IsMasterClient)
             {
                 items[0] = PhotonNetwork.Instantiate("Prefabs/yb/Relic/GuardRelic", new Vector3(2, 1, 10), Quaternion.identity);
@@ -57,8 +56,6 @@ public class GameScene : BaseScene
                 _photonView.RPC("RenamePlayer", RpcTarget.All, _photonView.ViewID);
             }
 
-
-
         }
         else if (IsTestMode.Instance.CurrentUser == Define.User.Sh)
         {
@@ -76,18 +73,13 @@ public class GameScene : BaseScene
     {
 
         //GameObject
-        Managers.SceneObj.ShowSceneObject<Map>();
+        Map map = Managers.SceneObj.ShowSceneObject<Map>();
+        if(map != null)
+        {
+            map.onLoadMapUI += onLoadedUI;
+        }
+
         Managers.SceneObj.ShowSceneObject<MiniMapCam>();
-
-
-        for (int i = 1; i < 13; i++)
-        {
-            itemBox.Add(GameObject.Find($"@Obj_Root/Map/ItemBox/DestructibleObject{(i)}").GetComponent<Transform>());
-        }
-        for (int i = 0; i < itemBox.Count; i++)
-        {
-            PhotonNetwork.Instantiate("Prefabs/yb/Object/DestructibleObject", itemBox[i].transform.position, Quaternion.identity);
-        }
         Managers.UI.ShowSceneUI<UI_Timer>();
         Managers.UI.ShowSceneUI<UI_Weapon>();
         Managers.UI.ShowSceneUI<UI_Inven>();
@@ -123,5 +115,18 @@ public class GameScene : BaseScene
         }
         ShowUI();
     }
+
+    public void onLoadedUI() //로딩이 다 된다음에 호출
+    {
+        for (int i = 1; i < 13; i++)
+        {
+            itemBox.Add(GameObject.Find($"@Obj_Root/Map/ItemBox/DestructibleObject{i}").GetComponent<Transform>());
+        }
+        for (int i = 0; i < itemBox.Count; i++)
+        {
+            PhotonNetwork.Instantiate("Prefabs/yb/Object/DestructibleObject", itemBox[i].transform.position, Quaternion.identity);
+        }
+    }
+    
 
 }

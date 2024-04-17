@@ -9,9 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3941171844900186196}
-  - component: {fileID: 1917012608939135960}
   m_Layer: 0
-  m_Name: DestructibleObject(1)
+  m_Name: DestructibleObject1
   m_TagString: DestructibleObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -32,28 +31,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 863444488585870238}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1917012608939135960
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 312753583652583679}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ObservedComponentsFoldoutOpen: 1
-  Group: 0
-  prefixField: -1
-  Synchronization: 3
-  OwnershipTransfer: 0
-  observableSearch: 2
-  ObservedComponents: []
-  sceneViewId: 0
-  InstantiationId: 0
-  isRuntimeInstantiated: 0
 --- !u!1 &2367070153153718931
 GameObject:
   m_ObjectHideFlags: 0
@@ -63,9 +40,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1314840603920726584}
-  - component: {fileID: 7054668615864318880}
   m_Layer: 0
-  m_Name: DestructibleObject(12)
+  m_Name: DestructibleObject12
   m_TagString: DestructibleObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -86,28 +62,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 863444488585870238}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7054668615864318880
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2367070153153718931}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ObservedComponentsFoldoutOpen: 1
-  Group: 0
-  prefixField: -1
-  Synchronization: 3
-  OwnershipTransfer: 0
-  observableSearch: 2
-  ObservedComponents: []
-  sceneViewId: 0
-  InstantiationId: 0
-  isRuntimeInstantiated: 0
 --- !u!1 &2472230038082092287
 GameObject:
   m_ObjectHideFlags: 0
@@ -117,9 +71,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1200742891579944020}
-  - component: {fileID: 8103558663669480406}
   m_Layer: 0
-  m_Name: DestructibleObject(5)
+  m_Name: DestructibleObject5
   m_TagString: DestructibleObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -140,28 +93,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 863444488585870238}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8103558663669480406
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2472230038082092287}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ObservedComponentsFoldoutOpen: 1
-  Group: 0
-  prefixField: -1
-  Synchronization: 3
-  OwnershipTransfer: 0
-  observableSearch: 2
-  ObservedComponents: []
-  sceneViewId: 0
-  InstantiationId: 0
-  isRuntimeInstantiated: 0
 --- !u!1 &2522117072223620861
 GameObject:
   m_ObjectHideFlags: 0
@@ -171,9 +102,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1289886903608942166}
-  - component: {fileID: 3607578012202876504}
   m_Layer: 0
-  m_Name: DestructibleObject(10)
+  m_Name: DestructibleObject10
   m_TagString: DestructibleObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -194,28 +124,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 863444488585870238}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3607578012202876504
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2522117072223620861}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ObservedComponentsFoldoutOpen: 1
-  Group: 0
-  prefixField: -1
-  Synchronization: 3
-  OwnershipTransfer: 0
-  observableSearch: 2
-  ObservedComponents: []
-  sceneViewId: 0
-  InstantiationId: 0
-  isRuntimeInstantiated: 0
 --- !u!1 &2884249917216337850
 GameObject:
   m_ObjectHideFlags: 0
@@ -338,9 +246,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1779626868671394475}
-  - component: {fileID: 8406906957615442456}
   m_Layer: 0
-  m_Name: DestructibleObject(6)
+  m_Name: DestructibleObject6
   m_TagString: DestructibleObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -361,28 +268,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 863444488585870238}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8406906957615442456
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3050138052551401984}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ObservedComponentsFoldoutOpen: 1
-  Group: 0
-  prefixField: -1
-  Synchronization: 3
-  OwnershipTransfer: 0
-  observableSearch: 2
-  ObservedComponents: []
-  sceneViewId: 0
-  InstantiationId: 0
-  isRuntimeInstantiated: 0
 --- !u!1 &3127844154357562477
 GameObject:
   m_ObjectHideFlags: 0
@@ -392,9 +277,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1841568713885609158}
-  - component: {fileID: 1805680272711847310}
   m_Layer: 0
-  m_Name: DestructibleObject(3)
+  m_Name: DestructibleObject3
   m_TagString: DestructibleObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -415,28 +299,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 863444488585870238}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1805680272711847310
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3127844154357562477}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ObservedComponentsFoldoutOpen: 1
-  Group: 0
-  prefixField: -1
-  Synchronization: 3
-  OwnershipTransfer: 0
-  observableSearch: 2
-  ObservedComponents: []
-  sceneViewId: 0
-  InstantiationId: 0
-  isRuntimeInstantiated: 0
 --- !u!1 &3206642941100734753
 GameObject:
   m_ObjectHideFlags: 0
@@ -446,9 +308,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2190593921465117066}
-  - component: {fileID: 2142877391758381927}
   m_Layer: 0
-  m_Name: DestructibleObject(8)
+  m_Name: DestructibleObject8
   m_TagString: DestructibleObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -469,28 +330,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 863444488585870238}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2142877391758381927
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3206642941100734753}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ObservedComponentsFoldoutOpen: 1
-  Group: 0
-  prefixField: -1
-  Synchronization: 3
-  OwnershipTransfer: 0
-  observableSearch: 2
-  ObservedComponents: []
-  sceneViewId: 0
-  InstantiationId: 0
-  isRuntimeInstantiated: 0
 --- !u!1 &3305559599025771776
 GameObject:
   m_ObjectHideFlags: 0
@@ -591,9 +430,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 484520360513711339}
-  - component: {fileID: 3137455274799802140}
   m_Layer: 0
-  m_Name: DestructibleObject(4)
+  m_Name: DestructibleObject4
   m_TagString: DestructibleObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -614,28 +452,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 863444488585870238}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3137455274799802140
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3773904200900115520}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ObservedComponentsFoldoutOpen: 1
-  Group: 0
-  prefixField: -1
-  Synchronization: 3
-  OwnershipTransfer: 0
-  observableSearch: 2
-  ObservedComponents: []
-  sceneViewId: 0
-  InstantiationId: 0
-  isRuntimeInstantiated: 0
 --- !u!1 &4002923976087165749
 GameObject:
   m_ObjectHideFlags: 0
@@ -1362,9 +1178,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1128857515967226452}
-  - component: {fileID: 5240474701059519859}
   m_Layer: 0
-  m_Name: DestructibleObject(7)
+  m_Name: DestructibleObject7
   m_TagString: DestructibleObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1385,28 +1200,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 863444488585870238}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5240474701059519859
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4416980914167214847}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ObservedComponentsFoldoutOpen: 1
-  Group: 0
-  prefixField: -1
-  Synchronization: 3
-  OwnershipTransfer: 0
-  observableSearch: 2
-  ObservedComponents: []
-  sceneViewId: 0
-  InstantiationId: 0
-  isRuntimeInstantiated: 0
 --- !u!1 &5334183045753366162
 GameObject:
   m_ObjectHideFlags: 0
@@ -1416,9 +1209,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8709986300785473081}
-  - component: {fileID: 7203778284753337935}
   m_Layer: 0
-  m_Name: DestructibleObject(9)
+  m_Name: DestructibleObject9
   m_TagString: DestructibleObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1439,28 +1231,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 863444488585870238}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7203778284753337935
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5334183045753366162}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ObservedComponentsFoldoutOpen: 1
-  Group: 0
-  prefixField: -1
-  Synchronization: 3
-  OwnershipTransfer: 0
-  observableSearch: 2
-  ObservedComponents: []
-  sceneViewId: 0
-  InstantiationId: 0
-  isRuntimeInstantiated: 0
 --- !u!1 &6041300613717454056
 GameObject:
   m_ObjectHideFlags: 0
@@ -1470,9 +1240,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7003598476481543235}
-  - component: {fileID: 4085154550158763124}
   m_Layer: 0
-  m_Name: DestructibleObject(11)
+  m_Name: DestructibleObject11
   m_TagString: DestructibleObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1493,28 +1262,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 863444488585870238}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4085154550158763124
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6041300613717454056}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ObservedComponentsFoldoutOpen: 1
-  Group: 0
-  prefixField: -1
-  Synchronization: 3
-  OwnershipTransfer: 0
-  observableSearch: 2
-  ObservedComponents: []
-  sceneViewId: 0
-  InstantiationId: 0
-  isRuntimeInstantiated: 0
 --- !u!1 &6512596347208824135
 GameObject:
   m_ObjectHideFlags: 0
@@ -1524,9 +1271,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7532172022718080492}
-  - component: {fileID: 3108030095891696371}
   m_Layer: 0
-  m_Name: DestructibleObject(13)
+  m_Name: DestructibleObject13
   m_TagString: DestructibleObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1547,28 +1293,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 863444488585870238}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3108030095891696371
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6512596347208824135}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ObservedComponentsFoldoutOpen: 1
-  Group: 0
-  prefixField: -1
-  Synchronization: 3
-  OwnershipTransfer: 0
-  observableSearch: 2
-  ObservedComponents: []
-  sceneViewId: 0
-  InstantiationId: 0
-  isRuntimeInstantiated: 0
 --- !u!1 &7217050102668747102
 GameObject:
   m_ObjectHideFlags: 0
@@ -1777,9 +1501,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5761744750076022575}
-  - component: {fileID: 2442448506416117352}
   m_Layer: 0
-  m_Name: DestructibleObject(2)
+  m_Name: DestructibleObject2
   m_TagString: DestructibleObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1800,28 +1523,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 863444488585870238}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2442448506416117352
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9012565979369873284}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ObservedComponentsFoldoutOpen: 1
-  Group: 0
-  prefixField: -1
-  Synchronization: 3
-  OwnershipTransfer: 0
-  observableSearch: 2
-  ObservedComponents: []
-  sceneViewId: 0
-  InstantiationId: 0
-  isRuntimeInstantiated: 0
 --- !u!1 &9050815879921682418
 GameObject:
   m_ObjectHideFlags: 0

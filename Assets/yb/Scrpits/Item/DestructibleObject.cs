@@ -65,7 +65,7 @@ namespace yb
 
             //GameObject attacker = PhotonNetwork.GetPhotonView(attackerViewNum).gameObject;
             //PunRpc에서 GameObject를 직렬화 해서 보낼 수 없기에 직렬화 해서 보낼 수 있는 attackerViewNum을 보내고 해당 attackerViewNum을 포톤네트워크에서 찾아서 넣어준다.
-
+            
             int hp = _status.SetHp(-amout);
 
             if (hp <= 0)
