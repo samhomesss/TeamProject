@@ -338,6 +338,7 @@ namespace yb
                     go.transform.parent = null;
                     StartCoroutine(CoroutineHelper.Instance.CoDelayPhotonObjectDelete(go, _status.ResurrectionTime));
                     StartCoroutine(CoroutineHelper.Instance.CoDelayPhotonObjectSpawn(_status.ResurrectionTime, SetUI));
+                    if(PhotonNetwork.IsMasterClient)
                     StartCoroutine(CoroutineHelper.Instance.CoDelayPhotonObjectDelete(transform.root.gameObject, _status.ResurrectionTime));
 
                     _rotateToMouseScript.PlayerDead();
