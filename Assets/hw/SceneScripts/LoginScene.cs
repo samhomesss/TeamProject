@@ -12,6 +12,8 @@
             Managers.UI.ShowSceneUI<LoginUI>("Login/LoginUI","hw");
             Managers.UI.ShowSceneUI<RegisterID>("Login/RegisterID","hw");
             Managers.UI.ShowSceneUI<RegisterNickname>("Login/RegisterNickname","hw");
+            Managers.UI.ShowSceneUI<ConfirmPopupUI>("Login/ConfirmPopupUI", "hw");
+    
         }
 
         public override void Clear()
