@@ -16,6 +16,8 @@ public class LoginUI : UI_Scene
         PwInputField,
         RegisterButton,
     }
+
+
     private Button _loginButton;
     private TMP_InputField _idInputField;
     private TMP_InputField _pwInputField;
@@ -24,6 +26,7 @@ public class LoginUI : UI_Scene
 
     private Canvas _registerID;
     private Canvas _registerNickname;
+    private Canvas _confirmPopupUI;
 
     [SerializeField] private Toggle testLoginToggle;
 
@@ -45,9 +48,9 @@ public class LoginUI : UI_Scene
         _pwInputField = pwInputField.GetComponent<TMP_InputField>();
         _registerButton = registerButton.GetComponent<Button>();
 
-
         _registerID = Util.FindChild(transform.parent.gameObject, "RegisterID", false).GetComponent<Canvas>();
         _registerNickname = Util.FindChild(transform.parent.gameObject, "RegisterNickname", false).GetComponent<Canvas>();
+       // _confirmPopupUI = Util.FindChild(transform.parent.gameObject, "ConfirmPopupUI",false).GetComponent<Canvas>();
 
     }
 

@@ -1,9 +1,6 @@
 using Photon.Pun;
 using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Events;
 
 public class Util : MonoBehaviourPunCallbacks
 {
@@ -18,7 +15,33 @@ public class Util : MonoBehaviourPunCallbacks
 
     //    private float m_Height;
 
-   
+    public static void Log(object message)
+    {
+#if UNITY_EDITOR
+        Debug.Log(message);
+#endif
+    }
+
+    public static void LogRed(object message)
+    {
+#if UNITY_EDITOR
+        Debug.Log($"<color=red>{message}</color>");
+#endif
+    }
+
+    public static void LogGreen(object message)
+    {
+#if UNITY_EDITOR
+        Debug.Log($"<color=green>{message}</color>");
+#endif
+    }
+
+    public static void LogBlue(object message)
+    {
+#if UNITY_EDITOR
+        Debug.Log($"<color=blue>{message}</color>");
+#endif
+    }
 
     public static IEnumerator CoActive(bool trigger, GameObject go, float time)
     {
@@ -57,20 +80,26 @@ public class Util : MonoBehaviourPunCallbacks
     }
 
 
-    public static GameObject FindChild(GameObject go, string name, bool recursion = false) {
+    public static GameObject FindChild(GameObject go, string name, bool recursion = false)
+    {
         if (go == null || string.IsNullOrEmpty(name))
             return null;
 
-        if (recursion) {
-            foreach (Transform child in go.transform) {
+        if (recursion)
+        {
+            foreach (Transform child in go.transform)
+            {
                 if (child.name == name)
                     return child.gameObject;
 
                 GameObject found = FindChild(child.gameObject, name, recursion);
                 if (found != null) return found;
             }
-        } else {
-            foreach (Transform child in go.transform) {
+        }
+        else
+        {
+            foreach (Transform child in go.transform)
+            {
                 if (child.name == name)
                     return child.gameObject;
             }
