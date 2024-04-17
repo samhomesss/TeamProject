@@ -4,9 +4,12 @@ using System.Collections.Generic;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
-namespace yb {
-    public class DamageUpPotion : ObtainableItem {
-        private void Start() {
+namespace yb
+{
+    public class DamageUpPotion : ObtainableItem
+    {
+        private void Start()
+        {
             _photonView = GetComponent<PhotonView>(); //0417 23:50 ¿Ã»Òøı√ﬂ∞° 
             type = Define.ItemType.DamageUpPotion;
         }
@@ -23,9 +26,9 @@ namespace yb {
 
             }
             int count = 0;
-            while (count < PlayerController.MaxItemSlot)
+            if (_photonView.IsMine)
             {
-                if (_photonView.IsMine)
+                while (count < PlayerController.MaxItemSlot)
                 {
                     if (player.ItemList.ContainsKey(count))
                     {
@@ -54,27 +57,35 @@ namespace yb {
                 }
             }
         }
-        public override void Pickup(PlayerController player) {
+        public override void Pickup(PlayerController player)
+        {
             base.Pickup(player);
-            if (player.ItemList.Count >= PlayerController.MaxItemSlot) {
+            if (player.ItemList.Count >= PlayerController.MaxItemSlot)
+            {
                 Debug.Log($"∏µÁ ΩΩ∑‘¿Ã ∞°µÊ √°Ω¿¥œ¥Ÿ");
                 return;
             }
 
             int count = 0;
-            while(count < PlayerController.MaxItemSlot) {
-                if (player.ItemList.ContainsKey(count)) {
-                    if (player.ItemList[count].ItemNumber >= PlayerController.MaxItemNumber) {
+            while (count < PlayerController.MaxItemSlot)
+            {
+                if (player.ItemList.ContainsKey(count))
+                {
+                    if (player.ItemList[count].ItemNumber >= PlayerController.MaxItemNumber)
+                    {
                         Debug.Log($"{count}ΩΩ∑‘¿Ã ∞°µÊ √°Ω¿¥œ¥Ÿ");
                         count++;
                         continue;
-                    } else {
+                    }
+                    else
+                    {
                         player.PickupController.SetItem(count, type);
                         Managers.Resources.Destroy(gameObject);
                         break;
                     }
                 }
-                else {
+                else
+                {
                     player.PickupController.SetItem(count, type);
                     Managers.Resources.Destroy(gameObject);
                     break;
