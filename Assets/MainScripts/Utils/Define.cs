@@ -25,8 +25,7 @@ public class Define
         HpPotion,
         DamageUpPotion,
         MoveSpeedUpPotion,
-        HidePotion,
-        Bullet,
+        AttackSpeedUpPotion,
         Count,
     }
 

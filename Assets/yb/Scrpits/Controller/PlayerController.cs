@@ -170,10 +170,6 @@ namespace yb
         {
             _data = Managers.Data;
             PlayerHandle = PhotonNetwork.LocalPlayer.ActorNumber;
-            //사망시 set해둔 아이템 드랍
-            _droplable.Set("Rifle");
-            _droplable.Set("Pistol");
-            _droplable.Set("Shotgun");
         }
 
         private void Update()

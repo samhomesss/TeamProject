@@ -30,7 +30,7 @@ namespace yb {
                     var ran = Random.Range(0, 1f);
                     if (ran <= chance) {
                         DestructibleObject obj = Instantiate(_destructibleObject).GetComponent<DestructibleObject>();
-                        obj.Init(new Vector3(j, 1f, i) + _defaultPos);
+                        //obj.Init(new Vector3(j, 1f, i) + _defaultPos);
                     }
                 }
             }

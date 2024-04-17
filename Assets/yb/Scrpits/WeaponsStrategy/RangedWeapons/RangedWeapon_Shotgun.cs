@@ -14,11 +14,11 @@ namespace yb {
             _player.WeaponEvent?.Invoke(WeaponType.ToString());
 
             _realodTime = _data.DefaultWeaponRealodTime((int)WeaponType);
-            _defaultDamage = _data.DefaultWeaponDamage((int)WeaponType);
+            DefaultDamage = _data.DefaultWeaponDamage((int)WeaponType);
             _projectileVelocity = _data.DefaultWeaponVelocity((int)WeaponType);
             _remainBullet = _data.DefaultWeaponRemainBullet((int)WeaponType);
             _maxBullet = _data.DefaultWeaponMaxBullet((int)WeaponType);
-            _maxDelay = _data.DefaultWeaponDelay((int)WeaponType);
+            MaxDelay = _data.DefaultWeaponDelay((int)WeaponType);
             _currentBullet = _remainBullet;
 
             OnUpdateRelic(player);
@@ -48,7 +48,7 @@ namespace yb {
         }
 
         public bool CanShot() {
-            if (_currentDelay >= _maxDelay + _bonusAttackDelay && !_player.Animator.GetCurrentAnimatorStateInfo(0).IsName("Shot")) {
+            if (_currentDelay >= MaxDelay + _bonusAttackDelay && !_player.Animator.GetCurrentAnimatorStateInfo(0).IsName("Shot")) {
                 _currentDelay = 0;
                 return true;
             }
@@ -78,7 +78,7 @@ namespace yb {
 
             for(int i = 0; i< projectileNumber; i++)
             {
-                _projectileCreator.Create(_defaultDamage, _projectileVelocity, targetPos, _firePos.position, player);
+                _projectileCreator.Create(DefaultDamage, _projectileVelocity, targetPos, _firePos.position, player);
             }
 
             player.MyCamera.transform.DOShakeRotation(0.2f, 1f);
