@@ -50,6 +50,7 @@ public class UI_Inven : UI_Scene
     }
 
     // 번호를 넘겨주는 아이템 번호로 사용
+    // int(슬롯) string(아이템 이름) int(아이템 갯수)
     public void ChangeImage(string ItemID)
     {
         if (ItemID == "ShieldRelic" || ItemID == "BonusAttackSpeedRelic" || ItemID == "BonusProjectileRelic"
