@@ -1,4 +1,4 @@
-using Photon.Pun;
+ï»¿using Photon.Pun;
 using Photon.Realtime;
 using System;
 using System.Collections;
@@ -15,7 +15,7 @@ public class Map : Obj
     public static GameObject MapObject => map;
 
     [SerializeField]private PhotonView _photonView;
-    //0413 04:15 Ãß°¡ 
+    //0413 04:15 ì¶”ê°€ 
     // public enum PlayerName
     // {
     //     Player1, Player2, Player3, Player4, Player5, Player6, Player7, Player8
@@ -24,14 +24,14 @@ public class Map : Obj
     //{
     //    White,
     //}
-    public static Node[,] Node => node; // ÀÌ°Å´Â ÅØ½ºÃÄ¸¦ ³ª´«°Å¿¡¿ä 
+    public static Node[,] Node => node; // ì´ê±°ëŠ” í…ìŠ¤ì³ë¥¼ ë‚˜ëˆˆê±°ì—ìš” 
     public PlayerController Player => _player;
     #endregion
 
-    static Node[,] node = new Node[64, 64]; // °¡·Î ¼¼·Î 64 * 64 ÀÇ ³ëµå·Î ³ª´«°ÍÃ³·³ 
-    static GameObject map; // ¸ÊÀ¸·Î ¶ç¿öÁø ¿ÀºêÁ§Æ® °¡Á®¿À´Â°Å 
-    PlayerController _player; // ÇÃ·¹ÀÌ¾îµé
-    Texture2D texture; // ³»°¡ °¡Á®¿À´Â Texture
+    static Node[,] node = new Node[64, 64]; // ê°€ë¡œ ì„¸ë¡œ 64 * 64 ì˜ ë…¸ë“œë¡œ ë‚˜ëˆˆê²ƒì²˜ëŸ¼ 
+    static GameObject map; // ë§µìœ¼ë¡œ ë„ì›Œì§„ ì˜¤ë¸Œì íŠ¸ ê°€ì ¸ì˜¤ëŠ”ê±° 
+    PlayerController _player; // í”Œë ˆì´ì–´ë“¤
+    Texture2D texture; // ë‚´ê°€ ê°€ì ¸ì˜¤ëŠ” Texture
     MeshRenderer meshRenderer; // Mesh
 
     const int length = 4;
@@ -45,7 +45,7 @@ public class Map : Obj
         map = this.gameObject;
         var path = $"Prefabs/sh/Texture/White";
 
-        playerColors.Add("Player1", Color.red); // ¹®ÀÚ¿­·Î ºñ±³ ¾ÈÇÏ±â À§ÇØ¼­ Dictionary·Î ¸¸µé¾î¼­ »ö ÀúÀå
+        playerColors.Add("Player1", Color.red); // ë¬¸ìì—´ë¡œ ë¹„êµ ì•ˆí•˜ê¸° ìœ„í•´ì„œ Dictionaryë¡œ ë§Œë“¤ì–´ì„œ ìƒ‰ ì €ì¥
         playerColors.Add("Player2", Color.yellow);
         playerColors.Add("Player3", Color.magenta);
         playerColors.Add("Player4", Color.cyan);
@@ -56,20 +56,20 @@ public class Map : Obj
 
         texture = Managers.Resources.Load<Texture2D>(path);
 
-        #region 04.13  ¼öÁ¤ 
-        // Todo: 04.13 ¼öÁ¤
+        #region 04.13  ìˆ˜ì • 
+        // Todo: 04.13 ìˆ˜ì •
 
-        #region ÁÖ¼®Ã³¸®
+        #region ì£¼ì„ì²˜ë¦¬
         //PlayerTestSh.OnNodeChanged -= UpdateColor;
         //PlayerTestSh.OnNodeChanged += UpdateColor;
         // PlayerTestSh.OnPlayerColorChecked -= PlayerColorCount;
         // PlayerTestSh.OnPlayerColorChecked += PlayerColorCount;
         #endregion
     }
-    #region ÁÖ¼®Ã³¸®
+    #region ì£¼ì„ì²˜ë¦¬
     //private void Update()
     //{
-    //    // ÃÑ ³ëµåÀÇ °¹¼ö´Â 1024°³ 
+    //    // ì´ ë…¸ë“œì˜ ê°¯ìˆ˜ëŠ” 1024ê°œ 
     //    // Debug.Log(_colorcount);
     //}
     #endregion
@@ -118,11 +118,13 @@ public class Map : Obj
         SetPlayer(_player);
     }
 
-    // ÀÛ¼ºÀÚ: Àå¼¼À±(2024.04.15).
-    // Todo: ÇÃ·¹ÀÌ¾î°¡ ÀÌµ¿ÇÒ ¶§¸¶´Ù ÀÌ ÇÔ¼ö°¡ Áßº¹µÇ¾î ¿©·¯ ¹ø È£ÃâµÇ´Â °ÍÀ¸·Î º¸ÀÓ.
-    // È£Ãâ È½¼ö¸¦ ÁÙÀÌ¸é¼­ Á¤È®ÇÏ°Ô µ¿ÀÛÇÏµµ·Ï ÃÖÀûÈ­°¡ ÇÊ¿äÇØ º¸ÀÓ.
+    // ì‘ì„±ì: ì¥ì„¸ìœ¤(2024.04.15).
+    // Todo: í”Œë ˆì´ì–´ê°€ ì´ë™í•  ë•Œë§ˆë‹¤ ì´ í•¨ìˆ˜ê°€ ì¤‘ë³µë˜ì–´ ì—¬ëŸ¬ ë²ˆ í˜¸ì¶œë˜ëŠ” ê²ƒìœ¼ë¡œ ë³´ì„.
+    // í˜¸ì¶œ íšŸìˆ˜ë¥¼ ì¤„ì´ë©´ì„œ ì •í™•í•˜ê²Œ ë™ì‘í•˜ë„ë¡ ìµœì í™”ê°€ í•„ìš”í•´ ë³´ì„.
     void UpdateColor()
     {
+        Util.LogGreen("UpdateColor is called");
+
         int xPos;
         int yPos;
         for (int ix = 0; ix < length; ++ix)
@@ -133,20 +135,20 @@ public class Map : Obj
             }
         }
 
-        // ÇÃ·¹ÀÌ¾î º°·Î ·çÇÁ Ã³¸®.
-        // ÀÛ¼ºÀÚ: Àå¼¼À± (2024.04.15).
-        // °Ë»ö ¾Ë°í¸®Áò ¾÷µ¥ÀÌÆ®.
-        // ÇÃ·¹ÀÌ¾îÀÇ À§Ä¡¸¦ ±âÁØÀ¸·Î Å¸ÀÏ¸Ê À§Ä¡ °Ë»ö.
-        // ÇÃ·¹ÀÌ¾îÀÇ À§Ä¡°¡ °ğ Å¸ÀÏ¸ÊÀÇ ÀÎµ¦½º.
+        // í”Œë ˆì´ì–´ ë³„ë¡œ ë£¨í”„ ì²˜ë¦¬.
+        // ì‘ì„±ì: ì¥ì„¸ìœ¤ (2024.04.15).
+        // ê²€ìƒ‰ ì•Œê³ ë¦¬ì¦˜ ì—…ë°ì´íŠ¸.
+        // í”Œë ˆì´ì–´ì˜ ìœ„ì¹˜ë¥¼ ê¸°ì¤€ìœ¼ë¡œ íƒ€ì¼ë§µ ìœ„ì¹˜ ê²€ìƒ‰.
+        // í”Œë ˆì´ì–´ì˜ ìœ„ì¹˜ê°€ ê³§ íƒ€ì¼ë§µì˜ ì¸ë±ìŠ¤.
         var xIndex = Mathf.Clamp(Mathf.Max(0, (int)_player.transform.position.x), 0, 63);
         var yIndex = Mathf.Clamp(Mathf.Max(0, (int)_player.transform.position.z), 0, 63);
 
-        // Todo: ÀÛ¼ºÀÚ: Àå¼¼À±.
-        // ´õ Á¤È®ÇÏ°Ô À§Ä¡¸¦ Ã£°í ½ÍÀº °æ¿ì¿¡ ½ÃµµÇÒ ¹æ¹ı. (
-        // À§¿¡¼­ ¹Ù·Î Ã£Àº ÀÎµ¦½º¸¦ ±âÁØÀ¸·Î Å¸ÀÏ¸ÊÀÇ À§Ä¡¸¦ ÇÃ·¹ÀÌ¾îÀÇ ¹üÀ§·Î ´Ù½Ã È®ÀÎ.
-        // È®ÀÎÇÑ °á°ú°¡ ¸Â´Ù¸é ±×´ë·Î Å¸ÀÏ¸Ê ÀÎµ¦½º¸¦ »ç¿ëÇÏ°í,
-        // ¾Æ´Ï¶ó¸é, ±× ÁÖº¯ÀÇ ³ª¸ÓÁö 8°³(9°³ÀÎµ¥, ¾Õ¼­ ±¸ÇÑ ÀÎµ¦½º´Â ¾Æ´Ï±â ¶§¹®.)¿¡ ´ëÇØ¼­ x ¹üÀ§¿Í z ¹üÀ§¸¦ ´Ù½Ã °Ë»ö.
-        // ÀÌ¶§ ÁÖº¯ Å¸ÀÏ¸ÊÀÇ ÀÎµ¦½º¸¦ ±¸ÇÒ ¶§´Â ¹è¿­ ÀÎµ¦½º ¹üÀ§°¡ ¹ş¾î³ªÁö ¾Êµµ·Ï ÁÖÀÇ.
+        // Todo: ì‘ì„±ì: ì¥ì„¸ìœ¤.
+        // ë” ì •í™•í•˜ê²Œ ìœ„ì¹˜ë¥¼ ì°¾ê³  ì‹¶ì€ ê²½ìš°ì— ì‹œë„í•  ë°©ë²•. (
+        // ìœ„ì—ì„œ ë°”ë¡œ ì°¾ì€ ì¸ë±ìŠ¤ë¥¼ ê¸°ì¤€ìœ¼ë¡œ íƒ€ì¼ë§µì˜ ìœ„ì¹˜ë¥¼ í”Œë ˆì´ì–´ì˜ ë²”ìœ„ë¡œ ë‹¤ì‹œ í™•ì¸.
+        // í™•ì¸í•œ ê²°ê³¼ê°€ ë§ë‹¤ë©´ ê·¸ëŒ€ë¡œ íƒ€ì¼ë§µ ì¸ë±ìŠ¤ë¥¼ ì‚¬ìš©í•˜ê³ ,
+        // ì•„ë‹ˆë¼ë©´, ê·¸ ì£¼ë³€ì˜ ë‚˜ë¨¸ì§€ 8ê°œ(9ê°œì¸ë°, ì•ì„œ êµ¬í•œ ì¸ë±ìŠ¤ëŠ” ì•„ë‹ˆê¸° ë•Œë¬¸.)ì— ëŒ€í•´ì„œ x ë²”ìœ„ì™€ z ë²”ìœ„ë¥¼ ë‹¤ì‹œ ê²€ìƒ‰.
+        // ì´ë•Œ ì£¼ë³€ íƒ€ì¼ë§µì˜ ì¸ë±ìŠ¤ë¥¼ êµ¬í•  ë•ŒëŠ” ë°°ì—´ ì¸ë±ìŠ¤ ë²”ìœ„ê°€ ë²—ì–´ë‚˜ì§€ ì•Šë„ë¡ ì£¼ì˜.
 
         Node item = node[xIndex, yIndex];
         xPos = (int)(item.nodePos.x + 0.75f);
@@ -157,7 +159,7 @@ public class Map : Obj
 
         //MapSetColor(xPos, yPos, xIndex, yIndex, PlayerColor(_player.transform.parent.gameObject));
         _photonView.RPC("SetColorRPC", RpcTarget.All, xPos, yPos, xIndex, yIndex, (int)GetNodeColorFromColor(PlayerColor(_player.transform.parent.gameObject)));
-        #region ±âÁ¸ ÄÚµå ¹é¾÷ (ÃÖÀûÈ­ Àü ÄÚµå)
+        #region ê¸°ì¡´ ì½”ë“œ ë°±ì—… (ìµœì í™” ì „ ì½”ë“œ)
         //int xPos;
         //int yPos;
         //for (int ix = 0; ix < length; ++ix)
@@ -171,7 +173,7 @@ public class Map : Obj
         //    }
         //}
 
-        //foreach (var item in node)//0414 ÀÌÈñ¿õ ¼öÁ¤ 
+        //foreach (var item in node)//0414 ì´í¬ì›… ìˆ˜ì • 
         //{
         //    for (int i = 0; i < PhotonNetwork.CurrentRoom.PlayerCount; i++)
         //    {
@@ -237,7 +239,7 @@ public class Map : Obj
         return NodeColor.None;
     }
 
-    #region ÇöÀç »ç¿ëÇÏÁö ¾Ê´Â ÄÚµå
+    #region í˜„ì¬ ì‚¬ìš©í•˜ì§€ ì•ŠëŠ” ì½”ë“œ
     //void PlayerColorCount(GameObject player)
     //{
     //    OnColorPercent?.Invoke();
@@ -249,7 +251,7 @@ public class Map : Obj
     //    //    if (item.color.Equals(playerColor))
     //    //    {
     //    //        //_colorcount++;
-    //    //        //OnChangePercent?.Invoke(player); // ¹Ş¾ÆÁÖ°í
+    //    //        //OnChangePercent?.Invoke(player); // ë°›ì•„ì£¼ê³ 
     //    //        OnColorPercent?.Invoke();
     //    //    }
     //    //}
@@ -263,7 +265,7 @@ public class Map : Obj
             return value;
         }
         return Color.white;
-        #region ÁÖ¼®Ã³¸®
+        #region ì£¼ì„ì²˜ë¦¬
         //Color color = Color.white;
         //switch (Enum.Parse(typeof(PlayerName), player.name))
         //{
@@ -294,7 +296,7 @@ public class Map : Obj
         #endregion
     }
 
-    //À±¹üÀÌÇü Action Ãß°¡
+    //ìœ¤ë²”ì´í˜• Action ì¶”ê°€
     public void SetPlayer(PlayerController player)
     {
         player.MapEvent += UpdateColor;

@@ -23,7 +23,6 @@ public class ConfirmPopupUI : UI_Scene
         Bind<GameObject>(typeof(GameObjects));
 
 
-
         GameObject TitleText = GetObject((int)GameObjects.TitleText);
         GameObject ConfirmButton = GetObject((int)(GameObjects.ConfirmButton));
         GameObject CancelButton = GetObject((int)GameObjects.CancleButton);

@@ -16,7 +16,7 @@ using UnityEngine.UI;
             Pw_inputField,
             ConfirmButton,
             CancelButton,
-            ConfirmPopUpUI
+            //ConfirmPopUpUI
         }
 
         private TMP_InputField _idInputField;
@@ -25,7 +25,7 @@ using UnityEngine.UI;
         private Button _confirmButton;
         private Button _cancelButton;
 
-        private Canvas _confirmPopUpUI;
+        //private Canvas _confirmPopUpUI;
 
         public override void Init()
         {
@@ -42,7 +42,7 @@ using UnityEngine.UI;
             _cancelButton = cancelButton.GetComponent<Button>();
 
 
-            _confirmPopUpUI = Util.FindChild(transform.parent.gameObject, "ConfirmPopupUI").GetComponent<Canvas>();
+            //_confirmPopUpUI = Util.FindChild(transform.parent.gameObject, "ConfirmPopupUI").GetComponent<Canvas>();
             _confirmButton.interactable = false;
         }
 
@@ -82,7 +82,7 @@ using UnityEngine.UI;
 
                         Debug.Log($"{_idInputField.text}생성이 완료 되었습니다 ");
                         //Todo: 생성완료 팝업창 제작
-                        _confirmPopUpUI.enabled = true;
+                        //_confirmPopUpUI.enabled = true;
                     });
             });
 

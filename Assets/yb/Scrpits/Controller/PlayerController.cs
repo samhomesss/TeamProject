@@ -205,7 +205,6 @@ namespace yb
                 return false;
 
             #region ½ÂÇö Ãß°¡ 04.11
-          
             
             MapEvent?.Invoke();
             ClosedItemEvent?.Invoke();            

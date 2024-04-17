@@ -50,7 +50,7 @@ public class LoginUI : UI_Scene
 
         _registerID = Util.FindChild(transform.parent.gameObject, "RegisterID", false).GetComponent<Canvas>();
         _registerNickname = Util.FindChild(transform.parent.gameObject, "RegisterNickname", false).GetComponent<Canvas>();
-        _confirmPopupUI = Util.FindChild(transform.parent.gameObject, "ConfirmPopupUI",false).GetComponent<Canvas>();
+       // _confirmPopupUI = Util.FindChild(transform.parent.gameObject, "ConfirmPopupUI",false).GetComponent<Canvas>();
 
     }
 
