@@ -45,15 +45,12 @@ public class CoroutineHelper : MonoBehaviour
         call.Invoke();
 
     }
-    public IEnumerator CoDelayPhotonObjectDelete(GameObject go, float time,PhotonView die_player_photonview)
+    public IEnumerator CoDelayPhotonObjectDelete(GameObject CameraObject, float time, GameObject Character)
     {
+        PhotonNetwork.Destroy(CameraObject);
         yield return new WaitForSeconds(time);
-        //if (die_player_photonview.IsMine)
-        //{
-        //    PhotonNetwork.Destroy(go);
-        //    Util.LogRed("죽었으니 부활함");
-        //}
-            
+        PhotonNetwork.Destroy(Character);
+
     }
 
 }
