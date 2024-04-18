@@ -32,7 +32,9 @@ public class ObtainableObject : MonoBehaviourPunCallbacks, IObtainableObject, IO
         }
         else
         {
+            // 생성부
             itemNameObject = Managers.Resources.Instantiate($"sh/UI/Scene/UI_ItemName"); // 아이템 생성 
+            // 위치 조정
             Vector2 screenPoint = RectTransformUtility.WorldToScreenPoint(player.MyCamera, gameObject.transform.position); // 여기서 계산이 끝나는게 아니고 
             RectTransform mainCanvasRect = itemNameObject.GetComponent<RectTransform>();
             if (RectTransformUtility.ScreenPointToLocalPointInRectangle(mainCanvasRect, screenPoint, null, out Vector2 localPoint)) // 해당 캔버스에서 어떤 위치에 있는지 찾아야됨
@@ -49,6 +51,8 @@ public class ObtainableObject : MonoBehaviourPunCallbacks, IObtainableObject, IO
             }
              itemInfoTextUI = Util.FindChild(itemNameObject, "ItemName", true).GetComponent<Text>();
              //itemName = Managers.ItemDataBase.GetItemData(gameObject.GetComponent<Item>().ItemID).itemName.ToString();
+
+            //텍스트 이름 변경 
              itemInfoTextUI.text = Name; // 아이템의 이름 적용 
         }
     }
@@ -83,6 +87,4 @@ public class ObtainableObject : MonoBehaviourPunCallbacks, IObtainableObject, IO
         IRelic go = relicObj.GetComponent<IRelic>();
         go.DeleteRelic(playerPhoton.GetComponent<PlayerController>());
     }
-
-
 }

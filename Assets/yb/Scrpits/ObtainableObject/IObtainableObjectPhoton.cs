@@ -13,5 +13,6 @@ namespace yb
 
         void PickupPhoton(int playerViewId);
 
+
     }
 }
