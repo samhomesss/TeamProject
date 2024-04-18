@@ -29,7 +29,7 @@ namespace yb
             _maxBullet = _data.DefaultWeaponMaxBullet((int)WeaponType);
             MaxDelay = _data.DefaultWeaponDelay((int)WeaponType);
             _currentBullet = _remainBullet;
-
+            _saveMaxBullet = _maxBullet;
             OnUpdateRelic(player);  //보유중인 렐릭 효과 부여
         }
 
@@ -60,7 +60,7 @@ namespace yb
             if (_remainBullet >= _maxBullet)
             {
                 _currentBullet = _remainBullet;
-                _maxBullet -= 0;
+                _maxBullet -= _remainBullet;
             }
 
             if (_remainBullet < _maxBullet)
