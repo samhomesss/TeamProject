@@ -17,9 +17,8 @@ namespace yb {
             base.PickupPhoton(playerViewId);
             PhotonView playerPhotonView = PhotonNetwork.GetPhotonView(playerViewId);
             PlayerController player = playerPhotonView.GetComponent<PlayerController>();
-            _photonView.TransferOwnership(playerViewId);
             int count = 0;
-            if (_photonView.IsMine)
+            if (playerPhotonView.IsMine)
             {
                 Debug.Log("어택포션 아이템을 잡았습니다");
                 while (count < PlayerController.MaxItemSlot)

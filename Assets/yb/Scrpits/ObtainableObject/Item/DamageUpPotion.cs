@@ -21,8 +21,7 @@ namespace yb
             PhotonView playerPhotonView = PhotonNetwork.GetPhotonView(playerViewId);
             PlayerController player = playerPhotonView.GetComponent<PlayerController>();
             int count = 0;
-            _photonView.TransferOwnership(playerViewId);
-            if (_photonView.IsMine)
+            if (playerPhotonView.IsMine)
             {
                 Debug.Log("데미지포션 아이템을 잡았습니다");
                 while (count < PlayerController.MaxItemSlot)

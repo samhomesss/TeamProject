@@ -19,12 +19,11 @@ namespace yb
         {
             base.PickupPhoton(playerViewId);
             PhotonView playerPhotonView = PhotonNetwork.GetPhotonView(playerViewId);
+            Debug.Log(playerViewId);
             PlayerController player = playerPhotonView.GetComponent<PlayerController>();            
             int count = 0;
-            _photonView.TransferOwnership(playerViewId);
-            if (_photonView.IsMine)
+            if (playerPhotonView.IsMine)
             {
-                Debug.Log("이속증가 아이템을 잡았습니다");
                 while (count < PlayerController.MaxItemSlot)
                 {
                     if (player.ItemList.ContainsKey(count))
