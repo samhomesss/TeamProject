@@ -15,7 +15,5 @@ namespace yb
 
         void ShowName(PlayerController player);
         void HideName();
-
-
     }
 }

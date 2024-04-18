@@ -17,42 +17,41 @@ namespace yb {
             base.PickupPhoton(playerViewId);
             PhotonView _photonView = PhotonNetwork.GetPhotonView(playerViewId);
             PlayerController player = _photonView.GetComponent<PlayerController>();
-            if (player.ItemList.Count >= PlayerController.MaxItemSlot)
-            {
-                Debug.Log($"∏µÁ ΩΩ∑‘¿Ã ∞°µÊ √°Ω¿¥œ¥Ÿ");
-                return;
-
-            }
+            gameObject.GetComponent<PhotonView>().TransferOwnership(playerViewId);
             int count = 0;
-
             if (_photonView.IsMine)
             {
                 while (count < PlayerController.MaxItemSlot)
                 {
                     if (player.ItemList.ContainsKey(count))
                     {
-                        if (player.ItemList[count].ItemNumber >= PlayerController.MaxItemNumber)
+                        if (player.ItemList[count].ItemType == type)
                         {
-                            Debug.Log($"{count}ΩΩ∑‘¿Ã ∞°µÊ √°Ω¿¥œ¥Ÿ");
-                            count++;
-                            continue;
+                            if (player.ItemList[count].ItemNumber < PlayerController.MaxItemNumber)
+                            {
+                                player.PickupController.SetItem(count, type);
+                                    PhotonNetwork.Destroy(gameObject);
+                                break;
+
+                            }
+                            else
+                            {
+                                count++;
+                                continue;
+                            }
                         }
                         else
                         {
-                            player.PickupController.SetItem(count, type);
-                            if (PhotonNetwork.IsMasterClient)
-                                PhotonNetwork.Destroy(gameObject);
-                            break;
+                            count++;
+                            continue;
                         }
                     }
                     else
                     {
                         player.PickupController.SetItem(count, type);
-                        if (PhotonNetwork.IsMasterClient)
                             PhotonNetwork.Destroy(gameObject);
                         break;
                     }
-
                 }
             }
         }

@@ -133,9 +133,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27bb7828f3556ef48b12f1e34c6d19e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _weaponDropChance: 15
-  _relicDropChance: 10
-  _itemDropChance: 30
+  _weaponDropChance: 45
+  _relicDropChance: 40
+  _itemDropChance: 60
 --- !u!114 &1427741782747542442
 MonoBehaviour:
   m_ObjectHideFlags: 0

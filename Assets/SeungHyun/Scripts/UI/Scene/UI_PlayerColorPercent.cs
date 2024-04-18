@@ -1,3 +1,4 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
@@ -25,12 +26,9 @@ public class UI_PlayerColorPercent : UI_Scene
 
     GameObject[] _playerSlider = new GameObject[8];
     List<PlayerController> _players = new List<PlayerController>();
-<<<<<<< Updated upstream
-    Map map;
-=======
 
     PlayerController[] _playercontorllers = new PlayerController[PhotonNetwork.CurrentRoom.PlayerCount];
->>>>>>> Stashed changes
+
     float timer = 300;
     private void Start()
     {
@@ -41,7 +39,11 @@ public class UI_PlayerColorPercent : UI_Scene
         }
 
         Debug.Log(timer + "½Ã°£");
-        Init(map.Player);
+        for (int i = 0; i < PhotonNetwork.CurrentRoom.PlayerCount; i++)
+        {
+            _playercontorllers[i] = GameObject.Find($"Player{PhotonNetwork.LocalPlayer.ActorNumber}").GetComponentInChildren<PlayerController>();
+            Init(_playercontorllers[i]);
+        }
     }
 
     public void Init(PlayerController player)
