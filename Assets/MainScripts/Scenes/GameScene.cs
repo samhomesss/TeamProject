@@ -50,7 +50,6 @@ public class GameScene : BaseScene
                 {
                     _photonView.RPC("SetDropItemName", RpcTarget.All, items[i].GetComponent<PhotonView>().ViewID);
                 }
-
             }
             if (_photonView.IsMine)
             {
@@ -130,8 +129,11 @@ public class GameScene : BaseScene
             }
             for (int i = 0; i < itemBox.Count; i++)
             {
-                GameObject itembox = PhotonNetwork.Instantiate("Prefabs/yb/Object/DestructibleObject", itemBox[i].transform.position, Quaternion.identity);
-                itembox.transform.SetParent(_itemBox.transform);
+                if (PhotonNetwork.IsMasterClient)
+                {
+                    GameObject itembox = PhotonNetwork.Instantiate("Prefabs/yb/Object/DestructibleObject", itemBox[i].transform.position, Quaternion.identity);
+                    itembox.transform.SetParent(_itemBox.transform);
+                }
             }
         }
 
