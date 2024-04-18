@@ -59,11 +59,6 @@ namespace yb
                 }
             }
         }
-        public void DeleteItem()
-        {
-            if (PhotonNetwork.IsMasterClient)
-                PhotonNetwork.Destroy(gameObject);
-        }
 
         public override void Pickup(PlayerController player)
         {
