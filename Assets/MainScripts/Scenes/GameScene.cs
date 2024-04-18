@@ -32,7 +32,7 @@ public class GameScene : BaseScene
         //todo
         if (IsTestMode.Instance.CurrentUser == Define.User.Hw)
         {
-            GameObject go = PhotonNetwork.Instantiate("Prefabs/hw/PlayerPrefabs/Player", Vector3.zero, Quaternion.identity);
+            GameObject go = PhotonNetwork.Instantiate($"Prefabs/hw/PlayerPrefabs/Player{PhotonNetwork.LocalPlayer.ActorNumber}", Vector3.zero, Quaternion.identity);
             StartCoroutine(WaitPlayerLoded());
             go.GetComponentInChildren<PlayerController>().SetRelicEvent += OnSetRelic;
             _photonView = Util.FindChild(go, "Model").GetComponent<PhotonView>();
