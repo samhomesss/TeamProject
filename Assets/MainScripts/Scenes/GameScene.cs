@@ -119,19 +119,17 @@ public class GameScene : BaseScene
 
     public void onLoadedUI() //로딩이 다 된다음에 호출
     {
-        if (PhotonNetwork.IsMasterClient)
-        {
+        
             for (int i = 1; i < 13; i++)
             {
                 itemBox.Add(GameObject.Find($"@Obj_Root/Map/ItemBox/DestructibleObject{i}").GetComponent<Transform>());
             }
-            for (int i = 0; i < itemBox.Count; i++)
+        for (int i = 0; i < itemBox.Count; i++)
+        {
+            if (PhotonNetwork.IsMasterClient)
             {
-                if (PhotonNetwork.IsMasterClient)
-                {
-                    GameObject itembox = PhotonNetwork.Instantiate("Prefabs/yb/Object/DestructibleObject", itemBox[i].transform.position, Quaternion.identity);
-                    itembox.transform.SetParent(_itemBox.transform);
-                }
+                GameObject itembox = PhotonNetwork.Instantiate("Prefabs/yb/Object/DestructibleObject", itemBox[i].transform.position, Quaternion.identity);
+                itembox.transform.SetParent(_itemBox.transform);
             }
         }
 
