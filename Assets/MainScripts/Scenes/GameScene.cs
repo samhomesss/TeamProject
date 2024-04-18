@@ -29,8 +29,9 @@ public class GameScene : BaseScene
         //todo
         if (IsTestMode.Instance.CurrentUser == Define.User.Hw)
         {
-            GameObject go = PhotonNetwork.Instantiate($"Prefabs/hw/PlayerPrefabs/Player{PhotonNetwork.LocalPlayer.ActorNumber}", tr.position, Quaternion.identity);
+            GameObject go = PhotonNetwork.Instantiate($"Prefabs/hw/PlayerPrefabs/Player{PhotonNetwork.LocalPlayer.ActorNumber}", Vector3.zero, Quaternion.identity);
             StartCoroutine(WaitPlayerLoded());
+            go.transform.position = tr.GetChild(UnityEngine.Random.Range(0, tr.childCount - 1)).position;
             go.GetComponentInChildren<PlayerController>().SetRelicEvent += OnSetRelic;
 
             _photonView = Util.FindChild(go, "Model").GetComponent<PhotonView>();
