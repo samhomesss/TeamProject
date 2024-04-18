@@ -1,4 +1,5 @@
 using Photon.Pun;
+using Photon.Realtime;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -22,11 +23,15 @@ public class ObtainableObject : MonoBehaviourPunCallbacks, IObtainableObject, IO
 
     public string NamePhoton => gameObject.name;
 
+    Vector2 screenPoint;
+    RectTransform mainCanvasRect;
+    
+
     public virtual void Pickup(PlayerController player) { }
 
     public virtual void ShowName(PlayerController player)
     {
-        if (itemNameObject != null)
+        if (itemNameObject != null) // 현재 오브젝트가 있다면 
         {
             return;
         }
@@ -35,9 +40,9 @@ public class ObtainableObject : MonoBehaviourPunCallbacks, IObtainableObject, IO
             // 생성부
             itemNameObject = Managers.Resources.Instantiate($"sh/UI/Scene/UI_ItemName"); // 아이템 생성 
             // 위치 조정
-            Vector2 screenPoint = RectTransformUtility.WorldToScreenPoint(player.MyCamera, gameObject.transform.position); // 여기서 계산이 끝나는게 아니고 
-            RectTransform mainCanvasRect = itemNameObject.GetComponent<RectTransform>();
-            if (RectTransformUtility.ScreenPointToLocalPointInRectangle(mainCanvasRect, screenPoint, null, out Vector2 localPoint)) // 해당 캔버스에서 어떤 위치에 있는지 찾아야됨
+            screenPoint = RectTransformUtility.WorldToScreenPoint(player.MyCamera, gameObject.transform.position); // 여기서 계산이 끝나는게 아니고 
+            mainCanvasRect = itemNameObject.GetComponent<RectTransform>();
+            if (RectTransformUtility.ScreenPointToLocalPointInRectangle(mainCanvasRect, screenPoint, null, out Vector2 localPoint)) // 해당 캔버스에서 어떤 위치에 있는지 찾아야됨 Anchored 사용해서 사용할꺼면 RectTransformUtility 필요
             {
                 for (int ix = 0; ix < itemNameObject.transform.childCount; ++ix)
                 {
@@ -50,7 +55,6 @@ public class ObtainableObject : MonoBehaviourPunCallbacks, IObtainableObject, IO
                 }
             }
              itemInfoTextUI = Util.FindChild(itemNameObject, "ItemName", true).GetComponent<Text>();
-             //itemName = Managers.ItemDataBase.GetItemData(gameObject.GetComponent<Item>().ItemID).itemName.ToString();
 
             //텍스트 이름 변경 
              itemInfoTextUI.text = Name; // 아이템의 이름 적용 
@@ -59,7 +63,10 @@ public class ObtainableObject : MonoBehaviourPunCallbacks, IObtainableObject, IO
     public virtual void HideName()
     {
         if (itemNameObject != null)
+        {
             Destroy(itemNameObject);
+        }
+
     }
 
     public virtual void PickupPhoton(int playerViewId)

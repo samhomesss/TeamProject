@@ -348,6 +348,8 @@ namespace yb
         /// <summary>
         /// 플레이어 사망 이벤트(애니메이션에서 이벤트로 호출)
         /// </summary>
+
+        /// <summary>
         /// 플레이어 피격 판정(피격 데미지, 공격자)
         /// </summary>
         /// <param name="amout"></param>
