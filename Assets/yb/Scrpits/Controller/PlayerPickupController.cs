@@ -132,7 +132,7 @@ namespace yb
                 _player.ItemList.Add(slot, new PlayerController.Item(type, 1));
             }
 
-            //_player.SetItemEvent.Invoke(slot, _player.ItemList[slot]);
+            _player.SetItemEvent.Invoke(slot, _player.ItemList[slot]);
             
             Debug.Log($"{type}아이템을 획득했습니다");
             Debug.Log($"{slot}번 슬롯에 {type}을 {_player.ItemList[slot].ItemNumber}개 추가");
