@@ -74,14 +74,12 @@ public class UI_GameResult : UI_Scene
         if (MapColorData.MapDataPlayer == null)
             return;
 
-        for (int i = 0; i < MapColorData.MapDataPlayer.Count; i++)
+        for (int i = 0; i < MapColorData.MapDataPlayer.Count - 1; i++)
         {
             PlayerResultInfo resultInfo = playerResultInfos[i].GetComponent<PlayerResultInfo>();
-            resultInfo.PlayerNickName.text = PhotonNetwork.PlayerList[i].NickName;
-
             if (MapColorData.MapDataPlayer.Count == 1)
             {
-                //resultInfo.PlayerResultImage.sprite = Managers.Resources.Load<Sprite>(($"Prefabs/sh/UI/Texture/Player1"));
+                resultInfo.PlayerNickName.text = PhotonNetwork.PlayerList[i].NickName;
                 resultInfo.PlayerColorPercent.value = MapColorData.MapDataPlayer[i].NodeCount * 10;
                 resultInfo.PlayerColorPercent.gameObject.transform.GetChild(2).GetComponent<TMP_Text>().text = ((int)((float)(MapColorData.MapDataPlayer[i].NodeCount) / 4096 * 100)).ToString() + "%";
             }
@@ -96,13 +94,15 @@ public class UI_GameResult : UI_Scene
                     MapColorData.MapDataPlayer[i].NodeCount = MapColorData.MapDataPlayer[j].NodeCount;
                     MapColorData.MapDataPlayer[j].NodeCount = temp;
 
-                    string strtemp = resultInfo.PlayerNickName.text;
-                    resultInfo.PlayerNickName.text = nextresultInfo.PlayerNickName.text;
-                    nextresultInfo.PlayerNickName.text = strtemp;
+                    string strtemp = PhotonNetwork.PlayerList[i].NickName;
+                    PhotonNetwork.PlayerList[i].NickName = PhotonNetwork.PlayerList[j].NickName;
+                    PhotonNetwork.PlayerList[j].NickName = strtemp;
                 }
+                nextresultInfo.PlayerNickName.text = PhotonNetwork.PlayerList[j].NickName;
+                nextresultInfo.PlayerColorPercent.value = MapColorData.MapDataPlayer[j].NodeCount * 10;
+                nextresultInfo.PlayerColorPercent.gameObject.transform.GetChild(2).GetComponent<TMP_Text>().text = ((int)((float)(MapColorData.MapDataPlayer[j].NodeCount) / 4096 * 100)).ToString() + "%";
             }
-
-            //resultInfo.PlayerResultImage.sprite = Managers.Resources.Load<Sprite>(($"Prefabs/sh/UI/Texture/Player1"));
+            resultInfo.PlayerNickName.text = PhotonNetwork.PlayerList[i].NickName;
             resultInfo.PlayerColorPercent.value = MapColorData.MapDataPlayer[i].NodeCount * 10;
             resultInfo.PlayerColorPercent.gameObject.transform.GetChild(2).GetComponent<TMP_Text>().text = ((int)((float)(MapColorData.MapDataPlayer[i].NodeCount) / 4096 * 100)).ToString() + "%";
 
