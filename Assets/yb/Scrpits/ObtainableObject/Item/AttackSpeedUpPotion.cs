@@ -30,7 +30,8 @@ namespace yb {
                             if (player.ItemList[count].ItemNumber < PlayerController.MaxItemNumber)
                             {
                                 player.PickupController.SetItem(count, type);
-                                PhotonNetwork.Destroy(gameObject);
+                                if (PhotonNetwork.IsMasterClient)
+                                    PhotonNetwork.Destroy(gameObject);
                                 break;
 
                             }
@@ -49,7 +50,8 @@ namespace yb {
                     else
                     {
                         player.PickupController.SetItem(count, type);
-                        PhotonNetwork.Destroy(gameObject);
+                        if (PhotonNetwork.IsMasterClient)
+                            PhotonNetwork.Destroy(gameObject);
                         break;
                     }
                 }
