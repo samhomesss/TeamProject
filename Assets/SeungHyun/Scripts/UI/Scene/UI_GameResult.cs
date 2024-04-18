@@ -1,3 +1,4 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -21,10 +22,10 @@ public class UI_GameResult : UI_Scene
     int playerCount = MapColorData.MapDataPlayer.Count; // 일단 임시로 플레이어의 수를 가져옴
     private void Start()
     {
-        foreach (var item in MapColorData.MapDataPlayer)
-        {
-            Debug.Log(item.name);
-        }
+        //foreach (var item in MapColorData.MapDataPlayer)
+        //{
+        //    Debug.Log(item.name);
+        //}
         Init();
        
     }
@@ -76,24 +77,35 @@ public class UI_GameResult : UI_Scene
         for (int i = 0; i < MapColorData.MapDataPlayer.Count; i++)
         {
             PlayerResultInfo resultInfo = playerResultInfos[i].GetComponent<PlayerResultInfo>();
+            resultInfo.PlayerNickName.text = PhotonNetwork.PlayerList[i].NickName;
+
             if (MapColorData.MapDataPlayer.Count == 1)
             {
-                resultInfo.PlayerNickName.text = MapColorData.MapDataPlayer[i].name;
-                resultInfo.PlayerResultImage.sprite = Managers.Resources.Load<Sprite>(($"Prefabs/sh/UI/Texture/Player1"));
+                //resultInfo.PlayerResultImage.sprite = Managers.Resources.Load<Sprite>(($"Prefabs/sh/UI/Texture/Player1"));
                 resultInfo.PlayerColorPercent.value = MapColorData.MapDataPlayer[i].NodeCount * 10;
-                resultInfo.PlayerColorPercent.gameObject.transform.GetChild(2).GetComponent<TMP_Text>().text = ((float)(MapColorData.MapDataPlayer[i].NodeCount) / 4096 * 100).ToString() + "%";
+                resultInfo.PlayerColorPercent.gameObject.transform.GetChild(2).GetComponent<TMP_Text>().text = ((int)((float)(MapColorData.MapDataPlayer[i].NodeCount) / 4096 * 100)).ToString() + "%";
             }
             
             for (int j = i + 1; j < MapColorData.MapDataPlayer.Count; j++)
             {
+                PlayerResultInfo nextresultInfo = playerResultInfos[j].GetComponent<PlayerResultInfo>();
+                nextresultInfo.PlayerNickName.text = PhotonNetwork.PlayerList[j].NickName;
                 if (MapColorData.MapDataPlayer[i].NodeCount < MapColorData.MapDataPlayer[j].NodeCount)
                 {
                     int temp = MapColorData.MapDataPlayer[i].NodeCount;
                     MapColorData.MapDataPlayer[i].NodeCount = MapColorData.MapDataPlayer[j].NodeCount;
                     MapColorData.MapDataPlayer[j].NodeCount = temp;
+
+                    string strtemp = resultInfo.PlayerNickName.text;
+                    resultInfo.PlayerNickName.text = nextresultInfo.PlayerNickName.text;
+                    nextresultInfo.PlayerNickName.text = strtemp;
                 }
             }
-            
+
+            //resultInfo.PlayerResultImage.sprite = Managers.Resources.Load<Sprite>(($"Prefabs/sh/UI/Texture/Player1"));
+            resultInfo.PlayerColorPercent.value = MapColorData.MapDataPlayer[i].NodeCount * 10;
+            resultInfo.PlayerColorPercent.gameObject.transform.GetChild(2).GetComponent<TMP_Text>().text = ((int)((float)(MapColorData.MapDataPlayer[i].NodeCount) / 4096 * 100)).ToString() + "%";
+
         }
 
         
