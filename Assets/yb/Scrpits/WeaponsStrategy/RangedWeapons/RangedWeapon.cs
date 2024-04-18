@@ -16,9 +16,11 @@ namespace yb {
         protected float _projectileVelocity;
         public int DefaultDamage { get; set; }
 
-
+        public int RemainBullet => _remainBullet;
         
 
+        public int CurrentBullet => _currentBullet;
+        public int MaxBullet => _maxBullet;
         //현재 총알 수
         protected int _currentBullet;
 
@@ -28,6 +30,7 @@ namespace yb {
         //최대 장전 수
         protected int _maxBullet;
 
+        protected int _saveMaxBullet;
         //공격속도 렐릭을 먹었을 시 빨라지는 공격 딜레
         protected float _bonusAttackDelay;
 
@@ -40,6 +43,9 @@ namespace yb {
         protected bool isShot;
         protected bool[] _relics = new bool[(int)Define.RelicType.Count];  //보유 렐릭
 
-        
+        public void InitBullet() {
+            _maxBullet = _saveMaxBullet;
+            _currentBullet = RemainBullet;
+        }
     }
 }
