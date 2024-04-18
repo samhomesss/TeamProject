@@ -40,7 +40,7 @@ public class UI_Weapon : UI_Scene
         GameObject BulletText = GetObject((int)GameObjects.BulletText);
 
         map = Map.MapObject.GetComponent<Map>();
-        _photonView = GameObject.Find($"Player{PhotonNetwork.LocalPlayer.ActorNumber}").GetComponentInChildren<PhotonView>();
+        _photonView = map.Player.PhotonView;
 
         if (_photonView.IsMine)
             SetPlayer(map.Player);
@@ -61,7 +61,7 @@ public class UI_Weapon : UI_Scene
         if (IsTestMode.Instance.CurrentUser == Define.User.Hw)
         {
             if (_photonView.IsMine)
-                mainWeapon.GetComponent<PhotonView>().RPC("Replacedweapon",RpcTarget.All, beforeItemID);
+                _photonView.RPC("Replacedweapon", RpcTarget.All, beforeItemID, _photonView.ViewID);
 
 
             //GameObject go = PhotonNetwork.Instantiate($"Prefabs/yb/Weapon/{Managers.ItemDataBase.GetItemData(beforeItemID).itemName}", Vector3.zero, Quaternion.identity);

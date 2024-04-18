@@ -436,6 +436,17 @@ namespace yb
                 _stateController.ChangeState(new PlayerState_Die(this, _attacker));
             }
         }
+        [PunRPC]
+        public void Replacedweapon(string beforeItemID,int ViewID)
+        {
+                PhotonView controller = PhotonNetwork.GetPhotonView(ViewID);
+                GameObject ChangeWeaponObject = PhotonNetwork.Instantiate($"Prefabs/yb/Weapon/{Managers.ItemDataBase.GetItemData(beforeItemID).itemName}", Vector3.zero, Quaternion.identity);
+                ChangeWeaponObject.transform.position = controller.transform.position + Vector3.up;
+                int index = ChangeWeaponObject.transform.gameObject.name.IndexOf("(Clone)");
+                if (index > 0)
+                    ChangeWeaponObject.transform.gameObject.name = ChangeWeaponObject.transform.gameObject.name.Substring(0, index);
+            
+        }
     }
 }
 

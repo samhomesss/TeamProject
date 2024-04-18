@@ -76,18 +76,6 @@ public class ObtainableObject : MonoBehaviourPunCallbacks, IObtainableObject, IO
 
     // 마스터 클라이언트에 아이템 삭제를 요청하는 함수.
     // 삭제가 필요한 아이템을 획득할 때 호출을 해줘야 함.
-    [PunRPC]
-    public void Replacedweapon(string beforeItemID)
-    {
-        if (PhotonNetwork.IsMasterClient)
-        {
-            GameObject ChangeWeaponObject = PhotonNetwork.Instantiate($"Prefabs/yb/Weapon/{Managers.ItemDataBase.GetItemData(beforeItemID).itemName}", Vector3.zero, Quaternion.identity);
-            ChangeWeaponObject.transform.position = map.Player.transform.position + Vector3.up;
-            int index = ChangeWeaponObject.transform.gameObject.name.IndexOf("(Clone)");
-            if (index > 0)
-                ChangeWeaponObject.transform.gameObject.name = ChangeWeaponObject.transform.gameObject.name.Substring(0, index);
-        }
-    }
 
     [PunRPC]
     public void OnRequestPhotonDestroy(int objectID)
@@ -125,5 +113,16 @@ public class ObtainableObject : MonoBehaviourPunCallbacks, IObtainableObject, IO
         GameObject relicObj = _photonView.gameObject;
         IRelic go = relicObj.GetComponent<IRelic>();
         go.DeleteRelic(playerPhoton.GetComponent<PlayerController>());
+    }
+    [PunRPC]
+    public void Replacedweapon(string beforeItemID, int ViewID)
+    {
+        PhotonView controller = PhotonNetwork.GetPhotonView(ViewID);
+        GameObject ChangeWeaponObject = PhotonNetwork.Instantiate($"Prefabs/yb/Weapon/{Managers.ItemDataBase.GetItemData(beforeItemID).itemName}", Vector3.zero, Quaternion.identity);
+        ChangeWeaponObject.transform.position = controller.transform.position + Vector3.up;
+        int index = ChangeWeaponObject.transform.gameObject.name.IndexOf("(Clone)");
+        if (index > 0)
+            ChangeWeaponObject.transform.gameObject.name = ChangeWeaponObject.transform.gameObject.name.Substring(0, index);
+
     }
 }
