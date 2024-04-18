@@ -19,11 +19,10 @@ namespace yb
         {
             base.PickupPhoton(playerViewId);
             PhotonView playerPhotonView = PhotonNetwork.GetPhotonView(playerViewId);
-            PlayerController player = playerPhotonView.GetComponent<PlayerController>();
-            _photonView.TransferOwnership(playerViewId);
-            int count = 0;
+            PlayerController player = playerPhotonView.GetComponent<PlayerController>();            int count = 0;
             if (playerPhotonView.IsMine)
             {
+                _photonView.TransferOwnership(playerViewId);
                 while (count < PlayerController.MaxItemSlot)
                 {
                     if (player.ItemList.ContainsKey(count))
