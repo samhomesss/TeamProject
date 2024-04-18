@@ -33,7 +33,7 @@ namespace yb
                             {
 
                                 player.PickupController.SetItem(count, type);
-                                Managers.Resources.Destroy(gameObject);
+                                PhotonNetwork.Destroy(gameObject);
                                 break;
 
                             }
@@ -52,7 +52,7 @@ namespace yb
                     else
                     {
                         player.PickupController.SetItem(count, type);
-                        Managers.Resources.Destroy(gameObject);
+                        PhotonNetwork.Destroy(gameObject);
                         break;
                     }
                 }

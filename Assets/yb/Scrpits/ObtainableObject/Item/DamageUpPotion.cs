@@ -25,6 +25,7 @@ namespace yb
             {
                 while (count < PlayerController.MaxItemSlot)
                 {
+                    gameObject.GetPhotonView().TransferOwnership(playerViewId);
                     if (player.ItemList.ContainsKey(count))
                     {
                         if (player.ItemList[count].ItemType == type)
@@ -32,7 +33,7 @@ namespace yb
                             if (player.ItemList[count].ItemNumber < PlayerController.MaxItemNumber)
                             {
                                 player.PickupController.SetItem(count, type);
-                                Managers.Resources.Destroy(gameObject);
+                                PhotonNetwork.Destroy(gameObject);
                                 break;
 
                             }
@@ -51,7 +52,7 @@ namespace yb
                     else
                     {
                         player.PickupController.SetItem(count, type);
-                        Managers.Resources.Destroy(gameObject);
+                        PhotonNetwork.Destroy(gameObject);
                         break;
                     }
                 }
