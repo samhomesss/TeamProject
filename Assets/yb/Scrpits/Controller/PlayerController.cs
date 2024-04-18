@@ -446,8 +446,8 @@ namespace yb
         [PunRPC]
         public void Replacedweapon(string beforeItemID, int ViewID)
         {
-                PhotonView controller = PhotonNetwork.GetPhotonView(ViewID);
-            if (_photonview.IsMine)
+            PhotonView controller = PhotonNetwork.GetPhotonView(ViewID);
+            if (PhotonNetwork.IsMasterClient)
             {
                 GameObject ChangeWeaponObject = PhotonNetwork.Instantiate($"Prefabs/yb/Weapon/{Managers.ItemDataBase.GetItemData(beforeItemID).itemName}", Vector3.zero, Quaternion.identity);
                 ChangeWeaponObject.transform.position = controller.transform.position + Vector3.up;
