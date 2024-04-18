@@ -29,18 +29,29 @@ namespace yb
         }
 
         public void Init() {
-            if(_weaponDropChance <= Random.Range(0, 100f)) {
+            float weaponRandom = Random.Range(0, 100f);
+            if (_weaponDropChance >= weaponRandom) {
                 Define.WeaponType weaponRan = (Define.WeaponType)Random.Range(0, (int)Define.WeaponType.Count);
                 _droplable.Set(weaponRan.ToString());
+                Debug.Log($"{gameObject.name}에 무기 등록");
             }
-            if (_relicDropChance <= Random.Range(0, 100f)) {
+            float relicRandom = Random.Range(0, 100f);
+
+            if (_relicDropChance >= relicRandom) {
                 Define.RelicType relicRan = (Define.RelicType)Random.Range(0, (int)Define.RelicType.Count);
                 _droplable.Set(relicRan.ToString());
+                Debug.Log($"{gameObject.name}에 렐릭 등록");
+
             }
-            if (_itemDropChance <= Random.Range(0, 100f)) {
+            float itemRandom = Random.Range(0, 100f);
+
+            if (_itemDropChance >= itemRandom) {
                 Define.ItemType itemRan = (Define.ItemType)Random.Range(0, (int)Define.ItemType.Count);
                 _droplable.Set(itemRan.ToString());
+                Debug.Log($"{gameObject.name}에 아이템 등록");
+
             }
+
         }
      
         public void TakeDamage(int amout, GameObject attacker)

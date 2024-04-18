@@ -20,6 +20,7 @@ namespace yb {
             _maxBullet = _data.DefaultWeaponMaxBullet((int)WeaponType);
             MaxDelay = _data.DefaultWeaponDelay((int)WeaponType);
             _currentBullet = _remainBullet;
+            _saveMaxBullet = _maxBullet;
 
             _player.BulletEvent?.Invoke(_currentBullet, _maxBullet);
 
