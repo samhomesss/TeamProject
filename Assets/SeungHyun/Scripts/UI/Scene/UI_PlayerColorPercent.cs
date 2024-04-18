@@ -20,24 +20,23 @@ public class UI_PlayerColorPercent : UI_Scene
     //int player7Count;
     //int player8Count;
 
+    
+
     float resetTimer;
 
     GameObject[] _playerSlider = new GameObject[8];
     List<PlayerController> _players = new List<PlayerController>();
 
     PlayerController[] _playercontorllers = new PlayerController[PhotonNetwork.CurrentRoom.PlayerCount];
-    Map map;
+
     float timer = 300;
     private void Start()
     {
-        map = Map.MapObject.GetComponent<Map>();
-        
         for (int i = 0; i < _playerSlider.Length; i++)
         {
             _playerSlider[i] = Util.FindChild(gameObject, $"Player{i + 1}", true);
             _playerSlider[i].SetActive(false);
         }
-
 
         Debug.Log(timer + "½Ã°£");
         for (int i = 0; i < PhotonNetwork.CurrentRoom.PlayerCount; i++)
@@ -135,15 +134,59 @@ public class UI_PlayerColorPercent : UI_Scene
 
         foreach (var item in Map.Node)
         {
-            for (int i = 0; i < _players.Count; i++)
+
+            if (item.nodeColor == NodeColor.Red)
             {
-                
-                if (item.nodeColor == (NodeColor)i)
-                {
-                    _playerSlider[i].GetComponent<Slider>().value = ++_players[i].NodeCount;
-                    _playerSlider[i].SetActive(true);
-                }
+                _players[0].NodeCount++;
+                _playerSlider[0].GetComponent<Slider>().value = _players[0].NodeCount;
             }
+            else if (item.nodeColor == NodeColor.Yellow)
+            {
+                _players[1].NodeCount++;
+                _playerSlider[1].GetComponent<Slider>().value = _players[1].NodeCount;
+            }
+            else if (item.nodeColor == NodeColor.Magenta)
+            {
+                _players[2].NodeCount++;
+                _playerSlider[2].GetComponent<Slider>().value = _players[2].NodeCount;
+
+            }
+            else if (item.nodeColor == NodeColor.Cyan)
+            {
+                _players[3].NodeCount++;
+                _playerSlider[3].GetComponent<Slider>().value = _players[3].NodeCount;
+
+            }
+            else if (item.nodeColor == NodeColor.Green)
+            {
+                _players[4].NodeCount++;
+                _playerSlider[4].GetComponent<Slider>().value = _players[4].NodeCount;
+            }
+            else if (item.nodeColor == NodeColor.Blue)
+            {
+                _players[5].NodeCount++;
+                _playerSlider[5].GetComponent<Slider>().value = _players[5].NodeCount;
+
+            }
+            else if (item.nodeColor == NodeColor.Gray)
+            {
+                _players[6].NodeCount++;
+                _playerSlider[6].GetComponent<Slider>().value = _players[6].NodeCount;
+            }
+            else if (item.nodeColor == NodeColor.Black)
+            {
+                _players[7].NodeCount++;
+                _playerSlider[7].GetComponent<Slider>().value = _players[7].NodeCount;
+            }
+            //for (int i = 0; i < _players.Count; i++)
+            //{
+                
+            //    if (item.nodeColor == (NodeColor)i)
+            //    {
+            //        _playerSlider[i].GetComponent<Slider>().value = ++_players[i].NodeCount;
+            //        _playerSlider[i].SetActive(true);
+            //    }
+            //}
         }
     }
 
