@@ -20,7 +20,7 @@ namespace yb
             base.PickupPhoton(playerViewId);
             PhotonView playerPhotonView = PhotonNetwork.GetPhotonView(playerViewId);
             PlayerController player = _photonView.GetComponent<PlayerController>();
-            gameObject.GetComponent<PhotonView>().TransferOwnership(playerViewId);
+            _photonView.TransferOwnership(playerViewId);
             int count = 0;
             if (playerPhotonView.IsMine)
             {

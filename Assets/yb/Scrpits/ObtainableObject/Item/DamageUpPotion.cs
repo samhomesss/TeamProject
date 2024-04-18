@@ -18,11 +18,11 @@ namespace yb
         public override void PickupPhoton(int playerViewId)
         {
             base.PickupPhoton(playerViewId);
-            PhotonView _photonView = PhotonNetwork.GetPhotonView(playerViewId);
+            PhotonView playerPhotonView = PhotonNetwork.GetPhotonView(playerViewId);
             PlayerController player = _photonView.GetComponent<PlayerController>();
-            gameObject.GetComponent<PhotonView>().TransferOwnership(playerViewId);
+            _photonView.TransferOwnership(playerViewId);
             int count = 0;
-            if (_photonView.IsMine)
+            if (playerPhotonView.IsMine)
             {
                 while (count < PlayerController.MaxItemSlot)
                 {
@@ -33,7 +33,7 @@ namespace yb
                             if (player.ItemList[count].ItemNumber < PlayerController.MaxItemNumber)
                             {
                                 player.PickupController.SetItem(count, type);
-                                Managers.Resources.Destroy(gameObject);
+                                PhotonNetwork.Destroy(gameObject);
                                 break;
 
                             }
@@ -52,7 +52,7 @@ namespace yb
                     else
                     {
                         player.PickupController.SetItem(count, type);
-                            Managers.Resources.Destroy(gameObject);
+                        PhotonNetwork.Destroy(gameObject);
                         break;
                     }
                 }
