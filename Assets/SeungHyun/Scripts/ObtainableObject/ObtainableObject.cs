@@ -74,6 +74,23 @@ public class ObtainableObject : MonoBehaviourPunCallbacks, IObtainableObject, IO
 
     }
 
+    // 마스터 클라이언트에 아이템 삭제를 요청하는 함수.
+    // 삭제가 필요한 아이템을 획득할 때 호출을 해줘야 함.
+    [PunRPC]
+    public void OnRequestPhotonDestroy(int objectID)
+    {
+        if (PhotonNetwork.IsMasterClient)
+        {
+            //Util.LogGreen("SetItem 안에 Action 호출됨 -> Master Client");
+            PhotonNetwork.Destroy(PhotonNetwork.GetPhotonView(objectID).gameObject);
+            //PhotonNetwork.Destroy(destroyObject);
+        }
+        else
+        {
+            //Util.LogGreen("SetItem 안에 Action 호출됨 -> Not Master Client");
+        }
+    }
+
     [PunRPC]
     public void SetDropItemName(int dropObjectViewId)//0416 이희웅 포톤 드랍아이템 이름재지정
     {

@@ -14,6 +14,9 @@ namespace yb {
         public override void PickupPhoton(int playerViewId)
         {
             base.PickupPhoton(playerViewId);
+
+            Util.LogRed("PickupPhoton »£√‚µ ");
+
             PhotonView playerPhotonView = PhotonNetwork.GetPhotonView(playerViewId);
             PlayerController player = playerPhotonView.GetComponent<PlayerController>();
             int count = 0;
@@ -21,17 +24,15 @@ namespace yb {
             {
                 while (count < PlayerController.MaxItemSlot)
                 {
-                    if (player.ItemList.ContainsKey(count))
+                    if (player.ItemList.TryGetValue(count, out PlayerController.Item item))
                     {
-                        if (player.ItemList[count].ItemType == type)
+                        if (item.ItemType == type)
                         {
-                            if (player.ItemList[count].ItemNumber < PlayerController.MaxItemNumber)
+                            if (item.ItemNumber < PlayerController.MaxItemNumber)
                             {
-
                                 player.PickupController.SetItem(count, type);
-                                PhotonNetwork.Destroy(gameObject);
+                                _photonView.RPC("OnRequestPhotonDestroy", RpcTarget.All, _photonView.ViewID);
                                 break;
-
                             }
                             else
                             {
@@ -48,7 +49,7 @@ namespace yb {
                     else
                     {
                         player.PickupController.SetItem(count, type);
-                        PhotonNetwork.Destroy(gameObject);
+                        _photonView.RPC("OnRequestPhotonDestroy", RpcTarget.All, _photonView.ViewID);
                         break;
                     }
                 }

@@ -13,7 +13,7 @@ public class Managers : MonoBehaviour
     private Data _data = new Data();
 
     // 수정사항 
-    private GameManager _gameManager = new GameManager();
+    private GameManager _gameManager;
     private PoolManager _pool = new PoolManager();
     private InputManager _input = new InputManager();
     private ResourcesManager _resources = new ResourcesManager();
@@ -44,6 +44,7 @@ public class Managers : MonoBehaviour
     private void Awake()
     {
         Init();
+        _gameManager = GetComponent<GameManager>();
     }
 
     private void Update()

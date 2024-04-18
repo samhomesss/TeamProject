@@ -1,9 +1,7 @@
 using Photon.Pun;
-using Photon.Pun.Demo.Cockpit;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Assertions.Must;
 using UnityEngine.Events;
 using yb;
 
@@ -13,6 +11,7 @@ public class GameScene : BaseScene
     private GameObject[] items = new GameObject[6];//0415 18:33 이희웅 테스트용 배열 추가
     private List<Transform> itemBox = new List<Transform>();//파라미터는 박스의 갯수
     public UnityEvent OnLoaded;
+    private WaitForSeconds waitObject = new WaitForSeconds(0.1f);
 
     private GameObject _itemBox;
     public override void Clear()
@@ -78,7 +77,7 @@ public class GameScene : BaseScene
         Map map = Managers.SceneObj.ShowSceneObject<Map>();
         if (map != null)
         {
-            map.onLoadMapUI += onLoadedUI;
+            map.onLoadMapUI += OnLoadedUI;
         }
 
         Managers.SceneObj.ShowSceneObject<MiniMapCam>();
@@ -100,30 +99,35 @@ public class GameScene : BaseScene
         bool allPlayersLoaded = false;
         while (!allPlayersLoaded)
         {
-            int loadedPlayerCount = 0;
-            for (int i = 0; i < PhotonNetwork.CurrentRoom.PlayerCount; i++)
-            {
-                if (GameObject.Find($"Player{i + 1}")?.GetComponentInChildren<PlayerController>() != null)
-                {
-                    loadedPlayerCount++;
-                }
-            }
+            //int loadedPlayerCount = 0;
+            //for (int i = 0; i < PhotonNetwork.CurrentRoom.PlayerCount; i++)
+            //{
+            //    if (GameObject.Find($"Player{i + 1}")?.GetComponentInChildren<PlayerController>() != null)
+            //    {
+            //        loadedPlayerCount++;
+            //    }
+            //}
 
             // 모든 플레이어가 로드되었는지 확인
-            allPlayersLoaded = loadedPlayerCount == PhotonNetwork.CurrentRoom.PlayerCount;
+            allPlayersLoaded = FindObjectsByType<PlayerController>(FindObjectsSortMode.None).Length == PhotonNetwork.CurrentRoom.PlayerCount;
 
-            yield return new WaitForSeconds(0.1f);
+            // 모든 플레이어가 로드되었는지 확인
+            //allPlayersLoaded = loadedPlayerCount == PhotonNetwork.CurrentRoom.PlayerCount;
+
+            //yield return new WaitForSeconds(0.1f);
+            yield return waitObject;
         }
+
         ShowUI();
     }
 
-    public void onLoadedUI() //로딩이 다 된다음에 호출
+    public void OnLoadedUI() //로딩이 다 된다음에 호출
     {
-        
-            for (int i = 1; i < 13; i++)
-            {
-                itemBox.Add(GameObject.Find($"@Obj_Root/Map/ItemBox/DestructibleObject{i}").GetComponent<Transform>());
-            }
+
+        for (int i = 1; i < 13; i++)
+        {
+            itemBox.Add(GameObject.Find($"@Obj_Root/Map/ItemBox/DestructibleObject{i}").GetComponent<Transform>());
+        }
         for (int i = 0; i < itemBox.Count; i++)
         {
             if (PhotonNetwork.IsMasterClient)

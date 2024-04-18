@@ -127,7 +127,7 @@ namespace yb
             }
         }
 
-        public void SetItem(int slot, Define.ItemType type, UnityAction action = null)
+        public void SetItem(int slot, Define.ItemType type)
         {
             if (_player.ItemList.ContainsKey(slot))
             {
@@ -143,7 +143,6 @@ namespace yb
             }
 
             _player.SetItemEvent.Invoke(slot, _player.ItemList[slot]);
-            action?.Invoke();
             Debug.Log($"{type}아이템을 획득했습니다");
             Debug.Log($"{slot}번 슬롯에 {type}을 {_player.ItemList[slot].ItemNumber}개 추가");
 

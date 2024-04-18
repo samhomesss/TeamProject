@@ -9,7 +9,7 @@ using UnityEngine.SceneManagement;
 using static Define;
 
 
-public class GameManager : MonoBehaviour
+public class GameManager
 {
 
     GameManager _instance;

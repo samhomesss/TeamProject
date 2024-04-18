@@ -1,9 +1,4 @@
 ﻿using Photon.Pun;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor.Experimental.GraphView;
-using UnityEngine;
-using UnityEngine.Diagnostics;
 
 
 namespace yb
@@ -35,24 +30,8 @@ namespace yb
                         {
                             if (item.ItemNumber < PlayerController.MaxItemNumber)
                             {
-                                Util.LogRed("item.ItemNumber < PlayerController.MaxItemNumber 조건 만족");
-                                player.PickupController.SetItem(count, type, () =>
-                                {
-                                    Util.LogRed("SetItem 안에 Action 호출됨");
-
-                                    _photonView.RPC("OnRequestPhotonDestroy", RpcTarget.All, _photonView.ViewID);
-                                    //_collideItemPhoton.IObtainableObjectPhotonView.RPC("PickupPhoton", RpcTarget.All, _player.IphotonView.ViewID);
-
-                                    //if (PhotonNetwork.IsMasterClient)
-                                    //{
-                                    //    Util.LogGreen("SetItem 안에 Action 호출됨 -> Master Client");
-                                    //    PhotonNetwork.Destroy(gameObject);
-                                    //}
-                                    //else
-                                    //{
-                                    //    Util.LogGreen("SetItem 안에 Action 호출됨 -> Not Master Client");
-                                    //}
-                                });
+                                player.PickupController.SetItem(count, type);
+                                _photonView.RPC("OnRequestPhotonDestroy", RpcTarget.All, _photonView.ViewID);
                                 break;
                             }
                             else
@@ -69,31 +48,11 @@ namespace yb
                     }
                     else
                     {
-                        player.PickupController.SetItem(count, type, () =>
-                        {
-                            if (PhotonNetwork.IsMasterClient)
-                            {
-                                PhotonNetwork.Destroy(gameObject);
-                            }
-                        });
+                        player.PickupController.SetItem(count, type);
+                        _photonView.RPC("OnRequestPhotonDestroy", RpcTarget.All, _photonView.ViewID);
                         break;
                     }
                 }
-            }
-        }
-
-        [PunRPC]
-        public void OnRequestPhotonDestroy(int objectID)
-        {
-            if (PhotonNetwork.IsMasterClient)
-            {
-                Util.LogGreen("SetItem 안에 Action 호출됨 -> Master Client");
-                PhotonNetwork.Destroy(PhotonNetwork.GetPhotonView(objectID).gameObject);
-                //PhotonNetwork.Destroy(destroyObject);
-            }
-            else
-            {
-                Util.LogGreen("SetItem 안에 Action 호출됨 -> Not Master Client");
             }
         }
 
