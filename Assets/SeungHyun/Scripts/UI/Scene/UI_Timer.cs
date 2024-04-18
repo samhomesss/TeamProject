@@ -1,4 +1,5 @@
 using Photon.Pun;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,15 +11,18 @@ public class UI_Timer : UI_Scene
 
     public float Timer => _timer;
 
-    float _timer = 300f;
+    float _timer = 15f;
     float _minute; 
-    float _second; 
-
+    float _second;
+    static Action loadScene;
+    bool isRoading = false;
     GameObject TimerText;
 
     private void Start()
     {
         TimerText = Util.FindChild(gameObject, "TimerText", true);
+
+        loadScene += () => { PhotonNetwork.LoadLevel("GameResultScene"); };
     }
 
     private void Update()
@@ -27,19 +31,16 @@ public class UI_Timer : UI_Scene
 
         _second = _timer % 60;
         _minute = _timer / 60;
-
-        if (_timer <= 0)
+        
+        if (_timer <= 0 && !isRoading)
         {
             _timer = 0;
-
-            PhotonNetwork.LoadLevel("GameResultScene");
+            isRoading = true;
+            loadScene?.Invoke();
         }
         if (_second < 10)
             TimerText.GetComponent<Text>().text = "0" + (int)_minute + ":0" + (int)_second;
         else
             TimerText.GetComponent<Text>().text = "0" + (int)_minute + ":" + (int)_second;
-
-        
-
     }
 }

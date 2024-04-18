@@ -136,6 +136,5 @@ public class GameScene : BaseScene
                 itembox.transform.SetParent(_itemBox.transform);
             }
         }
-
     }
 }
