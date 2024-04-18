@@ -18,11 +18,11 @@ namespace yb
         public override void PickupPhoton(int playerViewId)
         {
             base.PickupPhoton(playerViewId);
-            PhotonView _photonView = PhotonNetwork.GetPhotonView(playerViewId);
+            PhotonView playerPhotonView = PhotonNetwork.GetPhotonView(playerViewId);
             PlayerController player = _photonView.GetComponent<PlayerController>();
             gameObject.GetComponent<PhotonView>().TransferOwnership(playerViewId);
             int count = 0;
-            if (_photonView.IsMine)
+            if (playerPhotonView.IsMine)
             {
                 while (count < PlayerController.MaxItemSlot)
                 {
