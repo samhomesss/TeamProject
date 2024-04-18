@@ -20,14 +20,12 @@ public class UI_GameResult : UI_Scene
 
     List<GameObject> playerResultInfos = new List<GameObject>();
     int playerCount = MapColorData.MapDataPlayer.Count; // 일단 임시로 플레이어의 수를 가져옴
+    int[] playerColorCount = new int[8];
     string Player1;
     string Player2;
     private void Start()
     {
-        //foreach (var item in MapColorData.MapDataPlayer)
-        //{
-        //    Debug.Log(item.name);
-        //}
+       
         Init();
        
     }
@@ -83,17 +81,17 @@ public class UI_GameResult : UI_Scene
             if (MapColorData.MapDataPlayer.Count == 1)
             {
                 resultInfo.PlayerNickName.text = PhotonNetwork.PlayerList[i].NickName;
-                resultInfo.PlayerColorPercent.value = MapColorData.MapDataPlayer[i].NodeCount * 10;
-                resultInfo.PlayerColorPercent.gameObject.transform.GetChild(2).GetComponent<TMP_Text>().text = ((int)((float)(MapColorData.MapDataPlayer[i].NodeCount) / 4096 * 100)).ToString() + "%";
+                resultInfo.PlayerColorPercent.value = MapColorData.MapPlayerCountData[i] * 10;
+                resultInfo.PlayerColorPercent.gameObject.transform.GetChild(2).GetComponent<TMP_Text>().text = ((int)((float)(MapColorData.MapPlayerCountData[i]) / 4096 * 100)).ToString() + "%";
             }
             else if (MapColorData.MapDataPlayer.Count == 2)
             {
                 
-                if (MapColorData.MapDataPlayer[0].NodeCount < MapColorData.MapDataPlayer[1].NodeCount)
+                if (MapColorData.MapPlayerCountData[0] < MapColorData.MapPlayerCountData[1])
                 {
-                    int temp = MapColorData.MapDataPlayer[0].NodeCount;
-                    MapColorData.MapDataPlayer[0].NodeCount = MapColorData.MapDataPlayer[1].NodeCount;
-                    MapColorData.MapDataPlayer[1].NodeCount = temp;
+                    int temp = MapColorData.MapPlayerCountData[0];
+                    MapColorData.MapPlayerCountData[0] = MapColorData.MapPlayerCountData[1];
+                    MapColorData.MapPlayerCountData[0] = temp;
 
                     Player1 = PhotonNetwork.PlayerList[0].NickName;
                     Player2 = PhotonNetwork.PlayerList[1].NickName;
@@ -104,10 +102,10 @@ public class UI_GameResult : UI_Scene
                 }
                 playerResultInfos[0].GetComponent<PlayerResultInfo>().PlayerNickName.text = Player1;
                 playerResultInfos[1].GetComponent<PlayerResultInfo>().PlayerNickName.text = Player2;
-                playerResultInfos[0].GetComponent<PlayerResultInfo>().PlayerColorPercent.value = MapColorData.MapDataPlayer[0].NodeCount * 10;
-                playerResultInfos[1].GetComponent<PlayerResultInfo>().PlayerColorPercent.value = MapColorData.MapDataPlayer[1].NodeCount * 10;
-                playerResultInfos[0].GetComponent<PlayerResultInfo>().PlayerColorPercent.gameObject.transform.GetChild(2).GetComponent<TMP_Text>().text = ((int)((float)(MapColorData.MapDataPlayer[0].NodeCount) / 4096 * 100)).ToString() + "%";
-                playerResultInfos[1].GetComponent<PlayerResultInfo>().PlayerColorPercent.gameObject.transform.GetChild(2).GetComponent<TMP_Text>().text = ((int)((float)(MapColorData.MapDataPlayer[1].NodeCount) / 4096 * 100)).ToString() + "%";
+                playerResultInfos[0].GetComponent<PlayerResultInfo>().PlayerColorPercent.value = MapColorData.MapPlayerCountData[0] * 10;
+                playerResultInfos[1].GetComponent<PlayerResultInfo>().PlayerColorPercent.value = MapColorData.MapPlayerCountData[1] * 10;
+                playerResultInfos[0].GetComponent<PlayerResultInfo>().PlayerColorPercent.gameObject.transform.GetChild(2).GetComponent<TMP_Text>().text = ((int)((float)(MapColorData.MapPlayerCountData[0]) / 4096 * 100)).ToString() + "%";
+                playerResultInfos[1].GetComponent<PlayerResultInfo>().PlayerColorPercent.gameObject.transform.GetChild(2).GetComponent<TMP_Text>().text = ((int)((float)(MapColorData.MapPlayerCountData[1]) / 4096 * 100)).ToString() + "%";
             }
             else
             {

@@ -41,13 +41,5 @@ public class PlayerResultInfo : UI_Base
     public override void Init()
     {
         Bind<GameObject>(typeof(GameObjects));
-
-        //_playerResultNumberImage = Get<GameObject>((int)GameObjects.PlayerResultNumberImage).GetComponent<Image>();
-        //_playerCharacterImage = Get<GameObject>((int)GameObjects.PlayerCharacterImage).GetComponent<Image>();
-        //_playerNickName = Get<GameObject>((int)GameObjects.PlayerNickName).GetComponent<TMP_Text>();
-        //_playerResultNumber = Get<GameObject>((int)GameObjects.PlayerResultNumber).GetComponent<TMP_Text>();
-        //_playerColorPercent = Get<GameObject>((int)GameObjects.PlayerColorPercent).GetComponent<Slider>();
-
-        //Debug.Log(_playerNickName.gameObject.name);
     }
 }
