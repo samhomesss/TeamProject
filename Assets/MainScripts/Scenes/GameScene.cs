@@ -73,7 +73,7 @@ public class GameScene : BaseScene
     }
     void ShowUI()
     {
-
+        Managers.UI.ShowSceneUI<UI_Timer>();
         //GameObject
         Map map = Managers.SceneObj.ShowSceneObject<Map>();
         if (map != null)
@@ -82,8 +82,6 @@ public class GameScene : BaseScene
         }
 
         Managers.SceneObj.ShowSceneObject<MiniMapCam>();
-
-        Managers.UI.ShowSceneUI<UI_Timer>();
         Managers.UI.ShowSceneUI<UI_Weapon>();
         Managers.UI.ShowSceneUI<UI_Inven>();
         Managers.UI.ShowSceneUI<UI_Hp>();

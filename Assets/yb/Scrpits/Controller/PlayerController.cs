@@ -49,6 +49,8 @@ namespace yb
         private Map _map; //0416 21:51 ÀÌÈñ¿õ Ãß°¡
         public int HaveItemNumber { get; set; }
 
+        public int NodeCount { get; set; }
+
         private Dictionary<int, Item> _itemList = new Dictionary<int, Item>();
 
         public Dictionary<int, Item> ItemList => _itemList;

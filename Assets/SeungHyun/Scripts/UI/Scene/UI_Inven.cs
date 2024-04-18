@@ -30,7 +30,6 @@ public class UI_Inven : UI_Scene
 
     void SetPlayer(PlayerController player)
     {
-        player.SetItemEvent -= ChangeImage;
         player.SetItemEvent += ChangeImage;
     }
 
