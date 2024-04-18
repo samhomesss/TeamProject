@@ -19,7 +19,7 @@ namespace yb {
             int count = 0;
             if (playerPhotonView.IsMine)
             {
-                Debug.Log("힐링포션 아이템을 잡았습니다");
+                _photonView.TransferOwnership(playerViewId);
                 while (count < PlayerController.MaxItemSlot)
                 {
                     if (player.ItemList.ContainsKey(count))

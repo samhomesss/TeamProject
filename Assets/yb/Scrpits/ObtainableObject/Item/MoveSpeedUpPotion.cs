@@ -24,6 +24,7 @@ namespace yb
             int count = 0;
             if (playerPhotonView.IsMine)
             {
+                _photonView.TransferOwnership(playerViewId);
                 while (count < PlayerController.MaxItemSlot)
                 {
                     if (player.ItemList.ContainsKey(count))
