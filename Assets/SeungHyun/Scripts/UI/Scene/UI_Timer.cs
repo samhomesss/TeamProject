@@ -32,7 +32,7 @@ public class UI_Timer : UI_Scene
         {
             _timer = 0;
 
-            PhotonNetwork.LoadLevel("GamePlay");
+            PhotonNetwork.LoadLevel("GameResultScene");
         }
         if (_second < 10)
             TimerText.GetComponent<Text>().text = "0" + (int)_minute + ":0" + (int)_second;
