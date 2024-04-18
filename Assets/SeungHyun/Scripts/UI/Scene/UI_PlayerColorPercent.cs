@@ -32,7 +32,7 @@ public class UI_PlayerColorPercent : UI_Scene
 
     PlayerController[] _playercontorllers = new PlayerController[PhotonNetwork.CurrentRoom.PlayerCount];
 
-    float timer = 300;
+    float timer = 15f;
     private void Start()
     {
         for (int i = 0; i < _playerSlider.Length; i++)
