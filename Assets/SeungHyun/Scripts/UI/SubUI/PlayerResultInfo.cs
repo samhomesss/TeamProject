@@ -36,7 +36,6 @@ public class PlayerResultInfo : UI_Base
         _playerResultNumber = Get<GameObject>((int)GameObjects.PlayerResultNumber).GetComponent<TMP_Text>();
         _playerColorPercent = Get<GameObject>((int)GameObjects.PlayerColorPercent).GetComponent<Slider>();
 
-        Debug.Log(_playerNickName.gameObject.name);
     }
 
     public override void Init()
