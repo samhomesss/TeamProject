@@ -72,7 +72,7 @@ namespace yb
                         {
                             player.PickupController.SetItem(count, type);
                             if (PhotonNetwork.IsMasterClient)
-                                Managers.Resources.Destroy(gameObject);
+                                PhotonNetwork.Destroy(gameObject);
                             break;
                         }
                         else
@@ -90,7 +90,7 @@ namespace yb
                 else
                 {
                     player.PickupController.SetItem(count, type);
-                    Managers.Resources.Destroy(gameObject);
+                    PhotonNetwork.Destroy(gameObject);
                     break;
                 }
             }
