@@ -43,8 +43,8 @@ public class Managers : MonoBehaviour
     
     private void Awake()
     {
-        Init();
         _gameManager = GetComponent<GameManager>();
+        Init();
     }
 
     private void Update()
