@@ -41,15 +41,15 @@ public class UI_Weapon : UI_Scene
         map = Map.MapObject.GetComponent<Map>();
         _photonView = GameObject.Find($"Player{PhotonNetwork.LocalPlayer.ActorNumber}").GetComponentInChildren<PhotonView>();
 
-        if(_photonView.IsMine)
-        SetPlayer(map.Player);
+        if (_photonView.IsMine)
+            SetPlayer(map.Player);
 
         mainWeapon.transform.GetChild(0).GetComponentInChildren<Image>().sprite = Managers.ItemDataBase.GetItemData(slotItemID).itemImage;
         _mainWeaponImage = mainWeapon.GetComponentInChildren<Image>();
         _bulletText = BulletText.GetComponent<Text>();
         _bulletText.text = "15 / 60";
     }
-    
+
     void ChangeWeapon(string itemID)
     {
         string beforeItemID = slotItemID; // 일단 바꿔 주기 전에 아이템 번호 저장하고 
@@ -58,10 +58,10 @@ public class UI_Weapon : UI_Scene
 
         if (IsTestMode.Instance.CurrentUser == Define.User.Hw)
         {
+            GameObject go = PhotonNetwork.Instantiate($"Prefabs/yb/Weapon/{Managers.ItemDataBase.GetItemData(beforeItemID).itemName}", Vector3.zero, Quaternion.identity);
+            go.GetComponent<PhotonView>().TransferOwnership(PhotonNetwork.MasterClient.ActorNumber);
             if (_photonView.IsMine)
             {
-                GameObject go = PhotonNetwork.Instantiate($"Prefabs/yb/Weapon/{Managers.ItemDataBase.GetItemData(beforeItemID).itemName}", Vector3.zero, Quaternion.identity);
-                go.GetComponent<PhotonView>().TransferOwnership(PhotonNetwork.MasterClient.ActorNumber);
                 map.Player.PhotonView.RPC("SetDropItemName", RpcTarget.All, go.GetComponent<PhotonView>().ViewID);//이름 바꾸기
                 go.transform.position = map.Player.transform.position + Vector3.up;
             }
@@ -76,7 +76,7 @@ public class UI_Weapon : UI_Scene
     }
 
     // 총알 나가는거
-    void BulletCount(int bulletnum , int maxBullet)
+    void BulletCount(int bulletnum, int maxBullet)
     {
         //if (!isReload)
         //{
@@ -86,7 +86,7 @@ public class UI_Weapon : UI_Scene
         //    {
         //        StartCoroutine("ReloadBullet");
         //    }
-            
+
         //}
         _bulletText.text = $"{bulletnum} / {maxBullet}";
 
