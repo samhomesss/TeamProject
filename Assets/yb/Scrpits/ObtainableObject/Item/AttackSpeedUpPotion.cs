@@ -20,6 +20,7 @@ namespace yb {
             int count = 0;
             if (playerPhotonView.IsMine)
             {
+                Debug.Log("소유권 호출");
                 _photonView.TransferOwnership(playerViewId);
                 while (count < PlayerController.MaxItemSlot)
                 {
