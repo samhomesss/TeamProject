@@ -19,7 +19,6 @@ namespace yb {
             int count = 0;
             if (PhotonNetwork.GetPhotonView(playerViewId).IsMine)
             {
-                _photonView.TransferOwnership(playerViewId);
                 while (count < PlayerController.MaxItemSlot)
                 {
                     if (player.ItemList.ContainsKey(count))
@@ -29,7 +28,7 @@ namespace yb {
                             if (player.ItemList[count].ItemNumber < PlayerController.MaxItemNumber)
                             {
                                 player.PickupController.SetItem(count, type);
-                                DeleteItem();
+                                PhotonNetwork.Destroy(gameObject);
                                 break;
 
                             }
@@ -48,16 +47,11 @@ namespace yb {
                     else
                     {
                         player.PickupController.SetItem(count, type);
-                        DeleteItem();
+                        PhotonNetwork.Destroy(gameObject);
                         break;
                     }
                 }
             }
-        }
-        public void DeleteItem()
-        {
-            if (PhotonNetwork.IsMasterClient)
-                PhotonNetwork.Destroy(gameObject);
         }
 
         public override void Pickup(PlayerController player) {
