@@ -22,7 +22,7 @@ namespace yb
             Debug.Log(playerViewId);
             PlayerController player = playerPhotonView.GetComponent<PlayerController>();            
             int count = 0;
-            if (playerViewId == GameObject.Find($"Player{PhotonNetwork.LocalPlayer.ActorNumber}").GetComponent<PhotonView>().ViewID)
+            if (playerViewId == GameObject.Find($"Player{PhotonNetwork.LocalPlayer.ActorNumber}").GetComponentInChildren<PhotonView>().ViewID)
             {
                 _photonView.TransferOwnership(playerViewId);
                 while (count < PlayerController.MaxItemSlot)
