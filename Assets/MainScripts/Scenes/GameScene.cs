@@ -11,8 +11,9 @@ public class GameScene : BaseScene
     private List<Transform> itemBox = new List<Transform>();//파라미터는 박스의 갯수
     public UnityEvent OnLoaded;
     private WaitForSeconds waitObject = new WaitForSeconds(0.1f);
-    Transform tr = RespawnManager.Instance.RespawnPoints;
     private GameObject _itemBox;
+    private Transform tr;
+
     public override void Clear()
     {
     }
@@ -83,14 +84,16 @@ public class GameScene : BaseScene
     {
         // 플레이어의 로딩을 기다립니다.
         bool allPlayersLoaded = false;
-        while (!allPlayersLoaded)
+        while (!allPlayersLoaded || !tr)
         {
             allPlayersLoaded = FindObjectsByType<PlayerController>(FindObjectsSortMode.None).Length == PhotonNetwork.CurrentRoom.PlayerCount;
+            tr = RespawnManager.Instance.RespawnPoints;
             yield return waitObject;
         }
 
         ShowUI();
     }
+
 
     public void OnLoadedItemBox() //로딩이 다 된다음에 호출
     {

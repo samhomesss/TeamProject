@@ -14,10 +14,7 @@ public class RespawnManager : MonoBehaviourPunCallbacks {
 
     private void Awake() {
         Instance = this;
-    }
-
-    private void Start() {
-        RespawnPoints = GameObject.Find("@RespawnPoints").transform;
+        RespawnPoints = GameObject.Find("@RespawnPoints").transform;//0419 ÀÌÈñ¿õ start -> awake·Î ¼öÁ¤
     }
 
     public void Respawn(int number, float time) {
