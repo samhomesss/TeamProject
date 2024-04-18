@@ -61,7 +61,7 @@ public class UI_Weapon : UI_Scene
         if (IsTestMode.Instance.CurrentUser == Define.User.Hw)
         {
             if (_photonView.IsMine)
-                map.Player.PhotonView.RPC("Replacedweapon",RpcTarget.All, beforeItemID);
+                mainWeapon.GetComponent<PhotonView>().RPC("Replacedweapon",RpcTarget.All, beforeItemID);
 
 
             //GameObject go = PhotonNetwork.Instantiate($"Prefabs/yb/Weapon/{Managers.ItemDataBase.GetItemData(beforeItemID).itemName}", Vector3.zero, Quaternion.identity);
