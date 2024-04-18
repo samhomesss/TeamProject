@@ -231,9 +231,12 @@ namespace yb
             {
                 if (IsTestMode.Instance.CurrentUser == Define.User.Hw) //0411 08:10 ÀÌÈñ¿õ Æ÷Åæ µ¿±âÈ­¸¦ À§ÇÑ ºÐ±â Ãß°¡
                 {
-                    _collideItemPhoton = c.GetComponent<IObtainableObjectPhoton>();
-                    c.GetComponent<IObtainableObject>().ShowName(_player);
-                    return;
+                    if (_player.GetComponent<PhotonView>().IsMine)
+                    {
+                        _collideItemPhoton = c.GetComponent<IObtainableObjectPhoton>();
+                        c.GetComponent<IObtainableObject>().ShowName(_player);
+                        return;
+                    }
                 }
                 else
                 {
@@ -270,7 +273,6 @@ namespace yb
             }
 
             c.GetComponent<IObtainableObject>().HideName();
-            c.GetComponent<IObtainableObjectPhoton>().HideName();
         }
     }
 }
