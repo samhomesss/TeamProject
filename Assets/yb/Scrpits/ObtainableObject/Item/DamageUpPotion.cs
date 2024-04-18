@@ -24,6 +24,7 @@ namespace yb
             _photonView.TransferOwnership(playerViewId);
             if (_photonView.IsMine)
             {
+                Debug.Log("데미지포션 아이템을 잡았습니다");
                 while (count < PlayerController.MaxItemSlot)
                 {
                     if (player.ItemList.ContainsKey(count))

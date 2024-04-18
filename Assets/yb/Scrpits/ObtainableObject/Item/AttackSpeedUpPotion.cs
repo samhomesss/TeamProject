@@ -21,6 +21,7 @@ namespace yb {
             int count = 0;
             if (_photonView.IsMine)
             {
+                Debug.Log("어택포션 아이템을 잡았습니다");
                 while (count < PlayerController.MaxItemSlot)
                 {
                     if (player.ItemList.ContainsKey(count))
