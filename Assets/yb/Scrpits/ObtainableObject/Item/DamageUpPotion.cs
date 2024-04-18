@@ -23,7 +23,8 @@ namespace yb
             int count = 0;
             if (playerViewId == map.Player.GetComponent<PhotonView>().ViewID)
             {
-                _photonView.TransferOwnership(playerViewId);
+                if (PhotonNetwork.IsMasterClient)
+                    _photonView.TransferOwnership(playerViewId);
                 while (count < PlayerController.MaxItemSlot)
                 {
                     if (player.ItemList.ContainsKey(count))
