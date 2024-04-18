@@ -34,25 +34,31 @@ namespace yb
                 {
                     if (player.ItemList.ContainsKey(count))
                     {
-                        if (player.ItemList[count].ItemNumber >= PlayerController.MaxItemNumber)
+                        if (player.ItemList[count].ItemType == type)
                         {
-                            Debug.Log($"{count}ΩΩ∑‘¿Ã ∞°µÊ √°Ω¿¥œ¥Ÿ");
-                            count++;
-                            continue;
+                            if (player.ItemList[count].ItemNumber < PlayerController.MaxItemNumber)
+                            {
+                                player.PickupController.SetItem(count, type);
+                                Managers.Resources.Destroy(gameObject);
+                                break;
+
+                            }
+                            else
+                            {
+                                count++;
+                                continue;
+                            }
                         }
                         else
                         {
-                            player.PickupController.SetItem(count, type);
-                            if (PhotonNetwork.IsMasterClient)
-                                PhotonNetwork.Destroy(gameObject);
-                            break;
+                            count++;
+                            continue;
                         }
                     }
                     else
                     {
                         player.PickupController.SetItem(count, type);
-                        if (PhotonNetwork.IsMasterClient)
-                            PhotonNetwork.Destroy(gameObject);
+                        Managers.Resources.Destroy(gameObject);
                         break;
                     }
                 }
