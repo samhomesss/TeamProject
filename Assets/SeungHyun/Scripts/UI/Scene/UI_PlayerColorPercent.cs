@@ -120,10 +120,17 @@ public class UI_PlayerColorPercent : UI_Scene
         //    }
         //}
         #endregion
+
+        for (int j = 0; j < _players.Count; j++)
+        {
+            _players[j].NodeCount = 0;
+        }
+
         foreach (var item in Map.Node)
         {
             for (int i = 0; i < _players.Count; i++)
             {
+                
                 if (item.nodeColor == (NodeColor)i)
                 {
                     _playerSlider[i].GetComponent<Slider>().value = ++_players[i].NodeCount;
