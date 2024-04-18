@@ -25,7 +25,6 @@ namespace yb
             {
                 while (count < PlayerController.MaxItemSlot)
                 {
-                    gameObject.GetPhotonView().TransferOwnership(playerViewId);
                     if (player.ItemList.ContainsKey(count))
                     {
                         if (player.ItemList[count].ItemType == type)

@@ -4,6 +4,7 @@ using Photon.Realtime;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using yb;
 using static Define;
 
@@ -46,7 +47,8 @@ namespace yb
                 if (_collideItemPhoton == null) //0411 18:29 이희웅 포톤용 테스트 함수 추가
                     return;
             }
-            else {
+            else
+            {
                 if (_collideItem == null)
                     return;
             }
@@ -78,7 +80,8 @@ namespace yb
                         if (_collideItemPhoton is IRelic)
                         {
                             var item = _collideItemPhoton as IRelic;
-                            if (_haveRelic[(int)item.RelicType]) {
+                            if (_haveRelic[(int)item.RelicType])
+                            {
                                 Debug.Log("이미 보유한 렐릭입니다");
                                 return;
                             }
@@ -94,7 +97,7 @@ namespace yb
                         _collideItemPhoton.HideName();
                         _collideItemPhoton = null;
                     }
-                    
+
                 }
             }
             else
@@ -102,13 +105,16 @@ namespace yb
                 if (Input.GetKeyDown(KeyCode.G))
                 {
                     Debug.Log("누름");
-                    if(_collideItem is IRelic) {
+                    if (_collideItem is IRelic)
+                    {
                         var item = _collideItem as IRelic;
-                        if (_haveRelic[(int)item.RelicType]) {
+                        if (_haveRelic[(int)item.RelicType])
+                        {
                             Debug.Log("이미 보유한 렐릭입니다");
                             return;
                         }
-                        if (_player.HaveRelicNumber >= PlayerController.MaxRelicNumber) {
+                        if (_player.HaveRelicNumber >= PlayerController.MaxRelicNumber)
+                        {
                             Debug.Log("렐릭 창이 가득 찼습니다.");
                             return;
                         }
@@ -121,30 +127,35 @@ namespace yb
             }
         }
 
-        public void SetItem(int slot, Define.ItemType type) {
-            if(_player.ItemList.ContainsKey(slot)) {
-                if(_player.ItemList[slot].ItemType == type) {
+        public void SetItem(int slot, Define.ItemType type, UnityAction action = null)
+        {
+            if (_player.ItemList.ContainsKey(slot))
+            {
+                if (_player.ItemList[slot].ItemType == type)
+                {
                     _player.ItemList[slot].ItemType = type;
                     _player.ItemList[slot].ItemNumber++;
                 }
             }
-            else {
+            else
+            {
                 _player.ItemList.Add(slot, new PlayerController.Item(type, 1));
             }
 
             _player.SetItemEvent.Invoke(slot, _player.ItemList[slot]);
-            
+            action?.Invoke();
             Debug.Log($"{type}아이템을 획득했습니다");
             Debug.Log($"{slot}번 슬롯에 {type}을 {_player.ItemList[slot].ItemNumber}개 추가");
 
-            
+
         }
         /// <summary>
         /// 플레이어가 렐릭을 습득 시 렐릭 할당. 각 렐릭 클래스에서 호출
         /// </summary>
         /// <param name="relic"></param>
 
-        public void SetRelic(IRelic relic) {
+        public void SetRelic(IRelic relic)
+        {
 
             _haveRelic[(int)relic.RelicType] = true;
             _player.WeaponController.SetRelic(relic);
@@ -164,7 +175,7 @@ namespace yb
                     _player.SetShield(true);
                     break;
             }
-            
+
 
         }
 
@@ -205,10 +216,10 @@ namespace yb
                 }
                 else
                 {
-                    
+
                     _collideItem = c.GetComponent<IObtainableObject>();
-                     c.GetComponent<IObtainableObject>().ShowName(_player);
-                     return;
+                    c.GetComponent<IObtainableObject>().ShowName(_player);
+                    return;
 
                 }
             }
@@ -258,8 +269,8 @@ namespace yb
 
                 }
             }
-               
+
             c.GetComponent<IObtainableObject>().HideName();
         }
-     } 
+    }
 }
