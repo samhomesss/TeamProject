@@ -348,24 +348,6 @@ namespace yb
         /// <summary>
         /// 플레이어 사망 이벤트(애니메이션에서 이벤트로 호출)
         /// </summary>
-        public void OnDieEvent() {
-
-        }
-        public void SetUI()// 0416 이희웅 플레이어 리스폰 될때 UI 초기화
-        {
-            GameObject uiroot = GameObject.Find("@UI_Root");
-            Managers.Resources.Destroy(Util.FindChild(uiroot, "UI_Weapon"));
-            Managers.Resources.Destroy(Util.FindChild(uiroot, "UI_Inven"));
-            Managers.Resources.Destroy(Util.FindChild(uiroot, "UI_Hp"));
-
-            Managers.SceneObj.ShowSceneObject<Map>().SetPlayer(GameObject.Find($"Player{PhotonNetwork.LocalPlayer.ActorNumber}").GetComponentInChildren<PlayerController>());
-            Managers.UI.ShowSceneUI<UI_Weapon>().Init();
-            Managers.UI.ShowSceneUI<UI_Inven>().Init();
-            Managers.UI.ShowSceneUI<UI_Hp>().Init();
-            Managers.UI.ShowSceneUI<UI_RelicInven>().Init();
-        }
-
-        /// <summary>
         /// 플레이어 피격 판정(피격 데미지, 공격자)
         /// </summary>
         /// <param name="amout"></param>
