@@ -28,7 +28,8 @@ namespace yb {
                             if (player.ItemList[count].ItemNumber < PlayerController.MaxItemNumber)
                             {
                                 player.PickupController.SetItem(count, type);
-                                Managers.Resources.Destroy(gameObject);
+                                if (PhotonNetwork.IsMasterClient)
+                                    Managers.Resources.Destroy(gameObject);
                                 break;
 
                             }
