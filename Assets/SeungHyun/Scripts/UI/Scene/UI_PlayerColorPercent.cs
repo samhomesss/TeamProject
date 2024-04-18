@@ -1,4 +1,5 @@
 using Photon.Pun;
+using Photon.Realtime;
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
@@ -10,7 +11,7 @@ using yb;
 using Color = UnityEngine.Color;
 public class UI_PlayerColorPercent : UI_Scene
 {
-
+    #region 현재 사용 안함
     //int player1Count;
     //int player2Count;
     //int player3Count;
@@ -19,8 +20,10 @@ public class UI_PlayerColorPercent : UI_Scene
     //int player6Count;
     //int player7Count;
     //int player8Count;
+    #endregion
 
-    
+    static public int[] PlayerCount => playerCount;
+    static int[] playerCount = new int[8];
 
     float resetTimer;
 
@@ -63,12 +66,22 @@ public class UI_PlayerColorPercent : UI_Scene
         if (timer <= 0)
         {
             ColorPercent();
+            Debug.Log(_players[0].NodeCount);
+
+            MapColorData.MapDataPlayer = _players;
+
+            Debug.Log(MapColorData.MapDataPlayer[0].NodeCount + "MapDataPlayer");
         }
     }
 
     void ColorPercent()
     {
+        for (int i = 0; i < playerCount.Length; i++)
+        {
+            playerCount[i] = 0;
+        }
         #region 원래 코드
+
         //player1Count = 0;
         //player2Count = 0;
         //player4Count = 0;
@@ -78,116 +91,157 @@ public class UI_PlayerColorPercent : UI_Scene
         //player7Count = 0;
         //player8Count = 0;
 
-        //foreach (var item in Map.Node)
-        //{
-
-        //    if (item.nodeColor == NodeColor.Red) 
-        //    {
-        //        player1Count++;
-        //        _playerSlider[0].GetComponent<Slider>().value = player1Count;
-        //    }
-        //    else if (item.nodeColor == NodeColor.Yellow)
-        //    {
-        //        player2Count++;
-        //        _playerSlider[1].GetComponent<Slider>().value = player2Count;
-        //    }
-        //    else if (item.nodeColor == NodeColor.Magenta)
-        //    {
-        //        player3Count++;
-        //        _playerSlider[2].GetComponent<Slider>().value = player3Count;
-
-        //    }
-        //    else if (item.nodeColor == NodeColor.Cyan)
-        //    {
-        //        player4Count++;
-        //        _playerSlider[3].GetComponent<Slider>().value = player4Count;
-
-        //    }
-        //    else if (item.nodeColor == NodeColor.Green)
-        //    {
-        //        player5Count++;
-        //        _playerSlider[4].GetComponent<Slider>().value = player5Count;
-        //    }
-        //    else if (item.nodeColor == NodeColor.Blue)
-        //    {
-        //        player6Count++;
-        //        _playerSlider[5].GetComponent<Slider>().value = player6Count;
-
-        //    }
-        //    else if (item.nodeColor == NodeColor.Gray)
-        //    {
-        //        player7Count++;
-        //        _playerSlider[6].GetComponent<Slider>().value = player7Count;
-        //    }
-        //    else if (item.nodeColor == NodeColor.Black)
-        //    {
-        //        player8Count++;
-        //        _playerSlider[7].GetComponent<Slider>().value = player8Count;
-        //    }
-        //}
-        #endregion
-
-        for (int j = 0; j < _players.Count; j++)
-        {
-            _players[j].NodeCount = 0;
-        }
-
         foreach (var item in Map.Node)
         {
 
             if (item.nodeColor == NodeColor.Red)
             {
-                _players[0].NodeCount++;
-                _playerSlider[0].GetComponent<Slider>().value = _players[0].NodeCount;
+                playerCount[0]++;
+                _players[0].NodeCount = playerCount[0];
+                _playerSlider[0].GetComponent<Slider>().value = playerCount[0];
+                _playerSlider[0].SetActive(true);
+
             }
             else if (item.nodeColor == NodeColor.Yellow)
             {
-                _players[1].NodeCount++;
-                _playerSlider[1].GetComponent<Slider>().value = _players[1].NodeCount;
+                playerCount[1]++;
+                _players[1].NodeCount = playerCount[1];
+                _playerSlider[1].GetComponent<Slider>().value = playerCount[1];
+                _playerSlider[1].SetActive(true);
+
             }
             else if (item.nodeColor == NodeColor.Magenta)
             {
-                _players[2].NodeCount++;
-                _playerSlider[2].GetComponent<Slider>().value = _players[2].NodeCount;
+                playerCount[2]++;
+                _players[2].NodeCount = playerCount[2];
+                _playerSlider[2].GetComponent<Slider>().value = playerCount[2];
 
             }
             else if (item.nodeColor == NodeColor.Cyan)
             {
-                _players[3].NodeCount++;
-                _playerSlider[3].GetComponent<Slider>().value = _players[3].NodeCount;
+                playerCount[3]++;
+                _players[3].NodeCount = playerCount[3];
+                _playerSlider[3].GetComponent<Slider>().value = playerCount[3];
 
             }
             else if (item.nodeColor == NodeColor.Green)
             {
-                _players[4].NodeCount++;
-                _playerSlider[4].GetComponent<Slider>().value = _players[4].NodeCount;
+                playerCount[4]++;
+                _players[4].NodeCount = playerCount[4];
+                _playerSlider[4].GetComponent<Slider>().value = playerCount[4];
             }
             else if (item.nodeColor == NodeColor.Blue)
             {
-                _players[5].NodeCount++;
-                _playerSlider[5].GetComponent<Slider>().value = _players[5].NodeCount;
+                playerCount[5]++;
+                _players[5].NodeCount = playerCount[5];
+                _playerSlider[5].GetComponent<Slider>().value = playerCount[5];
 
             }
             else if (item.nodeColor == NodeColor.Gray)
             {
-                _players[6].NodeCount++;
-                _playerSlider[6].GetComponent<Slider>().value = _players[6].NodeCount;
+                playerCount[6]++;
+                _players[6].NodeCount = playerCount[0];
+                _playerSlider[6].GetComponent<Slider>().value = playerCount[6];
             }
             else if (item.nodeColor == NodeColor.Black)
             {
-                _players[7].NodeCount++;
-                _playerSlider[7].GetComponent<Slider>().value = _players[7].NodeCount;
+                playerCount[7]++;
+                _players[7].NodeCount = playerCount[7];
+                _playerSlider[7].GetComponent<Slider>().value = playerCount[7];
             }
-            //for (int i = 0; i < _players.Count; i++)
-            //{
-                
-            //    if (item.nodeColor == (NodeColor)i)
-            //    {
-            //        _playerSlider[i].GetComponent<Slider>().value = ++_players[i].NodeCount;
-            //        _playerSlider[i].SetActive(true);
-            //    }
-            //}
         }
-    }
+        #endregion
 
+        #region 빨간생 판정 밖에 안되어서 기각 첫번째 값만 받아오는듯
+
+        //foreach (var item in Map.Node)
+        //{
+        //    for (int i = 0; i < _players.Count; i++)
+        //    {
+        //        if (item.nodeColor == (NodeColor)i)
+        //        {
+        //            playerCount[i]++;
+        //            //_players[i].NodeCount = playerCount[i];
+        //            _playerSlider[i].GetComponent<Slider>().value = playerCount[i];
+        //            _playerSlider[i].SetActive(true);
+
+        //        }
+        //    }
+        //}
+        #endregion 
+
+        #region 그냥 NodeCount 판정
+
+        //for (int j = 0; j < _players.Count; j++)
+        //{
+        //    _players[j].NodeCount = 0;
+        //}
+
+        //foreach (var item in Map.Node)
+        //{
+
+        //    if (item.nodeColor == NodeColor.Red)
+        //    {
+        //        _players[0].NodeCount++;
+        //        _playerSlider[0].GetComponent<Slider>().value = _players[0].NodeCount;
+        //        _playerSlider[0].SetActive(true);
+        //    }
+        //    else if (item.nodeColor == NodeColor.Yellow)
+        //    {
+        //        _players[1].NodeCount++;
+        //        _playerSlider[1].GetComponent<Slider>().value = _players[1].NodeCount;
+        //        _playerSlider[1].SetActive(true);
+        //    }
+        //    else if (item.nodeColor == NodeColor.Magenta)
+        //    {
+        //        _players[2].NodeCount++;
+        //        _playerSlider[2].GetComponent<Slider>().value = _players[2].NodeCount;
+        //        _playerSlider[2].SetActive(true);
+
+        //    }
+        //    else if (item.nodeColor == NodeColor.Cyan)
+        //    {
+        //        _players[3].NodeCount++;
+        //        _playerSlider[3].GetComponent<Slider>().value = _players[3].NodeCount;
+        //        _playerSlider[3].SetActive(true);
+
+        //    }
+        //    else if (item.nodeColor == NodeColor.Green)
+        //    {
+        //        _players[4].NodeCount++;
+        //        _playerSlider[4].GetComponent<Slider>().value = _players[4].NodeCount;
+        //        _playerSlider[4].SetActive(true);
+        //    }
+        //    else if (item.nodeColor == NodeColor.Blue)
+        //    {
+        //        _players[5].NodeCount++;
+        //        _playerSlider[5].GetComponent<Slider>().value = _players[5].NodeCount;
+        //        _playerSlider[5].SetActive(true);
+
+        //    }
+        //    else if (item.nodeColor == NodeColor.Gray)
+        //    {
+        //        _players[6].NodeCount++;
+        //        _playerSlider[6].GetComponent<Slider>().value = _players[6].NodeCount;
+        //        _playerSlider[6].SetActive(true);
+        //    }
+        //    else if (item.nodeColor == NodeColor.Black)
+        //    {
+        //        _players[7].NodeCount++;
+        //        _playerSlider[7].GetComponent<Slider>().value = _players[7].NodeCount;
+        //        _playerSlider[7].SetActive(true);
+        //    }
+        //for (int i = 0; i < _players.Count; i++)
+        //{
+
+        //    if (item.nodeColor == (NodeColor)i)
+        //    {
+        //        _playerSlider[i].GetComponent<Slider>().value = ++_players[i].NodeCount;
+        //        _playerSlider[i].SetActive(true);
+        //    }
+        //}
+        #endregion
+    }
 }
+
+

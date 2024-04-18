@@ -38,7 +38,7 @@ public class GameManager : MonoBehaviour
     public void Update()
     {
         //todo
-        if(IsTestMode.Instance.CurrentUser == User.Hw)
+        if (IsTestMode.Instance.CurrentUser == User.Hw)
         {
             ProgramWorkFlow();
         }
