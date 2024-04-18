@@ -320,6 +320,7 @@ namespace yb
             _collider.enabled = false;
             _rigid.isKinematic = true;
             _rotateToMouseScript.PlayerDead();
+            transform.position += Vector3.up;
             ChangeTriggerAnimation(Define.PlayerState.Die);
             Invoke("PlayerRespawn", _status.ResurrectionTime);
         }
@@ -328,6 +329,7 @@ namespace yb
         /// 플레이어 부활 재배치 로직
         /// </summary>
         private void PlayerRespawn() {
+            transform.position += Vector3.down;
             _stateController.ChangeState(new PlayerState_Idle(this));
             Status.SetHp(Status.MaxHp - Status.CurrentHp);
             ChangeTriggerAnimation(Define.PlayerState.Respawn);
@@ -336,6 +338,11 @@ namespace yb
             _rotateToMouseScript.PlayerRespawn();
             Transform tr = RespawnManager.Instance.RespawnPoints;
             transform.position = tr.GetChild(UnityEngine.Random.Range(0, tr.childCount - 1)).position;
+            HpEvent.Invoke(Status.CurrentHp, Status.MaxHp);
+            RangedWeapon weapon = _weaponController.RangedWeapon as RangedWeapon;
+            weapon.InitBullet();
+            BulletEvent.Invoke(weapon.CurrentBullet, weapon.MaxBullet);
+         
         }
 
         /// <summary>
@@ -343,19 +350,6 @@ namespace yb
         /// </summary>
         public void OnDieEvent() {
 
-        }
-        public void SetUI()// 0416 이희웅 플레이어 리스폰 될때 UI 초기화
-        {
-            GameObject uiroot = GameObject.Find("@UI_Root");
-            Managers.Resources.Destroy(Util.FindChild(uiroot, "UI_Weapon"));
-            Managers.Resources.Destroy(Util.FindChild(uiroot, "UI_Inven"));
-            Managers.Resources.Destroy(Util.FindChild(uiroot, "UI_Hp"));
-
-            Managers.SceneObj.ShowSceneObject<Map>().SetPlayer(GameObject.Find($"Player{PhotonNetwork.LocalPlayer.ActorNumber}").GetComponentInChildren<PlayerController>());
-            Managers.UI.ShowSceneUI<UI_Weapon>().Init();
-            Managers.UI.ShowSceneUI<UI_Inven>().Init();
-            Managers.UI.ShowSceneUI<UI_Hp>().Init();
-            Managers.UI.ShowSceneUI<UI_RelicInven>().Init();
         }
 
         /// <summary>
