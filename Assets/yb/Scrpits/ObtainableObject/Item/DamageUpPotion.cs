@@ -33,7 +33,7 @@ namespace yb
                             if (player.ItemList[count].ItemNumber < PlayerController.MaxItemNumber)
                             {
                                 player.PickupController.SetItem(count, type);
-                                    PhotonNetwork.Destroy(gameObject);
+                                DeleteItem();
                                 break;
 
                             }
@@ -52,13 +52,17 @@ namespace yb
                     else
                     {
                         player.PickupController.SetItem(count, type);
-                            PhotonNetwork.Destroy(gameObject);
+                        DeleteItem();
                         break;
                     }
                 }
             }
         }
-
+        public void DeleteItem()
+        {
+            if (PhotonNetwork.IsMasterClient)
+                PhotonNetwork.Destroy(gameObject);
+        }
 
         public override void Pickup(PlayerController player)
         {

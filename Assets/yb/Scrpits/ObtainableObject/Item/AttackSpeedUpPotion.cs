@@ -5,9 +5,12 @@ using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 
-namespace yb {
-    public class AttackSpeedUpPotion : ObtainableItem {
-        private void Start() {
+namespace yb
+{
+    public class AttackSpeedUpPotion : ObtainableItem
+    {
+        private void Start()
+        {
             _photonView = GetComponent<PhotonView>(); //0417 23:50 ¿Ã»Òøı√ﬂ∞° 
             type = Define.ItemType.AttackSpeedUpPotion;
         }
@@ -29,8 +32,9 @@ namespace yb {
                         {
                             if (player.ItemList[count].ItemNumber < PlayerController.MaxItemNumber)
                             {
+
                                 player.PickupController.SetItem(count, type);
-                                    PhotonNetwork.Destroy(gameObject);
+                                DeleteItem();
                                 break;
 
                             }
@@ -49,33 +53,44 @@ namespace yb {
                     else
                     {
                         player.PickupController.SetItem(count, type);
-                            PhotonNetwork.Destroy(gameObject);
+                        DeleteItem();
                         break;
                     }
                 }
             }
         }
+        public void DeleteItem()
+        {
+            if(PhotonNetwork.IsMasterClient)
+                PhotonNetwork.Destroy(gameObject);
+        }
 
-            
-       
         public override void Pickup(PlayerController player)
         {
             base.Pickup(player);
 
             int count = 0;
-            while(count < PlayerController.MaxItemSlot) {
-                if (player.ItemList.ContainsKey(count)) {
-                    if (player.ItemList[count].ItemType == type) {
-                        if (player.ItemList[count].ItemNumber < PlayerController.MaxItemNumber) {
+            while (count < PlayerController.MaxItemSlot)
+            {
+                if (player.ItemList.ContainsKey(count))
+                {
+                    if (player.ItemList[count].ItemType == type)
+                    {
+                        if (player.ItemList[count].ItemNumber < PlayerController.MaxItemNumber)
+                        {
                             player.PickupController.SetItem(count, type);
                             Managers.Resources.Destroy(gameObject);
                             break;
 
-                        } else {
+                        }
+                        else
+                        {
                             count++;
                             continue;
                         }
-                    } else {
+                    }
+                    else
+                    {
                         count++;
                         continue;
                     }
