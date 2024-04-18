@@ -20,7 +20,7 @@ namespace yb {
             int count = 0;
             if (playerViewId == map.Player.GetComponent<PhotonView>().ViewID)
             {
-                if (PhotonNetwork.IsMasterClient)
+                if (_photonView != null)
                     _photonView.TransferOwnership(playerViewId);
                 while (count < PlayerController.MaxItemSlot)
                 {
