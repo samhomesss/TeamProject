@@ -318,20 +318,23 @@ namespace yb
         /// <param name="attacker"></param>
         public void OnDieUpdate(GameObject attacker)
         {
-            transform.LookAt(attacker.transform.position);
-            _collider.enabled = false;
-            _rigid.isKinematic = true;
-            _rotateToMouseScript.PlayerDead();
-            transform.position += Vector3.up;
-            ChangeTriggerAnimation(Define.PlayerState.Die);
-            Invoke("PlayerRespawn", _status.ResurrectionTime);
+            if (_photonview.IsMine)
+            {
+                transform.LookAt(attacker.transform.position);
+                _collider.enabled = false;
+                _rigid.isKinematic = true;
+                _rotateToMouseScript.PlayerDead();
+                transform.position += Vector3.up;
+                ChangeTriggerAnimation(Define.PlayerState.Die);
+                Invoke("PlayerRespawn", _status.ResurrectionTime);
+            }
         }
 
         /// <summary>
         /// 플레이어 부활 재배치 로직
         /// </summary>
         private void PlayerRespawn() {
-            if (_photonview.IsMine)
+            if (_photonview.IsMine)//0418 이희웅 추가 모든 플레이어가 실행되기 때문에 자기 플레이어만 실행되도록
             {
                 transform.position += Vector3.down;
                 _stateController.ChangeState(new PlayerState_Idle(this));
