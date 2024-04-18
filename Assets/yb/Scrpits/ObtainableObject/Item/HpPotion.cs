@@ -56,25 +56,33 @@ namespace yb {
         }
         public override void Pickup(PlayerController player) {
             base.Pickup(player);
-            if (player.ItemList.Count >= PlayerController.MaxItemSlot) {
-                Debug.Log($"모든 슬롯이 가득 찼습니다");
-                return;
-            }
+            
+            //0번 슬롯부터 확인
+            //슬롯에 키값이 있다면, 그 슬롯에 있는 아이템 타입과 비교
+            //그 슬롯의 아이템 타입과 같을 때
+            //최대 아이템 갯수보다 보유 아이템 갯수가 적으면 그 슬롯에 추가
+            //아이템 갯수가 더 많으면 다음 슬롯 검색
+            //그 슬롯의 아이템 타입과 같지 않다면, 다음 슬롯 검색
+            //슬롯에 키값이 없다면, 바로 추가
 
             int count = 0;
-            while(count < PlayerController.MaxItemSlot) {
+            while (count < PlayerController.MaxItemSlot) {
                 if (player.ItemList.ContainsKey(count)) {
-                    if (player.ItemList[count].ItemNumber >= PlayerController.MaxItemNumber) {
-                        Debug.Log($"{count}슬롯이 가득 찼습니다");
+                    if (player.ItemList[count].ItemType == type) {
+                        if (player.ItemList[count].ItemNumber < PlayerController.MaxItemNumber) {
+                            player.PickupController.SetItem(count, type);
+                            Managers.Resources.Destroy(gameObject);
+                            break;
+
+                        } else {
+                            count++;
+                            continue;
+                        }
+                    } else {
                         count++;
                         continue;
-                    } else {
-                        player.PickupController.SetItem(count, type);
-                        Managers.Resources.Destroy(gameObject);
-                        break;
                     }
-                }
-                else {
+                } else {
                     player.PickupController.SetItem(count, type);
                     Managers.Resources.Destroy(gameObject);
                     break;
