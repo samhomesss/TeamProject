@@ -60,7 +60,6 @@ public class UI_Weapon : UI_Scene
 
         if (IsTestMode.Instance.CurrentUser == Define.User.Hw)
         {
-            if(!PhotonNetwork.IsMasterClient)
             _photonView.RPC("Replacedweapon", RpcTarget.All, beforeItemID, _photonView.ViewID);
 
 
