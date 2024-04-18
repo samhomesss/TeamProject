@@ -89,14 +89,14 @@ public class UI_GameResult : UI_Scene
             else if (MapColorData.MapDataPlayer.Count == 2)
             {
                 
-                if (MapColorData.MapDataPlayer[i].NodeCount < MapColorData.MapDataPlayer[i+1].NodeCount)
+                if (MapColorData.MapDataPlayer[0].NodeCount < MapColorData.MapDataPlayer[1].NodeCount)
                 {
-                    int temp = MapColorData.MapDataPlayer[i].NodeCount;
-                    MapColorData.MapDataPlayer[i].NodeCount = MapColorData.MapDataPlayer[i+1].NodeCount;
-                    MapColorData.MapDataPlayer[i+1].NodeCount = temp;
+                    int temp = MapColorData.MapDataPlayer[0].NodeCount;
+                    MapColorData.MapDataPlayer[0].NodeCount = MapColorData.MapDataPlayer[1].NodeCount;
+                    MapColorData.MapDataPlayer[1].NodeCount = temp;
 
-                    Player1 = PhotonNetwork.PlayerList[i].NickName;
-                    Player2 = PhotonNetwork.PlayerList[i+1].NickName;
+                    Player1 = PhotonNetwork.PlayerList[0].NickName;
+                    Player2 = PhotonNetwork.PlayerList[1].NickName;
 
                     string strtemp = Player1;
                     Player1 = Player2;
@@ -104,10 +104,10 @@ public class UI_GameResult : UI_Scene
                 }
                 resultInfo.PlayerNickName.text = Player1;
                 secondResultInfo.PlayerNickName.text = Player2;
-                resultInfo.PlayerColorPercent.value = MapColorData.MapDataPlayer[i].NodeCount * 10;
-                secondResultInfo.PlayerColorPercent.value = MapColorData.MapDataPlayer[i+1].NodeCount * 10;
-                resultInfo.PlayerColorPercent.gameObject.transform.GetChild(2).GetComponent<TMP_Text>().text = ((int)((float)(MapColorData.MapDataPlayer[i].NodeCount) / 4096 * 100)).ToString() + "%";
-                secondResultInfo.PlayerColorPercent.gameObject.transform.GetChild(2).GetComponent<TMP_Text>().text = ((int)((float)(MapColorData.MapDataPlayer[i+1].NodeCount) / 4096 * 100)).ToString() + "%";
+                resultInfo.PlayerColorPercent.value = MapColorData.MapDataPlayer[0].NodeCount * 10;
+                secondResultInfo.PlayerColorPercent.value = MapColorData.MapDataPlayer[1].NodeCount * 10;
+                resultInfo.PlayerColorPercent.gameObject.transform.GetChild(2).GetComponent<TMP_Text>().text = ((int)((float)(MapColorData.MapDataPlayer[0].NodeCount) / 4096 * 100)).ToString() + "%";
+                secondResultInfo.PlayerColorPercent.gameObject.transform.GetChild(2).GetComponent<TMP_Text>().text = ((int)((float)(MapColorData.MapDataPlayer[1].NodeCount) / 4096 * 100)).ToString() + "%";
             }
             else
             {
