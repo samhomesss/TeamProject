@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UI_GameResult : UI_Scene
 {
@@ -89,9 +90,15 @@ public class UI_GameResult : UI_Scene
 
                 if (MapColorData.MapPlayerCountData[0] < MapColorData.MapPlayerCountData[1])
                 {
+                    Debug.Log(MapColorData.MapPlayerCountData[0] + "mapData 1번");
+                    Debug.Log(MapColorData.MapPlayerCountData[1] + "mapData 2번");
+
                     int temp = MapColorData.MapPlayerCountData[0];
                     MapColorData.MapPlayerCountData[0] = MapColorData.MapPlayerCountData[1];
                     MapColorData.MapPlayerCountData[1] = temp;
+
+                    Debug.Log(MapColorData.MapPlayerCountData[0] + "mapData 1번");
+                    Debug.Log(MapColorData.MapPlayerCountData[1] + "mapData 2번");
 
                     Player1 = PhotonNetwork.PlayerList[0].NickName;
                     Player2 = PhotonNetwork.PlayerList[1].NickName;
@@ -99,6 +106,8 @@ public class UI_GameResult : UI_Scene
                     string strtemp = Player1;
                     Player1 = Player2;
                     Player2 = strtemp;
+
+
                     playerResultInfos[0].GetComponent<PlayerResultInfo>().PlayerNickName.text = Player1;
                     playerResultInfos[1].GetComponent<PlayerResultInfo>().PlayerNickName.text = Player2;
                     playerResultInfos[0].GetComponent<PlayerResultInfo>().PlayerColorPercent.value = MapColorData.MapPlayerCountData[0] * 10;
