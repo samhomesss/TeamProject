@@ -21,10 +21,9 @@ namespace yb
             PhotonView playerPhotonView = PhotonNetwork.GetPhotonView(playerViewId);
             PlayerController player = playerPhotonView.GetComponent<PlayerController>();
             int count = 0;
-            if (playerViewId == map.Player.GetComponent<PhotonView>().ViewID)
+            if (PhotonNetwork.GetPhotonView(playerViewId).IsMine)
             {
-                if (_photonView != null)
-                    _photonView.TransferOwnership(playerViewId);
+               _photonView.TransferOwnership(playerViewId);
                 while (count < PlayerController.MaxItemSlot)
                 {
                     if (player.ItemList.ContainsKey(count))
@@ -34,10 +33,8 @@ namespace yb
                             if (player.ItemList[count].ItemNumber < PlayerController.MaxItemNumber)
                             {
                                 player.PickupController.SetItem(count, type);
-                                if (PhotonNetwork.IsMasterClient)
-                                    PhotonNetwork.Destroy(gameObject);
+                                PhotonNetwork.Destroy(gameObject);
                                 break;
-
                             }
                             else
                             {
@@ -54,8 +51,7 @@ namespace yb
                     else
                     {
                         player.PickupController.SetItem(count, type);
-                        if (PhotonNetwork.IsMasterClient)
-                            PhotonNetwork.Destroy(gameObject);
+                         PhotonNetwork.Destroy(gameObject);
                         break;
                     }
                 }
