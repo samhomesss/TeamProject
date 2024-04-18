@@ -33,6 +33,7 @@ namespace yb
                             {
 
                                 player.PickupController.SetItem(count, type);
+                                _photonView.TransferOwnership(playerViewId);
                                 PhotonNetwork.Destroy(gameObject);
                                 break;
 
@@ -52,16 +53,12 @@ namespace yb
                     else
                     {
                         player.PickupController.SetItem(count, type);
+                        _photonView.TransferOwnership(playerViewId);
                         PhotonNetwork.Destroy(gameObject);
                         break;
                     }
                 }
             }
-        }
-        public void DeleteItem()
-        {
-            if(PhotonNetwork.IsMasterClient)
-                PhotonNetwork.Destroy(gameObject);
         }
 
         public override void Pickup(PlayerController player)
