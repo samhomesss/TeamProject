@@ -30,6 +30,9 @@ namespace yb
             MaxDelay = _data.DefaultWeaponDelay((int)WeaponType);
             _currentBullet = _remainBullet;
 
+            _player.BulletEvent?.Invoke(_currentBullet, _maxBullet);
+
+
             OnUpdateRelic(player);  //보유중인 렐릭 효과 부여
         }
 

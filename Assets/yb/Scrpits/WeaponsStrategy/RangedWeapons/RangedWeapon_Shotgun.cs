@@ -21,6 +21,9 @@ namespace yb {
             MaxDelay = _data.DefaultWeaponDelay((int)WeaponType);
             _currentBullet = _remainBullet;
 
+            _player.BulletEvent?.Invoke(_currentBullet, _maxBullet);
+
+
             OnUpdateRelic(player);
         }
 
@@ -39,8 +42,8 @@ namespace yb {
                 _maxBullet -= _remainBullet;
             }
 
-        //    _player.PlayerEvent.Item2.Invoke(_currentBullet, _maxBullet);
-
+            //    _player.PlayerEvent.Item2.Invoke(_currentBullet, _maxBullet);
+            _player.BulletEvent?.Invoke(_currentBullet, _maxBullet);
             player.StateController.ChangeState(new PlayerState_Idle(player));
         }
         public void OnUpdate() {
@@ -72,8 +75,8 @@ namespace yb {
             }
 
             _currentBullet--;
-         //   _player.PlayerEvent.Item2.Invoke(_currentBullet, _maxBullet);
-
+            //   _player.PlayerEvent.Item2.Invoke(_currentBullet, _maxBullet);
+            _player.BulletEvent?.Invoke(_currentBullet, _maxBullet);
             int projectileNumber = Random.Range(0, 1f) > _data.BonusProjectileChance((int)WeaponType) ? _data.DefaultShotgunProjectile : Mathf.Max(_data.DefaultShotgunProjectile + _bonusProjectile, 1);
 
             for(int i = 0; i< projectileNumber; i++)

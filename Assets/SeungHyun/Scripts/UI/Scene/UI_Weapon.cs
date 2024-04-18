@@ -27,7 +27,7 @@ public class UI_Weapon : UI_Scene
     string slotItemID = Define.WeaponType.Pistol.ToString(); // 처음은 피스톨로 설정 해주고
     private void Start()
     {
-        Debug.Log(slotItemID + "입니다");
+        //Debug.Log(slotItemID + "입니다");
         Init();
     }
     public override void Init()
@@ -46,6 +46,7 @@ public class UI_Weapon : UI_Scene
 
         mainWeapon.transform.GetChild(0).GetComponentInChildren<Image>().sprite = Managers.ItemDataBase.GetItemData(slotItemID).itemImage;
         _mainWeaponImage = mainWeapon.GetComponentInChildren<Image>();
+
         _bulletText = BulletText.GetComponent<Text>();
         _bulletText.text = "15 / 60";
     }
@@ -79,6 +80,7 @@ public class UI_Weapon : UI_Scene
     // 총알 나가는거
     void BulletCount(int bulletnum , int maxBullet)
     {
+        #region 주석
         //if (!isReload)
         //{
         //    _bulletCount -= bulletnum;
@@ -87,8 +89,9 @@ public class UI_Weapon : UI_Scene
         //    {
         //        StartCoroutine("ReloadBullet");
         //    }
-            
+
         //}
+        #endregion
         _bulletText.text = $"{bulletnum} / {maxBullet}";
 
 
