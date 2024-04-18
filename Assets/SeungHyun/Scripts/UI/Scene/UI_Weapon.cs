@@ -24,7 +24,6 @@ public class UI_Weapon : UI_Scene
     int _maxBullet = 15;
     int _bulletCount = 60;
 
-    GameObject ChangeWeaponObject;//
 
     string slotItemID = Define.WeaponType.Pistol.ToString(); // 처음은 피스톨로 설정 해주고
     private void Start()
@@ -61,12 +60,17 @@ public class UI_Weapon : UI_Scene
 
         if (IsTestMode.Instance.CurrentUser == Define.User.Hw)
         {
-            if (_photonView.IsMine)
-            {
-                map.Player.PhotonView.RPC("Replacedweapon",RpcTarget.All, beforeItemID);
-                map.Player.PhotonView.RPC("SetDropItemName", RpcTarget.All, ChangeWeaponObject.GetComponent<PhotonView>().ViewID);//이름 바꾸기
-            }
 
+            map.Player.PhotonView.RPC("Replacedweapon",RpcTarget.All, beforeItemID);
+
+
+            //GameObject go = PhotonNetwork.Instantiate($"Prefabs/yb/Weapon/{Managers.ItemDataBase.GetItemData(beforeItemID).itemName}", Vector3.zero, Quaternion.identity);
+
+            //if (_photonView.IsMine)
+            //{
+            //    map.Player.PhotonView.RPC("SetDropItemName", RpcTarget.All, go.GetComponent<PhotonView>().ViewID);//이름 바꾸기
+            //    go.transform.position = map.Player.transform.position + Vector3.up;
+            //}
         }
         else
         {
