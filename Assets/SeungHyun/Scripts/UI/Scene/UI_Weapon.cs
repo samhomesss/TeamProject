@@ -60,7 +60,7 @@ public class UI_Weapon : UI_Scene
 
         if (IsTestMode.Instance.CurrentUser == Define.User.Hw)
         {
-                _photonView.RPC("Replacedweapon", RpcTarget.All, beforeItemID, _photonView.ViewID);
+            //_photonView.RPC("Replacedweapon", RpcTarget.All, beforeItemID, _photonView.ViewID);
 
 
             //GameObject go = PhotonNetwork.Instantiate($"Prefabs/yb/Weapon/{Managers.ItemDataBase.GetItemData(beforeItemID).itemName}", Vector3.zero, Quaternion.identity);
@@ -69,7 +69,14 @@ public class UI_Weapon : UI_Scene
             //{
             //    map.Player.PhotonView.RPC("SetDropItemName", RpcTarget.All, go.GetComponent<PhotonView>().ViewID);//이름 바꾸기
             //    go.transform.position = map.Player.transform.position + Vector3.up;
-            //}
+
+            GameObject ChangeWeaponObject = PhotonNetwork.Instantiate($"Prefabs/yb/Weapon/{Managers.ItemDataBase.GetItemData(beforeItemID).itemName}", Vector3.zero, Quaternion.identity);
+            ChangeWeaponObject.transform.position = _photonView.transform.position + Vector3.up;
+            int index = ChangeWeaponObject.transform.gameObject.name.IndexOf("(Clone)");
+            if (index > 0)
+                ChangeWeaponObject.transform.gameObject.name = ChangeWeaponObject.transform.gameObject.name.Substring(0, index);
+
+
         }
         else
         {

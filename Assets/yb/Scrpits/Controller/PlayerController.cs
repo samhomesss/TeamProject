@@ -443,18 +443,15 @@ namespace yb
             }
         }
 
-        GameObject ChangeWeaponObject;
         [PunRPC]
         public void Replacedweapon(string beforeItemID, int ViewID)
         {
                 PhotonView controller = PhotonNetwork.GetPhotonView(ViewID);
-            if (PhotonNetwork.IsMasterClient)
-                ChangeWeaponObject = PhotonNetwork.Instantiate($"Prefabs/yb/Weapon/{Managers.ItemDataBase.GetItemData(beforeItemID).itemName}", Vector3.zero, Quaternion.identity);
+                GameObject ChangeWeaponObject = PhotonNetwork.Instantiate($"Prefabs/yb/Weapon/{Managers.ItemDataBase.GetItemData(beforeItemID).itemName}", Vector3.zero, Quaternion.identity);
                 ChangeWeaponObject.transform.position = controller.transform.position + Vector3.up;
                 int index = ChangeWeaponObject.transform.gameObject.name.IndexOf("(Clone)");
                 if (index > 0)
                     ChangeWeaponObject.transform.gameObject.name = ChangeWeaponObject.transform.gameObject.name.Substring(0, index);
-           
         }
     }
 }
