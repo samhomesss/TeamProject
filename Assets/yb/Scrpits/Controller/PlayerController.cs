@@ -56,8 +56,10 @@ namespace yb
         public Dictionary<int, Item> ItemList => _itemList;
         public int HaveRelicNumber { get; set; }
 
-        public class Item {
-            public Item(Define.ItemType type, int number) {
+        public class Item
+        {
+            public Item(Define.ItemType type, int number)
+            {
                 ItemType = type;
                 ItemNumber = number;
             }
@@ -214,7 +216,7 @@ namespace yb
                 return false;
 
             #region 승현 추가 04.11
-            
+
             //MapEvent?.Invoke();
             //ClosedItemEvent?.Invoke();            
 
@@ -256,7 +258,8 @@ namespace yb
         /// <param name="state"></param>
         public void ChangeTriggerAnimation(Define.PlayerState state)//0408 16:38분 이희웅 업데이트 추가
         {
-            if(IsTestMode.Instance.CurrentUser == Define.User.Hw) {
+            if (IsTestMode.Instance.CurrentUser == Define.User.Hw)
+            {
                 if (_photonview.IsMine)
                     _animator.SetTrigger(state.ToString());
             }
@@ -291,7 +294,8 @@ namespace yb
 
                 }
             }
-            else {
+            else
+            {
                 Vector3 dir = new Vector3(moveX, 0f, moveZ);
                 _rigid.MovePosition(_rigid.position + dir * (_status.MoveSpeed * _status.MoveSpeedDecrease) * Time.deltaTime);
                 _playerMoveVelocity = dir * (_status.MoveSpeed * _status.MoveSpeedDecrease) * Time.deltaTime;
@@ -333,7 +337,8 @@ namespace yb
         /// <summary>
         /// 플레이어 부활 재배치 로직
         /// </summary>
-        private void PlayerRespawn() {
+        private void PlayerRespawn()
+        {
             if (_photonview.IsMine)//0418 이희웅 추가 모든 플레이어가 실행되기 때문에 자기 플레이어만 실행되도록
             {
                 transform.position += Vector3.down;
@@ -355,7 +360,8 @@ namespace yb
         /// <summary>
         /// 플레이어 사망 이벤트(애니메이션에서 이벤트로 호출)
         /// </summary>
-        public void OnDieEvent() {
+        public void OnDieEvent()
+        {
 
         }
 
@@ -437,15 +443,17 @@ namespace yb
             }
         }
         [PunRPC]
-        public void Replacedweapon(string beforeItemID,int ViewID)
+        public void Replacedweapon(string beforeItemID, int ViewID)
         {
-                PhotonView controller = PhotonNetwork.GetPhotonView(ViewID);
+            PhotonView controller = PhotonNetwork.GetPhotonView(ViewID);
+            if (PhotonNetwork.IsMasterClient)
+            {
                 GameObject ChangeWeaponObject = PhotonNetwork.Instantiate($"Prefabs/yb/Weapon/{Managers.ItemDataBase.GetItemData(beforeItemID).itemName}", Vector3.zero, Quaternion.identity);
                 ChangeWeaponObject.transform.position = controller.transform.position + Vector3.up;
                 int index = ChangeWeaponObject.transform.gameObject.name.IndexOf("(Clone)");
                 if (index > 0)
                     ChangeWeaponObject.transform.gameObject.name = ChangeWeaponObject.transform.gameObject.name.Substring(0, index);
-            
+            }
         }
     }
 }
