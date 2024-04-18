@@ -139,44 +139,52 @@ public class UI_PlayerColorPercent : UI_Scene
             {
                 _players[0].NodeCount++;
                 _playerSlider[0].GetComponent<Slider>().value = _players[0].NodeCount;
+                _playerSlider[0].SetActive(true);
             }
             else if (item.nodeColor == NodeColor.Yellow)
             {
                 _players[1].NodeCount++;
                 _playerSlider[1].GetComponent<Slider>().value = _players[1].NodeCount;
+                _playerSlider[1].SetActive(true);
             }
             else if (item.nodeColor == NodeColor.Magenta)
             {
                 _players[2].NodeCount++;
                 _playerSlider[2].GetComponent<Slider>().value = _players[2].NodeCount;
+                _playerSlider[2].SetActive(true);
 
             }
             else if (item.nodeColor == NodeColor.Cyan)
             {
                 _players[3].NodeCount++;
                 _playerSlider[3].GetComponent<Slider>().value = _players[3].NodeCount;
+                _playerSlider[3].SetActive(true);
 
             }
             else if (item.nodeColor == NodeColor.Green)
             {
                 _players[4].NodeCount++;
                 _playerSlider[4].GetComponent<Slider>().value = _players[4].NodeCount;
+                _playerSlider[4].SetActive(true);
             }
             else if (item.nodeColor == NodeColor.Blue)
             {
                 _players[5].NodeCount++;
                 _playerSlider[5].GetComponent<Slider>().value = _players[5].NodeCount;
+                _playerSlider[5].SetActive(true);
 
             }
             else if (item.nodeColor == NodeColor.Gray)
             {
                 _players[6].NodeCount++;
                 _playerSlider[6].GetComponent<Slider>().value = _players[6].NodeCount;
+                _playerSlider[6].SetActive(true);
             }
             else if (item.nodeColor == NodeColor.Black)
             {
                 _players[7].NodeCount++;
                 _playerSlider[7].GetComponent<Slider>().value = _players[7].NodeCount;
+                _playerSlider[7].SetActive(true);
             }
             //for (int i = 0; i < _players.Count; i++)
             //{
