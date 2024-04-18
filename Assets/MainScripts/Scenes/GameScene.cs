@@ -8,7 +8,6 @@ using yb;
 public class GameScene : BaseScene
 {
     private PhotonView _photonView;
-    private GameObject[] items = new GameObject[6];//0415 18:33 이희웅 테스트용 배열 추가
     private List<Transform> itemBox = new List<Transform>();//파라미터는 박스의 갯수
     public UnityEvent OnLoaded;
     private WaitForSeconds waitObject = new WaitForSeconds(0.1f);
@@ -23,8 +22,6 @@ public class GameScene : BaseScene
         setRelicAction?.Invoke();
         destroyRelicAction?.Invoke();
     }
-
-
     public override void Init()
     {
         _itemBox = new GameObject("ItemBox");
@@ -35,27 +32,15 @@ public class GameScene : BaseScene
             GameObject go = PhotonNetwork.Instantiate($"Prefabs/hw/PlayerPrefabs/Player{PhotonNetwork.LocalPlayer.ActorNumber}", Vector3.zero, Quaternion.identity);
             StartCoroutine(WaitPlayerLoded());
             go.GetComponentInChildren<PlayerController>().SetRelicEvent += OnSetRelic;
-            _photonView = Util.FindChild(go, "Model").GetComponent<PhotonView>();
 
-            if (PhotonNetwork.IsMasterClient)
-            {
-                items[0] = PhotonNetwork.Instantiate("Prefabs/yb/Relic/GuardRelic", new Vector3(2, 1, 10), Quaternion.identity);
-                items[1] = PhotonNetwork.Instantiate("Prefabs/yb/Relic/ShieldRelic", new Vector3(10, 1, 2), Quaternion.identity);
-                items[2] = PhotonNetwork.Instantiate("Prefabs/yb/Relic/BonusAttackSpeedRelic", new Vector3(1, 1, 2), Quaternion.identity);
-                items[3] = PhotonNetwork.Instantiate("Prefabs/yb/Relic/BonusProjectileRelic", new Vector3(1, 1, 4), Quaternion.identity);
-                items[4] = PhotonNetwork.Instantiate("Prefabs/yb/Relic/BonusResurrectionTimeRelic", new Vector3(1, 1, 6), Quaternion.identity);
-                items[5] = PhotonNetwork.Instantiate("Prefabs/yb/Weapon/Shotgun", new Vector3(0, 1, 0), Quaternion.identity);
-                for (int i = 0; i < items.Length; i++)
-                {
-                    _photonView.RPC("SetDropItemName", RpcTarget.All, items[i].GetComponent<PhotonView>().ViewID);
-                }
-            }
+            _photonView = Util.FindChild(go, "Model").GetComponent<PhotonView>();
             if (_photonView.IsMine)
             {
                 Util.FindChild(go, "Camera", true).SetActive(true);
                 Util.FindChild(go, "Camera", true).GetComponent<AudioListener>().enabled = true;
                 _photonView.RPC("RenamePlayer", RpcTarget.All, _photonView.ViewID);
             }
+
 
         }
         else if (IsTestMode.Instance.CurrentUser == Define.User.Sh)
@@ -77,7 +62,7 @@ public class GameScene : BaseScene
         Map map = Managers.SceneObj.ShowSceneObject<Map>();
         if (map != null)
         {
-            map.onLoadMapUI += OnLoadedUI;
+            map.onLoadMapUI += OnLoadedItemBox;
         }
 
         Managers.SceneObj.ShowSceneObject<MiniMapCam>();
@@ -106,7 +91,7 @@ public class GameScene : BaseScene
         ShowUI();
     }
 
-    public void OnLoadedUI() //로딩이 다 된다음에 호출
+    public void OnLoadedItemBox() //로딩이 다 된다음에 호출
     {
 
         for (int i = 1; i < 13; i++)
