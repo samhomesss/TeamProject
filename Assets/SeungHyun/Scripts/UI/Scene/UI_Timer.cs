@@ -5,9 +5,13 @@ using UnityEngine.UI;
 
 public class UI_Timer : UI_Scene
 {
-    float Timer = 300;
-    float minute; 
-    float second; 
+    public static UI_Timer instance;
+
+    public float Timer => _timer;
+
+    float _timer = 300f;
+    float _minute; 
+    float _second; 
 
     GameObject TimerText;
 
@@ -18,18 +22,18 @@ public class UI_Timer : UI_Scene
 
     private void Update()
     {
-        Timer -= Time.deltaTime;
+        _timer -= Time.deltaTime;
 
-        second = Timer % 60;
-        minute = Timer / 60;
+        _second = _timer % 60;
+        _minute = _timer / 60;
 
-        if (Timer <= 0)
+        if (_timer <= 0)
         {
-            Timer = 0;
+            _timer = 0;
         }
-        if (second < 10)
-            TimerText.GetComponent<Text>().text = "0" + (int)minute + ":0" + (int)second;
+        if (_second < 10)
+            TimerText.GetComponent<Text>().text = "0" + (int)_minute + ":0" + (int)_second;
         else
-            TimerText.GetComponent<Text>().text = "0" + (int)minute + ":" + (int)second;
+            TimerText.GetComponent<Text>().text = "0" + (int)_minute + ":" + (int)_second;
     }
 }
