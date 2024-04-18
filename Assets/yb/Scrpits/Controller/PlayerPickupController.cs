@@ -270,6 +270,7 @@ namespace yb
             }
 
             c.GetComponent<IObtainableObject>().HideName();
+            c.GetComponent<IObtainableObjectPhoton>().HideName();
         }
     }
 }
