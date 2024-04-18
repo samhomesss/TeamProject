@@ -16,6 +16,7 @@ namespace yb {
             base.PickupPhoton(playerViewId);
             PhotonView _photonView = PhotonNetwork.GetPhotonView(playerViewId);
             PlayerController player = _photonView.GetComponent<PlayerController>();
+            gameObject.GetComponent<PhotonView>().TransferOwnership(playerViewId);
             int count = 0;
             if (_photonView.IsMine)
             {
@@ -28,7 +29,6 @@ namespace yb {
                             if (player.ItemList[count].ItemNumber < PlayerController.MaxItemNumber)
                             {
                                 player.PickupController.SetItem(count, type);
-                                if (PhotonNetwork.IsMasterClient)
                                     PhotonNetwork.Destroy(gameObject);
                                 break;
 
@@ -48,7 +48,6 @@ namespace yb {
                     else
                     {
                         player.PickupController.SetItem(count, type);
-                        if (PhotonNetwork.IsMasterClient)
                             PhotonNetwork.Destroy(gameObject);
                         break;
                     }
