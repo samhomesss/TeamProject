@@ -30,10 +30,11 @@ public class CoroutineHelper : MonoBehaviour
         call.Invoke();
     }
 
-    public IEnumerator CoDelayPhotonObjectSpawn(float time, UnityAction call)
+    public IEnumerator CoDelayPhotonObjectSpawn(float time,GameObject DeletePlayer, GameObject DeletePlayerCamera, UnityAction call)
     {
         yield return new WaitForSeconds(time);
-        GameObject go = PhotonNetwork.Instantiate("Prefabs/hw/PlayerPrefabs/Player", Vector3.zero, Quaternion.identity); 
+        GameObject go = PhotonNetwork.Instantiate("Prefabs/hw/PlayerPrefabs/Player", Vector3.zero, Quaternion.identity);
+        yield return new WaitUntil(() => go != null);
         _photonView = Util.FindChild(go, "Model").GetComponent<PhotonView>();
         if (_photonView.IsMine) //카메라, 및 오디오 다시 연결
         {
@@ -42,8 +43,9 @@ public class CoroutineHelper : MonoBehaviour
             Util.FindChild(go, "Camera", true).GetComponent<AudioListener>().enabled = true;
         }
 
+        PhotonNetwork.Destroy(DeletePlayerCamera);
+        PhotonNetwork.Destroy(DeletePlayer);
         call.Invoke();
-
     }
     public IEnumerator CoDelayPhotonObjectDelete(GameObject go, float time)
     {
