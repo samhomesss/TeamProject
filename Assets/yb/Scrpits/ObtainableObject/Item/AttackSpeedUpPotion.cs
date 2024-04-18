@@ -1,4 +1,4 @@
-using Photon.Pun;
+Ôªøusing Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.Experimental.GraphView;
@@ -12,13 +12,16 @@ namespace yb
     {
         private void Start()
         {
-            _photonView = GetComponent<PhotonView>(); //0417 23:50 ¿Ã»Òøı√ﬂ∞° 
+            _photonView = GetComponent<PhotonView>(); //0417 23:50 Ïù¥Ìù¨ÏõÖÏ∂îÍ∞Ä 
             type = Define.ItemType.AttackSpeedUpPotion;
         }
         [PunRPC]
         public override void PickupPhoton(int playerViewId)
         {
             base.PickupPhoton(playerViewId);
+
+            Util.LogRed("PickupPhoton Ìò∏Ï∂úÎê®");
+
             PhotonView playerPhotonView = PhotonNetwork.GetPhotonView(playerViewId);
             PlayerController player = playerPhotonView.GetComponent<PlayerController>();
             int count = 0;
@@ -32,20 +35,23 @@ namespace yb
                         {
                             if (item.ItemNumber < PlayerController.MaxItemNumber)
                             {
-                                Util.LogRed("item.ItemNumber < PlayerController.MaxItemNumber ¡∂∞« ∏∏¡∑");
+                                Util.LogRed("item.ItemNumber < PlayerController.MaxItemNumber Ï°∞Í±¥ ÎßåÏ°±");
                                 player.PickupController.SetItem(count, type, () =>
                                 {
-                                    Util.LogRed("SetItem æ»ø° Action »£√‚µ ");
+                                    Util.LogRed("SetItem ÏïàÏóê Action Ìò∏Ï∂úÎê®");
 
-                                    if (PhotonNetwork.IsMasterClient)
-                                    {
-                                        Util.LogGreen("SetItem æ»ø° Action »£√‚µ  -> Master Client");
-                                        PhotonNetwork.Destroy(gameObject);
-                                    }
-                                    else
-                                    {
-                                        Util.LogGreen("SetItem æ»ø° Action »£√‚µ  -> Not Master Client");
-                                    }
+                                    _photonView.RPC("OnRequestPhotonDestroy", RpcTarget.All, _photonView.ViewID);
+                                    //_collideItemPhoton.IObtainableObjectPhotonView.RPC("PickupPhoton", RpcTarget.All, _player.IphotonView.ViewID);
+
+                                    //if (PhotonNetwork.IsMasterClient)
+                                    //{
+                                    //    Util.LogGreen("SetItem ÏïàÏóê Action Ìò∏Ï∂úÎê® -> Master Client");
+                                    //    PhotonNetwork.Destroy(gameObject);
+                                    //}
+                                    //else
+                                    //{
+                                    //    Util.LogGreen("SetItem ÏïàÏóê Action Ìò∏Ï∂úÎê® -> Not Master Client");
+                                    //}
                                 });
                                 break;
                             }
@@ -73,6 +79,21 @@ namespace yb
                         break;
                     }
                 }
+            }
+        }
+
+        [PunRPC]
+        public void OnRequestPhotonDestroy(int objectID)
+        {
+            if (PhotonNetwork.IsMasterClient)
+            {
+                Util.LogGreen("SetItem ÏïàÏóê Action Ìò∏Ï∂úÎê® -> Master Client");
+                PhotonNetwork.Destroy(PhotonNetwork.GetPhotonView(objectID).gameObject);
+                //PhotonNetwork.Destroy(destroyObject);
+            }
+            else
+            {
+                Util.LogGreen("SetItem ÏïàÏóê Action Ìò∏Ï∂úÎê® -> Not Master Client");
             }
         }
 
