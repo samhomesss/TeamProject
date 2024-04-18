@@ -34,7 +34,8 @@ public class Define
         Reload,
         Pickup,
         Die,
-        Idle
+        Idle,
+        Respawn,
     }
     public enum UIEvent
     {

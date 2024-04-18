@@ -31,6 +31,27 @@ namespace yb {
             int dy = -1;
             int t = 0;
             int count = _itemsList.Count;
+
+            if(count == 1) {
+                string path = $"yb/Items/{_itemsList[0]}"; //0411 00:13ºÐ ÀÌÈñ¿õ  yb/item/{_itemsList[i]} -> yb/Weapon/{_itemsList[i]} À¸·Î ¼öÁ¤
+                GameObject go;
+                if (IsTestMode.Instance.CurrentUser == Define.User.Hw) //0411 12:42 ÀÌÈñ¿õ Æ÷Åæ Å×½ºÆ®¿ë Á¶°Ç¹®»ðÀÔ
+                {
+                    if (!PhotonNetwork.IsMasterClient) //
+                    {
+                        return;
+                    }
+                    GameObject dropObject = PhotonNetwork.Instantiate($"Prefabs/{path}", new Vector3(pos.x + x, 1f, pos.z + z), Quaternion.identity);
+                    _photonView = Map.MapObject.GetComponent<Map>().Player.GetComponent<PhotonView>();
+                    _photonView.RPC("SetDropItemName", RpcTarget.All, dropObject.GetComponent<PhotonView>().ViewID);
+
+                } else {
+                    go = Managers.Resources.Instantiate(path, null);
+                    go.transform.position = new Vector3(pos.x + x, 1f, pos.z + z);
+                }
+                return;
+            }
+
             for (int i = 0; i < count; i++) {
                 if ((-count / 2 < x) && (x <= count / 2) && (-count / 2 < z) && (z <= count / 2)) {
                     string path = $"yb/Items/{_itemsList[i]}"; //0411 00:13ºÐ ÀÌÈñ¿õ  yb/item/{_itemsList[i]} -> yb/Weapon/{_itemsList[i]} À¸·Î ¼öÁ¤

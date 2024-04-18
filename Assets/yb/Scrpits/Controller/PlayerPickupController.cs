@@ -123,14 +123,16 @@ namespace yb
 
         public void SetItem(int slot, Define.ItemType type) {
             if(_player.ItemList.ContainsKey(slot)) {
-                _player.ItemList[slot].ItemType = type;
-                _player.ItemList[slot].ItemNumber++;
+                if(_player.ItemList[slot].ItemType == type) {
+                    _player.ItemList[slot].ItemType = type;
+                    _player.ItemList[slot].ItemNumber++;
+                }
             }
             else {
                 _player.ItemList.Add(slot, new PlayerController.Item(type, 1));
             }
 
-            _player.SetItemEvent(slot, _player.ItemList[slot]);
+            //_player.SetItemEvent.Invoke(slot, _player.ItemList[slot]);
             
             Debug.Log($"{type}아이템을 획득했습니다");
             Debug.Log($"{slot}번 슬롯에 {type}을 {_player.ItemList[slot].ItemNumber}개 추가");
@@ -169,7 +171,7 @@ namespace yb
         /// <param name="relic"></param>
         public void DeleteRelic(IRelic relic)
         {
-            _haveRelic[(int)relic.RelicType] = true;
+            _haveRelic[(int)relic.RelicType] = false;
             _player.WeaponController.SetRelic(relic);
 
             switch (relic.RelicType)

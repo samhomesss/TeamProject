@@ -27,11 +27,14 @@ public class RotateToMouseScript : MonoBehaviour {
 	}
 
 	public void PlayerDead() {
-		maximumLenght = 0f;
 		StopAllCoroutines();
 	}
 
-	IEnumerator UpdateRay (){
+    public void PlayerRespawn() {
+        StartCoroutine(UpdateRay());
+    }
+
+    IEnumerator UpdateRay (){
 		if (cam != null) {
 			if (use2D) {
 				Vector2 direction = Camera.main.ScreenToWorldPoint (Input.mousePosition) - transform.position;

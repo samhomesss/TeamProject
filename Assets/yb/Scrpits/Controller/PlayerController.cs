@@ -322,7 +322,23 @@ namespace yb
             transform.LookAt(attacker.transform.position);
             _collider.enabled = false;
             _rigid.isKinematic = true;
+            _rotateToMouseScript.PlayerDead();
             ChangeTriggerAnimation(Define.PlayerState.Die);
+            Invoke("PlayerRespawn", _status.ResurrectionTime);
+        }
+
+        /// <summary>
+        /// 플레이어 부활 재배치 로직
+        /// </summary>
+        private void PlayerRespawn() {
+            _stateController.ChangeState(new PlayerState_Idle(this));
+            Status.SetHp(Status.MaxHp - Status.CurrentHp);
+            ChangeTriggerAnimation(Define.PlayerState.Respawn);
+            _collider.enabled = true;
+            _rigid.isKinematic = false;
+            _rotateToMouseScript.PlayerRespawn();
+            Transform tr = RespawnManager.Instance.RespawnPoints;
+            transform.position = tr.GetChild(UnityEngine.Random.Range(0, tr.childCount - 1)).position;
         }
 
         /// <summary>
@@ -330,29 +346,29 @@ namespace yb
         /// </summary>
         public void OnDieEvent() {
 
-            if(IsTestMode.Instance.CurrentUser == Define.User.Hw)
-            {
-                if (_photonview.IsMine)
-                {
-                    GameObject go = MyCamera.gameObject;
-                    go.transform.parent = null;
-                    StartCoroutine(CoroutineHelper.Instance.CoDelayPhotonObjectDelete(go, _status.ResurrectionTime));
-                    StartCoroutine(CoroutineHelper.Instance.CoDelayPhotonObjectSpawn(_status.ResurrectionTime, SetUI));
-                    StartCoroutine(CoroutineHelper.Instance.CoDelayPhotonObjectDelete(transform.root.gameObject, _status.ResurrectionTime));
+            //if(IsTestMode.Instance.CurrentUser == Define.User.Hw)
+            //{
+            //    if (_photonview.IsMine)
+            //    {
+            //        GameObject go = MyCamera.gameObject;
+            //        go.transform.parent = null;
+            //        StartCoroutine(CoroutineHelper.Instance.CoDelayPhotonObjectDelete(go, _status.ResurrectionTime));
+            //        StartCoroutine(CoroutineHelper.Instance.CoDelayPhotonObjectSpawn(_status.ResurrectionTime, SetUI));
+            //        StartCoroutine(CoroutineHelper.Instance.CoDelayPhotonObjectDelete(transform.root.gameObject, _status.ResurrectionTime));
                    
 
-                   _rotateToMouseScript.PlayerDead();
-                }
-            }
-            else
-            {
-                RespawnManager.Instance.Respawn(PlayerHandle, _status.ResurrectionTime);
-                Managers.Resources.Destroy(transform.root.gameObject, _status.ResurrectionTime);
-                GameObject go = MyCamera.gameObject;
-                go.transform.parent = null;
-                Managers.Resources.Destroy(go, _status.ResurrectionTime);
-                _rotateToMouseScript.PlayerDead();
-            }
+            //       _rotateToMouseScript.PlayerDead();
+            //    }
+            //}
+            //else
+            //{
+            //    RespawnManager.Instance.Respawn(PlayerHandle, _status.ResurrectionTime);
+            //    Managers.Resources.Destroy(transform.root.gameObject, _status.ResurrectionTime);
+            //    GameObject go = MyCamera.gameObject;
+            //    go.transform.parent = null;
+            //    Managers.Resources.Destroy(go, _status.ResurrectionTime);
+            //    _rotateToMouseScript.PlayerDead();
+            //}
         }
         public void SetUI()// 0416 이희웅 플레이어 리스폰 될때 UI 초기화
         {
