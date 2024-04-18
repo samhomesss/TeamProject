@@ -99,6 +99,8 @@ public class ObtainableObject : MonoBehaviourPunCallbacks, IObtainableObject, IO
         int index = _photonView.transform.gameObject.name.IndexOf("(Clone)");
         if (index > 0)
             _photonView.transform.gameObject.name = _photonView.transform.gameObject.name.Substring(0, index);
+
+        Debug.Log("셋드롭아이템이름 호출됨");
     }
     [PunRPC]
     public void DropItem(int PhotonViewID, int PlayerPhotonViewID)
