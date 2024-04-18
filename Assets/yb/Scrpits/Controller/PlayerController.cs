@@ -336,13 +336,10 @@ namespace yb
                 {
                     GameObject go = MyCamera.gameObject;
                     go.transform.parent = null;
-                    StartCoroutine(CoroutineHelper.Instance.CoDelayPhotonObjectDelete(go, _status.ResurrectionTime));
-                    StartCoroutine(CoroutineHelper.Instance.CoDelayPhotonObjectSpawn(_status.ResurrectionTime, SetUI));
-                    StartCoroutine(CoroutineHelper.Instance.CoDelayPhotonObjectDelete(transform.root.gameObject, _status.ResurrectionTime));
-                   
-
-                   _rotateToMouseScript.PlayerDead();
+                    StartCoroutine(CoroutineHelper.Instance.CoDelayPhotonObjectSpawn(_status.ResurrectionTime,go,transform.root.gameObject,SetUI));
+                    _rotateToMouseScript.PlayerDead();
                 }
+                    
             }
             else
             {
@@ -356,9 +353,16 @@ namespace yb
         }
         public void SetUI()// 0416 이희웅 플레이어 리스폰 될때 UI 초기화
         {
-            GameObject.Find("@UI_Root").GetComponentInChildren<UI_Hp>().HpSlider = PALYER_MAX_HP;
-            _map = Map.MapObject.GetComponent<Map>();
-            _map.SetPlayer(GameObject.Find($"Player{PhotonNetwork.LocalPlayer.ActorNumber}").GetComponent<PlayerController>());
+            GameObject uiroot = GameObject.Find("@UI_Root");
+            Managers.Resources.Destroy(Util.FindChild(uiroot, "UI_Weapon"));
+            Managers.Resources.Destroy(Util.FindChild(uiroot, "UI_Inven"));
+            Managers.Resources.Destroy(Util.FindChild(uiroot, "UI_Hp"));
+
+            Managers.SceneObj.ShowSceneObject<Map>().SetPlayer(GameObject.Find($"Player{PhotonNetwork.LocalPlayer.ActorNumber}").GetComponentInChildren<PlayerController>());
+            Managers.UI.ShowSceneUI<UI_Weapon>().Init();
+            Managers.UI.ShowSceneUI<UI_Inven>().Init();
+            Managers.UI.ShowSceneUI<UI_Hp>().Init();
+            Managers.UI.ShowSceneUI<UI_RelicInven>().Init();
         }
 
         /// <summary>

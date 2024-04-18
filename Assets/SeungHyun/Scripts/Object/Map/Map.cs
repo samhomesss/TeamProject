@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
 using yb;
 using static UnityEditor.Progress;
 using Color = UnityEngine.Color;
@@ -34,6 +35,8 @@ public class Map : Obj
     Texture2D texture; // 내가 가져오는 Texture
     MeshRenderer meshRenderer; // Mesh
 
+    public UnityAction onLoadMapUI;
+
     const int length = 4;
     Color[] colors;
     Color[] defaultColors;
@@ -56,6 +59,7 @@ public class Map : Obj
 
         texture = Managers.Resources.Load<Texture2D>(path);
 
+
         #region 04.13  수정 
         // Todo: 04.13 수정
 
@@ -77,6 +81,7 @@ public class Map : Obj
 
     private void Start()
     {
+        onLoadMapUI?.Invoke();
         _player = GameObject.Find($"Player{PhotonNetwork.LocalPlayer.ActorNumber}").GetComponentInChildren<PlayerController>();
         _photonView = _player.GetComponent<PhotonView>();
         #endregion
@@ -123,7 +128,6 @@ public class Map : Obj
     // 호출 횟수를 줄이면서 정확하게 동작하도록 최적화가 필요해 보임.
     void UpdateColor()
     {
-        Util.LogGreen("UpdateColor is called");
 
         int xPos;
         int yPos;

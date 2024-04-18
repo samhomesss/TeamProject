@@ -62,6 +62,7 @@ namespace yb
         {
             base.HideName();
         }
+
         [PunRPC]
         public override void PickupPhoton(int playerViewId)
         {

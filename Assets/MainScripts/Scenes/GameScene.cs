@@ -1,5 +1,7 @@
 using Photon.Pun;
+using Photon.Pun.Demo.Cockpit;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions.Must;
 using UnityEngine.Events;
@@ -9,7 +11,10 @@ public class GameScene : BaseScene
 {
     private PhotonView _photonView;
     private GameObject[] items = new GameObject[6];//0415 18:33 이희웅 테스트용 배열 추가
-    
+    private List<Transform> itemBox = new List<Transform>();//파라미터는 박스의 갯수
+    public UnityEvent OnLoaded;
+
+    private GameObject _itemBox;
     public override void Clear()
     {
     }
@@ -23,6 +28,7 @@ public class GameScene : BaseScene
 
     public override void Init()
     {
+        _itemBox = new GameObject("ItemBox");
         base.Init();
         //todo
         if (IsTestMode.Instance.CurrentUser == Define.User.Hw)
@@ -31,8 +37,6 @@ public class GameScene : BaseScene
             StartCoroutine(WaitPlayerLoded());
             go.GetComponentInChildren<PlayerController>().SetRelicEvent += OnSetRelic;
             _photonView = Util.FindChild(go, "Model").GetComponent<PhotonView>();
-
-
 
             if (PhotonNetwork.IsMasterClient)
             {
@@ -46,15 +50,15 @@ public class GameScene : BaseScene
                 {
                     _photonView.RPC("SetDropItemName", RpcTarget.All, items[i].GetComponent<PhotonView>().ViewID);
                 }
-            }
 
-           
+            }
             if (_photonView.IsMine)
             {
                 Util.FindChild(go, "Camera", true).SetActive(true);
                 Util.FindChild(go, "Camera", true).GetComponent<AudioListener>().enabled = true;
                 _photonView.RPC("RenamePlayer", RpcTarget.All, _photonView.ViewID);
             }
+
         }
         else if (IsTestMode.Instance.CurrentUser == Define.User.Sh)
         {
@@ -72,9 +76,13 @@ public class GameScene : BaseScene
     {
 
         //GameObject
-        Managers.SceneObj.ShowSceneObject<Map>();
-        Managers.SceneObj.ShowSceneObject<MiniMapCam>();
+        Map map = Managers.SceneObj.ShowSceneObject<Map>();
+        if (map != null)
+        {
+            map.onLoadMapUI += onLoadedUI;
+        }
 
+        Managers.SceneObj.ShowSceneObject<MiniMapCam>();
 
         Managers.UI.ShowSceneUI<UI_Timer>();
         Managers.UI.ShowSceneUI<UI_Weapon>();
@@ -86,8 +94,6 @@ public class GameScene : BaseScene
         // UIInfo
         UI_ItemInfo.ItemInfo = Managers.UI.ShowSceneUIInfo<UI_ItemInfo>().gameObject;
         UI_ItemInfo.ItemInfo.SetActive(false);
-
-
         // 플레이어들에게 보여야 하는 UI
         Managers.UI.ShowSceneUI<UI_PlayerName>();
     }
@@ -114,4 +120,20 @@ public class GameScene : BaseScene
         ShowUI();
     }
 
+    public void onLoadedUI() //로딩이 다 된다음에 호출
+    {
+        if (PhotonNetwork.IsMasterClient)
+        {
+            for (int i = 1; i < 13; i++)
+            {
+                itemBox.Add(GameObject.Find($"@Obj_Root/Map/ItemBox/DestructibleObject{i}").GetComponent<Transform>());
+            }
+            for (int i = 0; i < itemBox.Count; i++)
+            {
+                GameObject itembox = PhotonNetwork.Instantiate("Prefabs/yb/Object/DestructibleObject", itemBox[i].transform.position, Quaternion.identity);
+                itembox.transform.SetParent(_itemBox.transform);
+            }
+        }
+
+    }
 }

@@ -71,5 +71,6 @@ namespace yb {
             if (PhotonNetwork.IsMasterClient)
                 PhotonNetwork.Destroy(gameObject);
         }
+
     }
 }
