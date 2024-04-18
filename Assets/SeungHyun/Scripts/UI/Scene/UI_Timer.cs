@@ -1,3 +1,4 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -30,10 +31,15 @@ public class UI_Timer : UI_Scene
         if (_timer <= 0)
         {
             _timer = 0;
+
+            PhotonNetwork.LoadLevel("GamePlay");
         }
         if (_second < 10)
             TimerText.GetComponent<Text>().text = "0" + (int)_minute + ":0" + (int)_second;
         else
             TimerText.GetComponent<Text>().text = "0" + (int)_minute + ":" + (int)_second;
+
+        
+
     }
 }
