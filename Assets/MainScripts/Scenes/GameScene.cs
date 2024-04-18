@@ -11,7 +11,7 @@ public class GameScene : BaseScene
     private List<Transform> itemBox = new List<Transform>();//파라미터는 박스의 갯수
     public UnityEvent OnLoaded;
     private WaitForSeconds waitObject = new WaitForSeconds(0.1f);
-
+    Transform tr = RespawnManager.Instance.RespawnPoints;
     private GameObject _itemBox;
     public override void Clear()
     {
@@ -29,7 +29,7 @@ public class GameScene : BaseScene
         //todo
         if (IsTestMode.Instance.CurrentUser == Define.User.Hw)
         {
-            GameObject go = PhotonNetwork.Instantiate($"Prefabs/hw/PlayerPrefabs/Player{PhotonNetwork.LocalPlayer.ActorNumber}", Vector3.zero, Quaternion.identity);
+            GameObject go = PhotonNetwork.Instantiate($"Prefabs/hw/PlayerPrefabs/Player{PhotonNetwork.LocalPlayer.ActorNumber}", tr.position, Quaternion.identity);
             StartCoroutine(WaitPlayerLoded());
             go.GetComponentInChildren<PlayerController>().SetRelicEvent += OnSetRelic;
 

@@ -37,7 +37,7 @@ public class RespawnManager : MonoBehaviourPunCallbacks {
                     if (Vector3.Distance(t.position, p.transform.position) > SpawnAllowRange) {
                         if(IsTestMode.Instance.CurrentUser == Define.User.Hw) //0415 16:22 捞锐旷
                         {
-                            GameObject unit = PhotonNetwork.Instantiate("Prefabs/hw/PlayerPrefabs/Player",Vector3.zero,Quaternion.identity);
+                            GameObject unit = PhotonNetwork.Instantiate($"Prefabs/hw/PlayerPrefabs/Player{PhotonNetwork.LocalPlayer.ActorNumber}",Vector3.zero,Quaternion.identity);
                             Debug.Log($"{unit.name}积己凳");
                             unit.transform.position = t.position;
                             break;
@@ -58,7 +58,7 @@ public class RespawnManager : MonoBehaviourPunCallbacks {
 
             if(IsTestMode.Instance.CurrentUser == Define.User.Hw)
             {
-                GameObject unit = PhotonNetwork.Instantiate("Prefabs/hw/PlayerPrefabs/Player", Vector3.zero, Quaternion.identity);
+                GameObject unit = PhotonNetwork.Instantiate($"Prefabs/hw/PlayerPrefabs/Player{PhotonNetwork.LocalPlayer.ActorNumber}", Vector3.zero, Quaternion.identity);
                 Debug.Log($"{unit.name}积己凳");
                 unit.transform.position = RespawnPoints.GetChild(0).transform.position;
             }
