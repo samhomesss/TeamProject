@@ -61,16 +61,12 @@ public class UI_Weapon : UI_Scene
 
         if (IsTestMode.Instance.CurrentUser == Define.User.Hw)
         {
-            if (PhotonNetwork.IsMasterClient)
-            {
-                ChangeWeaponObject = PhotonNetwork.Instantiate($"Prefabs/yb/Weapon/{Managers.ItemDataBase.GetItemData(beforeItemID).itemName}", Vector3.zero, Quaternion.identity);
-            }
-
             if (_photonView.IsMine)
             {
+                map.Player.PhotonView.RPC("Replacedweapon",RpcTarget.All, beforeItemID);
                 map.Player.PhotonView.RPC("SetDropItemName", RpcTarget.All, ChangeWeaponObject.GetComponent<PhotonView>().ViewID);//이름 바꾸기
-                ChangeWeaponObject.transform.position = map.Player.transform.position + Vector3.up;
             }
+
         }
         else
         {

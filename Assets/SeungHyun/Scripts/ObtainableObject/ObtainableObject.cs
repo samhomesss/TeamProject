@@ -77,6 +77,16 @@ public class ObtainableObject : MonoBehaviourPunCallbacks, IObtainableObject, IO
     // 마스터 클라이언트에 아이템 삭제를 요청하는 함수.
     // 삭제가 필요한 아이템을 획득할 때 호출을 해줘야 함.
     [PunRPC]
+    public void Replacedweapon(string beforeItemID)
+    {
+        if (PhotonNetwork.IsMasterClient)
+        {
+            GameObject ChangeWeaponObject = PhotonNetwork.Instantiate($"Prefabs/yb/Weapon/{Managers.ItemDataBase.GetItemData(beforeItemID).itemName}", Vector3.zero, Quaternion.identity);
+            ChangeWeaponObject.transform.position = map.Player.transform.position + Vector3.up;
+        }
+    }
+
+    [PunRPC]
     public void OnRequestPhotonDestroy(int objectID)
     {
         if (PhotonNetwork.IsMasterClient)
