@@ -91,7 +91,7 @@ namespace yb
                         _player.StateController.ChangeState(new PlayerState_Pickup(_player));
                         _player.ItemEvent?.Invoke(_collideItemPhoton.NamePhoton);
                         _collideItemPhoton.IObtainableObjectPhotonView.RPC("PickupPhoton", RpcTarget.All, _player.IphotonView.ViewID);
-                        
+                        _collideItemPhoton.HideName();
                         _collideItemPhoton = null;
                     }
                     
@@ -134,6 +134,8 @@ namespace yb
             
             Debug.Log($"{type}아이템을 획득했습니다");
             Debug.Log($"{slot}번 슬롯에 {type}을 {_player.ItemList[slot].ItemNumber}개 추가");
+
+            
         }
         /// <summary>
         /// 플레이어가 렐릭을 습득 시 렐릭 할당. 각 렐릭 클래스에서 호출
@@ -160,6 +162,7 @@ namespace yb
                     _player.SetShield(true);
                     break;
             }
+            
 
         }
 
@@ -208,10 +211,33 @@ namespace yb
                 }
             }
         }
+
+        private void OnTriggerStay(Collider c)
+        {
+
+            if (c.CompareTag("ObtainableObject"))
+            {
+                if (IsTestMode.Instance.CurrentUser == Define.User.Hw) //0411 08:10 이희웅 포톤 동기화를 위한 분기 추가
+                {
+                    _collideItemPhoton = c.GetComponent<IObtainableObjectPhoton>();
+                    c.GetComponent<IObtainableObject>().ShowName(_player);
+                    return;
+                }
+                else
+                {
+
+                    _collideItem = c.GetComponent<IObtainableObject>();
+                    c.GetComponent<IObtainableObject>().ShowName(_player);
+                    return;
+
+                }
+            }
+        }
+
         private void OnTriggerExit(Collider c)
         {
             if (c.CompareTag("ObtainableObject"))
-
+            {
                 if (IsTestMode.Instance.CurrentUser == Define.User.Hw) //0411 08:10 이희웅 포톤 동기화를 위한 분기 추가
                 {
                     if (_collideItemPhoton != null)
@@ -229,6 +255,9 @@ namespace yb
                     }
 
                 }
+            }
+               
+            c.GetComponent<IObtainableObject>().HideName();
         }
-        }
-    }
+     } 
+}

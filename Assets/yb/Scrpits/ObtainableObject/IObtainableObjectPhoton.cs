@@ -13,6 +13,9 @@ namespace yb
 
         void PickupPhoton(int playerViewId);
 
+        void ShowName(PlayerController player);
+        void HideName();
+
 
     }
 }
