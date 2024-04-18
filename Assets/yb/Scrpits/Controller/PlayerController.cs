@@ -323,6 +323,7 @@ namespace yb
             _collider.enabled = false;
             _rigid.isKinematic = true;
             _rotateToMouseScript.PlayerDead();
+            transform.position += Vector3.up;
             ChangeTriggerAnimation(Define.PlayerState.Die);
             Invoke("PlayerRespawn", _status.ResurrectionTime);
         }
@@ -331,6 +332,7 @@ namespace yb
         /// 플레이어 부활 재배치 로직
         /// </summary>
         private void PlayerRespawn() {
+            transform.position += Vector3.down;
             _stateController.ChangeState(new PlayerState_Idle(this));
             Status.SetHp(Status.MaxHp - Status.CurrentHp);
             ChangeTriggerAnimation(Define.PlayerState.Respawn);
@@ -339,6 +341,11 @@ namespace yb
             _rotateToMouseScript.PlayerRespawn();
             Transform tr = RespawnManager.Instance.RespawnPoints;
             transform.position = tr.GetChild(UnityEngine.Random.Range(0, tr.childCount - 1)).position;
+            HpEvent.Invoke(Status.CurrentHp, Status.MaxHp);
+            RangedWeapon weapon = _weaponController.RangedWeapon as RangedWeapon;
+            weapon.InitBullet();
+            BulletEvent.Invoke(weapon.CurrentBullet, weapon.MaxBullet);
+         
         }
 
         /// <summary>
