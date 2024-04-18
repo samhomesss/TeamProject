@@ -32,12 +32,19 @@ namespace yb
                         {
                             if (item.ItemNumber < PlayerController.MaxItemNumber)
                             {
+                                Util.LogRed("item.ItemNumber < PlayerController.MaxItemNumber 조건 만족");
                                 player.PickupController.SetItem(count, type, () =>
                                 {
+                                    Util.LogRed("SetItem 안에 Action 호출됨");
+
                                     if (PhotonNetwork.IsMasterClient)
                                     {
-                                        Util.LogRed("여기 호출됨");
+                                        Util.LogGreen("SetItem 안에 Action 호출됨 -> Master Client");
                                         PhotonNetwork.Destroy(gameObject);
+                                    }
+                                    else
+                                    {
+                                        Util.LogGreen("SetItem 안에 Action 호출됨 -> Not Master Client");
                                     }
                                 });
                                 break;
