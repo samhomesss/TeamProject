@@ -272,8 +272,8 @@ namespace yb
 
                 }
             }
-
-            c.GetComponent<IObtainableObject>().HideName();
+            if (_player.GetComponent<PhotonView>().IsMine)
+                c.GetComponent<IObtainableObject>().HideName();
         }
     }
 }
