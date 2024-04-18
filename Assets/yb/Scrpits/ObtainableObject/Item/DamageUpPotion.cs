@@ -90,7 +90,8 @@ namespace yb
                 else
                 {
                     player.PickupController.SetItem(count, type);
-                    PhotonNetwork.Destroy(gameObject);
+                    if (PhotonNetwork.IsMasterClient)
+                        PhotonNetwork.Destroy(gameObject);
                     break;
                 }
             }
