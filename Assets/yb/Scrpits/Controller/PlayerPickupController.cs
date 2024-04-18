@@ -209,9 +209,12 @@ namespace yb
             {
                 if (IsTestMode.Instance.CurrentUser == Define.User.Hw) //0411 08:10 이희웅 포톤 동기화를 위한 분기 추가
                 {
-                    _collideItemPhoton = c.GetComponent<IObtainableObjectPhoton>();
+                    if (_player.GetComponent<PhotonView>().IsMine)
+                    {
+                     _collideItemPhoton = c.GetComponent<IObtainableObjectPhoton>();
                     c.GetComponent<IObtainableObject>().ShowName(_player);
                     return;
+                    }
                 }
                 else
                 {
@@ -240,11 +243,9 @@ namespace yb
                 }
                 else
                 {
-
                     _collideItem = c.GetComponent<IObtainableObject>();
                     c.GetComponent<IObtainableObject>().ShowName(_player);
                     return;
-
                 }
             }
         }
@@ -255,7 +256,7 @@ namespace yb
             {
                 if (IsTestMode.Instance.CurrentUser == Define.User.Hw) //0411 08:10 이희웅 포톤 동기화를 위한 분기 추가
                 {
-                    if (_collideItemPhoton != null)
+                    if (_player.GetComponent<PhotonView>().IsMine)
                     {
                         _collideItemPhoton = null;
                         c.GetComponent<IObtainableObject>().HideName();
