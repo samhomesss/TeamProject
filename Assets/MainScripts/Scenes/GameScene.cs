@@ -99,22 +99,7 @@ public class GameScene : BaseScene
         bool allPlayersLoaded = false;
         while (!allPlayersLoaded)
         {
-            //int loadedPlayerCount = 0;
-            //for (int i = 0; i < PhotonNetwork.CurrentRoom.PlayerCount; i++)
-            //{
-            //    if (GameObject.Find($"Player{i + 1}")?.GetComponentInChildren<PlayerController>() != null)
-            //    {
-            //        loadedPlayerCount++;
-            //    }
-            //}
-
-            // 모든 플레이어가 로드되었는지 확인
             allPlayersLoaded = FindObjectsByType<PlayerController>(FindObjectsSortMode.None).Length == PhotonNetwork.CurrentRoom.PlayerCount;
-
-            // 모든 플레이어가 로드되었는지 확인
-            //allPlayersLoaded = loadedPlayerCount == PhotonNetwork.CurrentRoom.PlayerCount;
-
-            //yield return new WaitForSeconds(0.1f);
             yield return waitObject;
         }
 

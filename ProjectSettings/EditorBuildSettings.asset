@@ -20,4 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/hw/Scene/MainScene.unity
     guid: 39bb69fe4e0646943ba067dbb680fa6d
+  - enabled: 1
+    path: Assets/SeungHyun/Scenes/GameResultScene.unity
+    guid: 91a2dce2b7074c240a2d7fa2f84fdcf8
   m_configObjects: {}
