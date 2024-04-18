@@ -70,7 +70,8 @@ public class UI_PlayerColorPercent : UI_Scene
 
             MapColorData.MapDataPlayer = _players;
 
-            Debug.Log(MapColorData.MapDataPlayer[0].NodeCount + "MapDataPlayer");
+            Debug.Log(MapColorData.MapDataPlayer[0].NodeCount + "MapDataPlayer1");
+            Debug.Log(MapColorData.MapDataPlayer[1].NodeCount + "MapDataPlayer2");
         }
     }
 
