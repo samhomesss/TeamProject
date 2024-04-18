@@ -33,7 +33,6 @@ namespace yb
                             if (player.ItemList[count].ItemNumber < PlayerController.MaxItemNumber)
                             {
                                 player.PickupController.SetItem(count, type);
-                                if (PhotonNetwork.IsMasterClient)
                                     PhotonNetwork.Destroy(gameObject);
                                 break;
 
@@ -53,7 +52,6 @@ namespace yb
                     else
                     {
                         player.PickupController.SetItem(count, type);
-                        if (PhotonNetwork.IsMasterClient)
                             PhotonNetwork.Destroy(gameObject);
                         break;
                     }
@@ -65,6 +63,8 @@ namespace yb
         public override void Pickup(PlayerController player)
         {
             base.Pickup(player);
+
+
             int count = 0;
             while (count < PlayerController.MaxItemSlot)
             {
@@ -75,8 +75,7 @@ namespace yb
                         if (player.ItemList[count].ItemNumber < PlayerController.MaxItemNumber)
                         {
                             player.PickupController.SetItem(count, type);
-                            if (PhotonNetwork.IsMasterClient)
-                                PhotonNetwork.Destroy(gameObject);
+                            Managers.Resources.Destroy(gameObject);
                             break;
                         }
                         else
@@ -94,8 +93,7 @@ namespace yb
                 else
                 {
                     player.PickupController.SetItem(count, type);
-                    if (PhotonNetwork.IsMasterClient)
-                        PhotonNetwork.Destroy(gameObject);
+                    Managers.Resources.Destroy(gameObject);
                     break;
                 }
             }
