@@ -1,11 +1,7 @@
-using ExitGames.Client.Photon;
 using Photon.Pun;
-using Photon.Realtime;
-using Unity.VisualScripting;
-using UnityEditor.Timeline;
-using UnityEngine;
 
-namespace yb {
+namespace yb
+{
     // Interface를 상속 받는 부모 클래스를 받아와서 하는게 제일 좋아보이긴함
     /// <summary>
     /// 획득 가능한 Pistol아이템

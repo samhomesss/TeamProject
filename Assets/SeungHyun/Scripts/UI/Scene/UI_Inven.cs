@@ -1,12 +1,8 @@
-﻿using Photon.Pun;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using yb;
-using static UnityEditor.Progress;
-using static yb.PlayerController;
 
 public class UI_Inven : UI_Scene
 {

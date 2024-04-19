@@ -1,14 +1,8 @@
 ﻿using Photon.Pun;
-using Photon.Realtime;
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 using yb;
-using static UnityEditor.Progress;
 using Color = UnityEngine.Color;
 public class Map : Obj
 {
