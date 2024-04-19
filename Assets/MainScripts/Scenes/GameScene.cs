@@ -8,14 +8,15 @@ using yb;
 public class GameScene : BaseScene
 {
     const int MAX_PLAYER = 8;
+    const int ITEM_BOX_PCS = 13;
     private PhotonView _photonView;
     private List<Transform> itemBox = new List<Transform>();//파라미터는 박스의 갯수
     public UnityEvent OnLoaded;
     private WaitForSeconds waitObject = new WaitForSeconds(0.1f);
-    private GameObject _itemBox;
-    private Transform tr;
-    
-    
+    private Transform playerRespawnPointTransform;
+    private PhotonView _itemBox_transform_Photonview;
+
+
     public override void Clear()
     {
     }
@@ -27,14 +28,13 @@ public class GameScene : BaseScene
     }
     public override void Init()
     {
-        _itemBox = new GameObject("ItemBox");
         base.Init();
         if (IsTestMode.Instance.CurrentUser == Define.User.Hw)
         {
-            // 리스폰 플레이어 테스트 중.
             StartCoroutine(RespawnPlayers());
-        }
 
+
+        }
         else if (IsTestMode.Instance.CurrentUser == Define.User.Sh)
         {
             Managers.UI.ShowSceneUI<UI_Timer>();
@@ -60,7 +60,7 @@ public class GameScene : BaseScene
         yield return StartCoroutine(WaitPlayerLoded());
 
         // 리스폰 위치 가져오기.
-        Util.FindChild(go,"Model").GetComponent<Transform>().position = tr.GetChild(PhotonNetwork.LocalPlayer.ActorNumber-1).position;
+        Util.FindChild(go, "Model").GetComponent<Transform>().position = playerRespawnPointTransform.GetChild(PhotonNetwork.LocalPlayer.ActorNumber - 1).position;
         go.GetComponentInChildren<PlayerController>().SetRelicEvent += OnSetRelic;
 
         // 위치 변경.
@@ -71,6 +71,7 @@ public class GameScene : BaseScene
             Util.FindChild(go, "Camera", true).GetComponent<AudioListener>().enabled = true;
             _photonView.RPC("RenamePlayer", RpcTarget.All, _photonView.ViewID);
         }
+
     }
 
     void ShowUI()
@@ -107,25 +108,22 @@ public class GameScene : BaseScene
             isSpwanPointLoaded = RespawnManager.Instance;
             yield return waitObject;
         }
-        tr = RespawnManager.Instance.RespawnPoints;
+        playerRespawnPointTransform = RespawnManager.Instance.RespawnPoints;
         ShowUI();
     }
 
 
     public void OnLoadedItemBox() //로딩이 다 된다음에 호출
     {
-
-        for (int i = 1; i < 13; i++)
+        for (int i = 1; i < ITEM_BOX_PCS; i++)
         {
             itemBox.Add(GameObject.Find($"@Obj_Root/Map/ItemBox/DestructibleObject{i}").GetComponent<Transform>());
         }
-        for (int i = 0; i < itemBox.Count; i++)
+        if (PhotonNetwork.IsMasterClient)
         {
-            if (PhotonNetwork.IsMasterClient)
-            {
-                GameObject itembox = PhotonNetwork.Instantiate("Prefabs/yb/Object/DestructibleObject", itemBox[i].transform.position, Quaternion.identity);
-                itembox.transform.SetParent(_itemBox.transform);
-            }
+            _photonView.RPC("SetItemBox", RpcTarget.All, ITEM_BOX_PCS);
+            //GameObject itembox = PhotonNetwork.Instantiate("Prefabs/yb/Object/DestructibleObject", itemBox[i].transform.position, Quaternion.identity);
+            //itembox.transform.SetParent(_itemBox.transform);
         }
     }
 }

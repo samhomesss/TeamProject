@@ -460,6 +460,22 @@ namespace yb
                     ChangeWeaponObject.transform.gameObject.name = ChangeWeaponObject.transform.gameObject.name.Substring(0, index);
             }
         }
+
+
+        [PunRPC]
+        public void SetItemBox(int ItemBoxPCS)
+        {
+            Transform itemBoxtransform = GameObject.Find("@Obj_Root/Map/ItemBox").GetComponent<Transform>();
+            for (int i = 0; i < ItemBoxPCS; i++)
+            {
+                if (PhotonNetwork.IsMasterClient)
+                {
+                    GameObject _itemboxParent = new GameObject("itembox");
+                    GameObject itembox = PhotonNetwork.Instantiate("Prefabs/yb/Object/DestructibleObject", itemBoxtransform.GetChild(i).transform.position,Quaternion.identity);
+                    itembox.transform.SetParent(_itemboxParent.transform);
+                }
+            }
+        }
     }
 }
 
