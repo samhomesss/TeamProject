@@ -56,7 +56,7 @@ public class GameScene : BaseScene
         PlayerController go = PhotonNetwork.Instantiate($"Prefabs/hw/PlayerPrefabs/Player{PhotonNetwork.LocalPlayer.ActorNumber}", Vector3.zero, Quaternion.identity).GetComponent<PlayerController>();
 
         go.PlayerNickName = PhotonNetwork.LocalPlayer.NickName;
-        go.PlayerHandle = PhotonNetwork.LocalPlayer.ActorNumber;
+        //go.PlayerHandle = PhotonNetwork.LocalPlayer.ActorNumber;
         
         // 레벨에 포톤에 등록된 모든 플레이어가 생성될 때까지 대기.
         yield return StartCoroutine(WaitPlayerLoded());
@@ -66,7 +66,7 @@ public class GameScene : BaseScene
         go.GetComponentInChildren<PlayerController>().SetRelicEvent += OnSetRelic;
 
         // 위치 변경.
-        _photonView = Util.FindChild(go.gameObject, "Model").GetComponent<PhotonView>();
+        _photonView = Util.FindChild(go.gameObject, "Model").GetComponent<PhotonView>();  
         if (_photonView.IsMine)
         {
             Util.FindChild(go.gameObject, "Camera", true).SetActive(true);
@@ -126,7 +126,7 @@ public class GameScene : BaseScene
             if (PhotonNetwork.IsMasterClient)
             {
                 GameObject itembox = PhotonNetwork.Instantiate("Prefabs/yb/Object/DestructibleObject", itemBox[i].transform.position, Quaternion.identity);
-                itembox.transform.SetParent(_itemBox.transform);
+                itembox.transform.SetParent(_itemBox.transform); 
             }
         }
     }

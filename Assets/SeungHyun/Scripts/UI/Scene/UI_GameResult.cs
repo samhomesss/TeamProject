@@ -27,7 +27,7 @@ public class UI_GameResult : UI_Scene
         playerCount = PlayerPrefs.GetInt("PlayerNumber");
         for (int i = 0; i < playerCount; i++) 
         {
-            _playerList.Add(PlayerPrefs.GetString($"Rank{i}"), PlayerPrefs.GetInt($"Rank{i}Percent"));
+            _playerList.Add(PlayerPrefs.GetString($"Rank{i+1}"), PlayerPrefs.GetInt($"Rank{i+1}Percent"));
         }
        
         Init();
