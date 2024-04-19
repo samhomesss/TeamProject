@@ -335,6 +335,8 @@ namespace yb
             _rigid.isKinematic = true;
             _rotateToMouseScript.PlayerDead();
             transform.position += Vector3.up;
+            _animator.SetBool("Move", false);
+            _animator.SetBool("Idle", false);
             ChangeTriggerAnimation(Define.PlayerState.Die);
             Invoke("PlayerRespawn", _status.ResurrectionTime);
         }
@@ -356,7 +358,6 @@ namespace yb
             RangedWeapon weapon = _weaponController.RangedWeapon as RangedWeapon;
             weapon.InitBullet();
             BulletEvent.Invoke(weapon.CurrentBullet, weapon.MaxBullet);
-         
         }
 
         /// <summary>
