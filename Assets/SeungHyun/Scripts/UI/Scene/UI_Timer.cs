@@ -12,7 +12,7 @@ public class UI_Timer : UI_Scene
 
     public float Timer => _timer;
 
-    float _timer = 300f;
+    float _timer = 15f;
     float _minute; 
     float _second;
     static Action loadScene;
@@ -42,8 +42,8 @@ public class UI_Timer : UI_Scene
         //여기서 플레이어 순위에 맞는 플레이어 이름 입력. 현재는 테스트용 하드코딩
         for (int i = 0; i < PhotonNetwork.CurrentRoom.PlayerCount; i++)
         {
-            PlayerPrefs.SetString($"Rank{i}", playerList[i].PlayerNickName);
-            PlayerPrefs.SetInt($"Rank{i}Percent", playerList[i].NodeCount); // 정렬된 플레이어의 NodeCount를 넣어주고 
+            PlayerPrefs.SetString($"Rank{i + 1}", playerList[i].PlayerNickName);
+            PlayerPrefs.SetInt($"Rank{i + 1}Percent", playerList[i].NodeCount); // 정렬된 플레이어의 NodeCount를 넣어주고 
         }
 
         PhotonNetwork.LoadLevel("GameResultScene");

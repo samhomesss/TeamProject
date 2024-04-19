@@ -35,7 +35,7 @@ public class UI_PlayerColorPercent : UI_Scene
 
     static GameObject ui_PlayerColorPercent;
 
-    float timer = 15f;
+    //float timer = 15f;
     private void Start()
     {
         ui_PlayerColorPercent = this.gameObject;
@@ -45,7 +45,7 @@ public class UI_PlayerColorPercent : UI_Scene
             _playerSlider[i].SetActive(false);
         }
 
-        Debug.Log(timer + "시간");
+        //Debug.Log(timer + "시간");
         for (int i = 0; i < PhotonNetwork.CurrentRoom.PlayerCount; i++)
         {
             _playercontorllers[i] = GameObject.Find($"Player{PhotonNetwork.LocalPlayer.ActorNumber}").GetComponentInChildren<PlayerController>();
@@ -69,21 +69,21 @@ public class UI_PlayerColorPercent : UI_Scene
     private void Update()
     {
         resetTimer += Time.deltaTime;
-        timer -= Time.deltaTime;
+       // timer -= Time.deltaTime;
         if (resetTimer >= 2f)
         {
             ColorPercent();
             resetTimer = 0;
         }
-        if (timer <= 0)
-        {
-            ColorPercent();
-            MapColorData.MapPlayerCountData = playerCount;
-            MapColorData.MapDataPlayer = _players;
-            // 현재 둘다 같은 값이 들어옴
-            //Debug.Log(MapColorData.MapDataPlayer[0].NodeCount + "MapDataPlayer1");
-            //Debug.Log(MapColorData.MapDataPlayer[1].NodeCount + "MapDataPlayer2");
-        }
+       // if (timer <= 0)
+       // {
+       //     ColorPercent();
+       //     MapColorData.MapPlayerCountData = playerCount;
+       //     MapColorData.MapDataPlayer = _players;
+       //     // 현재 둘다 같은 값이 들어옴
+       //     //Debug.Log(MapColorData.MapDataPlayer[0].NodeCount + "MapDataPlayer1");
+       //     //Debug.Log(MapColorData.MapDataPlayer[1].NodeCount + "MapDataPlayer2");
+       // }
     }
 
     // 플레이어

@@ -63,8 +63,8 @@ public class GameScene : BaseScene
         Util.FindChild(go, "Model").GetComponent<Transform>().position = playerRespawnPointTransform.GetChild(PhotonNetwork.LocalPlayer.ActorNumber - 1).position;
         go.GetComponentInChildren<PlayerController>().SetRelicEvent += OnSetRelic;
 
-        // 위치 변경.
         _photonView = Util.FindChild(go, "Model").GetComponent<PhotonView>();
+
         if (_photonView.IsMine)
         {
             Util.FindChild(go, "Camera", true).SetActive(true);
