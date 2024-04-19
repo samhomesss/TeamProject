@@ -11,7 +11,7 @@ public class UI_Timer : UI_Scene
 
     public float Timer => _timer;
 
-    float _timer = 15f;
+    float _timer = 300f;
     float _minute; 
     float _second;
     static Action loadScene;
@@ -22,8 +22,23 @@ public class UI_Timer : UI_Scene
     {
         TimerText = Util.FindChild(gameObject, "TimerText", true);
 
-        loadScene += () => { PhotonNetwork.LoadLevel("GameResultScene"); };
+        loadScene += SaveData;
     }
+
+    private void SaveData() {
+        //todo
+
+        //여기서 포톤 플레이어 수를 대입. 현재는 테스트용 하드코딩
+        PlayerPrefs.SetInt("PlayerNumber", 3);
+
+        //여기서 플레이어 순위에 맞는 플레이어 이름 입력. 현재는 테스트용 하드코딩
+        PlayerPrefs.SetString("Rank1", "Player1");
+        PlayerPrefs.SetString("Rank2", "Player2");
+        PlayerPrefs.SetString("Rank3", "Player3");
+
+        PhotonNetwork.LoadLevel("GameResultScene");
+    }
+
 
     private void Update()
     {

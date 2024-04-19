@@ -8,12 +8,12 @@ using yb;
 public class GameScene : BaseScene
 {
     private PhotonView _photonView;
-    private GameObject[] items = new GameObject[6];//0415 18:33 이희웅 테스트용 배열 추가
     private List<Transform> itemBox = new List<Transform>();//파라미터는 박스의 갯수
     public UnityEvent OnLoaded;
     private WaitForSeconds waitObject = new WaitForSeconds(0.1f);
-
     private GameObject _itemBox;
+    private Transform tr;
+
     public override void Clear()
     {
     }
@@ -23,41 +23,17 @@ public class GameScene : BaseScene
         setRelicAction?.Invoke();
         destroyRelicAction?.Invoke();
     }
-
-
     public override void Init()
     {
         _itemBox = new GameObject("ItemBox");
         base.Init();
-        //todo
+
         if (IsTestMode.Instance.CurrentUser == Define.User.Hw)
         {
-            GameObject go = PhotonNetwork.Instantiate("Prefabs/hw/PlayerPrefabs/Player", Vector3.zero, Quaternion.identity);
-            StartCoroutine(WaitPlayerLoded());
-            go.GetComponentInChildren<PlayerController>().SetRelicEvent += OnSetRelic;
-            _photonView = Util.FindChild(go, "Model").GetComponent<PhotonView>();
-
-            if (PhotonNetwork.IsMasterClient)
-            {
-                items[0] = PhotonNetwork.Instantiate("Prefabs/yb/Relic/GuardRelic", new Vector3(2, 1, 10), Quaternion.identity);
-                items[1] = PhotonNetwork.Instantiate("Prefabs/yb/Relic/ShieldRelic", new Vector3(10, 1, 2), Quaternion.identity);
-                items[2] = PhotonNetwork.Instantiate("Prefabs/yb/Relic/BonusAttackSpeedRelic", new Vector3(1, 1, 2), Quaternion.identity);
-                items[3] = PhotonNetwork.Instantiate("Prefabs/yb/Relic/BonusProjectileRelic", new Vector3(1, 1, 4), Quaternion.identity);
-                items[4] = PhotonNetwork.Instantiate("Prefabs/yb/Relic/BonusResurrectionTimeRelic", new Vector3(1, 1, 6), Quaternion.identity);
-                items[5] = PhotonNetwork.Instantiate("Prefabs/yb/Weapon/Shotgun", new Vector3(0, 1, 0), Quaternion.identity);
-                for (int i = 0; i < items.Length; i++)
-                {
-                    _photonView.RPC("SetDropItemName", RpcTarget.All, items[i].GetComponent<PhotonView>().ViewID);
-                }
-            }
-            if (_photonView.IsMine)
-            {
-                Util.FindChild(go, "Camera", true).SetActive(true);
-                Util.FindChild(go, "Camera", true).GetComponent<AudioListener>().enabled = true;
-                _photonView.RPC("RenamePlayer", RpcTarget.All, _photonView.ViewID);
-            }
-
+            // 리스폰 플레이어 테스트 중.
+            StartCoroutine(RespawnPlayers());
         }
+
         else if (IsTestMode.Instance.CurrentUser == Define.User.Sh)
         {
             Managers.UI.ShowSceneUI<UI_Timer>();
@@ -70,6 +46,32 @@ public class GameScene : BaseScene
         }
 
     }
+
+    // 작성자: 장세윤(2024.04.19).
+    // 플레이어를 리스폰 하는 함수.
+    // 레벨이 준비될 때까지 대기해야 하기 때문에 모든 플레이어가 생성될 때까지 대기한 후에 리스폰 하도록 구현.
+    private IEnumerator RespawnPlayers()
+    {
+        // 플레이어 GO 생성.
+        GameObject go = PhotonNetwork.Instantiate($"Prefabs/hw/PlayerPrefabs/Player{PhotonNetwork.LocalPlayer.ActorNumber}", Vector3.zero, Quaternion.identity);
+
+        // 레벨에 포톤에 등록된 모든 플레이어가 생성될 때까지 대기.
+        yield return StartCoroutine(WaitPlayerLoded());
+
+        // 리스폰 위치 가져오기.
+        Util.FindChild(go,"Model").GetComponent<Transform>().position = tr.GetChild(UnityEngine.Random.Range(0, tr.childCount - 1)).position;
+        go.GetComponentInChildren<PlayerController>().SetRelicEvent += OnSetRelic;
+
+        // 위치 변경.
+        _photonView = Util.FindChild(go, "Model").GetComponent<PhotonView>();
+        if (_photonView.IsMine)
+        {
+            Util.FindChild(go, "Camera", true).SetActive(true);
+            Util.FindChild(go, "Camera", true).GetComponent<AudioListener>().enabled = true;
+            _photonView.RPC("RenamePlayer", RpcTarget.All, _photonView.ViewID);
+        }
+    }
+
     void ShowUI()
     {
         Managers.UI.ShowSceneUI<UI_Timer>();
@@ -77,7 +79,7 @@ public class GameScene : BaseScene
         Map map = Managers.SceneObj.ShowSceneObject<Map>();
         if (map != null)
         {
-            map.onLoadMapUI += OnLoadedUI;
+            map.onLoadMapUI += OnLoadedItemBox;
         }
 
         Managers.SceneObj.ShowSceneObject<MiniMapCam>();
@@ -97,31 +99,19 @@ public class GameScene : BaseScene
     {
         // 플레이어의 로딩을 기다립니다.
         bool allPlayersLoaded = false;
-        while (!allPlayersLoaded)
+        bool isSpwanPointLoaded = false;
+        while (!allPlayersLoaded || !isSpwanPointLoaded)
         {
-            //int loadedPlayerCount = 0;
-            //for (int i = 0; i < PhotonNetwork.CurrentRoom.PlayerCount; i++)
-            //{
-            //    if (GameObject.Find($"Player{i + 1}")?.GetComponentInChildren<PlayerController>() != null)
-            //    {
-            //        loadedPlayerCount++;
-            //    }
-            //}
-
-            // 모든 플레이어가 로드되었는지 확인
             allPlayersLoaded = FindObjectsByType<PlayerController>(FindObjectsSortMode.None).Length == PhotonNetwork.CurrentRoom.PlayerCount;
-
-            // 모든 플레이어가 로드되었는지 확인
-            //allPlayersLoaded = loadedPlayerCount == PhotonNetwork.CurrentRoom.PlayerCount;
-
-            //yield return new WaitForSeconds(0.1f);
+            isSpwanPointLoaded = RespawnManager.Instance;
             yield return waitObject;
         }
-
+        tr = RespawnManager.Instance.RespawnPoints;
         ShowUI();
     }
 
-    public void OnLoadedUI() //로딩이 다 된다음에 호출
+
+    public void OnLoadedItemBox() //로딩이 다 된다음에 호출
     {
 
         for (int i = 1; i < 13; i++)

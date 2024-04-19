@@ -16,6 +16,7 @@ namespace yb {
         protected float _projectileVelocity;
         public int DefaultDamage { get; set; }
 
+        public float LimitRange { get; protected set; }
         public int RemainBullet => _remainBullet;
         
 

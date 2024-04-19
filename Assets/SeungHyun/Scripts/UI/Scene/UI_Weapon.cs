@@ -24,6 +24,7 @@ public class UI_Weapon : UI_Scene
     int _maxBullet = 15;
     int _bulletCount = 60;
 
+
     string slotItemID = Define.WeaponType.Pistol.ToString(); // 처음은 피스톨로 설정 해주고
     private void Start()
     {
@@ -39,7 +40,7 @@ public class UI_Weapon : UI_Scene
         GameObject BulletText = GetObject((int)GameObjects.BulletText);
 
         map = Map.MapObject.GetComponent<Map>();
-        _photonView = GameObject.Find($"Player{PhotonNetwork.LocalPlayer.ActorNumber}").GetComponentInChildren<PhotonView>();
+        _photonView = map.Player.PhotonView;
 
         if (_photonView.IsMine)
             SetPlayer(map.Player);
@@ -59,13 +60,23 @@ public class UI_Weapon : UI_Scene
 
         if (IsTestMode.Instance.CurrentUser == Define.User.Hw)
         {
-            if (_photonView.IsMine)
-            {
-                GameObject go = PhotonNetwork.Instantiate($"Prefabs/yb/Weapon/{Managers.ItemDataBase.GetItemData(beforeItemID).itemName}", Vector3.zero, Quaternion.identity);
-                go.GetComponent<PhotonView>().TransferOwnership(PhotonNetwork.MasterClient.ActorNumber);
-                map.Player.PhotonView.RPC("SetDropItemName", RpcTarget.All, go.GetComponent<PhotonView>().ViewID);//이름 바꾸기
-                go.transform.position = map.Player.transform.position + Vector3.up;
-            }
+           // _photonView.RPC("Replacedweapon", RpcTarget.All, beforeItemID, _photonView.ViewID);
+
+
+            //GameObject go = PhotonNetwork.Instantiate($"Prefabs/yb/Weapon/{Managers.ItemDataBase.GetItemData(beforeItemID).itemName}", Vector3.zero, Quaternion.identity);
+
+            //if (_photonView.IsMine)
+            //{
+            //    map.Player.PhotonView.RPC("SetDropItemName", RpcTarget.All, go.GetComponent<PhotonView>().ViewID);//이름 바꾸기
+            //    go.transform.position = map.Player.transform.position + Vector3.up;
+
+            //GameObject ChangeWeaponObject = PhotonNetwork.Instantiate($"Prefabs/yb/Weapon/{Managers.ItemDataBase.GetItemData(beforeItemID).itemName}", Vector3.zero, Quaternion.identity);
+            //ChangeWeaponObject.transform.position = _photonView.transform.position + Vector3.up;
+            //int index = ChangeWeaponObject.transform.gameObject.name.IndexOf("(Clone)");
+            //if (index > 0)
+            //    ChangeWeaponObject.transform.gameObject.name = ChangeWeaponObject.transform.gameObject.name.Substring(0, index);
+
+
         }
         else
         {

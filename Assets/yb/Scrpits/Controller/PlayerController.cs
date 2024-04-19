@@ -3,6 +3,7 @@ using UnityEngine;
 using Photon.Pun;
 using System;
 using UnityEngine.Events;
+using System.Collections;
 
 namespace yb
 {
@@ -47,8 +48,10 @@ namespace yb
         public Dictionary<int, Item> ItemList => _itemList;
         public int HaveRelicNumber { get; set; }
 
-        public class Item {
-            public Item(Define.ItemType type, int number) {
+        public class Item
+        {
+            public Item(Define.ItemType type, int number)
+            {
                 ItemType = type;
                 ItemNumber = number;
             }
@@ -175,6 +178,18 @@ namespace yb
             #endregion  
         }
 
+        /// <summary>
+        /// Result씬에서 플레이어를 생성했을 시 호출
+        /// </summary>
+        /// <param name="rank">순위</param>
+        private void SetWinPlayer(int rank) {
+            transform.position = _data.DefaultWinScenePosition(rank);
+            transform.eulerAngles = _data.DefaultWinSceneRotation();
+            transform.localScale = Vector3.one * .5f;
+            _weaponController.AllWeaponFalse();
+            _stateController.ChangeState(new PlayerState_Win(this));
+        }
+
         public void SetCamera(Camera camera) => _myCamera = camera;
 
         /// <summary>
@@ -205,7 +220,7 @@ namespace yb
                 return false;
 
             #region 승현 추가 04.11
-            
+
             //MapEvent?.Invoke();
             //ClosedItemEvent?.Invoke();            
 
@@ -247,7 +262,8 @@ namespace yb
         /// <param name="state"></param>
         public void ChangeTriggerAnimation(Define.PlayerState state)//0408 16:38분 이희웅 업데이트 추가
         {
-            if(IsTestMode.Instance.CurrentUser == Define.User.Hw) {
+            if (IsTestMode.Instance.CurrentUser == Define.User.Hw)
+            {
                 if (_photonview.IsMine)
                     _animator.SetTrigger(state.ToString());
             }
@@ -282,7 +298,8 @@ namespace yb
 
                 }
             }
-            else {
+            else
+            {
                 Vector3 dir = new Vector3(moveX, 0f, moveZ);
                 _rigid.MovePosition(_rigid.position + dir * (_status.MoveSpeed * _status.MoveSpeedDecrease) * Time.deltaTime);
                 _playerMoveVelocity = dir * (_status.MoveSpeed * _status.MoveSpeedDecrease) * Time.deltaTime;
@@ -309,39 +326,46 @@ namespace yb
         /// <param name="attacker"></param>
         public void OnDieUpdate(GameObject attacker)
         {
-            transform.LookAt(attacker.transform.position);
-            _collider.enabled = false;
-            _rigid.isKinematic = true;
-            _rotateToMouseScript.PlayerDead();
-            transform.position += Vector3.up;
-            ChangeTriggerAnimation(Define.PlayerState.Die);
-            Invoke("PlayerRespawn", _status.ResurrectionTime);
+            if (_photonview.IsMine)
+            {
+                transform.LookAt(attacker.transform.position);
+                _collider.enabled = false;
+                _rigid.isKinematic = true;
+                _rotateToMouseScript.PlayerDead();
+                transform.position += Vector3.up;
+                ChangeTriggerAnimation(Define.PlayerState.Die);
+                StartCoroutine(PlayerRespawn());
+            }
         }
 
         /// <summary>
         /// 플레이어 부활 재배치 로직
         /// </summary>
-        private void PlayerRespawn() {
-            transform.position += Vector3.down;
-            _stateController.ChangeState(new PlayerState_Idle(this));
-            Status.SetHp(Status.MaxHp - Status.CurrentHp);
-            ChangeTriggerAnimation(Define.PlayerState.Respawn);
-            _collider.enabled = true;
-            _rigid.isKinematic = false;
-            _rotateToMouseScript.PlayerRespawn();
-            Transform tr = RespawnManager.Instance.RespawnPoints;
-            transform.position = tr.GetChild(UnityEngine.Random.Range(0, tr.childCount - 1)).position;
-            HpEvent.Invoke(Status.CurrentHp, Status.MaxHp);
-            RangedWeapon weapon = _weaponController.RangedWeapon as RangedWeapon;
-            weapon.InitBullet();
-            BulletEvent.Invoke(weapon.CurrentBullet, weapon.MaxBullet);
-         
+        IEnumerator PlayerRespawn()
+        {
+            yield return new WaitForSeconds(_status.ResurrectionTime);
+            if (_photonview.IsMine)//0418 이희웅 추가 모든 플레이어가 실행되기 때문에 자기 플레이어만 실행되도록
+            {
+                _stateController.ChangeState(new PlayerState_Idle(this));
+                Status.SetHp(Status.MaxHp - Status.CurrentHp);
+                _collider.enabled = true;
+                _rigid.isKinematic = false;
+                _rotateToMouseScript.PlayerRespawn();
+                Transform tr = RespawnManager.Instance.RespawnPoints;
+                transform.position = tr.GetChild(UnityEngine.Random.Range(0, tr.childCount - 1)).position;
+
+                HpEvent.Invoke(Status.CurrentHp, Status.MaxHp);
+                RangedWeapon weapon = _weaponController.RangedWeapon as RangedWeapon;
+                weapon.InitBullet();
+                BulletEvent.Invoke(weapon.CurrentBullet, weapon.MaxBullet);
+            }
         }
 
         /// <summary>
         /// 플레이어 사망 이벤트(애니메이션에서 이벤트로 호출)
         /// </summary>
-        public void OnDieEvent() {
+        public void OnDieEvent()
+        {
 
         }
 
@@ -420,6 +444,20 @@ namespace yb
                 _droplable.Drop(transform.position);
                 _attacker = PhotonNetwork.GetPhotonView(attackerViewNum).gameObject; //PunRpc에서 GameObject를 직렬화 해서 보낼 수 없기에 직렬화 해서 보낼 수 있는 attackerViewNum을 보내고 해당 attackerViewNum을 포톤네트워크에서 찾아서 넣어준다.
                 _stateController.ChangeState(new PlayerState_Die(this, _attacker));
+            }
+        }
+
+        [PunRPC]
+        public void Replacedweapon(string beforeItemID, int ViewID)
+        {
+            PhotonView controller = PhotonNetwork.GetPhotonView(ViewID);
+            if (PhotonNetwork.IsMasterClient)
+            {
+                GameObject ChangeWeaponObject = PhotonNetwork.Instantiate($"Prefabs/yb/Weapon/{Managers.ItemDataBase.GetItemData(beforeItemID).itemName}", Vector3.zero, Quaternion.identity);
+                ChangeWeaponObject.transform.position = controller.transform.position + Vector3.up;
+                int index = ChangeWeaponObject.transform.gameObject.name.IndexOf("(Clone)");
+                if (index > 0)
+                    ChangeWeaponObject.transform.gameObject.name = ChangeWeaponObject.transform.gameObject.name.Substring(0, index);
             }
         }
     }

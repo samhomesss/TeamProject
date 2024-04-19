@@ -32,7 +32,6 @@ namespace yb
         [PunRPC]
         public override void PickupPhoton(int playerViewId)
         {
-            Debug.Log("ÁÝ´Â RPCÄÝ");
             PlayerController player;
             player = PhotonNetwork.GetPhotonView(playerViewId).GetComponent<PlayerController>();
             player.WeaponController.ChangeRangedWeapon(new RangedWeapon_Shotgun(player.WeaponController.RangedWeaponsParent, player));

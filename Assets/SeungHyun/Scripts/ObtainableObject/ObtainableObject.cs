@@ -76,6 +76,7 @@ public class ObtainableObject : MonoBehaviourPunCallbacks, IObtainableObject, IO
 
     // 마스터 클라이언트에 아이템 삭제를 요청하는 함수.
     // 삭제가 필요한 아이템을 획득할 때 호출을 해줘야 함.
+
     [PunRPC]
     public void OnRequestPhotonDestroy(int objectID)
     {
@@ -99,6 +100,8 @@ public class ObtainableObject : MonoBehaviourPunCallbacks, IObtainableObject, IO
         int index = _photonView.transform.gameObject.name.IndexOf("(Clone)");
         if (index > 0)
             _photonView.transform.gameObject.name = _photonView.transform.gameObject.name.Substring(0, index);
+
+        Debug.Log("셋드롭아이템이름 호출됨");
     }
     [PunRPC]
     public void DropItem(int PhotonViewID, int PlayerPhotonViewID)
