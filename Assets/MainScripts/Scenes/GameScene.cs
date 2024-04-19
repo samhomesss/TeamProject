@@ -95,6 +95,7 @@ public class GameScene : BaseScene
         Managers.UI.ShowSceneUI<UI_RelicInven>();
         Managers.UI.ShowSceneUI<UI_PlayerColorPercent>();
         Managers.UI.ShowSceneUI<UI_Timer>();
+        Managers.SceneObj.ShowSceneObject<BoxSpawnManager>();
         // UIInfo
         UI_ItemInfo.ItemInfo = Managers.UI.ShowSceneUIInfo<UI_ItemInfo>().gameObject;
         UI_ItemInfo.ItemInfo.SetActive(false);
