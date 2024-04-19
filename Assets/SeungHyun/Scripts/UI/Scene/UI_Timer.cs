@@ -27,7 +27,6 @@ public class UI_Timer : UI_Scene
         
         TimerText = Util.FindChild(gameObject, "TimerText", true);
         loadScene += SaveData;
-        
     }
 
     // 리스트를 플레이어컬러 퍼센트에 있는 플레이어스를 가져와서 정렬된 데이터를 기반으로 반복문 돌리면 되지 않나? 플레이어 1이 아니라 플레이어 대신 NickName을 가져오고 
@@ -38,16 +37,14 @@ public class UI_Timer : UI_Scene
         List<PlayerController> playerList = _uiPlayerColorPercent.SortNodeCount();
 
         //여기서 포톤 플레이어 수를 대입. 현재는 테스트용 하드코딩
-        PlayerPrefs.SetInt("PlayerNumber", playerList.Count); // 포톤 플레이어 수를 넣어주면 됨
+        PlayerPrefs.SetInt("PlayerNumber", playerList.Count); // 포톤 플레이어 수를 넣어주면 됨w
 
         //여기서 플레이어 순위에 맞는 플레이어 이름 입력. 현재는 테스트용 하드코딩
-        PlayerPrefs.SetString("Rank1", playerList[0].PlayerNickName);
-        PlayerPrefs.SetString("Rank2", playerList[1].PlayerNickName);
-        PlayerPrefs.SetString("Rank3", playerList[2].PlayerNickName);
-
-        PlayerPrefs.SetInt("Rank1Percent", playerList[0].NodeCount); // 정렬된 플레이어의 NodeCount를 넣어주고 
-        PlayerPrefs.SetInt("Rank2Percent", playerList[1].NodeCount); 
-        PlayerPrefs.SetInt("Rank3Percent", playerList[2].NodeCount);
+        for (int i = 0; i < PhotonNetwork.CurrentRoom.PlayerCount; i++)
+        {
+            PlayerPrefs.SetString($"Rank{i}", playerList[i].PlayerNickName);
+            PlayerPrefs.SetInt($"Rank{i}Percent", playerList[i].NodeCount); // 정렬된 플레이어의 NodeCount를 넣어주고 
+        }
 
         PhotonNetwork.LoadLevel("GameResultScene");
     }

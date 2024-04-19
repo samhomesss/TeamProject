@@ -20,16 +20,16 @@ public class UI_GameResult : UI_Scene
     }
 
     List<GameObject> playerResultInfos = new List<GameObject>();
-    Dictionary<string, int> _playerList;    
+    Dictionary<string, int> _playerList = new Dictionary<string, int>();    
     int playerCount; 
     private void Start()
     {
         playerCount = PlayerPrefs.GetInt("PlayerNumber");
-        _playerList = new Dictionary<string, int>(playerCount) {
-            { PlayerPrefs.GetString("Rank1"),PlayerPrefs.GetInt("Rank1Percent") },
-            { PlayerPrefs.GetString("Rank2"),PlayerPrefs.GetInt("Rank2Percent") },
-            { PlayerPrefs.GetString("Rank3"),PlayerPrefs.GetInt("Rank3Percent") },
-        };
+        for (int i = 0; i < playerCount; i++) 
+        {
+            _playerList.Add(PlayerPrefs.GetString($"Rank{i}"), PlayerPrefs.GetInt($"Rank{i}Percent"));
+        }
+       
         Init();
     }
 
@@ -43,38 +43,46 @@ public class UI_GameResult : UI_Scene
             playerResultInfos.Add(Get<GameObject>((int)((GameObjects)i)));
             playerResultInfos[i].SetActive(false);
         }
-        // 현재 플레이어의 수 만큼만 띄워줌
+
         for (int i = 0; i < playerCount; i++)
         {
             PlayerResultInfo resultInfo = playerResultInfos[i].GetComponent<PlayerResultInfo>();
             playerResultInfos[i].SetActive(true);
            
             
-            if (i + 1 == 1)
+            //if (i + 1 == 1)
+            //{
+            //    resultInfo.PlayerNickName.text = "Player1";
+            //    resultInfo.PlayerResultImage.sprite = Managers.Resources.Load<Sprite>(($"Prefabs/sh/UI/Texture/Player1"));
+            //}
+            //else if (i + 1 == 2)
+            //{
+            //    resultInfo.PlayerNickName.text = "Player2";
+            //    resultInfo.PlayerResultImage.sprite = Managers.Resources.Load<Sprite>(($"Prefabs/sh/UI/Texture/Player2"));
+            //}
+            //else if (i + 1 == 3)
+            //{
+            //    resultInfo.PlayerNickName.text = "Player3";
+            //    resultInfo.PlayerResultImage.sprite = Managers.Resources.Load<Sprite>(($"Prefabs/sh/UI/Texture/Player3"));
+            //}
+            //else
+            //{
+            //    resultInfo.PlayerNickName.text = $"Player{i + 1}";
+            //    resultInfo.PlayerResultImage.gameObject.SetActive(false);
+            //    resultInfo.PlayerResultNumber.gameObject.SetActive(true);
+            //    resultInfo.PlayerResultNumber.text = $"{i + 1}.";
+            //}
+        }
+
+        for (int i = 0; i < _playerList.Count; i++)
+        {
+            string rankNickName = PlayerPrefs.GetString($"Rank{i + 1}");
+            if (_playerList.TryGetValue(rankNickName, out int percentValue))
             {
-                resultInfo.PlayerNickName.text = "Player1";
-                resultInfo.PlayerResultImage.sprite = Managers.Resources.Load<Sprite>(($"Prefabs/sh/UI/Texture/Player1"));
-            }
-            else if (i + 1 == 2)
-            {
-                resultInfo.PlayerNickName.text = "Player2";
-                resultInfo.PlayerResultImage.sprite = Managers.Resources.Load<Sprite>(($"Prefabs/sh/UI/Texture/Player2"));
-            }
-            else if (i + 1 == 3)
-            {
-                resultInfo.PlayerNickName.text = "Player3";
-                resultInfo.PlayerResultImage.sprite = Managers.Resources.Load<Sprite>(($"Prefabs/sh/UI/Texture/Player3"));
-            }
-            else
-            {
-                resultInfo.PlayerNickName.text = $"Player{i + 1}";
-                resultInfo.PlayerResultImage.gameObject.SetActive(false);
-                resultInfo.PlayerResultNumber.gameObject.SetActive(true);
-                resultInfo.PlayerResultNumber.text = $"{i + 1}.";
+                playerResultInfos[i].SetActive(true);
+                playerResultInfos[i].GetComponent<PlayerResultInfo>().Initisarize(rankNickName, ((int)(percentValue / 4096f * 100f)).ToString() + "%", percentValue);
             }
         }
-    
-        // 플레이어 Dictionary 이용해서 처리 
     }
 }
 
