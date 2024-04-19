@@ -14,7 +14,7 @@ public class GameScene : BaseScene
     public UnityEvent OnLoaded;
     private WaitForSeconds waitObject = new WaitForSeconds(0.1f);
     private Transform playerRespawnPointTransform;
-    private PhotonView _itemBox_transform_Photonview;
+    private GameObject _itemBox;
 
 
     public override void Clear()
@@ -29,6 +29,7 @@ public class GameScene : BaseScene
     public override void Init()
     {
         base.Init();
+        _itemBox = new GameObject("ItemBox");
         if (IsTestMode.Instance.CurrentUser == Define.User.Hw)
         {
             StartCoroutine(RespawnPlayers());

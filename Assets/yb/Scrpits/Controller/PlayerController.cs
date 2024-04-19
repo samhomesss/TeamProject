@@ -465,12 +465,13 @@ namespace yb
         [PunRPC]
         public void SetItemBox(int ItemBoxPCS)
         {
-            Transform itemBoxtransform = GameObject.Find("@Obj_Root/Map/ItemBox").GetComponent<Transform>();
+            Transform itemBoxtransform = GameObject.Find("ItemBox").GetComponent<Transform>();
+            Transform itemBoxOriginaltransform = GameObject.Find("@Obj_Root/Map/ItemBox").GetComponent<Transform>();
             for (int i = 0; i < ItemBoxPCS; i++)
             {
                 if (PhotonNetwork.IsMasterClient)
                 {
-                    GameObject itembox = PhotonNetwork.Instantiate("Prefabs/yb/Object/DestructibleObject", itemBoxtransform.GetChild(i).transform.position,Quaternion.identity);
+                    GameObject itembox = PhotonNetwork.Instantiate("Prefabs/yb/Object/DestructibleObject", itemBoxOriginaltransform.GetChild(i).transform.position,Quaternion.identity);
                     itembox.transform.SetParent(itemBoxtransform);
                 }
             }
