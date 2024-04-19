@@ -74,7 +74,6 @@ public class GameScene : BaseScene
 
     void ShowUI()
     {
-        Managers.UI.ShowSceneUI<UI_Timer>();
         //GameObject
         Map map = Managers.SceneObj.ShowSceneObject<Map>();
         if (map != null)
@@ -89,6 +88,7 @@ public class GameScene : BaseScene
         Managers.UI.ShowSceneUI<UI_MiniMap>();
         Managers.UI.ShowSceneUI<UI_RelicInven>();
         Managers.UI.ShowSceneUI<UI_PlayerColorPercent>();
+        Managers.UI.ShowSceneUI<UI_Timer>();
         // UIInfo
         UI_ItemInfo.ItemInfo = Managers.UI.ShowSceneUIInfo<UI_ItemInfo>().gameObject;
         UI_ItemInfo.ItemInfo.SetActive(false);
