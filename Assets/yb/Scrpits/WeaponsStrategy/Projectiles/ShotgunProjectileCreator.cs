@@ -7,7 +7,7 @@ namespace yb {
     /// Shotgun 발사체 생성 클래스
     /// </summary>
     public class ShotgunProjectileCreator : IProjectileCreator {
-        public void Create(int defaultDamage, float projectileSpeed, Vector3 targetPos, Vector3 createPos, PlayerController player) {
+        public void Create(int defaultDamage, float projectileSpeed, Vector3 targetPos, Vector3 createPos, PlayerController player, float range) {
             ProjectileMoveScript vfx;
             if (IsTestMode.Instance.CurrentUser == Define.User.Hw)//0408 15:06 이희웅 테스트
             {
@@ -17,7 +17,7 @@ namespace yb {
 
                 Quaternion deltaRotation = Quaternion.AngleAxis(angle, Vector3.up); // 델타 회전 생성
                 Quaternion modifiedRotation = original * deltaRotation; // 델타 회전 적용
-                vfx.Init(modifiedRotation, defaultDamage, player.gameObject);
+                vfx.Init(modifiedRotation, defaultDamage, createPos,  player.gameObject, range);
             }
             else
             {
@@ -27,7 +27,7 @@ namespace yb {
 
                 Quaternion deltaRotation = Quaternion.AngleAxis(angle, Vector3.up); // 델타 회전 생성
                 Quaternion modifiedRotation = original * deltaRotation; // 델타 회전 적용
-                vfx.Init(modifiedRotation, defaultDamage, createPos, player.gameObject);
+                vfx.Init(modifiedRotation, defaultDamage, createPos, player.gameObject, range);
             }
             
             

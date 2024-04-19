@@ -36,6 +36,7 @@ public class Define
         Die,
         Idle,
         Respawn,
+        Win,
     }
     public enum UIEvent
     {
@@ -83,5 +84,6 @@ public class Define
         Login,
         Lobby,
         InGame,
+        Result,
     }
 }
