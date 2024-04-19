@@ -45,8 +45,6 @@ public class UI_PlayerColorPercent : UI_Scene
             _playerSlider[i].SetActive(false);
         }
 
-        
-
         Debug.Log(timer + "½Ã°£");
         for (int i = 0; i < PhotonNetwork.CurrentRoom.PlayerCount; i++)
         {

@@ -9,6 +9,7 @@ namespace yb
 {
     public class PlayerController : MonoBehaviour, ITakeDamage, ITakeDamagePhoton
     {
+        public string PlayerNickName { get; set; }
         private readonly float _animationFadeTime = .3f;  //애니메이션 페이드 시간
         private const float LimitLeftPosX = 1f;
         private const float LimitRightPosX = 62f;
@@ -39,6 +40,8 @@ namespace yb
         private GameObject _attacker;
         private Texture2D _texture; //0415 12:04 이희웅 추가
         private Map _map; //0416 21:51 이희웅 추가
+        
+        
         public int HaveItemNumber { get; set; }
 
         public int NodeCount { get; set; }

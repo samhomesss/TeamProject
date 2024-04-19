@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using yb;
 
 public class UI_Timer : UI_Scene
 {
@@ -34,17 +35,19 @@ public class UI_Timer : UI_Scene
     private void SaveData() {
         //todo
 
+        List<PlayerController> playerList = _uiPlayerColorPercent.SortNodeCount();
+
         //여기서 포톤 플레이어 수를 대입. 현재는 테스트용 하드코딩
-        PlayerPrefs.SetInt("PlayerNumber", 3); // 포톤 플레이어 수를 넣어주면 됨
+        PlayerPrefs.SetInt("PlayerNumber", playerList.Count); // 포톤 플레이어 수를 넣어주면 됨
 
         //여기서 플레이어 순위에 맞는 플레이어 이름 입력. 현재는 테스트용 하드코딩
-        PlayerPrefs.SetString("Rank1", "Player1");
-        PlayerPrefs.SetString("Rank2", "Player2");
-        PlayerPrefs.SetString("Rank3", "Player3");
+        PlayerPrefs.SetString("Rank1", playerList[0].PlayerNickName);
+        PlayerPrefs.SetString("Rank2", playerList[1].PlayerNickName);
+        PlayerPrefs.SetString("Rank3", playerList[2].PlayerNickName);
 
-        PlayerPrefs.SetInt("Rank1Percent", _uiPlayerColorPercent.Players[0].NodeCount); // 정렬된 플레이어의 NodeCount를 넣어주고 
-        PlayerPrefs.SetInt("Rank2Percent", 30); 
-        PlayerPrefs.SetInt("Rank3Percent", 20);
+        PlayerPrefs.SetInt("Rank1Percent", playerList[0].NodeCount); // 정렬된 플레이어의 NodeCount를 넣어주고 
+        PlayerPrefs.SetInt("Rank2Percent", playerList[1].NodeCount); 
+        PlayerPrefs.SetInt("Rank3Percent", playerList[2].NodeCount);
 
         PhotonNetwork.LoadLevel("GameResultScene");
     }

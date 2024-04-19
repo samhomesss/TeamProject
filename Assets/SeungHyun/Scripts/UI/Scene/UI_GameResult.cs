@@ -20,17 +20,15 @@ public class UI_GameResult : UI_Scene
     }
 
     List<GameObject> playerResultInfos = new List<GameObject>();
-    List<string> _playerList;
+    Dictionary<string, int> _playerList;    
     int playerCount; 
-    string Player1;
-    string Player2;
     private void Start()
     {
         playerCount = PlayerPrefs.GetInt("PlayerNumber");
-        _playerList = new List<string>(playerCount) {
-            PlayerPrefs.GetString("Rank1"),
-            PlayerPrefs.GetString("Rank2"),
-            PlayerPrefs.GetString("Rank3"),
+        _playerList = new Dictionary<string, int>(playerCount) {
+            { PlayerPrefs.GetString("Rank1"),PlayerPrefs.GetInt("Rank1Percent") },
+            { PlayerPrefs.GetString("Rank2"),PlayerPrefs.GetInt("Rank2Percent") },
+            { PlayerPrefs.GetString("Rank3"),PlayerPrefs.GetInt("Rank3Percent") },
         };
         Init();
     }
@@ -75,92 +73,8 @@ public class UI_GameResult : UI_Scene
                 resultInfo.PlayerResultNumber.text = $"{i + 1}.";
             }
         }
-
-        if (MapColorData.MapDataPlayer == null)
-            return;
-
-        for (int i = 0; i < MapColorData.MapDataPlayer.Count; i++)
-        {
-            PlayerResultInfo resultInfo = playerResultInfos[i].GetComponent<PlayerResultInfo>();
-            PlayerResultInfo secondResultInfo = playerResultInfos[i+1].GetComponent<PlayerResultInfo>();
-            if (MapColorData.MapDataPlayer.Count == 1)
-            {
-                resultInfo.PlayerNickName.text = PhotonNetwork.PlayerList[i].NickName;
-                resultInfo.PlayerColorPercent.value = MapColorData.MapPlayerCountData[i] * 10;
-                resultInfo.PlayerColorPercent.gameObject.transform.GetChild(2).GetComponent<TMP_Text>().text = ((int)((float)(MapColorData.MapPlayerCountData[i]) / 4096 * 100)).ToString() + "%";
-            }
-            else if (MapColorData.MapDataPlayer.Count == 2)
-            {
-
-                if (MapColorData.MapPlayerCountData[i] < MapColorData.MapPlayerCountData[i+1])
-                {
-                    Debug.Log(MapColorData.MapPlayerCountData[i] + "mapData 1번");
-                    Debug.Log(MapColorData.MapPlayerCountData[i+1] + "mapData 2번");
-
-                    int temp = MapColorData.MapPlayerCountData[i];
-                    MapColorData.MapPlayerCountData[i] = MapColorData.MapPlayerCountData[1];
-                    MapColorData.MapPlayerCountData[i+1] = temp;
-
-                    Debug.Log(MapColorData.MapPlayerCountData[i] + "mapData 1번");
-                    Debug.Log(MapColorData.MapPlayerCountData[i+1] + "mapData 2번");
-
-                    Player1 = PhotonNetwork.PlayerList[i].NickName;
-                    Player2 = PhotonNetwork.PlayerList[i+1].NickName;
-
-                    string strtemp = Player1;
-                    Player1 = Player2;
-                    Player2 = strtemp;
-
-
-                    playerResultInfos[i].GetComponent<PlayerResultInfo>().PlayerNickName.text = Player1;
-                    playerResultInfos[i+1].GetComponent<PlayerResultInfo>().PlayerNickName.text = Player2;
-                    playerResultInfos[i].GetComponent<PlayerResultInfo>().PlayerColorPercent.value = MapColorData.MapPlayerCountData[i] * 10;
-                    playerResultInfos[i+1].GetComponent<PlayerResultInfo>().PlayerColorPercent.value = MapColorData.MapPlayerCountData[i+1] * 10;
-                    playerResultInfos[i].GetComponent<PlayerResultInfo>().PlayerColorPercent.gameObject.transform.GetChild(2).GetComponent<TMP_Text>().text = ((int)((float)(MapColorData.MapPlayerCountData[i]) / 4096 * 100)).ToString() + "%";
-                    playerResultInfos[i+1].GetComponent<PlayerResultInfo>().PlayerColorPercent.gameObject.transform.GetChild(2).GetComponent<TMP_Text>().text = ((int)((float)(MapColorData.MapPlayerCountData[i+1]) / 4096 * 100)).ToString() + "%";
-                }
-                else
-                {
-                    playerResultInfos[i].GetComponent<PlayerResultInfo>().PlayerNickName.text = Player1;
-                    playerResultInfos[i + 1].GetComponent<PlayerResultInfo>().PlayerNickName.text = Player2;
-                    playerResultInfos[i].GetComponent<PlayerResultInfo>().PlayerColorPercent.value = MapColorData.MapPlayerCountData[i] * 10;
-                    playerResultInfos[i + 1].GetComponent<PlayerResultInfo>().PlayerColorPercent.value = MapColorData.MapPlayerCountData[i + 1] * 10;
-                    playerResultInfos[i].GetComponent<PlayerResultInfo>().PlayerColorPercent.gameObject.transform.GetChild(2).GetComponent<TMP_Text>().text = ((int)((float)(MapColorData.MapPlayerCountData[i]) / 4096 * 100)).ToString() + "%";
-                    playerResultInfos[i + 1].GetComponent<PlayerResultInfo>().PlayerColorPercent.gameObject.transform.GetChild(2).GetComponent<TMP_Text>().text = ((int)((float)(MapColorData.MapPlayerCountData[i + 1]) / 4096 * 100)).ToString() + "%";
-                }
-            }
-
-            else // 다시 짜기
-            {
-                for (int j = i + 1; j < MapColorData.MapDataPlayer.Count; j++)
-                {
-                    PlayerResultInfo nextresultInfo = playerResultInfos[j].GetComponent<PlayerResultInfo>();
-                    nextresultInfo.PlayerNickName.text = PhotonNetwork.PlayerList[j].NickName;
-                    if (MapColorData.MapDataPlayer[i].NodeCount < MapColorData.MapDataPlayer[j].NodeCount)
-                    {
-                        int temp = MapColorData.MapDataPlayer[i].NodeCount;
-                        MapColorData.MapDataPlayer[i].NodeCount = MapColorData.MapDataPlayer[j].NodeCount;
-                        MapColorData.MapDataPlayer[j].NodeCount = temp;
-
-                        Player1 = PhotonNetwork.PlayerList[i].NickName;
-                        Player2 = PhotonNetwork.PlayerList[j].NickName;
-
-                        string strtemp = Player1;
-                        Player1 = Player2;
-                        Player2 = strtemp;
-                    }
-                    nextresultInfo.PlayerNickName.text = Player2;
-                    nextresultInfo.PlayerColorPercent.value = MapColorData.MapDataPlayer[j].NodeCount * 10;
-                    nextresultInfo.PlayerColorPercent.gameObject.transform.GetChild(2).GetComponent<TMP_Text>().text = ((int)((float)(MapColorData.MapDataPlayer[j].NodeCount) / 4096 * 100)).ToString() + "%";
-                }
-                resultInfo.PlayerNickName.text = Player1;
-                resultInfo.PlayerColorPercent.value = MapColorData.MapDataPlayer[i].NodeCount * 10;
-                resultInfo.PlayerColorPercent.gameObject.transform.GetChild(2).GetComponent<TMP_Text>().text = ((int)((float)(MapColorData.MapDataPlayer[i].NodeCount) / 4096 * 100)).ToString() + "%";
-            }
-        }
-               
+    
+        // 플레이어 Dictionary 이용해서 처리 
     }
-
-        
 }
 
