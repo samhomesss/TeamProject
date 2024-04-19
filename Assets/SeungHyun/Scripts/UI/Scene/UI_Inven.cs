@@ -48,7 +48,7 @@ public class UI_Inven : UI_Scene
     }
 
     // 번호를 넘겨주는 아이템 번호로 사용
-    // int(슬롯) string(아이템 이름) int(아이템 갯수)
+    // int(슬롯) Item(아이템 정보)
     public void ChangeImage(int slotID, PlayerController.Item Item)
     {
         #region 삭제
@@ -68,9 +68,20 @@ public class UI_Inven : UI_Scene
         //ui_Inven_Items[i].SlotItemID = Managers.ItemDataBase.GetItemData(ItemID).itemName; 
         //break;
         #endregion
-        ui_Inven_Items[slotID].transform.GetChild(0).GetComponentInChildren<Image>().sprite = Managers.Resources.Load<Sprite>($"Prefabs/sh/UI/Texture/{Item.ItemType.ToString()}");
-        ui_Inven_Items[slotID].SlotItemID = Item.ItemType.ToString();
-        ui_Inven_Items[slotID].transform.GetChild(2).GetComponentInChildren<TMP_Text>().text = Item.ItemNumber.ToString();//0418 00:29 이희웅 Text -> TMP_Text로 수정
+        if (Item.ItemNumber == 0)
+        {
+            ui_Inven_Items[slotID].transform.GetChild(0).GetComponentInChildren<Image>().sprite = Managers.Resources.Load<Sprite>($"Prefabs/sh/UI/Texture/DefaultItemImage");
+            ui_Inven_Items[slotID].SlotItemID = default;
+            ui_Inven_Items[slotID].transform.GetChild(2).GetComponentInChildren<TMP_Text>().text = Item.ItemNumber.ToString();//0418 00:29 이희웅 Text -> TMP_Text로 수정
+        }
+        else
+        {
+            ui_Inven_Items[slotID].transform.GetChild(0).GetComponentInChildren<Image>().sprite = Managers.Resources.Load<Sprite>($"Prefabs/sh/UI/Texture/{Item.ItemType.ToString()}");
+            ui_Inven_Items[slotID].SlotItemID = Item.ItemType.ToString();
+            ui_Inven_Items[slotID].transform.GetChild(2).GetComponentInChildren<TMP_Text>().text = Item.ItemNumber.ToString();//0418 00:29 이희웅 Text -> TMP_Text로 수정
+        }
+        
+        
     }
 }
 

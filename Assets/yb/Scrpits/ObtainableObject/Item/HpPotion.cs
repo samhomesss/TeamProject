@@ -1,6 +1,7 @@
 using Photon.Pun;
 
-namespace yb {
+namespace yb
+{
     public class HpPotion : ObtainableItem {
         private void Start() {
             _photonView = GetComponent<PhotonView>(); //0417 23:50 ¿Ã»Òøı√ﬂ∞° 
