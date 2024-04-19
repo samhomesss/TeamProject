@@ -336,6 +336,8 @@ namespace yb
                 _rigid.isKinematic = true;
                 _rotateToMouseScript.PlayerDead();
                 transform.position += Vector3.up;
+                _animator.SetBool("Move", false);
+                _animator.SetBool("Idle", false);
                 ChangeTriggerAnimation(Define.PlayerState.Die);
                 StartCoroutine(PlayerRespawn());
             }
