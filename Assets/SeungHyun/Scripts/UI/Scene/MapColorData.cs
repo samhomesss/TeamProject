@@ -12,6 +12,9 @@ public class MapColorData : MonoBehaviour
     
     public static List<PlayerController> MapDataPlayer { get { return _mapDataplayers; } set { _mapDataplayers = value; } }
 
+    public static int[] MapPlayerCountData { get { return _mapPlayerCountData; } set { _mapPlayerCountData = value; } }
+    static int[] _mapPlayerCountData = new int[8]; 
+
     static List<PlayerController> _mapDataplayers = new List<PlayerController>();
     static List<string> _playersNickName = new List<string>();  
     static List<int> _playersNodeCheck = new List<int>();    

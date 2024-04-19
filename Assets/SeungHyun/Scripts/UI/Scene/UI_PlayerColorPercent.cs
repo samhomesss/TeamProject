@@ -66,11 +66,11 @@ public class UI_PlayerColorPercent : UI_Scene
         if (timer <= 0)
         {
             ColorPercent();
-            Debug.Log(_players[0].NodeCount);
-
+            MapColorData.MapPlayerCountData = playerCount;
             MapColorData.MapDataPlayer = _players;
-
-            Debug.Log(MapColorData.MapDataPlayer[0].NodeCount + "MapDataPlayer");
+            // 현재 둘다 같은 값이 들어옴
+            //Debug.Log(MapColorData.MapDataPlayer[0].NodeCount + "MapDataPlayer1");
+            //Debug.Log(MapColorData.MapDataPlayer[1].NodeCount + "MapDataPlayer2");
         }
     }
 
