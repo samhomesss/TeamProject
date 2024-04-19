@@ -184,6 +184,18 @@ namespace yb
             #endregion  
         }
 
+        /// <summary>
+        /// Result씬에서 플레이어를 생성했을 시 호출
+        /// </summary>
+        /// <param name="rank">순위</param>
+        private void SetWinPlayer(int rank) {
+            transform.position = _data.DefaultWinScenePosition(rank);
+            transform.eulerAngles = _data.DefaultWinSceneRotation();
+            transform.localScale = Vector3.one * .5f;
+            _weaponController.AllWeaponFalse();
+            _stateController.ChangeState(new PlayerState_Win(this));
+        }
+
         public void SetCamera(Camera camera) => _myCamera = camera;
 
         /// <summary>

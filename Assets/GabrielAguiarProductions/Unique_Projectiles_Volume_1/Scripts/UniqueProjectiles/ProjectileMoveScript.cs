@@ -42,6 +42,8 @@ public class ProjectileMoveScript : MonoBehaviourPunCallbacks
     private Rigidbody rb;
     private int _damage;
     private GameObject _creator;
+    private Vector3 _createPos;
+    private float _limitRange;
 
     public event Action itakeDamageAction;
 
@@ -49,27 +51,44 @@ public class ProjectileMoveScript : MonoBehaviourPunCallbacks
     {
         rb = GetComponent<Rigidbody>();
     }
-    public void Init(int damage, GameObject creator) //0409 12:45 이희웅 함수 오버로딩 추가  
+    public void Init(int damage, GameObject creator, Vector3 pos, float range) //0409 12:45 이희웅 함수 오버로딩 추가  
     {
+        _createPos = pos;
+        _limitRange = range;
         _damage = damage;
         _creator = creator;
     }
 
-    public void Init(Quaternion rotate, int damage, GameObject creator)
+    public void Init(int damage, GameObject creator) //0409 12:45 이희웅 함수 오버로딩 추가  
+   {
+        _damage = damage;
+        _creator = creator;
+    }
+
+    public void Init(Quaternion rotate, int damage, GameObject creator, Vector3 pos, float range)
     {
+        _createPos = pos;
+        _limitRange = range;
         transform.localRotation = rotate;
         _damage = damage;
         _creator = creator;
     }
 
-    public void Init(Quaternion rotate, int damage, Vector3 pos, GameObject creator)
+    public void Init(Quaternion rotate, int damage, Vector3 pos, GameObject creator, float range)
     {
+        _createPos = pos;
+        _limitRange = range;
         transform.position = pos;
         transform.localRotation = rotate;
         _damage = damage;
         _creator = creator;
-        Debug.Log($"크리에이터는{_creator} ");
+    }
 
+    private void Update() {
+        if(Vector3.Distance(_createPos, transform.position) >= _limitRange) {
+            Debug.Log("사거리 밖으로 나감");
+            Crash();
+        }
     }
 
     void FixedUpdate()
@@ -153,18 +172,6 @@ public class ProjectileMoveScript : MonoBehaviourPunCallbacks
     private void Crash(Collision co) {
         collided = true;
 
-        //if (trails.Count > 0) {
-        //    for (int i = 0; i < trails.Count; i++) {
-        //        trails[i].transform.parent = null;
-        //        var ps = trails[i].GetComponent<ParticleSystem>();
-        //        if (ps != null) {
-        //            ps.Stop();
-        //            StartCoroutine(Util.CoActive(false, ps.gameObject, ps.main.duration + ps.main.startLifetime.constantMax));
-        //            CoDestroyPhoton(ps.gameObject, ps.main.duration + ps.main.startLifetime.constantMax); 
-        //        }
-        //    }
-        //}
-
         speed = 0;
         GetComponent<Rigidbody>().isKinematic = true;
 
@@ -200,8 +207,35 @@ public class ProjectileMoveScript : MonoBehaviourPunCallbacks
             StartCoroutine(DestroyParticle(0f));
  }
 
+    private void Crash() {
+        collided = true;
 
-        public IEnumerator DestroyParticle(float waitTime)
+        speed = 0;
+        GetComponent<Rigidbody>().isKinematic = true;
+
+        Vector3 pos = transform.position;
+
+        if (IsTestMode.Instance.CurrentUser == Define.User.Hw) {
+            if (hitPrefab != null) {
+                if (_creator.GetComponent<PhotonView>().IsMine)//0409 17:12 이희웅 파티클 생성에 대한 소유권 추가
+                {
+                    var hitVFX = PhotonNetwork.Instantiate("Prefabs/yb/Hits/default", pos, Quaternion.identity) as GameObject;
+                    var ps = hitVFX.GetComponent<ParticleSystem>();
+                    ps.AddComponent<VFXLifeController>().Init();
+                }
+            }
+        } else {
+            if (hitPrefab != null) {
+                var hitVFX = Instantiate(hitPrefab, null) as GameObject;
+                hitVFX.transform.position = pos;
+                hitVFX.transform.rotation = Quaternion.identity;
+                var ps = hitVFX.GetComponent<ParticleSystem>();
+                ps.AddComponent<VFXLifeController>().Init();
+            }
+        }
+        StartCoroutine(DestroyParticle(0f));
+    }
+    public IEnumerator DestroyParticle(float waitTime)
         {
             if (transform.childCount > 0 && waitTime != 0)
             {

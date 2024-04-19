@@ -22,6 +22,7 @@ namespace yb
             _player.WeaponEvent?.Invoke(WeaponType.ToString()); // 아이템 생성 됨
 
             //각종 스탯을 기본 스탯애 맞게 할당
+            LimitRange = _data.DefaultProjectileRnage((int)WeaponType);
             _realodTime = _data.DefaultWeaponRealodTime((int)WeaponType);
             DefaultDamage = _data.DefaultWeaponDamage((int)WeaponType);
             _projectileVelocity = _data.DefaultWeaponVelocity((int)WeaponType);
@@ -123,7 +124,7 @@ namespace yb
             int projectileNumber = Random.Range(0, 1f) > _data.BonusProjectileChance((int)WeaponType) ? 1 : Mathf.Max(_bonusProjectile, 1);
 
             for (int i = 0; i < projectileNumber; i++)
-                CoroutineHelper.Instance.ProjectileCreate(i, () => _projectileCreator.Create(DefaultDamage, _projectileVelocity, targetPos, _firePos.position, player));
+                CoroutineHelper.Instance.ProjectileCreate(i, () => _projectileCreator.Create(DefaultDamage, _projectileVelocity, targetPos, _firePos.position, player, LimitRange));
 
             player.MyCamera.transform.DOShakeRotation(0.2f, 1f);
         }

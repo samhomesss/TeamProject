@@ -20,15 +20,19 @@ public class UI_GameResult : UI_Scene
     }
 
     List<GameObject> playerResultInfos = new List<GameObject>();
-    int playerCount = MapColorData.MapDataPlayer.Count; // 일단 임시로 플레이어의 수를 가져옴
-    int[] playerColorCount = new int[8];
+    List<string> _playerList;
+    int playerCount; 
     string Player1;
     string Player2;
     private void Start()
     {
-       
+        playerCount = PlayerPrefs.GetInt("PlayerNumber");
+        _playerList = new List<string>(playerCount) {
+            PlayerPrefs.GetString("Rank1"),
+            PlayerPrefs.GetString("Rank2"),
+            PlayerPrefs.GetString("Rank3"),
+        };
         Init();
-       
     }
 
     public override void Init()
