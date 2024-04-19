@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using yb;
 
-public class ConfirmPopupUI : UI_Scene
+public class AlertPopupUI : UI_Scene
 {
     enum GameObjects
     {
@@ -16,7 +16,6 @@ public class ConfirmPopupUI : UI_Scene
 
     private Button _confirmButton;
     private Button _cancelButton;
-    private Canvas _registerId;
 
     public override void Init()
     {
@@ -31,17 +30,14 @@ public class ConfirmPopupUI : UI_Scene
         _cancelButton = CancelButton.GetComponent<Button>();
 
 
-        _registerId = GameObject.Find("RegisterID").GetComponent<Canvas>();
         _confirmButton.onClick.AddListener(() =>
         {
             GetComponent<Canvas>().enabled = false;
-            _registerId.enabled = false;
         });
 
         _cancelButton.onClick.AddListener(() =>
         {
             GetComponent<Canvas>().enabled = false;
-            _registerId.enabled = false;
         });
     }
     void Start()
