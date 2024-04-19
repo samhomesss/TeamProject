@@ -12,6 +12,8 @@ using static UnityEditor.Experimental.GraphView.GraphView;
 using static UnityEditor.Progress;
 using UnityEngine.UIElements;
 using System.Runtime.InteropServices;
+using Unity.VisualScripting;
+using System.Collections;
 
 namespace yb
 {
@@ -330,26 +332,26 @@ namespace yb
                 _rotateToMouseScript.PlayerDead();
                 transform.position += Vector3.up;
                 ChangeTriggerAnimation(Define.PlayerState.Die);
-                Invoke("PlayerRespawn", _status.ResurrectionTime);
+                StartCoroutine(PlayerRespawn());
             }
         }
 
         /// <summary>
         /// 플레이어 부활 재배치 로직
         /// </summary>
-        private void PlayerRespawn()
+        IEnumerator PlayerRespawn()
         {
+            yield return new WaitForSeconds(_status.ResurrectionTime);
             if (_photonview.IsMine)//0418 이희웅 추가 모든 플레이어가 실행되기 때문에 자기 플레이어만 실행되도록
             {
-                transform.position += Vector3.down;
                 _stateController.ChangeState(new PlayerState_Idle(this));
                 Status.SetHp(Status.MaxHp - Status.CurrentHp);
-                ChangeTriggerAnimation(Define.PlayerState.Respawn);
                 _collider.enabled = true;
                 _rigid.isKinematic = false;
                 _rotateToMouseScript.PlayerRespawn();
                 Transform tr = RespawnManager.Instance.RespawnPoints;
                 transform.position = tr.GetChild(UnityEngine.Random.Range(0, tr.childCount - 1)).position;
+
                 HpEvent.Invoke(Status.CurrentHp, Status.MaxHp);
                 RangedWeapon weapon = _weaponController.RangedWeapon as RangedWeapon;
                 weapon.InitBullet();
