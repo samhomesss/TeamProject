@@ -27,24 +27,13 @@ public class GameScene : BaseScene
     {
         _itemBox = new GameObject("ItemBox");
         base.Init();
-        //todo
+
         if (IsTestMode.Instance.CurrentUser == Define.User.Hw)
         {
-            GameObject go = PhotonNetwork.Instantiate($"Prefabs/hw/PlayerPrefabs/Player{PhotonNetwork.LocalPlayer.ActorNumber}", Vector3.zero, Quaternion.identity);
-            StartCoroutine(WaitPlayerLoded());
-            //go.transform.position = tr.GetChild(UnityEngine.Random.Range(0, tr.childCount - 1)).position;
-            go.GetComponentInChildren<PlayerController>().SetRelicEvent += OnSetRelic;
-
-            _photonView = Util.FindChild(go, "Model").GetComponent<PhotonView>();
-            if (_photonView.IsMine)
-            {
-                Util.FindChild(go, "Camera", true).SetActive(true);
-                Util.FindChild(go, "Camera", true).GetComponent<AudioListener>().enabled = true;
-                _photonView.RPC("RenamePlayer", RpcTarget.All, _photonView.ViewID);
-            }
-
-
+            // 리스폰 플레이어 테스트 중.
+            StartCoroutine(RespawnPlayers());
         }
+
         else if (IsTestMode.Instance.CurrentUser == Define.User.Sh)
         {
             Managers.UI.ShowSceneUI<UI_Timer>();
@@ -57,6 +46,32 @@ public class GameScene : BaseScene
         }
 
     }
+
+    // 작성자: 장세윤(2024.04.19).
+    // 플레이어를 리스폰 하는 함수.
+    // 레벨이 준비될 때까지 대기해야 하기 때문에 모든 플레이어가 생성될 때까지 대기한 후에 리스폰 하도록 구현.
+    private IEnumerator RespawnPlayers()
+    {
+        // 플레이어 GO 생성.
+        GameObject go = PhotonNetwork.Instantiate($"Prefabs/hw/PlayerPrefabs/Player{PhotonNetwork.LocalPlayer.ActorNumber}", Vector3.zero, Quaternion.identity);
+
+        // 레벨에 포톤에 등록된 모든 플레이어가 생성될 때까지 대기.
+        yield return StartCoroutine(WaitPlayerLoded());
+
+        // 리스폰 위치 가져오기.
+        go.transform.position = tr.GetChild(UnityEngine.Random.Range(0, tr.childCount - 1)).position;
+        go.GetComponentInChildren<PlayerController>().SetRelicEvent += OnSetRelic;
+
+        // 위치 변경.
+        _photonView = Util.FindChild(go, "Model").GetComponent<PhotonView>();
+        if (_photonView.IsMine)
+        {
+            Util.FindChild(go, "Camera", true).SetActive(true);
+            Util.FindChild(go, "Camera", true).GetComponent<AudioListener>().enabled = true;
+            _photonView.RPC("RenamePlayer", RpcTarget.All, _photonView.ViewID);
+        }
+    }
+
     void ShowUI()
     {
         Managers.UI.ShowSceneUI<UI_Timer>();
@@ -84,13 +99,14 @@ public class GameScene : BaseScene
     {
         // 플레이어의 로딩을 기다립니다.
         bool allPlayersLoaded = false;
-        while (!allPlayersLoaded || !tr)
+        bool isSpwanPointLoaded = false;
+        while (!allPlayersLoaded || !isSpwanPointLoaded)
         {
             allPlayersLoaded = FindObjectsByType<PlayerController>(FindObjectsSortMode.None).Length == PhotonNetwork.CurrentRoom.PlayerCount;
-            tr = RespawnManager.Instance.RespawnPoints;
+            isSpwanPointLoaded = RespawnManager.Instance;
             yield return waitObject;
         }
-
+        tr = RespawnManager.Instance.RespawnPoints;
         ShowUI();
     }
 
