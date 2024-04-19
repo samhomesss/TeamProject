@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Text;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -70,7 +71,7 @@ public class UI_Inven : UI_Scene
         #endregion
         if (Item.ItemNumber == 0)
         {
-            ui_Inven_Items[slotID].transform.GetChild(0).GetComponentInChildren<Image>().sprite = Managers.Resources.Load<Sprite>($"Prefabs/sh/UI/Texture/DefaultItemImage");
+            ui_Inven_Items[slotID].transform.GetChild(0).GetComponentInChildren<Image>().sprite = default;
             ui_Inven_Items[slotID].SlotItemID = default;
             ui_Inven_Items[slotID].transform.GetChild(2).GetComponentInChildren<TMP_Text>().text = Item.ItemNumber.ToString();//0418 00:29 이희웅 Text -> TMP_Text로 수정
         }
