@@ -36,6 +36,10 @@ public class Data
     private int[] _defaultWeaponRemainBullet = new int[] {15, 30, 8 };
 
     private int[] _defaultWeaponMaxBullet = new int[] {60, 120, 30 };
+    private float[] _defaultProjectileRnage = new float[] { 20f, 16f, 12f };
+
+    private Vector3[] _defaultWinScenePosition = new Vector3[] { new Vector3(2.74f, 1.14f, -4.04f), new Vector3(1.52f, 0.68f, -3.09f), new Vector3(3.34f, 0.41f, -5.33f) };
+    private Vector3 _defaultWinSceneRotation = new Vector3(0f, -142.3f, 0f);
 
     private int _defaultShieldMaxHp = 10;
 
@@ -71,4 +75,8 @@ public class Data
     public int DefaultWeaponMaxBullet(int type) => _defaultWeaponMaxBullet[type];
 
     public float MoveSpeedDecrease() => _moveSpeedDecrease;
+    public float DefaultProjectileRnage(int type) => _defaultProjectileRnage[type];
+
+    public Vector3 DefaultWinScenePosition(int rank) => _defaultWinScenePosition[rank];
+    public Vector3 DefaultWinSceneRotation() => _defaultWinSceneRotation;
 }

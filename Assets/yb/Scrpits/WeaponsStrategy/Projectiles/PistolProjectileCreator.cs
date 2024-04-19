@@ -8,15 +8,16 @@ namespace yb {
     /// </summary>
     public class PistolProjectileCreator : IProjectileCreator {
 
-        public void Create(int defaultDamage, float projectileSpeed, Vector3 targetPos, Vector3 createPos, PlayerController player) {
-            if(IsTestMode.Instance.CurrentUser == Define.User.Hw)//0408 15:06 ÀÌÈñ¿õ Å×½ºÆ®
-            {
-                PhotonNetworkUtil.CreatePhotonObject("Prefabs/yb/Projectile/Default", createPos, defaultDamage, player.gameObject, player.RotateToMouseScript.GetRotation());
-            }
-            else {
+        public void Create(int defaultDamage, float projectileSpeed, Vector3 targetPos, Vector3 createPos, PlayerController player, float range) {
                 ProjectileMoveScript vfx;
+
+            if (IsTestMode.Instance.CurrentUser == Define.User.Hw)//0408 15:06 ÀÌÈñ¿õ Å×½ºÆ®
+            {
+                vfx = PhotonNetworkUtil.CreatePhotonObject("Prefabs/yb/Projectile/Default", createPos, defaultDamage, player.gameObject, player.RotateToMouseScript.GetRotation());
+                vfx.Init(player.RotateToMouseScript.GetRotation(), defaultDamage, createPos, player.gameObject, range);
+            } else {
                 vfx = Managers.Resources.Instantiate("yb/Projectile/Default", null).GetComponent<ProjectileMoveScript>();
-                vfx.Init(player.RotateToMouseScript.GetRotation(), defaultDamage, createPos, player.gameObject);
+                vfx.Init(player.RotateToMouseScript.GetRotation(), defaultDamage, createPos, player.gameObject, range);
             }
         }
     }

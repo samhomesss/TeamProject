@@ -32,6 +32,12 @@ namespace yb
             _rangeWeapon = new RangedWeapon_Pistol(_rangedWeaponsParent, _player);  //기본 무기를 Pistol로 할당
         }
 
+        public void AllWeaponFalse() {
+            foreach(Transform t in _rangedWeaponsParent) {
+                t.gameObject.SetActive(false);
+            }
+        }
+
         private void Update() => _rangeWeapon.OnUpdate();  //장착중인 무기에 맞는 Update함수 호출
 
         public void OnShotUpdate()

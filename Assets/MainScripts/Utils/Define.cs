@@ -36,6 +36,7 @@ public class Define
         Die,
         Idle,
         Respawn,
+        Win,
     }
     public enum UIEvent
     {

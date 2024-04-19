@@ -13,6 +13,7 @@ namespace yb {
             _player = player;
             _player.WeaponEvent?.Invoke(WeaponType.ToString());
 
+            LimitRange = _data.DefaultProjectileRnage((int)WeaponType);
             _realodTime = _data.DefaultWeaponRealodTime((int)WeaponType);
             DefaultDamage = _data.DefaultWeaponDamage((int)WeaponType);
             _projectileVelocity = _data.DefaultWeaponVelocity((int)WeaponType);
@@ -82,7 +83,7 @@ namespace yb {
 
             for(int i = 0; i< projectileNumber; i++)
             {
-                _projectileCreator.Create(DefaultDamage, _projectileVelocity, targetPos, _firePos.position, player);
+                _projectileCreator.Create(DefaultDamage, _projectileVelocity, targetPos, _firePos.position, player, LimitRange);
             }
 
             player.MyCamera.transform.DOShakeRotation(0.2f, 1f);
