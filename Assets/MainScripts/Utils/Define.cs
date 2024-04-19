@@ -84,5 +84,6 @@ public class Define
         Login,
         Lobby,
         InGame,
+        Result,
     }
 }
