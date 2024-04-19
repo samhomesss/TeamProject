@@ -5,8 +5,6 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using yb;
-using static UnityEditor.Progress;
-using static yb.PlayerController;
 
 public class UI_Inven : UI_Scene
 {

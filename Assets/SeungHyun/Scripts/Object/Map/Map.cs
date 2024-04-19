@@ -8,7 +8,6 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
 using yb;
-using static UnityEditor.Progress;
 using Color = UnityEngine.Color;
 public class Map : Obj
 {
