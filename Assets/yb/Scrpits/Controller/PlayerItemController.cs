@@ -51,6 +51,7 @@ namespace yb {
             switch(type) {
                 case Define.ItemType.HpPotion:
                     _player.Status.SetHp(30);
+                    _player.HpEvent?.Invoke(_player.Status.CurrentHp, _player.Status.MaxHp);
                     break;
                 case Define.ItemType.DamageUpPotion:
                     if(!_isDamageUp)

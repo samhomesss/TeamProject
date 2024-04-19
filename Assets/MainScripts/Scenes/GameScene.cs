@@ -55,21 +55,25 @@ public class GameScene : BaseScene
     private IEnumerator RespawnPlayers()
     {
         // 플레이어 GO 생성.
-        GameObject go = PhotonNetwork.Instantiate($"Prefabs/hw/PlayerPrefabs/Player{PhotonNetwork.LocalPlayer.ActorNumber}", Vector3.zero, Quaternion.identity);
+        PlayerController go = PhotonNetwork.Instantiate($"Prefabs/hw/PlayerPrefabs/Player{PhotonNetwork.LocalPlayer.ActorNumber}", Vector3.zero, Quaternion.identity).GetComponent<PlayerController>();
 
+        go.PlayerNickName = PhotonNetwork.LocalPlayer.NickName;
+        go.PlayerHandle = PhotonNetwork.LocalPlayer.ActorNumber;
+        
         // 레벨에 포톤에 등록된 모든 플레이어가 생성될 때까지 대기.
         yield return StartCoroutine(WaitPlayerLoded());
 
         // 리스폰 위치 가져오기.
-        Util.FindChild(go, "Model").GetComponent<Transform>().position = playerRespawnPointTransform.GetChild(PhotonNetwork.LocalPlayer.ActorNumber - 1).position;
+        Util.FindChild(go.gameObject, "Model").GetComponent<Transform>().position = playerRespawnPointTransform.GetChild(PhotonNetwork.LocalPlayer.ActorNumber - 1).position;
+
         go.GetComponentInChildren<PlayerController>().SetRelicEvent += OnSetRelic;
 
         // 위치 변경.
-        _photonView = Util.FindChild(go, "Model").GetComponent<PhotonView>();
+        _photonView = Util.FindChild(go.gameObject, "Model").GetComponent<PhotonView>();
         if (_photonView.IsMine)
         {
-            Util.FindChild(go, "Camera", true).SetActive(true);
-            Util.FindChild(go, "Camera", true).GetComponent<AudioListener>().enabled = true;
+            Util.FindChild(go.gameObject, "Camera", true).SetActive(true);
+            Util.FindChild(go.gameObject, "Camera", true).GetComponent<AudioListener>().enabled = true;
             _photonView.RPC("RenamePlayer", RpcTarget.All, _photonView.ViewID);
         }
 

@@ -15,12 +15,6 @@ public class PlayerResultInfo : UI_Base
         PlayerColorPercent, // 해당 플레이어가 얼마나 많은 색을 칠했는지.
     }
 
-    public Image PlayerResultImage { get => _playerResultNumberImage; set => _playerResultNumberImage = value; }
-    public Image PlayerCharacterImage { get => _playerCharacterImage; set => _playerCharacterImage = value; }
-    public TMP_Text PlayerNickName { get => _playerNickName; set =>  _playerNickName = value; }
-    public TMP_Text PlayerResultNumber { get => _playerResultNumber; set => _playerResultNumber = value; }
-    public Slider PlayerColorPercent { get => _playerColorPercent; set => _playerColorPercent = value; }
-
     Image _playerResultNumberImage;
     Image _playerCharacterImage;
     TMP_Text _playerNickName;
@@ -35,7 +29,15 @@ public class PlayerResultInfo : UI_Base
         _playerNickName = Get<GameObject>((int)GameObjects.PlayerNickName).GetComponent<TMP_Text>();
         _playerResultNumber = Get<GameObject>((int)GameObjects.PlayerResultNumber).GetComponent<TMP_Text>();
         _playerColorPercent = Get<GameObject>((int)GameObjects.PlayerColorPercent).GetComponent<Slider>();
+    }
 
+    public void Initisarize( string nickName, string resultNumber, float amount)
+    {
+       // _playerResultNumberImage.sprite = resultImage;
+       // _playerCharacterImage.sprite = charImage;
+        _playerNickName.text = nickName; // 닉네임
+        _playerResultNumber.text = resultNumber; // 결과 퍼센테이지
+        _playerColorPercent.value = amount; // 슬라이더로 보여주는 거
     }
 
     public override void Init()
