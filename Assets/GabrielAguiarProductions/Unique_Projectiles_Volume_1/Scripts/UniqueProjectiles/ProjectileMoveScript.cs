@@ -85,9 +85,13 @@ public class ProjectileMoveScript : MonoBehaviourPunCallbacks
     }
 
     private void Update() {
-        if(Vector3.Distance(_createPos, transform.position) >= _limitRange) {
-            Debug.Log("사거리 밖으로 나감");
-            Crash();
+        if (GetComponent<PhotonView>().IsMine)
+        {
+            if (Vector3.Distance(_createPos, transform.position) >= _limitRange)
+            {
+                Debug.Log("사거리 밖으로 나감");
+                Crash();
+            }
         }
     }
 
