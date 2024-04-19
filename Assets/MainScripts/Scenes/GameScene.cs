@@ -59,7 +59,7 @@ public class GameScene : BaseScene
         yield return StartCoroutine(WaitPlayerLoded());
 
         // 리스폰 위치 가져오기.
-        go.transform.position = tr.GetChild(UnityEngine.Random.Range(0, tr.childCount - 1)).position;
+        Util.FindChild(go,"Model").GetComponent<Transform>().position = tr.GetChild(UnityEngine.Random.Range(0, tr.childCount - 1)).position;
         go.GetComponentInChildren<PlayerController>().SetRelicEvent += OnSetRelic;
 
         // 위치 변경.
