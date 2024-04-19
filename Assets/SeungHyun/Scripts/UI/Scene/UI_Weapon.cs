@@ -60,7 +60,7 @@ public class UI_Weapon : UI_Scene
 
         if (IsTestMode.Instance.CurrentUser == Define.User.Hw)
         {
-            _photonView.RPC("Replacedweapon", RpcTarget.All, beforeItemID, _photonView.ViewID);
+           // _photonView.RPC("Replacedweapon", RpcTarget.All, beforeItemID, _photonView.ViewID);
 
 
             //GameObject go = PhotonNetwork.Instantiate($"Prefabs/yb/Weapon/{Managers.ItemDataBase.GetItemData(beforeItemID).itemName}", Vector3.zero, Quaternion.identity);
