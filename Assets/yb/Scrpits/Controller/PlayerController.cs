@@ -470,9 +470,8 @@ namespace yb
             {
                 if (PhotonNetwork.IsMasterClient)
                 {
-                    GameObject _itemboxParent = new GameObject("itembox");
                     GameObject itembox = PhotonNetwork.Instantiate("Prefabs/yb/Object/DestructibleObject", itemBoxtransform.GetChild(i).transform.position,Quaternion.identity);
-                    itembox.transform.SetParent(_itemboxParent.transform);
+                    itembox.transform.SetParent(itemBoxtransform);
                 }
             }
         }
