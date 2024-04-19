@@ -14,7 +14,6 @@ public class GameScene : BaseScene
     private WaitForSeconds waitObject = new WaitForSeconds(0.1f);
     private GameObject _itemBox;
     private Transform tr;
-    private Stack<int> orignalRespawnNum = new Stack<int>();
     
     
     public override void Clear()
@@ -30,10 +29,6 @@ public class GameScene : BaseScene
     {
         _itemBox = new GameObject("ItemBox");
         base.Init();
-        for(int i = 0; i < MAX_PLAYER; i++)
-        {
-            orignalRespawnNum.Push(i);
-        }
         if (IsTestMode.Instance.CurrentUser == Define.User.Hw)
         {
             // 리스폰 플레이어 테스트 중.
@@ -65,7 +60,7 @@ public class GameScene : BaseScene
         yield return StartCoroutine(WaitPlayerLoded());
 
         // 리스폰 위치 가져오기.
-        Util.FindChild(go,"Model").GetComponent<Transform>().position = tr.GetChild(orignalRespawnNum.Pop()).position;
+        Util.FindChild(go,"Model").GetComponent<Transform>().position = tr.GetChild(PhotonNetwork.LocalPlayer.ActorNumber-1).position;
         go.GetComponentInChildren<PlayerController>().SetRelicEvent += OnSetRelic;
 
         // 위치 변경.
