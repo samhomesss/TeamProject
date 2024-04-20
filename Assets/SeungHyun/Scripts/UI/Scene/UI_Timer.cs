@@ -33,9 +33,6 @@ public class UI_Timer : UI_Scene
     // SetInt를 하나 더해서 현재 맵을 색칠한 갯수를 넘겨주고 순위에 맞게 배치 
     private void SaveData() {
         //todo
-
-        if (PhotonNetwork.IsMasterClient)
-        {
             List<PlayerController> playerList = _uiPlayerColorPercent.SortNodeCount();
 
             //여기서 포톤 플레이어 수를 대입. 현재는 테스트용 하드코딩
@@ -48,8 +45,11 @@ public class UI_Timer : UI_Scene
                 PlayerPrefs.SetString($"Rank{i + 1}", playerList[i].PlayerNickName);//방안에 연결된 닉네임만 뽑아줌
                 PlayerPrefs.SetInt($"Rank{i + 1}Percent", playerList[i].NodeCount); // 정렬된 플레이어의 NodeCount를 넣어주고 
             }
+
+        if (PhotonNetwork.IsMasterClient)
+        {
+            PhotonNetwork.LoadLevel("GameResultScene");
         }
-        PhotonNetwork.LoadLevel("GameResultScene");
     }
 
 

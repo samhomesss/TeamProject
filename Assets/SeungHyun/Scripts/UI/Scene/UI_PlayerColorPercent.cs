@@ -48,7 +48,7 @@ public class UI_PlayerColorPercent : UI_Scene
         //Debug.Log(timer + "½Ã°£");
         for (int i = 0; i < PhotonNetwork.CurrentRoom.PlayerCount; i++)
         {
-            _playercontorllers[i] = GameObject.Find($"Player{PhotonNetwork.LocalPlayer.ActorNumber}").GetComponentInChildren<PlayerController>();
+            _playercontorllers[i] = GameObject.Find($"Player{i+1}").GetComponentInChildren<PlayerController>();
             Init(_playercontorllers[i]);
         }
     }
