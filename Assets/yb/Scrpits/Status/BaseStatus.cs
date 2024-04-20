@@ -12,7 +12,10 @@ namespace yb {
         protected int _maxHp;
 
         public int MaxHp => _maxHp;
-        public int CurrentHp => _currentHp;
+        public int CurrentHp {
+            get => _currentHp;
+            set => _currentHp = value;
+        }
         private void Start() {
             Init();
         }

@@ -490,7 +490,7 @@ namespace yb
         public void DrankPotion(int ViewID)
         {
             PhotonView _photonview = PhotonNetwork.GetPhotonView(ViewID);
-            _photonview.GetComponent<PlayerController>().Status.SetHp(Status.CurrentHp);
+            _photonview.GetComponent<PlayerController>().Status.CurrentHp = Status.CurrentHp;
         }
     }
 }
