@@ -27,6 +27,8 @@ public class UI_PlayerColorPercent : UI_Scene
     static public GameObject UIPlayerColorPercent => ui_PlayerColorPercent;
     public List<PlayerController> Players => _players;
     float resetTimer;
+
+    private WaitForSeconds _waitforuser = new WaitForSeconds(0.1f);
     
     GameObject[] _playerSlider = new GameObject[8];
     List<PlayerController> _players = new List<PlayerController>();
@@ -38,6 +40,7 @@ public class UI_PlayerColorPercent : UI_Scene
     //float timer = 15f;
     private void Start()
     {
+        StartCoroutine(WaitPlayerLoded());//플레이어가 전부 컨트롤러를 가진후에 밑에 스크립트를 실행 0420 이희웅 추가 
         ui_PlayerColorPercent = this.gameObject;
         for (int i = 0; i < _playerSlider.Length; i++)
         {
@@ -87,7 +90,16 @@ public class UI_PlayerColorPercent : UI_Scene
     }
 
     // 플레이어
-
+    IEnumerator WaitPlayerLoded()
+    {
+        // 플레이어의 로딩을 기다립니다.
+        bool allPlayersLoaded = false;
+        while (!allPlayersLoaded)
+        {
+            allPlayersLoaded = FindObjectsByType<PlayerController>(FindObjectsSortMode.None).Length == PhotonNetwork.CurrentRoom.PlayerCount;
+            yield return _waitforuser;
+        }
+    }
     void ColorPercent()
     {
 
