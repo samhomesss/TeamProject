@@ -197,7 +197,7 @@ namespace yb
                     if (_player.GetComponent<PhotonView>().IsMine)
                     {
                      _collideItemPhoton = c.GetComponent<IObtainableObjectPhoton>();
-                    c.GetComponent<IObtainableObject>().ShowName(_player);
+                    c.GetComponent<IObtainableObjectPhoton>().ShowName(_player);
                     return;
                     }
                 }
@@ -222,7 +222,7 @@ namespace yb
                     if (_player.GetComponent<PhotonView>().IsMine)
                     {
                         _collideItemPhoton = c.GetComponent<IObtainableObjectPhoton>();
-                        c.GetComponent<IObtainableObject>().ShowName(_player);
+                        c.GetComponent<IObtainableObjectPhoton>().ShowName(_player);
                         return;
                     }
                 }
@@ -244,7 +244,7 @@ namespace yb
                     if (_player.GetComponent<PhotonView>().IsMine)
                     {
                         _collideItemPhoton = null;
-                        c.GetComponent<IObtainableObject>().HideName();
+                        c.GetComponent<IObtainableObjectPhoton>().HideName();
                     }
                 }
                 else
@@ -258,7 +258,7 @@ namespace yb
                 }
             }
             if (_player.GetComponent<PhotonView>().IsMine)
-                c.GetComponent<IObtainableObject>().HideName();
+                c.GetComponent<IObtainableObjectPhoton>().HideName();
         }
     }
 }
