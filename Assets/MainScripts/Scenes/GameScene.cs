@@ -71,9 +71,7 @@ public class GameScene : BaseScene
             Util.FindChild(go, "Camera", true).GetComponent<AudioListener>().enabled = true;
             _photonView.RPC("RenamePlayer", RpcTarget.All, _photonView.ViewID);
         }
-        PlayerController go_PlayerController = GameObject.Find($"Player{PhotonNetwork.LocalPlayer.ActorNumber}").GetComponentInChildren<PlayerController>();
-        go_PlayerController.PlayerNickName = PhotonNetwork.LocalPlayer.NickName;
-        go_PlayerController.PlayerHandle = PhotonNetwork.LocalPlayer.ActorNumber;
+
     }
 
     void ShowUI()
@@ -84,9 +82,6 @@ public class GameScene : BaseScene
         {
             map.onLoadMapUI += OnLoadedItemBox;
         }
-
-
-
         Managers.SceneObj.ShowSceneObject<MiniMapCam>();
         Managers.UI.ShowSceneUI<UI_Weapon>();
         Managers.UI.ShowSceneUI<UI_Inven>();
@@ -115,6 +110,7 @@ public class GameScene : BaseScene
             yield return waitObject;
         }
         playerRespawnPointTransform = RespawnManager.Instance.RespawnPoints;
+
         ShowUI();
     }
 
