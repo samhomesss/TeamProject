@@ -17,7 +17,6 @@ namespace yb {
             if (_player.ItemList.Count <= 0)
                 return;
 
-            
             if (_player.ItemList.ContainsKey(0) &&
                 Input.GetKeyDown(KeyCode.Alpha1)) {
                 UseItem(0, _player.ItemList[0].ItemType);
