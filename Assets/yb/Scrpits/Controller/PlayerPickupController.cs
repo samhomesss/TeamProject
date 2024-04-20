@@ -60,21 +60,6 @@ namespace yb
             {
                 if (Input.GetKeyDown(KeyCode.G))
                 {
-                    //if (_collideItem is IRelic)
-                    //{
-                    //    var item = _collideItem as IRelic;
-                    //    if (_haveRelic[(int)item.RelicType])
-                    //    {
-                    //        Debug.Log("이미 보유한 렐릭입니다");
-                    //        return;
-                    //    }
-                    //    if (_player.HaveRelicNumber >= PlayerController.MaxRelicNumber)
-                    //    {
-                    //        Debug.Log("렐릭 창이 가득 찼습니다.");
-                    //        return;
-                    //    }
-                    //}
-
                     if (_player.PhotonView.IsMine)//플레이어가 줏으면 모든 플레이어가 줏을 수 있기 때문에 
                     {
                         if (_collideItemPhoton is IRelic)

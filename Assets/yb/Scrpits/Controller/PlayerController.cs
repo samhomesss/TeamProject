@@ -487,10 +487,10 @@ namespace yb
 
 
         [PunRPC]
-        public void DrankPotion(int ViewID)
+        public void DrankPotion(int ViewID,int playerHp)
         {
             PhotonView _photonview = PhotonNetwork.GetPhotonView(ViewID);
-            _photonview.GetComponentInChildren<PlayerController>().Status.CurrentHp = _status.CurrentHp;
+            _photonview.GetComponent<PlayerStatus>().CurrentHp = playerHp;
         }
     }
 }
