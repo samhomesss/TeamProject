@@ -40,21 +40,7 @@ public class UI_PlayerColorPercent : UI_Scene
     //float timer = 15f;
     private void Start()
     {
-       // StartCoroutine(WaitPlayerLoded());//플레이어가 전부 컨트롤러를 가진후에 밑에 스크립트를 실행 0420 이희웅 추가 
-
-        ui_PlayerColorPercent = this.gameObject;
-        for (int i = 0; i < _playerSlider.Length; i++)
-        {
-            _playerSlider[i] = Util.FindChild(gameObject, $"Player{i + 1}", true);
-            _playerSlider[i].SetActive(false);
-        }
-
-        //Debug.Log(timer + "시간");
-        for (int i = 0; i < PhotonNetwork.CurrentRoom.PlayerCount; i++)
-        {
-            _playercontorllers[i] = GameObject.Find($"Player{i + 1}").GetComponentInChildren<PlayerController>();
-            Init(_playercontorllers[i]);
-        }
+       StartCoroutine(WaitPlayerLoded());//플레이어가 전부 컨트롤러를 가진후에 밑에 스크립트를 실행 0420 이희웅 추가 
 
     }
 
@@ -98,9 +84,29 @@ public class UI_PlayerColorPercent : UI_Scene
         bool allPlayersLoaded = false;
         while (!allPlayersLoaded)
         {
-            allPlayersLoaded = FindObjectsByType<PlayerController>(FindObjectsSortMode.None).Length == PhotonNetwork.CurrentRoom.PlayerCount;
+            for (int i = 0; i < PhotonNetwork.CurrentRoom.PlayerCount; i++)
+            {
+                allPlayersLoaded = GameObject.Find($"Player{i + 1}").GetComponentInChildren<PlayerController>();
+                if (allPlayersLoaded == false)
+                    break;
+            }
             yield return _waitforuser;
         }
+
+        ui_PlayerColorPercent = this.gameObject;
+        for (int i = 0; i < _playerSlider.Length; i++)
+        {
+            _playerSlider[i] = Util.FindChild(gameObject, $"Player{i + 1}", true);
+            _playerSlider[i].SetActive(false);
+        }
+
+        //Debug.Log(timer + "시간");
+        for (int i = 0; i < PhotonNetwork.CurrentRoom.PlayerCount; i++)
+        {
+            _playercontorllers[i] = GameObject.Find($"Player{i + 1}").GetComponentInChildren<PlayerController>();
+            Init(_playercontorllers[i]);
+        }
+
     }
     void ColorPercent()
     {
