@@ -41,9 +41,9 @@ public class PhotonManager : MonoBehaviourPunCallbacks
 
     public void OnApplicationQuit() // OnApplicationQuit()이 호출될때 현재 플레이어가 참여중인 방을 나가게됨
     {
-        PhotonNetwork.LeaveRoom();
-        PhotonNetwork.JoinLobby();
-
+        //PhotonNetwork.LeaveRoom();
+        OnLeftRoom();
+        OnJoinedLobby();
     }
 
 

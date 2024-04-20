@@ -104,6 +104,7 @@ public class LobbyUI : UI_Scene, ILobbyCallbacks
             else
             {
                 _createRoom_Canvas.enabled = true;
+                _createRoom_Canvas.sortingOrder = 1;
             }
 
         });
