@@ -32,8 +32,6 @@ public class GameScene : BaseScene
         if (IsTestMode.Instance.CurrentUser == Define.User.Hw)
         {
             StartCoroutine(RespawnPlayers());
-
-
         }
         else if (IsTestMode.Instance.CurrentUser == Define.User.Sh)
         {
@@ -55,6 +53,8 @@ public class GameScene : BaseScene
     {
         // 플레이어 GO 생성.
         GameObject go = PhotonNetwork.Instantiate($"Prefabs/hw/PlayerPrefabs/Player{PhotonNetwork.LocalPlayer.ActorNumber}", Vector3.zero, Quaternion.identity);
+        go.GetComponentInChildren<PlayerController>().PlayerNickName = PhotonNetwork.LocalPlayer.NickName;
+        go.GetComponentInChildren<PlayerController>().PlayerHandle = PhotonNetwork.LocalPlayer.ActorNumber;
 
         yield return StartCoroutine(WaitPlayerLoded());
         // 레벨에 포톤에 등록된 모든 플레이어가 생성될 때까지 대기.
@@ -97,13 +97,14 @@ public class GameScene : BaseScene
         // 플레이어들에게 보여야 하는 UI
         Managers.UI.ShowSceneUI<UI_PlayerName>();
 
+
     }
     IEnumerator WaitPlayerLoded()
     {
         // 플레이어의 로딩을 기다립니다.
         bool allPlayersLoaded = false;
         bool isSpwanPointLoaded = false;
-        while (!allPlayersLoaded && !isSpwanPointLoaded)
+        while (!allPlayersLoaded || !isSpwanPointLoaded)
         {
             allPlayersLoaded = FindObjectsByType<PlayerController>(FindObjectsSortMode.None).Length == PhotonNetwork.CurrentRoom.PlayerCount;
             isSpwanPointLoaded = RespawnManager.Instance;
@@ -111,8 +112,10 @@ public class GameScene : BaseScene
         }
         playerRespawnPointTransform = RespawnManager.Instance.RespawnPoints;
 
+
         ShowUI();
     }
+
 
 
     public void OnLoadedItemBox() //로딩이 다 된다음에 호출
