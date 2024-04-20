@@ -23,15 +23,27 @@ public class UI_Timer : UI_Scene
 
     private void Start()
     {
+        StartCoroutine(Wait_UI_PlayerColorPercentLoaded());
+
+    }
+    IEnumerator Wait_UI_PlayerColorPercentLoaded()
+    {
+        bool _playerColorPercentLoaded = false;
+        while (!_playerColorPercentLoaded)
+        {
+            _playerColorPercentLoaded = UI_PlayerColorPercent.UIPlayerColorPercent;
+            yield return new WaitForSeconds(0.1f);
+        }
         _uiPlayerColorPercent = UI_PlayerColorPercent.UIPlayerColorPercent.GetComponent<UI_PlayerColorPercent>();
-        
+
         TimerText = Util.FindChild(gameObject, "TimerText", true);
         loadScene += SaveData;
-    }
 
-    // 리스트를 플레이어컬러 퍼센트에 있는 플레이어스를 가져와서 정렬된 데이터를 기반으로 반복문 돌리면 되지 않나? 플레이어 1이 아니라 플레이어 대신 NickName을 가져오고 
-    // SetInt를 하나 더해서 현재 맵을 색칠한 갯수를 넘겨주고 순위에 맞게 배치 
-    private void SaveData() {
+        yield return StartCoroutine(Update_timer());//위의 로드가 다 끝난 다음에 타이머 코루틴이 돌아가도록 설정
+    }
+        // 리스트를 플레이어컬러 퍼센트에 있는 플레이어스를 가져와서 정렬된 데이터를 기반으로 반복문 돌리면 되지 않나? 플레이어 1이 아니라 플레이어 대신 NickName을 가져오고 
+        // SetInt를 하나 더해서 현재 맵을 색칠한 갯수를 넘겨주고 순위에 맞게 배치 
+        private void SaveData() {
         //todo
             List<PlayerController> playerList = _uiPlayerColorPercent.SortNodeCount();
 
@@ -53,22 +65,27 @@ public class UI_Timer : UI_Scene
     }
 
 
-    private void Update()
+    private IEnumerator Update_timer() //0420 이희웅 업데이트에서 코루틴으로 수정 동기를 맞추기 위해서
     {
-        _timer -= Time.deltaTime;
-
-        _second = _timer % 60;
-        _minute = _timer / 60;
-        
-        if (_timer <= 0 && !isRoading)
+        while (true)
         {
-            _timer = 0;
-            isRoading = true;
-            loadScene?.Invoke();
+            _timer -= Time.deltaTime;
+
+            _second = _timer % 60;
+            _minute = _timer / 60;
+
+            if (_timer <= 0 && !isRoading)
+            {
+                _timer = 0;
+                isRoading = true;
+                loadScene?.Invoke();
+            }
+            if (_second < 10)
+                TimerText.GetComponent<Text>().text = "0" + (int)_minute + ":0" + (int)_second;
+            else
+                TimerText.GetComponent<Text>().text = "0" + (int)_minute + ":" + (int)_second;
+
+            yield return null;
         }
-        if (_second < 10)
-            TimerText.GetComponent<Text>().text = "0" + (int)_minute + ":0" + (int)_second;
-        else
-            TimerText.GetComponent<Text>().text = "0" + (int)_minute + ":" + (int)_second;
     }
 }
