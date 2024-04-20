@@ -68,7 +68,6 @@ public class GameManager : MonoBehaviour
                 }
                 break;
             case Define.GameState.InLobby:
-                //TODO: 로비에 있을때 마스터 유저가 Start버튼을 누르면 Game씬으로 전환 되게끔 작성
                 break;
             case Define.GameState.InGamePlay:
                 break;

@@ -134,7 +134,6 @@ public class LobbyUI : UI_Scene, ILobbyCallbacks
         }
         Debug.Log("joined Lobby");
         Debug.Log($"{PhotonNetwork.LocalPlayer.NickName}님 오신걸 환영합니다.");
-
         //채팅창 깨끗하기 하기
     }
 
