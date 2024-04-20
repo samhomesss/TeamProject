@@ -19,11 +19,11 @@ namespace yb {
 
         protected virtual void Init() {
             _data = Managers.Data;
-            if(IsTestMode.Instance.CurrentUser == Define.User.Hw) // 0410 22:52분 이희웅 테스트 모드 추가
-            {
-                _maxHp = 1;
-                _currentHp = _maxHp;
-            }
+            //if(IsTestMode.Instance.CurrentUser == Define.User.Hw) // 0410 22:52분 이희웅 테스트 모드 추가
+            //{
+            //    _maxHp = 1;
+            //    _currentHp = _maxHp;
+            //}
         }
 
         public int SetHp(int amout) { //0421 01:47분 이희웅 최대 체력이 넘어가기에 수정
