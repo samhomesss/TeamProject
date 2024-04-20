@@ -36,7 +36,7 @@ public class PlayerResultInfo : UI_Base
        // _playerResultNumberImage.sprite = resultImage;
        // _playerCharacterImage.sprite = charImage;
         _playerNickName.text = nickName; // 닉네임
-        _playerResultNumber.text = resultNumber; // 결과 퍼센테이지
+        _playerColorPercent.GetComponentInChildren<TMP_Text>().text = resultNumber; // 결과 퍼센테이지
         _playerColorPercent.value = amount; // 슬라이더로 보여주는 거
     }
 
