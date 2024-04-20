@@ -56,9 +56,6 @@ public class UI_Timer : UI_Scene
         //여기서 플레이어 순위에 맞는 플레이어 이름 입력. 현재는 테스트용 하드코딩
         for (int i = 0; i < playerList.Count; i++)
         {
-            PlayerController go_PlayerController = GameObject.Find($"Player{i + 1}").GetComponentInChildren<PlayerController>();
-            go_PlayerController.PlayerNickName = PhotonNetwork.LocalPlayer.NickName;
-            go_PlayerController.PlayerHandle = PhotonNetwork.LocalPlayer.ActorNumber;
 
             PlayerPrefs.SetString($"Rank{i + 1}", playerList[i].PlayerNickName);//방안에 연결된 닉네임만 뽑아줌
             PlayerPrefs.SetInt($"Rank{i + 1}Percent", playerList[i].NodeCount); // 정렬된 플레이어의 NodeCount를 넣어주고 
