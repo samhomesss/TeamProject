@@ -1,3 +1,4 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -49,8 +50,9 @@ namespace yb {
             _player.ItemList[key].ItemNumber--;
             switch(type) {
                 case Define.ItemType.HpPotion:
-                    _player.Status.SetHp(30);
+                    _player.Status.SetHp(10);
                     _player.HpEvent?.Invoke(_player.Status.CurrentHp, _player.Status.MaxHp);
+                    _player.PhotonView.RPC("DrankPotion", RpcTarget.All, _player.PhotonView.ViewID);
                     break;
                 case Define.ItemType.DamageUpPotion:
                     if(!_isDamageUp)

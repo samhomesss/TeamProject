@@ -26,8 +26,11 @@ namespace yb {
             }
         }
 
-        public int SetHp(int amout) {
-            _currentHp = amout; //0421 01:35 이희웅 수정.  _currentHp += amout -> _currentHp = amout 으로 수정 최대 hp를 넘김
+        public int SetHp(int amout) { //0421 01:47분 이희웅 최대 체력이 넘어가기에 수정
+            _currentHp += amout;
+            if (_currentHp > MaxHp)
+                _currentHp = MaxHp;
+
             return _currentHp;
         }
     }
