@@ -435,7 +435,7 @@ namespace yb
         {
             PhotonView _photonView = PhotonNetwork.GetPhotonView(PlayerViewId);
             _photonView.transform.parent.name = $"Player{PhotonNetwork.GetPhotonView(PlayerViewId).Owner.ActorNumber}";
-            _photonView.GetComponent<PlayerController>().PlayerNickName = PhotonNetwork.LocalPlayer.NickName;
+            _photonView.GetComponent<PlayerController>().PlayerNickName = _photonView.Owner.NickName;
             _photonView.GetComponent<PlayerController>().PlayerHandle = _photonView.Owner.ActorNumber;
         }
 
