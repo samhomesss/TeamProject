@@ -27,7 +27,7 @@ namespace yb {
         }
 
         public int SetHp(int amout) {
-            _currentHp += amout;
+            _currentHp = amout; //0421 01:35 이희웅 수정.  _currentHp += amout -> _currentHp = amout 으로 수정 최대 hp를 넘김
             return _currentHp;
         }
     }
