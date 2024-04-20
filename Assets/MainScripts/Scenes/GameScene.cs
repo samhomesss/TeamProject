@@ -15,7 +15,6 @@ public class GameScene : BaseScene
     private WaitForSeconds waitObject = new WaitForSeconds(0.1f);
     private Transform playerRespawnPointTransform;
     private GameObject _itemBox;
-    GameObject go;
 
     public override void Clear()
     {
@@ -53,7 +52,7 @@ public class GameScene : BaseScene
     private IEnumerator RespawnPlayers()
     {
         // 플레이어 GO 생성.
-        go = PhotonNetwork.Instantiate($"Prefabs/hw/PlayerPrefabs/Player{PhotonNetwork.LocalPlayer.ActorNumber}", Vector3.zero, Quaternion.identity);
+        GameObject go = PhotonNetwork.Instantiate($"Prefabs/hw/PlayerPrefabs/Player{PhotonNetwork.LocalPlayer.ActorNumber}", Vector3.zero, Quaternion.identity);
 
         yield return StartCoroutine(WaitPlayerLoded());
         // 레벨에 포톤에 등록된 모든 플레이어가 생성될 때까지 대기.
@@ -110,8 +109,7 @@ public class GameScene : BaseScene
             yield return waitObject;
         }
         playerRespawnPointTransform = RespawnManager.Instance.RespawnPoints;
-        go.GetComponentInChildren<PlayerController>().PlayerNickName = PhotonNetwork.LocalPlayer.NickName;
-        go.GetComponentInChildren<PlayerController>().PlayerHandle = PhotonNetwork.LocalPlayer.ActorNumber;
+
 
         ShowUI();
     }

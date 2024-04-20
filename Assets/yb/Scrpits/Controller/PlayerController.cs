@@ -433,7 +433,10 @@ namespace yb
         [PunRPC]//0413 03:46 이희웅 포톤용 메서드 추가 플레이어 이름지정
         public void RenamePlayer(int PlayerViewId)
         {
-            PhotonNetwork.GetPhotonView(PlayerViewId).transform.parent.name = $"Player{PhotonNetwork.GetPhotonView(PlayerViewId).Owner.ActorNumber}";
+            PhotonView _photonView = PhotonNetwork.GetPhotonView(PlayerViewId);
+            _photonView.transform.parent.name = $"Player{PhotonNetwork.GetPhotonView(PlayerViewId).Owner.ActorNumber}";
+            _photonView.GetComponent<PlayerController>().PlayerNickName = PhotonNetwork.LocalPlayer.NickName;
+            _photonView.GetComponent<PlayerController>().PlayerHandle = _photonView.Owner.ActorNumber;
         }
 
         [PunRPC]
