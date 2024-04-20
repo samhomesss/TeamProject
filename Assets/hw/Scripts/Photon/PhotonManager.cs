@@ -10,7 +10,6 @@ using UnityEngine.SceneManagement;
 
 public class PhotonManager : MonoBehaviourPunCallbacks
 {
-
     public static PhotonManager instance
     {
         get
@@ -41,9 +40,7 @@ public class PhotonManager : MonoBehaviourPunCallbacks
 
     public void OnApplicationQuit() // OnApplicationQuit()이 호출될때 현재 플레이어가 참여중인 방을 나가게됨
     {
-        //PhotonNetwork.LeaveRoom();
-        OnLeftRoom();
-        OnJoinedLobby();
+        PhotonNetwork.LeaveRoom();
     }
 
 
@@ -93,4 +90,6 @@ public class PhotonManager : MonoBehaviourPunCallbacks
 
         });//방을 나왔으니 커스텀 프로퍼티 초기화
     }
+
+
 }

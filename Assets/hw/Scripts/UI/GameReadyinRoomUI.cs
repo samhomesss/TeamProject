@@ -62,8 +62,7 @@ public class GameReadyinRoomUI : MonoBehaviour, IInRoomCallbacks
 
         _back.onClick.AddListener(() =>//Back버튼을 눌렀을때의 이벤트
         {
-            PhotonManager.instance.OnApplicationQuit();
-
+            PhotonNetwork.LeaveRoom();
         });
 
         for (int i = 0; i < _playerStatusInGameReadyInRoomSlotPrefab.Length; i++)

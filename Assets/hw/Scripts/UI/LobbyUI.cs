@@ -1,6 +1,7 @@
 ﻿
 using Photon.Pun;
 using Photon.Realtime;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -31,6 +32,7 @@ public class LobbyUI : UI_Scene, ILobbyCallbacks
     private Button _join_Button;
     private Button _create_Button;
     private Canvas _createRoom_Canvas;
+    
 
     RectTransform _roomListContent;
     RoomListSlot _roomListslotPrefab;
@@ -73,7 +75,6 @@ public class LobbyUI : UI_Scene, ILobbyCallbacks
     private void Start()
     {
         Init();
-
         _join_Button.interactable = false;
         _create_Button.interactable = false;
 
@@ -182,4 +183,6 @@ public class LobbyUI : UI_Scene, ILobbyCallbacks
             _roomListslots.Add(tempSlot);//생성된 tempSlot을 룸리스트에 저장
         }
     }
+
+    
 }

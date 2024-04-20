@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class UI_GameResult : UI_Scene
@@ -20,7 +21,8 @@ public class UI_GameResult : UI_Scene
     }
 
     List<GameObject> playerResultInfos = new List<GameObject>();
-    Dictionary<string, int> _playerList = new Dictionary<string, int>();    
+    Dictionary<string, int> _playerList = new Dictionary<string, int>();
+    Button _goLobbyButton;
     int playerCount; 
     private void Start()
     {
@@ -37,6 +39,20 @@ public class UI_GameResult : UI_Scene
     {
         base.Init();
         Bind<GameObject>(typeof(GameObjects));
+        _goLobbyButton = GameObject.Find("UI_GoLobbyButton").GetComponentInChildren<Button>();
+        _goLobbyButton.onClick.AddListener(() =>
+        {
+            PhotonNetwork.LeaveRoom();
+            var roomProperties = PhotonNetwork.CurrentRoom.CustomProperties;
+            roomProperties.Clear();
+
+            var playerProperties = PhotonNetwork.LocalPlayer.CustomProperties;
+            playerProperties.Clear();
+
+            PhotonNetwork.CurrentRoom.SetCustomProperties(roomProperties);
+            PhotonNetwork.LocalPlayer.SetCustomProperties(playerProperties);
+        });
+
         //전체 ResultInfo 읽어오고 일단 보이지 않게 설정 한다
         for (int i = 0; i < 8; i++)
         {

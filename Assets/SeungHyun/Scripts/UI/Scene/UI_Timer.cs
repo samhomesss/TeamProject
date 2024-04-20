@@ -12,7 +12,7 @@ public class UI_Timer : UI_Scene
 
     public float Timer => _timer;
 
-    float _timer = 15f;
+    float _timer = 300f;
     float _minute;
     float _second;
     static Action loadScene;
