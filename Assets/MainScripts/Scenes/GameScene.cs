@@ -103,7 +103,7 @@ public class GameScene : BaseScene
         // 플레이어의 로딩을 기다립니다.
         bool allPlayersLoaded = false;
         bool isSpwanPointLoaded = false;
-        while (!allPlayersLoaded || !isSpwanPointLoaded)
+        while (!allPlayersLoaded && !isSpwanPointLoaded)
         {
             allPlayersLoaded = FindObjectsByType<PlayerController>(FindObjectsSortMode.None).Length == PhotonNetwork.CurrentRoom.PlayerCount;
             isSpwanPointLoaded = RespawnManager.Instance;
@@ -127,5 +127,11 @@ public class GameScene : BaseScene
             //GameObject itembox = PhotonNetwork.Instantiate("Prefabs/yb/Object/DestructibleObject", itemBox[i].transform.position, Quaternion.identity);
             //itembox.transform.SetParent(_itemBox.transform);
         }
+        //for(int i = 0; i< PhotonNetwork.CurrentRoom.PlayerCount; i++)
+        //{
+        //    PlayerController go_PlayerController = GameObject.Find($"Player{i + 1}").GetComponentInChildren<PlayerController>();
+        //    go_PlayerController.PlayerNickName = PhotonNetwork.LocalPlayer.NickName;
+        //    go_PlayerController.PlayerHandle = PhotonNetwork.LocalPlayer.ActorNumber;
+        //}
     }
 }
