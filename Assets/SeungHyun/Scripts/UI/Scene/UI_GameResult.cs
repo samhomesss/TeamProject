@@ -42,7 +42,6 @@ public class UI_GameResult : UI_Scene
         _goLobbyButton = GameObject.Find("UI_GoLobbyButton").GetComponentInChildren<Button>();
         _goLobbyButton.onClick.AddListener(() =>
         {
-            PhotonNetwork.LoadLevel("LobbyScene");
             PhotonNetwork.LeaveRoom();
             Map.playerColors.Clear();
             UI_Timer.loadScene = null;
