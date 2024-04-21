@@ -73,7 +73,8 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     public override void OnJoinedRoom()
     {
         base.OnJoinedRoom();
-        SceneManager.LoadScene("GameReady");//방장이 방을 파면 방게임씬으로 입장하도록 설정
+        Managers.Scene.LoadScene(Define.SceneType.GameReady);
+        //SceneManager.LoadScene("GameReady");//방장이 방을 파면 방게임씬으로 입장하도록 설정
         PhotonNetwork.LocalPlayer.SetCustomProperties(new ExitGames.Client.Photon.Hashtable()
         {
             {"isReady",false } //방에 입장한 모든 클라이언트 들은 기본값으로 isReady의 초기설정값 false를 넣어줌
@@ -84,7 +85,8 @@ public class PhotonManager : MonoBehaviourPunCallbacks
     public override void OnLeftRoom()
     {
         base.OnLeftRoom();
-        SceneManager.LoadScene("LobbyScene");
+        Managers.Scene.LoadScene(Define.SceneType.LobbyScene);
+        //SceneManager.LoadScene("LobbyScene");
         PhotonNetwork.LocalPlayer.SetCustomProperties(new ExitGames.Client.Photon.Hashtable()
         {
 

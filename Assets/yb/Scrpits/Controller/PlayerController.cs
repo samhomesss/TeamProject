@@ -185,11 +185,20 @@ namespace yb
         /// Result씬에서 플레이어를 생성했을 시 호출
         /// </summary>
         /// <param name="rank">순위</param>
-        private void SetWinPlayer(int rank) {
+        public void SetWinPlayer(int rank) {
+            _data = Managers.Data;
+
             transform.position = _data.DefaultWinScenePosition(rank);
             transform.eulerAngles = _data.DefaultWinSceneRotation();
             transform.localScale = Vector3.one * .5f;
+
+            GetComponent<SpawnProjectilesScript>().enabled = false;
+
+            _weaponController = GetComponent<PlayerWeaponController>();
+            _weaponController.Init();
             _weaponController.AllWeaponFalse();
+
+            _stateController = GetComponent<PlayerStateController>();
             _stateController.ChangeState(new PlayerState_Win(this));
         }
 

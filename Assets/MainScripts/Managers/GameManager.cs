@@ -50,7 +50,8 @@ public class GameManager : MonoBehaviour
         {
             case Define.GameState.None:
                 {
-                    SceneManager.LoadScene("LoginScene");
+                    Managers.Scene.LoadScene(SceneType.LoginScene);
+                    //SceneManager.LoadScene("LoginScene");
                     _state++;
                 }
                 break;
@@ -61,7 +62,8 @@ public class GameManager : MonoBehaviour
                         //Todo Create Class LoginInfomation.loggedin, LoginInfomation.profile 
                         if (PhotonManager.instance) //포톤 매니저 인스턴스가 생기면 로그인
                         {
-                            SceneManager.LoadScene("LobbyScene");
+                            Managers.Scene.LoadScene(SceneType.LobbyScene);
+                            //SceneManager.LoadScene("LobbyScene");
                             _state++;
                         }
                     }

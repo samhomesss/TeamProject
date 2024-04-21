@@ -64,7 +64,8 @@ public class UI_Timer : UI_Scene
 
         if (PhotonNetwork.IsMasterClient)
         {
-            PhotonNetwork.LoadLevel("GameResultScene");
+            Managers.Scene.LoadScene(Define.SceneType.GameResultScene);
+            //PhotonNetwork.LoadLevel("GameResultScene");
         }
     }
 
