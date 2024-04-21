@@ -15,7 +15,6 @@ namespace yb
         }
         public void OnUpdate(PlayerController player)
         {
-            
         }
     }
 }
