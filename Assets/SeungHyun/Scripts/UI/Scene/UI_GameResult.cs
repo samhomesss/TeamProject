@@ -43,8 +43,10 @@ public class UI_GameResult : UI_Scene
                 go.SetWinPlayer(i);
             }
         }
-   
         Init();
+
+        PlayerPrefs.DeleteAll();
+        PlayerPrefs.Save();
     }
 
     public override void Init()
