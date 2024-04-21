@@ -23,18 +23,19 @@ public class PlayerResultInfo : UI_Base
 
     private void Start()
     {
+        
+    }
+
+    public void Initisarize( string nickName, string resultNumber, float amount)
+    {
         Init();
         _playerResultNumberImage = Get<GameObject>((int)GameObjects.PlayerResultNumberImage).GetComponent<Image>();
         _playerCharacterImage = Get<GameObject>((int)GameObjects.PlayerCharacterImage).GetComponent<Image>();
         _playerNickName = Get<GameObject>((int)GameObjects.PlayerNickName).GetComponent<TMP_Text>();
         _playerResultNumber = Get<GameObject>((int)GameObjects.PlayerResultNumber).GetComponent<TMP_Text>();
         _playerColorPercent = Get<GameObject>((int)GameObjects.PlayerColorPercent).GetComponent<Slider>();
-    }
-
-    public void Initisarize( string nickName, string resultNumber, float amount)
-    {
-       // _playerResultNumberImage.sprite = resultImage;
-       // _playerCharacterImage.sprite = charImage;
+        // _playerResultNumberImage.sprite = resultImage;
+        // _playerCharacterImage.sprite = charImage;
         _playerNickName.text = nickName; // 닉네임
         _playerColorPercent.GetComponentInChildren<TMP_Text>().text = resultNumber; // 결과 퍼센테이지
         _playerColorPercent.value = amount; // 슬라이더로 보여주는 거
