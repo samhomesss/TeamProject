@@ -28,6 +28,7 @@ namespace yb
         private Camera _myCamera;  //내 카메라(카메라 쪽에서 할당중)
         private Collider _collider;
         private Animator _animator;
+        private PlayerAudioController _audioController;
         private PlayerPickupController _pickupController;
         private PlayerStateController _stateController;
         private PlayerWeaponController _weaponController;
@@ -137,6 +138,7 @@ namespace yb
         public Vector3 PlayerMoveVelocity => _playerMoveVelocity;
 
         public Animator Animator => _animator;
+        public PlayerAudioController Audio => _audioController;
         public PlayerWeaponController WeaponController => _weaponController;
         public PlayerPickupController PickupController => _pickupController;
         public PlayerStateController StateController => _stateController;
@@ -148,6 +150,7 @@ namespace yb
         public int PlayerHandle { get; set; }
         private void Awake()
         {
+            _audioController = GetComponent<PlayerAudioController>();
             _rigid = GetComponent<Rigidbody>();
             _collider = GetComponent<Collider>();
             _animator = GetComponent<Animator>();
@@ -162,7 +165,6 @@ namespace yb
             _guardController.gameObject.SetActive(false);
             _shieldController.gameObject.SetActive(false);
             //_texture = Map.MapObject.GetComponent<Texture2D>();
-
         }
 
         private void Start()
@@ -372,6 +374,7 @@ namespace yb
                 RangedWeapon weapon = _weaponController.RangedWeapon as RangedWeapon;
                 weapon.InitBullet();
                 BulletEvent.Invoke(weapon.CurrentBullet, weapon.MaxBullet);
+                Audio.SetSfx(Define.PlayerAudioType.Respawn);
             }
         }
 

@@ -15,8 +15,10 @@ namespace yb {
             if (player.StateController.State is PlayerState_Die or PlayerState_Win)
                 return;
 
-            if (_weapon.CanShot())
+            if (_weapon.CanShot()) {
+                player.Audio.SetSfx(Define.PlayerAudioType.Shot);
                 player.ChangeTriggerAnimation(Define.PlayerState.Shot);  //사격이 가능한 상태면 사격 애니메이션 실행
+            }
 
             if (!Input.GetMouseButton(0)) {
                 player.Status.SetMoveSpeedDecrease(1f);  //마우스 클릭을 중지 시 이동속도 원상복구

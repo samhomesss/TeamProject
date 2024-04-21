@@ -76,6 +76,8 @@ namespace yb {
 
                 _player.ItemList.Remove(key);
             }
+
+            _player.Audio.SetSfx(Define.PlayerAudioType.UseItem);
         }
         IEnumerator CoDelayDown(float time) {
             _isAttackSpeedUp = true;

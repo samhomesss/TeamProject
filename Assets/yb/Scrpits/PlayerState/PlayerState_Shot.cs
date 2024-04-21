@@ -14,6 +14,7 @@ namespace yb {
 
             if (_weapon.CanShot()) {
                 player.ChangeTriggerAnimation(Define.PlayerState.Shot);
+                player.Audio.SetSfx(Define.PlayerAudioType.Shot);
                 Debug.Log("น฿ป็");
 
             }
