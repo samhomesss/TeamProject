@@ -30,4 +30,9 @@ public class CoroutineHelper : MonoBehaviour
         call.Invoke();
     }
 
+    public IEnumerator CoAudioDestroy(float time, GameObject go) {
+        yield return new WaitForSeconds(time);
+        PhotonNetwork.Destroy(go);
+    }
+
 }

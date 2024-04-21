@@ -89,4 +89,18 @@ public class Define
         Quit,
         None,
     }
+
+    public enum PlayerAudioType {
+        Shot,
+        Reload,
+        Pickup,
+        Dead,
+        Respawn,
+        BoxDestroy,
+        UseItem,
+    }
+
+    public enum BoxAudioType {
+        BoxDestroy,
+    }
 }

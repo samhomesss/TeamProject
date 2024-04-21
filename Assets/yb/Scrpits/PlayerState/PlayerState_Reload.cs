@@ -8,6 +8,8 @@ namespace yb {
         {
             _rangedWeapon = rangedWeapon as RangedWeapon;
             player.ChangeTriggerAnimation(Define.PlayerState.Reload);
+            player.Audio.SetSfx(Define.PlayerAudioType.Reload);
+
         }
         public void OnUpdate(PlayerController player) {
 
