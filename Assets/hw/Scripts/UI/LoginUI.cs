@@ -28,7 +28,6 @@ public class LoginUI : UI_Scene
     private Canvas _registerNickname;
     private Canvas _confirmPopupUI;
 
-    [SerializeField] private Toggle testLoginToggle;
 
 
     private string _testLogin_id;//테스트용 아이디 모음
@@ -56,47 +55,47 @@ public class LoginUI : UI_Scene
 
     private void Awake()
     {
-        var lines = File.ReadAllLines("Assets/TestOption.txt");
-        #region 테스트용 아이디 모음
-        if (lines.Length > 0)
-        {
-            switch (lines[0].ToString())
-            {
-                case "1":
-                    testLoginToggle.gameObject.SetActive(lines[0].Equals("1"));
-                    _testLogin_id = "test1@test1.com";
-                    break;
-                case "2":
-                    testLoginToggle.gameObject.SetActive(lines[0].Equals("2"));
-                    _testLogin_id = "test2@test2.com";
-                    break;
-                case "3":
-                    testLoginToggle.gameObject.SetActive(lines[0].Equals("3"));
-                    _testLogin_id = "test3@test3.com";
-                    break;
-                case "4":
-                    testLoginToggle.gameObject.SetActive(lines[0].Equals("4"));
-                    _testLogin_id = "test4@test4.com";
-                    break;
-                case "5":
-                    testLoginToggle.gameObject.SetActive(lines[0].Equals("5"));
-                    _testLogin_id = "test5@test5.com";
-                    break;
-                case "6":
-                    testLoginToggle.gameObject.SetActive(lines[0].Equals("6"));
-                    _testLogin_id = "test6@test6.com";
-                    break;
-                case "7":
-                    testLoginToggle.gameObject.SetActive(lines[0].Equals("7"));
-                    _testLogin_id = "test7@test7.com";
-                    break;
-                case "8":
-                    testLoginToggle.gameObject.SetActive(lines[0].Equals("8"));
-                    _testLogin_id = "test8@test8.com";
-                    break;
-            }
-        }
-        #endregion
+        //var lines = File.ReadAllLines("Assets/TestOption.txt");
+        //#region 테스트용 아이디 모음
+        //if (lines.Length > 0)
+        //{
+        //    switch (lines[0].ToString())
+        //    {
+        //        case "1":
+        //            testLoginToggle.gameObject.SetActive(lines[0].Equals("1"));
+        //            _testLogin_id = "test1@test1.com";
+        //            break;
+        //        case "2":
+        //            testLoginToggle.gameObject.SetActive(lines[0].Equals("2"));
+        //            _testLogin_id = "test2@test2.com";
+        //            break;
+        //        case "3":
+        //            testLoginToggle.gameObject.SetActive(lines[0].Equals("3"));
+        //            _testLogin_id = "test3@test3.com";
+        //            break;
+        //        case "4":
+        //            testLoginToggle.gameObject.SetActive(lines[0].Equals("4"));
+        //            _testLogin_id = "test4@test4.com";
+        //            break;
+        //        case "5":
+        //            testLoginToggle.gameObject.SetActive(lines[0].Equals("5"));
+        //            _testLogin_id = "test5@test5.com";
+        //            break;
+        //        case "6":
+        //            testLoginToggle.gameObject.SetActive(lines[0].Equals("6"));
+        //            _testLogin_id = "test6@test6.com";
+        //            break;
+        //        case "7":
+        //            testLoginToggle.gameObject.SetActive(lines[0].Equals("7"));
+        //            _testLogin_id = "test7@test7.com";
+        //            break;
+        //        case "8":
+        //            testLoginToggle.gameObject.SetActive(lines[0].Equals("8"));
+        //            _testLogin_id = "test8@test8.com";
+        //            break;
+        //    }
+        //}
+        //#endregion
     }
 
     private async void Start()
@@ -117,14 +116,6 @@ public class LoginUI : UI_Scene
         #region 로그인버튼 이벤트
         _loginButton.onClick.AddListener(() =>
         {
-            if (testLoginToggle.IsActive() && testLoginToggle.isOn)
-            {
-                _idInputField.text = _testLogin_id;
-                _pwInputField.text = "123123";
-            }
-
-
-
             if (string.IsNullOrEmpty(_idInputField.text) && string.IsNullOrEmpty(_pwInputField.text))
                 return;
 
