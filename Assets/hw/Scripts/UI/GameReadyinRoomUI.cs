@@ -59,6 +59,8 @@ public class GameReadyinRoomUI : MonoBehaviour, IInRoomCallbacks
             Managers.Scene.LoadScene(Define.SceneType.GamePlay);
             //PhotonNetwork.LoadLevel("GamePlay");
 
+            PhotonNetwork.Destroy(gameObject);//방슬롯 파괴
+
         });
 
         _back.onClick.AddListener(() =>//Back버튼을 눌렀을때의 이벤트
