@@ -1,4 +1,5 @@
 using Photon.Pun;
+using Photon.Realtime;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -21,6 +22,8 @@ public class UI_GameResult : UI_Scene
         Player8ResultInfo,
     }
 
+    PhotonView _view;
+    List<PlayerController> _players = new List<PlayerController>();
     List<GameObject> playerResultInfos = new List<GameObject>();
     Dictionary<string, int> _playerList = new Dictionary<string, int>();
     Button _goLobbyButton;
@@ -28,6 +31,8 @@ public class UI_GameResult : UI_Scene
     private string[] _playersPath = new string[8];
     private void Start()
     {
+        _view = GetComponent<PhotonView>();
+
         for(int i = 0; i< _playersPath.Length; i++) {
             _playersPath[i] = $"Prefabs/hw/PlayerPrefabs/Player{i + 1}";
         }
@@ -36,13 +41,21 @@ public class UI_GameResult : UI_Scene
 
         if(PhotonNetwork.IsMasterClient) {
             for (int i = 0; i < playerCount; i++) {
-                _playerList.Add(PlayerPrefs.GetString($"Rank{i + 1}"), PlayerPrefs.GetInt($"Rank{i + 1}Percent"));
-                PlayerController go = PhotonNetwork.Instantiate(_playersPath[i], Vector3.zero, Quaternion.identity).GetComponentInChildren<PlayerController>();
-                go.SetWinPlayer(i);
+                if(!_playerList.ContainsKey(PlayerPrefs.GetString($"Rank{i + 1}"))) {
+                    _playerList.Add(PlayerPrefs.GetString($"Rank{i + 1}"), PlayerPrefs.GetInt($"Rank{i + 1}Percent"));
+                    PlayerController go = PhotonNetwork.Instantiate(_playersPath[i], Vector3.zero, Quaternion.identity).GetComponentInChildren<PlayerController>();
+                    _players.Add(go);
+                    _view.RPC("PlayerSet", RpcTarget.AllBuffered, i);
+                    //go.SetWinPlayer(i);
+                }
             }
         }
-       
         Init();
+    }
+
+    [PunRPC]
+    public void PlayerSet(int index) {
+        _players[index].SetWinPlayer(index);
     }
 
     public override void Init()
