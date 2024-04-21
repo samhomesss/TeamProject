@@ -20,12 +20,13 @@ public class SceneManagerEX
     }
 
     public void LoadScene(Define.SceneType type) {
-        var tween = Fade.SetFade(true);
-        if (type == Define.SceneType.Quit) {
-            tween.OnComplete(() => QuitGame());
-        } else {
-            tween.OnComplete(() => DoNextScene(type));
-        }
+        PhotonNetwork.LoadLevel((int)type);
+        //var tween = Fade.SetFade(true);
+        //if (type == Define.SceneType.Quit) {
+        //    tween.OnComplete(() => QuitGame());
+        //} else {
+        //    tween.OnComplete(() => DoNextScene(type));
+        //}
     }
     private void DoNextScene(Define.SceneType type) {
         PhotonNetwork.LoadLevel((int)type);
