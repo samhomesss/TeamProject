@@ -1748,7 +1748,7 @@ MonoBehaviour:
     Name: Idle
   - Type: 9
     SynchronizeType: 1
-    Name: Respawn
+    Name: Win
   m_SynchronizeLayers:
   - SynchronizeType: 0
     LayerIndex: 0

@@ -45,24 +45,24 @@ public class UI_Timer : UI_Scene
     // SetInt를 하나 더해서 현재 맵을 색칠한 갯수를 넘겨주고 순위에 맞게 배치 
     private void SaveData()
     {
-        //todo
+
+            //todo
         List<PlayerController> playerList = _uiPlayerColorPercent.SortNodeCount();
 
-        //여기서 포톤 플레이어 수를 대입. 현재는 테스트용 하드코딩
-        PlayerPrefs.SetInt("PlayerNumber", playerList.Count); // 포톤 플레이어 수를 넣어주면 됨w
+        PlayerPrefs.DeleteAll();
+        PlayerPrefs.Save();
 
 
+        if (PhotonNetwork.IsMasterClient) {
+            //여기서 포톤 플레이어 수를 대입. 현재는 테스트용 하드코딩
+            PlayerPrefs.SetInt("PlayerNumber", playerList.Count); // 포톤 플레이어 수를 넣어주면 됨w
 
-        //여기서 플레이어 순위에 맞는 플레이어 이름 입력. 현재는 테스트용 하드코딩
-        for (int i = 0; i < playerList.Count; i++)
-        {
+            for (int i = 0; i < playerList.Count; i++) {
 
-            PlayerPrefs.SetString($"Rank{i + 1}", playerList[i].PlayerNickName);//방안에 연결된 닉네임만 뽑아줌
-            PlayerPrefs.SetInt($"Rank{i + 1}Percent", playerList[i].NodeCount); // 정렬된 플레이어의 NodeCount를 넣어주고 
-        }
+                PlayerPrefs.SetString($"Rank{i + 1}", playerList[i].PlayerNickName);//방안에 연결된 닉네임만 뽑아줌
+                PlayerPrefs.SetInt($"Rank{i + 1}Percent", playerList[i].NodeCount); // 정렬된 플레이어의 NodeCount를 넣어주고 
+            }
 
-        if (PhotonNetwork.IsMasterClient)
-        {
             Managers.Scene.LoadScene(Define.SceneType.GameResultScene);
             //PhotonNetwork.LoadLevel("GameResultScene");
         }
