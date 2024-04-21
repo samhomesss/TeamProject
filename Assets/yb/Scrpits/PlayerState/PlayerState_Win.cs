@@ -11,7 +11,8 @@ namespace yb
     {
         public PlayerState_Win(PlayerController player)
         {
-            player.ChangeTriggerAnimation(Define.PlayerState.Win);  //애니메이션 변경
+            player.Animator.SetTrigger("Win");
+            //player.ChangeTriggerAnimation(Define.PlayerState.Win);  //애니메이션 변경
         }
         public void OnUpdate(PlayerController player)
         {

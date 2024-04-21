@@ -16,17 +16,25 @@ namespace yb {
         public IPlayerState State => _playerState;
 
         private void Awake() => _player = GetComponent<PlayerController>();
-        void Start() { }  
-
-        
-        void Update() {
-            if(_playerState == null) {
-                _playerState = new PlayerState_Idle(_player);
+        void Start() {
+            if (_playerState == null && _playerState is not PlayerState_Win) {
+                ChangeState(new PlayerState_Idle(_player));
             }
-                 _playerState.OnUpdate(_player);
+
         }
 
-        public void ChangeState(IPlayerState playerState) => _playerState = playerState;
+
+        void Update() {
+            if(_playerState != null)
+                 _playerState.OnUpdate(_player);
+
+            Debug.Log($"{_playerState}현재 스테이트");
+        }
+
+        public void ChangeState(IPlayerState playerState) { 
+            _playerState = playerState;
+            Debug.Log($"{_playerState}로 상태 변경");
+        }
 
         /// <summary>
         /// todo
