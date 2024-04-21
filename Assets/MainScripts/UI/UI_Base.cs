@@ -8,7 +8,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using Object = UnityEngine.Object;
 
-public abstract class UI_Base : MonoBehaviourPunCallbacks
+public abstract class UI_Base : MonoBehaviour
 {
     protected Dictionary<Type, UnityEngine.Object[]> _objects = new Dictionary<Type, UnityEngine.Object[]>();
     public abstract void Init();
