@@ -10,11 +10,13 @@ using UnityEngine.SceneManagement;
         {
             base.Init();
 
-            SceneType = Define.SceneType.Lobby;
+            SceneType = Define.SceneType.LobbyScene;
 
             Managers.UI.ShowSceneUI<CreateRoom>("Lobby/CreateRoom", "hw");
             Managers.UI.ShowSceneUI<LobbyUI>("Lobby/LobbyUI", "hw");
             Managers.UI.ShowSceneUI<RoomListSlot>("Lobby/RoomListSlot", "hw");
+
+        _fade.SetFade(false);
         }
         public override void Clear()
         {

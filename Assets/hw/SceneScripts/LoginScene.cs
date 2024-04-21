@@ -7,7 +7,7 @@ public class LoginScene : BaseScene
     {
         base.Init();
 
-        SceneType = Define.SceneType.Login;
+        SceneType = Define.SceneType.LoginScene;
 
         Managers.UI.ShowSceneUI<LoginUI>("Login/LoginUI", "hw");
         Managers.UI.ShowSceneUI<RegisterID>("Login/RegisterID", "hw");
@@ -15,7 +15,9 @@ public class LoginScene : BaseScene
         Managers.UI.ShowSceneUI<UI_DescriptionPanel>("Login/UI_DescriptionPanel", "hw");
         Managers.UI.ShowSceneUI<UI_Description>("Login/UI_Description", "hw");
         Managers.UI.ShowSceneUI<ConfirmPopupUI>("Login/ConfirmPopupUI", "hw");
-        Managers.UI.ShowSceneUI<AlertPopupUI>("Login/AlertPopupUI", "hw"); 
+        Managers.UI.ShowSceneUI<AlertPopupUI>("Login/AlertPopupUI", "hw");
+
+        _fade.SetFade(false);
     }
 
     public override void Clear()

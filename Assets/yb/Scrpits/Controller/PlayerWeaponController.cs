@@ -23,9 +23,13 @@ namespace yb
          
         private void Start()
         {
+            Init();
+        }
+
+        public void Init() {
             _photonview = GetComponent<PhotonView>();//0409 08:06 이희웅 코드 수정 총알 동기화를 위한 코드
             _rangedWeaponsParent = Util.FindChild(gameObject, "RangedWeapons", true).transform;
-            
+
             foreach (Transform t in _rangedWeaponsParent)
                 t.localScale = Vector3.zero;  //모든 무기의 크기를 zero로 초기화T
 

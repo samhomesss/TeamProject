@@ -12,6 +12,9 @@ namespace yb {
             _weapon = player.WeaponController.RangedWeapon;
         }
         public void OnUpdate(PlayerController player) {
+            if (player.StateController.State is PlayerState_Die or PlayerState_Win)
+                return;
+
             if (_weapon.CanShot())
                 player.ChangeTriggerAnimation(Define.PlayerState.Shot);  //사격이 가능한 상태면 사격 애니메이션 실행
 

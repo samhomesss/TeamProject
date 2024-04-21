@@ -80,10 +80,13 @@ public class Define
 
     public enum SceneType
     {
+        Main,
+        LoginScene,
+        LobbyScene,
+        GameReady,
+        GamePlay,
+        GameResultScene,
+        Quit,
         None,
-        Login,
-        Lobby,
-        InGame,
-        Result,
     }
 }

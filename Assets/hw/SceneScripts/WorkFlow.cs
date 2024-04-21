@@ -30,27 +30,29 @@ public class WorkFlow :MonoBehaviour
             {
                 case Define.SceneType.None:
                     {
-                        SceneManager.LoadScene("LoginScene");
+                        Managers.Scene.LoadScene(Define.SceneType.LoginScene);
+                        //SceneManager.LoadScene("LoginScene");
                         sceneType++;
                     }
                     break;
-                case Define.SceneType.Login:
+                case Define.SceneType.LoginScene:
                     {
                         if (LoginInformation.loggedIn && LoginInformation.profile != null)//로그인이 된상태 + 로그인이 돼서 프로파일이 생긴다면 로비로 입장
                         {
                             //Todo Create Class LoginInfomation.loggedin, LoginInfomation.profile 
                             if (PhotonManager.instance) //포톤 매니저 인스턴스가 생기면 로그인
                             {
-                                SceneManager.LoadScene("LobbyScene");
+                                Managers.Scene.LoadScene(Define.SceneType.LobbyScene);
+                                //SceneManager.LoadScene("LobbyScene");
                                 sceneType++;
                             }
                         }
                     }
                     break;
-                case Define.SceneType.Lobby:
+                case Define.SceneType.LobbyScene:
                     //TODO: 로비에 있을때 마스터 유저가 Start버튼을 누르면 Game씬으로 전환 되게끔 작성
                     break;
-                case Define.SceneType.InGame:
+                case Define.SceneType.GamePlay:
                     break;
                 default:
                     break;

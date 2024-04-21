@@ -14,6 +14,12 @@ namespace Hw
         }
         public override void Clear()
         {
+
+        }
+
+        private void Start() {
+            
+
         }
     }
 }

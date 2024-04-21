@@ -9,7 +9,10 @@ namespace yb {
             _weapon = player.WeaponController.RangedWeapon;
         }
         public void OnUpdate(PlayerController player) {
-            if(_weapon.CanShot()) {
+            if (player.StateController.State is PlayerState_Die or PlayerState_Win)
+                return;
+
+            if (_weapon.CanShot()) {
                 player.ChangeTriggerAnimation(Define.PlayerState.Shot);
                 Debug.Log("น฿ป็");
 
