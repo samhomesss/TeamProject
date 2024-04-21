@@ -96,7 +96,6 @@ public class Define
         Pickup,
         Dead,
         Respawn,
-        BoxDestroy,
         UseItem,
     }
 

@@ -56,7 +56,9 @@ public class UI_Timer : UI_Scene
             PlayerPrefs.SetInt($"Rank{i + 1}Percent", playerList[i].NodeCount); // 정렬된 플레이어의 NodeCount를 넣어주고 
         }
 
-   
+        if(PhotonNetwork.IsMasterClient) {
+            Managers.Scene.LoadScene(Define.SceneType.GameResultScene);
+        }
     }
 
 
