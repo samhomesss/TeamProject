@@ -12,7 +12,7 @@ public class UI_Timer : UI_Scene
 
     public float Timer => _timer;
 
-    float _timer = 60f;
+    float _timer = 300f;
     float _minute;
     float _second;
     public static Action loadScene; //0421 이희웅 private static -> public static 으로 수정 게임 결과 씬에서 맵을 초기화 해줘야 하므로 접근제한자를 변경
