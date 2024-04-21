@@ -5,31 +5,41 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using yb;
 
 public class UI_GameResult : UI_Scene
 {
     enum GameObjects
     {
-        Player1ResultInfo, 
-        Player2ResultInfo, 
-        Player3ResultInfo, 
-        Player4ResultInfo, 
-        Player5ResultInfo, 
-        Player6ResultInfo, 
-        Player7ResultInfo, 
+        Player1ResultInfo,
+        Player2ResultInfo,
+        Player3ResultInfo,
+        Player4ResultInfo,
+        Player5ResultInfo,
+        Player6ResultInfo,
+        Player7ResultInfo,
         Player8ResultInfo,
     }
 
     List<GameObject> playerResultInfos = new List<GameObject>();
     Dictionary<string, int> _playerList = new Dictionary<string, int>();
     Button _goLobbyButton;
-    int playerCount; 
+    int playerCount;
+    private string[] _playersPath = new string[8];
     private void Start()
     {
+        for(int i = 0; i< _playersPath.Length; i++) {
+            _playersPath[i] = $"Prefabs/hw/PlayerPrefabs/Player{i + 1}";
+        }
+
         playerCount = PlayerPrefs.GetInt("PlayerNumber");
-        for (int i = 0; i < playerCount; i++) 
-        {
-            _playerList.Add(PlayerPrefs.GetString($"Rank{i+1}"), PlayerPrefs.GetInt($"Rank{i+1}Percent"));
+
+        if(PhotonNetwork.IsMasterClient) {
+            for (int i = 0; i < playerCount; i++) {
+                _playerList.Add(PlayerPrefs.GetString($"Rank{i + 1}"), PlayerPrefs.GetInt($"Rank{i + 1}Percent"));
+                PlayerController go = PhotonNetwork.Instantiate(_playersPath[i], Vector3.zero, Quaternion.identity).GetComponentInChildren<PlayerController>();
+                go.SetWinPlayer(i);
+            }
         }
        
         Init();

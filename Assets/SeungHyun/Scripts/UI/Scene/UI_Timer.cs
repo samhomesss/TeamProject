@@ -12,7 +12,7 @@ public class UI_Timer : UI_Scene
 
     public float Timer => _timer;
 
-    float _timer = 300f;
+    float _timer = 10f;
     float _minute;
     float _second;
     static Action loadScene;
@@ -63,7 +63,8 @@ public class UI_Timer : UI_Scene
 
         if (PhotonNetwork.IsMasterClient)
         {
-            PhotonNetwork.LoadLevel("GameResultScene");
+            Managers.Scene.LoadScene(Define.SceneType.GameResultScene);
+            //PhotonNetwork.LoadLevel("GameResultScene");
         }
     }
 

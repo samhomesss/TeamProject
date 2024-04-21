@@ -12,5 +12,7 @@ public class GameResultScene : BaseScene
         base.Init();
         Managers.UI.ShowSceneUI<UI_GameResult>();
         Managers.SceneObj.ShowSceneObject<GameResultMap>();
+
+        _fade.SetFade(false);
     }
 }

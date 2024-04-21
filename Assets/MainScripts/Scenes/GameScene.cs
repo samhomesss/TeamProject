@@ -44,6 +44,8 @@ public class GameScene : BaseScene
             Managers.UI.ShowSceneUI<UI_PlayerColorPercent>();
         }
 
+        _fade.SetFade(false);
+
     }
 
     // 작성자: 장세윤(2024.04.19).

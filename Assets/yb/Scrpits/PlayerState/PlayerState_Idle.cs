@@ -15,6 +15,9 @@ namespace yb
         }
         public void OnUpdate(PlayerController player)
         {
+            if (player.StateController.State is PlayerState_Die or PlayerState_Win)
+                return;
+
             if (Input.GetMouseButtonDown(0))
             {
                 player.StateController.ChangeState(new PlayerState_Shot(player));  //마우스 클릭시 ShotState로 변경

@@ -10,6 +10,9 @@ namespace yb {
             player.ChangeBoolAnimation("Move");  
         }
         public void OnUpdate(PlayerController player) {
+            if (player.StateController.State is PlayerState_Die or PlayerState_Win)
+                return;
+
             if (Input.GetMouseButtonDown(0)) {
                 //이동중 마우스 클릭시 MovenShotState로 변경
                 player.StateController.ChangeState(new PlayerState_MovenShot(player));

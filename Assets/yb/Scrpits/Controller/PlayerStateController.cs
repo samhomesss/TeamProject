@@ -12,6 +12,8 @@ namespace yb {
         private IPlayerState _playerState;  //현재 플레이어의 상태
         private PlayerController _player;
 
+        public IPlayerState State => _playerState;
+
         private void Awake() => _player = GetComponent<PlayerController>();
         void Start() => _playerState = new PlayerState_Idle(_player);  //플레이어의 기본 상태를 idle로 지정
 
