@@ -50,19 +50,17 @@ public class UI_Timer : UI_Scene
             //todo
         List<PlayerController> playerList = _uiPlayerColorPercent.SortNodeCount();
 
-        PlayerPrefs.DeleteAll();
-        PlayerPrefs.Save();
+        PlayerPrefs.SetInt("PlayerNumber", playerList.Count); // 포톤 플레이어 수를 넣어주면 됨w
 
+        for (int i = 0; i < playerList.Count; i++) {
+
+            PlayerPrefs.SetString($"Rank{i + 1}", playerList[i].PlayerNickName);//방안에 연결된 닉네임만 뽑아줌
+            PlayerPrefs.SetInt($"Rank{i + 1}Percent", playerList[i].NodeCount); // 정렬된 플레이어의 NodeCount를 넣어주고 
+        }
 
         if (PhotonNetwork.IsMasterClient) {
             //여기서 포톤 플레이어 수를 대입. 현재는 테스트용 하드코딩
-            PlayerPrefs.SetInt("PlayerNumber", playerList.Count); // 포톤 플레이어 수를 넣어주면 됨w
-
-            for (int i = 0; i < playerList.Count; i++) {
-
-                PlayerPrefs.SetString($"Rank{i + 1}", playerList[i].PlayerNickName);//방안에 연결된 닉네임만 뽑아줌
-                PlayerPrefs.SetInt($"Rank{i + 1}Percent", playerList[i].NodeCount); // 정렬된 플레이어의 NodeCount를 넣어주고 
-            }
+            
 
             Managers.Scene.LoadScene(Define.SceneType.GameResultScene);
             //PhotonNetwork.LoadLevel("GameResultScene");
