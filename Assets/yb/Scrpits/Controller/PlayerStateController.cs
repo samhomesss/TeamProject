@@ -15,12 +15,12 @@ namespace yb {
         public IPlayerState State => _playerState;
 
         private void Awake() => _player = GetComponent<PlayerController>();
-        void Start() => _playerState = new PlayerState_Idle(_player);  //플레이어의 기본 상태를 idle로 지정
+        void Start() { }  //플레이어의 기본 상태를 idle로 지정
 
         
         void Update() {
-            //플레이어의 현재 상태에 맞는 Update함수 출력
-            _playerState.OnUpdate(_player);
+            if(_playerState == null) return;
+                 _playerState.OnUpdate(_player);
         }
 
         public void ChangeState(IPlayerState playerState) => _playerState = playerState;
