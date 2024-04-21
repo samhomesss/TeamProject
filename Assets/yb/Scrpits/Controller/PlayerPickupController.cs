@@ -221,6 +221,9 @@ namespace yb
                 {
                     if (_player.GetComponent<PhotonView>().IsMine)
                     {
+                        if (_player.Animator.GetCurrentAnimatorStateInfo(0).IsName("Pickup"))
+                            return;
+
                         _collideItemPhoton = c.GetComponent<IObtainableObjectPhoton>();
                         c.GetComponent<IObtainableObjectPhoton>().ShowName(_player);
                         return;
