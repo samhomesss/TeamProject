@@ -116,10 +116,10 @@ public class LoginUI : UI_Scene
         #region 로그인버튼 이벤트
         _loginButton.onClick.AddListener(() =>
         {
-            if (string.IsNullOrEmpty(_idInputField.text) && string.IsNullOrEmpty(_pwInputField.text))
+            if (string.IsNullOrEmpty(_idInputField.text) || string.IsNullOrEmpty(_pwInputField.text))
                 return;
 
-            //  TryLogin(_idInputField, _pwInputField);
+            //TryLogin(_idInputField, _pwInputField);
 
             FirebaseAuth auth = FirebaseAuth.DefaultInstance;
             auth.SignInWithEmailAndPasswordAsync(_idInputField.text, _pwInputField.text).ContinueWithOnMainThread(async task =>
@@ -145,7 +145,6 @@ public class LoginUI : UI_Scene
                         Debug.Log("닉네임을 설정해야 합니다.");
                     }
                 }
-
             });
         });
         #endregion

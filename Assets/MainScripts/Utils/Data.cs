@@ -9,7 +9,7 @@ public class Data
 
     private float _defaultPlayerMoveSpeed = 5f;
 
-    private int _defaultPlayerMaxHp = 30;
+    private int _defaultPlayerMaxHp = 100;
 
     private float _moveSpeedDecrease = 0.5f;
 
@@ -25,7 +25,7 @@ public class Data
 
     private float[] _bonusAttackDelay = new float[] { 0.5f, 0.2f, 0.7f };
 
-    private int[] _defaultWeaponDamage = new int[] {2, 1, 3};
+    private int[] _defaultWeaponDamage = new int[] {15, 10, 20};
 
     private float[] _defaultWeaponDelay = new float[] { 1f, .5f, 2f };
 
