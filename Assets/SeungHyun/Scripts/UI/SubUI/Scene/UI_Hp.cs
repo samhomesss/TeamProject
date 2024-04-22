@@ -31,7 +31,7 @@ public class UI_Hp : UI_Scene
         Init();
         _hpslider.maxValue = 100;
         _hpslider.value = 100;
-        _hptext.text = "30 / 30";
+        _hptext.text = "100 / 100";
     }
 
     public override void Init()

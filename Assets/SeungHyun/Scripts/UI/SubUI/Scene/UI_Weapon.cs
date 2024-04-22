@@ -57,7 +57,6 @@ public class UI_Weapon : UI_Scene
         string beforeItemID = slotItemID; // 일단 바꿔 주기 전에 아이템 번호 저장하고 
         mainWeapon.transform.GetChild(0).GetComponentInChildren<Image>().sprite = Managers.ItemDataBase.GetItemData(itemID).itemImage;
         _mainWeaponImage = mainWeapon.GetComponentInChildren<Image>(); // 단순 업데이트 
-
         if (IsTestMode.Instance.CurrentUser == Define.User.Hw)
         {
            // _photonView.RPC("Replacedweapon", RpcTarget.All, beforeItemID, _photonView.ViewID);
@@ -75,8 +74,6 @@ public class UI_Weapon : UI_Scene
             //int index = ChangeWeaponObject.transform.gameObject.name.IndexOf("(Clone)");
             //if (index > 0)
             //    ChangeWeaponObject.transform.gameObject.name = ChangeWeaponObject.transform.gameObject.name.Substring(0, index);
-
-
         }
         else
         {
