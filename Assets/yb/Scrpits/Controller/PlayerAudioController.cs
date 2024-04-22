@@ -6,6 +6,9 @@ using yb;
 public class PlayerAudioController : AudioController
 {
     public void SetSfx(Define.PlayerAudioType type) {
+        if (_sources[(int)type].isPlaying) {
+            _sources[(int)type].Stop();
+        }
         _sources[(int)type].Play();
     }
 
