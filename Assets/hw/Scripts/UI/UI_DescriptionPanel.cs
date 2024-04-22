@@ -21,7 +21,7 @@ public class UI_DescriptionPanel : UI_Scene
 
         _close_button.onClick.AddListener(() =>
         {
-            _audioSource.PlayOneShot(_audioClip, 0.5f);
+            _audioSource.PlayOneShot(_audioClip, 0.07f);
             _uI_DescriptionPanel_Canvas.enabled = false;
         });
 

@@ -23,7 +23,7 @@ public class UI_Description : UI_Scene
         _buttonClicked = GetComponentInChildren<Button>();
         _buttonClicked.onClick.AddListener(() =>
         {
-            _audioSource.PlayOneShot(_audioClip , 0.5f);
+            _audioSource.PlayOneShot(_audioClip , 0.07f);
             DescriptionCanvas.enabled = true;
         });
     }
