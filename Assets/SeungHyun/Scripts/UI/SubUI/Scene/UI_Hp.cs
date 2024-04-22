@@ -29,7 +29,7 @@ public class UI_Hp : UI_Scene
     {
         map = Map.MapObject.GetComponent<Map>();
         Init();
-        _hpslider.maxValue = 30;
+        _hpslider.maxValue = 100;
         _hpslider.value = 30;
         _hptext.text = "30 / 30";
     }
