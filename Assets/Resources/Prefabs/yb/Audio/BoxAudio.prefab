@@ -45,4 +45,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _clips:
-  - {fileID: 8300000, guid: 3a4a44d5b05f9664fa25f4497cba219b, type: 3}
+  - {fileID: 8300000, guid: b655d6005cfcba64d9e4183ee3990db9, type: 3}

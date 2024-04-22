@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using yb;
+using static Define;
 
 /// <summary>
 /// 플레이어 상태 관리 클래스

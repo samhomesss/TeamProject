@@ -70,6 +70,7 @@ public class GameScene : BaseScene
             Util.FindChild(go, "Camera", true).SetActive(true);
             Util.FindChild(go, "Camera", true).GetComponent<AudioListener>().enabled = true;
             _photonView.RPC("RenamePlayer", RpcTarget.All, _photonView.ViewID);
+            Debug.Log(_photonView.ViewID);
         }
 
     }

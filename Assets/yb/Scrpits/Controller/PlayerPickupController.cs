@@ -194,6 +194,8 @@ namespace yb
             {
                 if (IsTestMode.Instance.CurrentUser == Define.User.Hw) //0411 08:10 이희웅 포톤 동기화를 위한 분기 추가
                 {
+
+
                     if (_player.GetComponent<PhotonView>().IsMine)
                     {
                      _collideItemPhoton = c.GetComponent<IObtainableObjectPhoton>();
@@ -212,28 +214,31 @@ namespace yb
             }
         }
 
-        private void OnTriggerStay(Collider c)
-        {
+        //private void OnTriggerStay(Collider c)
+        //{
 
-            if (c.CompareTag("ObtainableObject"))
-            {
-                if (IsTestMode.Instance.CurrentUser == Define.User.Hw) //0411 08:10 이희웅 포톤 동기화를 위한 분기 추가
-                {
-                    if (_player.GetComponent<PhotonView>().IsMine)
-                    {
-                        _collideItemPhoton = c.GetComponent<IObtainableObjectPhoton>();
-                        c.GetComponent<IObtainableObjectPhoton>().ShowName(_player);
-                        return;
-                    }
-                }
-                else
-                {
-                    _collideItem = c.GetComponent<IObtainableObject>();
-                    c.GetComponent<IObtainableObject>().ShowName(_player);
-                    return;
-                }
-            }
-        }
+        //    if (c.CompareTag("ObtainableObject"))
+        //    {
+        //        if (IsTestMode.Instance.CurrentUser == Define.User.Hw) //0411 08:10 이희웅 포톤 동기화를 위한 분기 추가
+        //        {
+        //            if (_player.GetComponent<PhotonView>().IsMine)
+        //            {
+        //                if (c.GetComponent<IObtainableObjectPhoton>() == _collideItemPhoton)
+        //                    return;
+
+        //                _collideItemPhoton = c.GetComponent<IObtainableObjectPhoton>();
+        //                //c.GetComponent<IObtainableObjectPhoton>().ShowName(_player);
+        //                return;
+        //            }
+        //        }
+        //        else
+        //        {
+        //            _collideItem = c.GetComponent<IObtainableObject>();
+        //            c.GetComponent<IObtainableObject>().ShowName(_player);
+        //            return;
+        //        }
+        //    }
+        //}
 
         private void OnTriggerExit(Collider c)
         {

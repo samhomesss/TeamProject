@@ -4,6 +4,7 @@ using Photon.Pun;
 using System;
 using UnityEngine.Events;
 using System.Collections;
+using Photon.Realtime;
 
 namespace yb
 {
@@ -340,7 +341,7 @@ namespace yb
         /// <param name="attacker"></param>
         public void OnDieUpdate(GameObject attacker)
         {
-            if (_photonview.IsMine)
+            if (_photonview.IsMine && _stateController.State is not PlayerState_Die)
             {
                 transform.LookAt(attacker.transform.position);
                 _collider.enabled = false;
@@ -350,6 +351,7 @@ namespace yb
                 _animator.SetBool("Move", false);
                 _animator.SetBool("Idle", false);
                 ChangeTriggerAnimation(Define.PlayerState.Die);
+                Audio.SetSfx(Define.PlayerAudioType.Dead);
                 StartCoroutine(PlayerRespawn());
             }
         }

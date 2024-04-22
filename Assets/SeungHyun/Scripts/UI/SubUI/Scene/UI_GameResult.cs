@@ -43,8 +43,11 @@ public class UI_GameResult : UI_Scene
                 go.SetWinPlayer(i);
             }
         }
-   
+
         Init();
+
+        PlayerPrefs.DeleteAll();
+        PlayerPrefs.Save();
     }
 
     public override void Init()
@@ -54,17 +57,18 @@ public class UI_GameResult : UI_Scene
         _goLobbyButton = GameObject.Find("UI_GoLobbyButton").GetComponentInChildren<Button>();
         _goLobbyButton.onClick.AddListener(() =>
         {
-            PhotonNetwork.LeaveRoom();
-            Map.playerColors.Clear();
-            UI_Timer.loadScene = null;
-            var roomProperties = PhotonNetwork.CurrentRoom.CustomProperties;
-            roomProperties.Clear();
+            Managers.Scene.LoadScene(Define.SceneType.Quit);
+            //PhotonNetwork.LeaveRoom();
+            //Map.playerColors.Clear();
+            //UI_Timer.loadScene = null;
+            //var roomProperties = PhotonNetwork.CurrentRoom.CustomProperties;
+            //roomProperties.Clear();
 
-            var playerProperties = PhotonNetwork.LocalPlayer.CustomProperties;
-            playerProperties.Clear();
+            //var playerProperties = PhotonNetwork.LocalPlayer.CustomProperties;
+            //playerProperties.Clear();
 
-            PhotonNetwork.CurrentRoom.SetCustomProperties(roomProperties);
-            PhotonNetwork.LocalPlayer.SetCustomProperties(playerProperties);
+            //PhotonNetwork.CurrentRoom.SetCustomProperties(roomProperties);
+            //PhotonNetwork.LocalPlayer.SetCustomProperties(playerProperties);
         });
 
         //전체 ResultInfo 읽어오고 일단 보이지 않게 설정 한다

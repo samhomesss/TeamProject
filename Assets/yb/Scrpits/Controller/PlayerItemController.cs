@@ -50,7 +50,7 @@ namespace yb {
             _player.ItemList[key].ItemNumber--;
             switch(type) {
                 case Define.ItemType.HpPotion:
-                    _player.Status.SetHp(10);
+                    _player.Status.SetHp(40);
                     _player.HpEvent?.Invoke(_player.Status.CurrentHp, _player.Status.MaxHp);
                     _player.PhotonView.RPC("DrankPotion", RpcTarget.All, _player.PhotonView.ViewID, _player.Status.CurrentHp);
                     break;

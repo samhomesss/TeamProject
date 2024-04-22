@@ -41,7 +41,6 @@ public class LobbyUI : UI_Scene, ILobbyCallbacks
     private int _selectedRoomListSlotIndex;
     private List<RoomInfo> _localRoomInfos; //네트워크 상에서 존재하는 방의 정보를 담는 리스트
 
-    [SerializeField] private Toggle testLoginToggle;
 
     public override void Init()
     {
@@ -63,13 +62,13 @@ public class LobbyUI : UI_Scene, ILobbyCallbacks
 
     private void Awake()
     {
-        var lines = File.ReadAllLines("Assets/TestOption.txt"); //테스트 옵션 설정
-        if (lines.Length > 0)
-        {
-            string firstLine = lines[0];
-            bool isValidOption = firstLine[0] >= '1' && firstLine[0] <= '8';
-            testLoginToggle.gameObject.SetActive(isValidOption);
-        }
+        //var lines = File.ReadAllLines("Assets/TestOption.txt"); //테스트 옵션 설정
+        //if (lines.Length > 0)
+        //{
+        //    string firstLine = lines[0];
+        //    bool isValidOption = firstLine[0] >= '1' && firstLine[0] <= '8';
+        //    testLoginToggle.gameObject.SetActive(isValidOption);
+        //}
     }
 
     private void Start()
@@ -93,21 +92,8 @@ public class LobbyUI : UI_Scene, ILobbyCallbacks
         });
         _create_Button.onClick.AddListener(() =>
         {
-
-            if (testLoginToggle.IsActive() && testLoginToggle.isOn)
-            {
-                _createRoom_Canvas.enabled = true;
-
-                _createRoom_Canvas.transform.Find("Panel/Roomname_TextField").GetComponent<TMP_InputField>().text = "TestRoom";
-                _createRoom_Canvas.transform.Find("Panel/MaxPlayer_Scrollbar").GetComponent<Scrollbar>().value = 0.2f;
-                _createRoom_Canvas.transform.Find("Panel/Confirm_Button").GetComponent<Button>().onClick.Invoke();
-            }
-            else
-            {
                 _createRoom_Canvas.enabled = true;
                 _createRoom_Canvas.sortingOrder = 1;
-            }
-
         });
         StartCoroutine(C_JoinLobbyAttheVeryFirstTime());
     }
