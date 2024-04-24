@@ -69,9 +69,7 @@ public class CreateRoom : UI_Scene
                 MaxPlayers = Mathf.RoundToInt(_maxPlayer_Scrollbar.value * _maxPlayer_Scrollbar.numberOfSteps + 1),
                 PublishUserId = true,//모든 플레이어들에게 보여지도록 설정
             };
-
             PhotonNetwork.CreateRoom(_roomName_TextField.text, roomOptions);//서버로 부터 콜백을 받아야 방을 생성할 수 있음 
-                                                                            //로비종료를 여러개사용할 때 TypeLobby로 설정
         });
 
         _cancel_Button.onClick.AddListener(() =>

@@ -16,7 +16,6 @@ public class RegisterID : UI_Scene
         Pw_inputField,
         ConfirmButton,
         CancelButton,
-        ConfirmPopUpUI
     }
 
     private TMP_InputField _idInputField;
@@ -43,8 +42,9 @@ public class RegisterID : UI_Scene
         _confirmButton = confirmButton.GetComponent<Button>();
         _cancelButton = cancelButton.GetComponent<Button>();
 
-        _confirmPopUpUI = GameObject.Find("ConfirmPopupUI").GetComponent<Canvas>();
-        _alertPopUpUI = GameObject.Find("AlertPopupUI").GetComponent<Canvas>();
+        _confirmPopUpUI = Util.FindChild(transform.parent.gameObject, "ConfirmPopupUI").GetComponent<Canvas>();
+        _alertPopUpUI = Util.FindChild(transform.parent.gameObject, "AlertPopupUI").GetComponent<Canvas>();
+
         _confirmButton.interactable = false;
 
     }
@@ -72,6 +72,7 @@ public class RegisterID : UI_Scene
                         {
                             Debug.Log($"Failed to register.. {_idInputField.text} is alreayUsed");
                             _alertPopUpUI.enabled = true;
+                            _alertPopUpUI.GetComponentInChildren<AlertPopupUI>().SetText( $"{_idInputField.text}is alreayUsed");
                             _alertPopUpUI.sortingOrder = 2;
                         }
 
@@ -79,6 +80,7 @@ public class RegisterID : UI_Scene
                         {
                             Debug.LogError($"[UIRegisterWindow] : Faulted register{_idInputField.text},{task.Exception}");
                             _alertPopUpUI.enabled = true;
+                            _alertPopUpUI.GetComponentInChildren<AlertPopupUI>().SetText($"{_idInputField.text}\nis alreay Used");
                             _alertPopUpUI.sortingOrder = 2;
 
                         }
@@ -101,7 +103,6 @@ public class RegisterID : UI_Scene
             _idInputField.text = string.Empty;
             _pwInputField.text = string.Empty;
         });
-
         _idInputField.onValueChanged.AddListener(value => _confirmButton.interactable = IsFormatValid());
         _pwInputField.onValueChanged.AddListener(value => _confirmButton.interactable = IsFormatValid());
     }

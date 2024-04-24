@@ -38,7 +38,6 @@ namespace yb
             player.WeaponController.ChangeRangedWeapon(new RangedWeapon_Pistol(player.WeaponController.RangedWeaponsParent, player));
             if (PhotonNetwork.IsMasterClient)
                 PhotonNetwork.Destroy(gameObject);
-       
         }
 
         public override void ShowName(PlayerController player)

@@ -32,7 +32,7 @@ public class LobbyUI : UI_Scene, ILobbyCallbacks
     private Button _join_Button;
     private Button _create_Button;
     private Canvas _createRoom_Canvas;
-    
+    private Toggle _testRoomCreateToggle;
 
     RectTransform _roomListContent;
     RoomListSlot _roomListslotPrefab;
@@ -57,18 +57,20 @@ public class LobbyUI : UI_Scene, ILobbyCallbacks
         _roomListContent = roomList_Content.GetComponent<RectTransform>();
         _createRoom_Canvas = Util.FindChild(transform.parent.gameObject, "CreateRoom").GetComponent<Canvas>();//게임오브젝트를 리턴해줌
         _roomListslotPrefab = Util.FindChild(transform.parent.gameObject, "RoomListSlot").GetComponent<RoomListSlot>();
+
     }
 
 
     private void Awake()
     {
-        //var lines = File.ReadAllLines("Assets/TestOption.txt"); //테스트 옵션 설정
-        //if (lines.Length > 0)
-        //{
-        //    string firstLine = lines[0];
-        //    bool isValidOption = firstLine[0] >= '1' && firstLine[0] <= '8';
-        //    testLoginToggle.gameObject.SetActive(isValidOption);
-        //}
+        _testRoomCreateToggle = Util.FindChild(gameObject, "TestToggle").GetComponent<Toggle>();
+        var lines = File.ReadAllLines("Assets/TestOption.txt"); //테스트 옵션 설정
+        if (lines.Length > 0)
+        {
+            string firstLine = lines[0];
+            bool isValidOption = firstLine[0] >= '1' && firstLine[0] <= '8';
+            _testRoomCreateToggle.gameObject.SetActive(isValidOption);
+        }
     }
 
     private void Start()
@@ -83,6 +85,7 @@ public class LobbyUI : UI_Scene, ILobbyCallbacks
 
             if (PhotonNetwork.JoinRoom(_localRoomInfos[_selectedRoomListSlotIndex].Name))
             {
+
             }
             else
             {
@@ -92,6 +95,14 @@ public class LobbyUI : UI_Scene, ILobbyCallbacks
         });
         _create_Button.onClick.AddListener(() =>
         {
+
+            if (_testRoomCreateToggle.isOn)
+            {
+                _createRoom_Canvas.enabled = true;
+                _createRoom_Canvas.sortingOrder = 1;
+
+                _createRoom_Canvas.GetComponentInChildren<TMP_InputField>().text = "TestRoom";
+            }
                 _createRoom_Canvas.enabled = true;
                 _createRoom_Canvas.sortingOrder = 1;
         });
@@ -159,7 +170,7 @@ public class LobbyUI : UI_Scene, ILobbyCallbacks
             if (roomList[i].PlayerCount <= 0)
                 continue;
 
-            tempSlot.onSelect += () => selectedRoomListSlotIndex = tempSlot.roomIndex;//이벤트에 사용자가 선택한 방의 인덱스를 넘겨줌
+            //tempSlot.onSelect += () => selectedRoomListSlotIndex = tempSlot.roomIndex;//이벤트에 사용자가 선택한 방의 인덱스를 넘겨줌
 
             tempSlot.Reset();
             //RectTransform slotRectTransform = tempSlot.GetComponent<RectTransform>();

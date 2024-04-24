@@ -12,14 +12,13 @@ public class BoxSpawnManager : Obj
     void Start() {
         _itembox = GameObject.Find("ItemBox").GetComponent<Transform>();
         StartCoroutine(WaitPlayerLoded());
-        
     }
     public IEnumerator BoxSpawn()
     {
         while (true)
         {
             //상자가 다 까졌으면{
-            if (_itembox.childCount-1 <= 0)
+            if (_itembox.childCount <= 0)
             {
                 yield return waitsecond;
                 if (PhotonNetwork.IsMasterClient)

@@ -12,6 +12,7 @@ using yb;
 
 public class UI_GameResult : UI_Scene
 {
+    const int PLAYER_MAX = 8;
     enum GameObjects
     {
         Player1ResultInfo,
@@ -72,7 +73,7 @@ public class UI_GameResult : UI_Scene
         });
 
         //전체 ResultInfo 읽어오고 일단 보이지 않게 설정 한다
-        for (int i = 0; i < 8; i++)
+        for (int i = 0; i < PLAYER_MAX; i++)
         {
             playerResultInfos.Add(Get<GameObject>((int)((GameObjects)i)));
             playerResultInfos[i].SetActive(false);

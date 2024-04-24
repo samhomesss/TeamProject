@@ -2,6 +2,7 @@ using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using UnityEditor.VersionControl;
 using UnityEngine;
 using UnityEngine.UI;
 using yb;
@@ -12,10 +13,12 @@ public class AlertPopupUI : UI_Scene
     {
         ConfirmButton,
         CancleButton,
+        Title_Text
     }
 
     private Button _confirmButton;
     private Button _cancelButton;
+    private TMP_Text _title_Text;
 
     public override void Init()
     {
@@ -23,12 +26,13 @@ public class AlertPopupUI : UI_Scene
 
         Bind<GameObject>(typeof(GameObjects));
 
-        GameObject ConfirmButton = GetObject((int)(GameObjects.ConfirmButton));
-        GameObject CancelButton = GetObject((int)GameObjects.CancleButton);
+        GameObject confirmButton = GetObject((int)(GameObjects.ConfirmButton));
+        GameObject cancelButton = GetObject((int)GameObjects.CancleButton);
+        GameObject title_Text = GetObject((int)GameObjects.Title_Text);
 
-        _confirmButton = ConfirmButton.GetComponent<Button>();
-        _cancelButton = CancelButton.GetComponent<Button>();
-
+        _confirmButton = confirmButton.GetComponent<Button>();
+        _cancelButton = cancelButton.GetComponent<Button>();
+        _title_Text = title_Text.GetComponent<TMP_Text>();
 
         _confirmButton.onClick.AddListener(() =>
         {
@@ -40,6 +44,11 @@ public class AlertPopupUI : UI_Scene
             GetComponent<Canvas>().enabled = false;
         });
     }
+    public void SetText(string text)
+    {
+        _title_Text.text = text;
+    }
+
     void Start()
     {
         Init();

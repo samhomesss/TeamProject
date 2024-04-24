@@ -21,12 +21,12 @@ public class LoginUI : UI_Scene
     private Button _loginButton;
     private TMP_InputField _idInputField;
     private TMP_InputField _pwInputField;
-
+    private Toggle testLoginToggle;
     private Button _registerButton;
 
     private Canvas _registerID;
     private Canvas _registerNickname;
-    private Canvas _confirmPopupUI;
+    private Canvas _alertPopUpUI;
 
 
 
@@ -42,60 +42,61 @@ public class LoginUI : UI_Scene
         GameObject pwInputField = GetObject((int)GameObjects.PwInputField);
         GameObject registerButton = GetObject((int)GameObjects.RegisterButton);
 
+
         _loginButton = loginButton.GetComponent<Button>();
         _idInputField = idInputField.GetComponent<TMP_InputField>();
         _pwInputField = pwInputField.GetComponent<TMP_InputField>();
         _registerButton = registerButton.GetComponent<Button>();
 
+        _alertPopUpUI = Util.FindChild(transform.parent.gameObject, "AlertPopupUI").GetComponent<Canvas>();
         _registerID = Util.FindChild(transform.parent.gameObject, "RegisterID", false).GetComponent<Canvas>();
         _registerNickname = Util.FindChild(transform.parent.gameObject, "RegisterNickname", false).GetComponent<Canvas>();
-       // _confirmPopupUI = Util.FindChild(transform.parent.gameObject, "ConfirmPopupUI",false).GetComponent<Canvas>();
-
     }
 
     private void Awake()
     {
-        //var lines = File.ReadAllLines("Assets/TestOption.txt");
-        //#region 테스트용 아이디 모음
-        //if (lines.Length > 0)
-        //{
-        //    switch (lines[0].ToString())
-        //    {
-        //        case "1":
-        //            testLoginToggle.gameObject.SetActive(lines[0].Equals("1"));
-        //            _testLogin_id = "test1@test1.com";
-        //            break;
-        //        case "2":
-        //            testLoginToggle.gameObject.SetActive(lines[0].Equals("2"));
-        //            _testLogin_id = "test2@test2.com";
-        //            break;
-        //        case "3":
-        //            testLoginToggle.gameObject.SetActive(lines[0].Equals("3"));
-        //            _testLogin_id = "test3@test3.com";
-        //            break;
-        //        case "4":
-        //            testLoginToggle.gameObject.SetActive(lines[0].Equals("4"));
-        //            _testLogin_id = "test4@test4.com";
-        //            break;
-        //        case "5":
-        //            testLoginToggle.gameObject.SetActive(lines[0].Equals("5"));
-        //            _testLogin_id = "test5@test5.com";
-        //            break;
-        //        case "6":
-        //            testLoginToggle.gameObject.SetActive(lines[0].Equals("6"));
-        //            _testLogin_id = "test6@test6.com";
-        //            break;
-        //        case "7":
-        //            testLoginToggle.gameObject.SetActive(lines[0].Equals("7"));
-        //            _testLogin_id = "test7@test7.com";
-        //            break;
-        //        case "8":
-        //            testLoginToggle.gameObject.SetActive(lines[0].Equals("8"));
-        //            _testLogin_id = "test8@test8.com";
-        //            break;
-        //    }
-        //}
-        //#endregion
+        testLoginToggle = GetComponentInChildren<Toggle>();
+        var lines = File.ReadAllLines("Assets/TestOption.txt");
+        #region 테스트용 아이디 모음
+        if (lines.Length > 0)
+        {
+            switch (lines[0].ToString())
+            {
+                case "1":
+                    testLoginToggle.gameObject.SetActive(lines[0].Equals("1"));
+                    _testLogin_id = "test1@test1.com";
+                    break;
+                case "2":
+                    testLoginToggle.gameObject.SetActive(lines[0].Equals("2"));
+                    _testLogin_id = "test2@test2.com";
+                    break;
+                case "3":
+                    testLoginToggle.gameObject.SetActive(lines[0].Equals("3"));
+                    _testLogin_id = "test3@test3.com";
+                    break;
+                case "4":
+                    testLoginToggle.gameObject.SetActive(lines[0].Equals("4"));
+                    _testLogin_id = "test4@test4.com";
+                    break;
+                case "5":
+                    testLoginToggle.gameObject.SetActive(lines[0].Equals("5"));
+                    _testLogin_id = "test5@test5.com";
+                    break;
+                case "6":
+                    testLoginToggle.gameObject.SetActive(lines[0].Equals("6"));
+                    _testLogin_id = "test6@test6.com";
+                    break;
+                case "7":
+                    testLoginToggle.gameObject.SetActive(lines[0].Equals("7"));
+                    _testLogin_id = "test7@test7.com";
+                    break;
+                case "8":
+                    testLoginToggle.gameObject.SetActive(lines[0].Equals("8"));
+                    _testLogin_id = "test8@test8.com";
+                    break;
+            }
+        }
+        #endregion
     }
 
     private async void Start()
@@ -116,6 +117,13 @@ public class LoginUI : UI_Scene
         #region 로그인버튼 이벤트
         _loginButton.onClick.AddListener(() =>
         {
+            if (testLoginToggle.isOn)
+            {
+                _idInputField.text = _testLogin_id;
+                _pwInputField.text = "123123";
+            }
+
+
             if (string.IsNullOrEmpty(_idInputField.text) || string.IsNullOrEmpty(_pwInputField.text))
                 return;
 
@@ -130,7 +138,9 @@ public class LoginUI : UI_Scene
                 }
                 else if (task.IsFaulted)
                 {
-                    Debug.LogError("로그인 실패,아이디 비밀번호 확인");
+                    _alertPopUpUI.enabled = true;
+                    _alertPopUpUI.GetComponentInChildren<TMP_Text>().text = "Login Faild checked ID/PW";
+                    _alertPopUpUI.sortingOrder = 2;
                 }
                 else
                 {
