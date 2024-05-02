@@ -175,7 +175,7 @@ public class LobbyUI : UI_Scene, ILobbyCallbacks
             if (roomList[i].PlayerCount <= 0)
                 continue;
 
-            //tempSlot.onSelect += () => selectedRoomListSlotIndex = tempSlot.roomIndex;//이벤트에 사용자가 선택한 방의 인덱스를 넘겨줌
+            tempSlot.onSelect += () => selectedRoomListSlotIndex = tempSlot.roomIndex;//이벤트에 사용자가 선택한 방의 인덱스를 넘겨줌
 
             tempSlot.Reset();
             //RectTransform slotRectTransform = tempSlot.GetComponent<RectTransform>();

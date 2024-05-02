@@ -22,19 +22,19 @@ using UnityEngine.UI;
         private TMP_Text _playerRatio;
         private Button _selectButton;//방클릭했을때 이벤트 설정
 
-        //public event UnityAction onSelect
-        //{
-        //    add
-        //    {
-        //        _select.onClick.AddListener(value);
-        //    }
-        //    remove
-        //    {
-        //        _select.onClick.RemoveListener(value);
-        //    }
-        //}
+    public event UnityAction onSelect
+    {
+        add
+        {
+            _selectButton.onClick.AddListener(value);
+        }
+        remove
+        {
+            _selectButton.onClick.RemoveListener(value);
+        }
+    }
 
-        public void Refresh(string roomName, int currentPlayersInRoom, int maxPlayerRoom)
+    public void Refresh(string roomName, int currentPlayersInRoom, int maxPlayerRoom)
         {
             _roomName.text = roomName;
             _playerRatio.text = $"{currentPlayersInRoom} / {maxPlayerRoom}";
@@ -54,11 +54,8 @@ using UnityEngine.UI;
 
         private void Awake()
         {
+        Init();
         _selectButton = GetComponent<Button>();
-        _selectButton.onClick.AddListener(() =>
-        {
-            //PhotonNetwork.JoinRoom();
-        });
         }
 
 
