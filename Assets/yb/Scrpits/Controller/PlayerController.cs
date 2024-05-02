@@ -354,7 +354,7 @@ namespace yb
                 ChangeTriggerAnimation(Define.PlayerState.Die);
                 Audio.SetSfx(Define.PlayerAudioType.Dead);
                 StartCoroutine(PlayerRespawn());
-                GameObject.Find("AchievementManager").GetComponent<AchievementManager>().countDead();
+                GameObject.Find("AchivementCanvas").GetComponent<AchievementManager>().countDead();
             }
         }
 

@@ -28,12 +28,10 @@ namespace yb {
             if(_playerState != null)
                  _playerState.OnUpdate(_player);
 
-            Debug.Log($"{_playerState}현재 스테이트");
         }
 
         public void ChangeState(IPlayerState playerState) { 
             _playerState = playerState;
-            Debug.Log($"{_playerState}로 상태 변경");
         }
 
         /// <summary>
