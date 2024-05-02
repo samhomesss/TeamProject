@@ -147,7 +147,6 @@ public class LoginUI : UI_Scene
                     Debug.Log("ID PW is correct");
                     //Debug.Log($"현재 게임 스테이트{GameManager.instance.state}, 로그인상태{LoginInformation.loggedIn} 로그인프로파일{LoginInformation.profile}");
                     bool result = await LoginInformation.RefreshInformationAsync(_idInputField.text);
-
                     if (result == false)
                     {
                         //todo -> create nickname setting ui
@@ -155,7 +154,12 @@ public class LoginUI : UI_Scene
                         Debug.Log("닉네임을 설정해야 합니다.");
                     }
                 }
+
+
+
+
             });
+
         });
         #endregion
     }

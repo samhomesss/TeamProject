@@ -116,6 +116,11 @@ public class LobbyUI : UI_Scene, ILobbyCallbacks
         PhotonNetwork.JoinLobby();
         _join_Button.interactable = true; //클라이언트가 마스터 서버로 부터 연결이 되는 시점에 조인 버튼과 방파기 버튼 활성화
         _create_Button.interactable = true;
+        foreach(var item in LoginInformation.profile.achievements)
+        {
+            Debug.Log(item);
+
+        }
     }
     private void OnDisable()
     {
