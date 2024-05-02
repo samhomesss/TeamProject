@@ -12,6 +12,9 @@ public static class LoginInformation
     public static bool loggedIn => string.IsNullOrEmpty(s_id) == false;
     public static string userkey { get; private set; }
     public static ProfileDataModel profile { get; set; }
+    public static string S_id { get => s_id; }
+
+    public static List<string> achievement { get => _achievement; }
 
     public static async Task<bool> RefreshInformationAsync(string id)
     {
