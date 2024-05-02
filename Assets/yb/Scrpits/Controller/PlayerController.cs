@@ -42,7 +42,7 @@ namespace yb
         private GameObject _attacker;
         private Texture2D _texture; //0415 12:04 ÀÌÈñ¿õ Ãß°¡
         private Map _map; //0416 21:51 ÀÌÈñ¿õ Ãß°¡
-        
+        private int _death_Count = 0;
         
         public int HaveItemNumber { get; set; }
 
@@ -53,6 +53,7 @@ namespace yb
         public Dictionary<int, Item> ItemList => _itemList;
         public int HaveRelicNumber { get; set; }
 
+        public int Death_Count { get => _death_Count; }
         public class Item
         {
             public Item(Define.ItemType type, int number)
@@ -353,6 +354,7 @@ namespace yb
                 ChangeTriggerAnimation(Define.PlayerState.Die);
                 Audio.SetSfx(Define.PlayerAudioType.Dead);
                 StartCoroutine(PlayerRespawn());
+                GameObject.Find("AchievementManager").GetComponent<AchievementManager>().countDead();
             }
         }
 
