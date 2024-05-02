@@ -102,8 +102,9 @@ public class LobbyUI : UI_Scene, ILobbyCallbacks
                 _createRoom_Canvas.sortingOrder = 1;
 
                 _createRoom_Canvas.GetComponentInChildren<TMP_InputField>().text = "TestRoom";
+                _createRoom_Canvas.transform.Find("Panel").GetComponent<Transform>().transform.Find("Confirm_Button").GetComponent<Button>().onClick.Invoke();
             }
-                _createRoom_Canvas.enabled = true;
+            _createRoom_Canvas.enabled = true;
                 _createRoom_Canvas.sortingOrder = 1;
         });
         StartCoroutine(C_JoinLobbyAttheVeryFirstTime());
@@ -138,7 +139,6 @@ public class LobbyUI : UI_Scene, ILobbyCallbacks
 
     public void OnLeftLobby()//로비를 떠날 때 메서드 호출
     {
-
         Debug.Log($"{PhotonNetwork.LocalPlayer.NickName}님이 떠나셨습니다");
         throw new System.NotImplementedException();
     }
