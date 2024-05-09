@@ -4,6 +4,14 @@
 [희웅 코드](https://github.com/samhomesss/TeamProject/tree/main/Assets/yb)
 [승현 코드](https://github.com/samhomesss/TeamProject/tree/main/Assets/yb)
 
+<details><summary>목차
+</summary>
+- [프로젝트 소개](프로젝트-소개)
+  
+- [팀원 소개](#팀원 소개)
+- 
+- [1. 개발 환경](#1. 개발 환경)
+
 
 ## **프로젝트 소개** 
 
