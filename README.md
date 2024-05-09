@@ -1,5 +1,4 @@
 <img width="1219" alt="스크린샷 2024-05-02 201050" src="https://github.com/samhomesss/TeamProject/assets/159544864/fc0728a4-56a8-4bb9-b9a3-070a4c2561d3">
-;### -> 제목 
 
 ## **📃핵심 기술**
 
