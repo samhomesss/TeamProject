@@ -70,7 +70,7 @@
 ### 희웅 작업중 문제점
 ## 팀 프로젝트 핵심 로직 최적화
 
-<img src="https://github.com/samhomesss/TeamProject/assets/159544864/98ec430a-83e1-4cc4-8386-81ce52c6f5bf" width="100" height="100">
+<img src="https://github.com/samhomesss/TeamProject/assets/159544864/98ec430a-83e1-4cc4-8386-81ce52c6f5bf" width="640" height="360">
 
 
 ### **각 플레이어가 소유한 땅을 판정**
@@ -89,6 +89,9 @@ Batch 수가 400에서 1418로 증가했음에도 불구하고 프레임은 110�
 
 ### 윤범 작업중 문제점
 ### 승현 작업중 문제점
+
+<img src="https://github.com/samhomesss/TeamProject/assets/159544864/98ec430a-83e1-4cc4-8386-81ce52c6f5bf" width="640" height="360">
+
 - 맵 판정 중 문제점 발생
 ```scala
 [1번째 시도] - 이중배열을 이용해 노드 오브젝트를 생성하고 각 노드 들의 위치에 플레이어가 
