@@ -3,15 +3,24 @@
 [윤범 코드](https://github.com/samhomesss/TeamProject/tree/main/Assets/yb)
 [희웅 코드](https://github.com/samhomesss/TeamProject/tree/main/Assets/yb)
 [승현 코드](https://github.com/samhomesss/TeamProject/tree/main/Assets/yb)
-
+[TEST](https://github.com/samhomesss/TeamProject/edit/main/README.md#%ED%9D%AC%EC%9B%85-%EC%9E%91%EC%97%85%EC%A4%91-%EB%AC%B8%EC%A0%9C%EC%A0%90)
 <details><summary> 목차
 </summary>
   
-- [프로젝트 소개](프로젝트-소개)
+- [프로젝트 소개](#프로젝트-소개)
   
-- [팀원 소개](팀원-소개)
+- [팀원 소개](#팀원-소개)
   
-- [1. 개발 환경](1.-개발-환경)
+- [개발 환경](#개발-환경)
+
+- [채택한 개발 기술과 브랜치 전략](#채택한-개발-기술과-브랜치-전략)
+
+- [역할 분담](#역할-분담)
+
+- [개발 기간 및 작업 관리](#개발-기간-및-작업-관리)
+
+- [작업 중 문제점](#작업-중-문제점)
+  
 
 </details>
 
@@ -20,13 +29,13 @@
 
 ## **팀원 소개** 
 
-## **1. 개발 환경** 
+## **개발 환경** 
 
 
-## **2. 채택한 개발 기술과 브랜치 전략** 
+## **채택한 개발 기술과 브랜치 전략** 
 
 
-## **3. 역할 분담** 
+## **역할 분담** 
 **🍊이희웅**
 
 - **DB(FireBase)**
@@ -35,10 +44,11 @@
 - **Server(Photon Pun2)**
     - 로비, 채팅창, 오브젝트 동기화
 
-## **4. 개발 기간 및 작업 관리** 
+## **개발 기간 및 작업 관리** 
 
 
-## **5. 작업 중 문제점** 
+## **작업 중 문제점** 
+
 - [희웅 작업중 문제점](#희웅-작업중-문제점)
 - [윤범 작업중 문제점](#윤범-작업중-문제점)
 - [승현 작업중 문제점](#승현-작업중-문제점)
