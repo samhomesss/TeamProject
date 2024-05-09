@@ -118,7 +118,6 @@ public class Map : Obj
         SetPlayer(_player);
     }
 
-    // 작성자: 장세윤(2024.04.15).
     // Todo: 플레이어가 이동할 때마다 이 함수가 중복되어 여러 번 호출되는 것으로 보임.
     // 호출 횟수를 줄이면서 정확하게 동작하도록 최적화가 필요해 보임.
     void UpdateColor()
@@ -135,14 +134,12 @@ public class Map : Obj
         }
 
         // 플레이어 별로 루프 처리.
-        // 작성자: 장세윤 (2024.04.15).
         // 검색 알고리즘 업데이트.
         // 플레이어의 위치를 기준으로 타일맵 위치 검색.
         // 플레이어의 위치가 곧 타일맵의 인덱스.
         var xIndex = Mathf.Clamp(Mathf.Max(0, (int)_player.transform.position.x), 0, 63);
         var yIndex = Mathf.Clamp(Mathf.Max(0, (int)_player.transform.position.z), 0, 63);
 
-        // Todo: 작성자: 장세윤.
         // 더 정확하게 위치를 찾고 싶은 경우에 시도할 방법. (
         // 위에서 바로 찾은 인덱스를 기준으로 타일맵의 위치를 플레이어의 범위로 다시 확인.
         // 확인한 결과가 맞다면 그대로 타일맵 인덱스를 사용하고,
