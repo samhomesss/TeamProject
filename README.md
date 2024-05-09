@@ -4,6 +4,8 @@
 [희웅 코드](https://github.com/samhomesss/TeamProject/tree/main/Assets/yb)
 [승현 코드](https://github.com/samhomesss/TeamProject/tree/main/Assets/yb)
 
+## ❓ EASYME.md가 뭐예요?   
+
 
 ## **프로젝트 소개** 
 
@@ -25,4 +27,5 @@
 
 ## **5. 작업 중 문제점** 
 
+1. [❓ EASYME.md가 뭐예요?  ](#-easymemd가-뭐예요)
 
