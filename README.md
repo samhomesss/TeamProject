@@ -3,7 +3,7 @@
 [윤범 코드](https://github.com/samhomesss/TeamProject/tree/main/Assets/yb)
 [희웅 코드](https://github.com/samhomesss/TeamProject/tree/main/Assets/yb)
 [승현 코드](https://github.com/samhomesss/TeamProject/tree/main/Assets/yb)
-[TEST](https://github.com/samhomesss/TeamProject/edit/main/README.md#%ED%9D%AC%EC%9B%85-%EC%9E%91%EC%97%85%EC%A4%91-%EB%AC%B8%EC%A0%9C%EC%A0%90)
+
 <details><summary> 목차
 </summary>
   
