@@ -133,8 +133,7 @@ Batch 수가 400에서 1418로 증가했음에도 불구하고 프레임은 110�
 ```
 ### 윤범 작업중 문제점
 ### 승현 작업중 문제점
-
-<img src="https://github.com/samhomesss/TeamProject/assets/159544864/98ec430a-83e1-4cc4-8386-81ce52c6f5bf" width="640" height="360">
+<img src="https://github.com/samhomesss/TeamProject/assets/159544864/4b39c2ae-2c3d-4526-b129-a8f25a7076ac" width="640" height="360">
 
 - 맵 판정 중 문제점 발생
 ```scala
