@@ -70,6 +70,7 @@
 ### 희웅 작업중 문제점
 ## 팀 프로젝트 핵심 로직 최적화
 
+<img src="https://github.com/samhomesss/TeamProject/assets/159544864/98ec430a-83e1-4cc4-8386-81ce52c6f5bf" width="100" height="100">
 
 
 ### **각 플레이어가 소유한 땅을 판정**
