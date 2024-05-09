@@ -2,8 +2,8 @@
 
 
   
-> ## **목차**
-<details><summary>   
+> <details><summary>   
+  ## **목차**
 </summary>
   
 - [프로젝트 소개](#프로젝트-소개)
