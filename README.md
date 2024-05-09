@@ -1,5 +1,5 @@
 <img width="1219" alt="스크린샷 2024-05-02 201050" src="https://github.com/samhomesss/TeamProject/assets/159544864/fc0728a4-56a8-4bb9-b9a3-070a4c2561d3">
-[윤범 코드] (https://github.com/samhomesss/TeamProject/tree/main/Assets/yb)
+**[윤범 코드] (https://github.com/samhomesss/TeamProject/tree/main/Assets/yb)**
 ## **📃핵심 기술**
 
 ### ・상태 패턴을 활용한 체계적인 플레이어 행동 관리
