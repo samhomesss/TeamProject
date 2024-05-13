@@ -60,8 +60,8 @@
 - **DB(FireBase)**
     - 로그인
     - 회원가입
-- **Server(Photon Pun2)**
-    - 로비, 채팅창, 오브젝트 동기화
+- **NetWork(Photon Pun2)**
+    - 매치메이킹,동기화 전반
 ##
 **🍊오윤범**
 
